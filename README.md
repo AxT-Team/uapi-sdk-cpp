@@ -11,7 +11,7 @@
 ## 快速开始
 
 ```bash
-git submodule add https://github.com/AxT-Team/uapi-cpp-sdk deps/uapi-cpp
+git submodule add https://github.com/AxT-Team/uapi-sdk-cpp deps/uapi-cpp
 ```
 
 ```cpp
@@ -58,17 +58,18 @@ int main() {
 
 | 语言        | 仓库地址                                                     |
 |-------------|--------------------------------------------------------------|
-| Go          | https://github.com/AxT-Team/uapi-go-sdk                      |
-| Python      | https://github.com/AxT-Team/uapi-python-sdk                  |
-| TypeScript| https://github.com/AxT-Team/uapi-typescript-sdk           |
+| Go          | https://github.com/AxT-Team/uapi-sdk-go                      |
+| Python      | https://github.com/AxT-Team/uapi-sdk-python                  |
+| TypeScript| https://github.com/AxT-Team/uapi-sdk-typescript           |
 | Browser (TypeScript/JavaScript)| https://github.com/AxT-Team/uapi-browser-sdk        |
-| Java        | https://github.com/AxT-Team/uapi-java-sdk                    |
-| PHP         | https://github.com/AxT-Team/uapi-php-sdk                     |
-| C#          | https://github.com/AxT-Team/uapi-csharp-sdk                  |
-| C++（当前）        | https://github.com/AxT-Team/uapi-cpp-sdk                     |
-| Rust        | https://github.com/AxT-Team/uapi-rust-sdk                    |
+| Java        | https://github.com/AxT-Team/uapi-sdk-java                    |
+| PHP         | https://github.com/AxT-Team/uapi-sdk-php                     |
+| C#          | https://github.com/AxT-Team/uapi-sdk-csharp                  |
+| C++（当前）        | https://github.com/AxT-Team/uapi-sdk-cpp                     |
+| Rust        | https://github.com/AxT-Team/uapi-sdk-rust                    |
 
 ## 文档
 
 访问 [UApi文档首页](https://uapis.cn/docs/introduction) 并选择任意接口，向下滚动到 **快速启动** 区块即可看到最新的 C++ 示例代码。
+
 
