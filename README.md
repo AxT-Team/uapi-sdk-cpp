@@ -1,6 +1,6 @@
 # uapi-sdk-cpp
 
-![Banner](./banner.png)
+![Banner](https://raw.githubusercontent.com/AxT-Team/uapi-sdk-cpp/main/banner.png)
 
 [![C++](https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
 [![Docs](https://img.shields.io/badge/Docs-uapis.cn-2EAE5D?style=flat-square)](https://uapis.cn/)
@@ -71,3 +71,4 @@ int main() {
 ## 文档
 
 访问 [UApi文档首页](https://uapis.cn/docs/introduction) 并选择任意接口，向下滚动到 **快速启动** 区块即可看到最新的 C++ 示例代码。
+
