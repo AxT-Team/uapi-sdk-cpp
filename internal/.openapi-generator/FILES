@@ -280,6 +280,9 @@ include/CppRestOpenAPIClient/model/Post_text_md5_request.h
 include/CppRestOpenAPIClient/model/Post_text_md5_verify_200_response.h
 include/CppRestOpenAPIClient/model/Post_text_md5_verify_400_response.h
 include/CppRestOpenAPIClient/model/Post_text_md5_verify_request.h
+include/CppRestOpenAPIClient/model/Post_translate_stream_400_response.h
+include/CppRestOpenAPIClient/model/Post_translate_stream_500_response.h
+include/CppRestOpenAPIClient/model/Post_translate_stream_request.h
 include/CppRestOpenAPIClient/model/Post_translate_text_200_response.h
 include/CppRestOpenAPIClient/model/Post_translate_text_400_response.h
 include/CppRestOpenAPIClient/model/Post_translate_text_500_response.h
@@ -563,6 +566,9 @@ src/model/Post_text_md5_request.cpp
 src/model/Post_text_md5_verify_200_response.cpp
 src/model/Post_text_md5_verify_400_response.cpp
 src/model/Post_text_md5_verify_request.cpp
+src/model/Post_translate_stream_400_response.cpp
+src/model/Post_translate_stream_500_response.cpp
+src/model/Post_translate_stream_request.cpp
 src/model/Post_translate_text_200_response.cpp
 src/model/Post_translate_text_400_response.cpp
 src/model/Post_translate_text_500_response.cpp

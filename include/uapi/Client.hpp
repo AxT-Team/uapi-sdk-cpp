@@ -446,6 +446,11 @@ public:
             auto query = args;
             return c->request("POST", path, query);
         }
+        std::string postTranslateStream(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/translate/stream";
+            auto query = args;
+            return c->request("POST", path, query);
+        }
         std::string postTranslateText(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/translate/text";
             auto query = args;

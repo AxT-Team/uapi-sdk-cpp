@@ -29,6 +29,9 @@
 #include "CppRestOpenAPIClient/model/Post_ai_translate_429_response.h"
 #include "CppRestOpenAPIClient/model/Post_ai_translate_500_response.h"
 #include "CppRestOpenAPIClient/model/Post_ai_translate_request.h"
+#include "CppRestOpenAPIClient/model/Post_translate_stream_400_response.h"
+#include "CppRestOpenAPIClient/model/Post_translate_stream_500_response.h"
+#include "CppRestOpenAPIClient/model/Post_translate_stream_request.h"
 #include "CppRestOpenAPIClient/model/Post_translate_text_200_response.h"
 #include "CppRestOpenAPIClient/model/Post_translate_text_400_response.h"
 #include "CppRestOpenAPIClient/model/Post_translate_text_500_response.h"
@@ -72,6 +75,16 @@ public:
     pplx::task<std::shared_ptr<Post_ai_translate_200_response>> postAiTranslate(
         utility::string_t targetLang,
         std::shared_ptr<Post_ai_translate_request> postAiTranslateRequest
+    ) const;
+    /// <summary>
+    /// 流式翻译（中英互译）
+    /// </summary>
+    /// <remarks>
+    /// 想让翻译结果像打字机一样逐字显示出来？这个流式翻译接口能实现这种效果。  ## 功能概述 不同于传统翻译API一次性返回完整结果，这个接口会实时地、一个字一个字地把翻译内容推给你（就像ChatGPT回复消息那样），非常适合用在聊天应用、直播字幕等需要即时反馈的场景。  ## 它能做什么 - **中英互译**：支持中文和英文之间的双向翻译 - **自动识别**：不确定源语言？设置为 &#x60;auto&#x60; 让我们自动检测 - **逐字返回**：翻译结果会像打字机一样逐字流式返回，用户体验更流畅 - **音频朗读**：部分翻译结果会附带音频链接，方便朗读  ## 支持的语言 目前专注于中英互译，支持以下选项： - &#x60;中文&#x60;（简体/繁体） - &#x60;英文&#x60; - &#x60;auto&#x60;（自动检测）
+    /// </remarks>
+    /// <param name="postTranslateStreamRequest">包含翻译参数的JSON对象</param>
+    pplx::task<utility::string_t> postTranslateStream(
+        std::shared_ptr<Post_translate_stream_request> postTranslateStreamRequest
     ) const;
     /// <summary>
     /// 多语言文本翻译
