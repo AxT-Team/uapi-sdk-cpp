@@ -50,19 +50,19 @@ public:
         Client* c;
         explicit ClipzyZaiXianJianTieBanApi(Client* cli): c(cli) {}
         std::string getClipzyGet(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/api/get";
+            std::string path = "/api/v1/api/get";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getClipzyRaw(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/api/raw/{id}";
+            std::string path = "/api/v1/api/raw/{id}";
             if (auto it = args.find("id"); it != args.end()) { auto ph = std::string("{") + "id" + "}"; auto pos = path.find(ph); if (pos!=std::string::npos) path.replace(pos, ph.size(), it->second); }
             auto query = args;
             if (auto it = query.find("id"); it != query.end()) query.erase(it);
             return c->request("GET", path, query);
         }
         std::string postClipzyStore(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/api/store";
+            std::string path = "/api/v1/api/store";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -72,12 +72,12 @@ public:
         Client* c;
         explicit ConvertApi(Client* cli): c(cli) {}
         std::string getConvertUnixtime(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/convert/unixtime";
+            std::string path = "/api/v1/convert/unixtime";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postConvertJson(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/convert/json";
+            std::string path = "/api/v1/convert/json";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -87,7 +87,7 @@ public:
         Client* c;
         explicit DailyApi(Client* cli): c(cli) {}
         std::string getDailyNewsImage(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/daily/news-image";
+            std::string path = "/api/v1/daily/news-image";
             auto query = args;
             return c->request("GET", path, query);
         }
@@ -97,27 +97,27 @@ public:
         Client* c;
         explicit GameApi(Client* cli): c(cli) {}
         std::string getGameEpicFree(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/game/epic-free";
+            std::string path = "/api/v1/game/epic-free";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getGameMinecraftHistoryid(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/game/minecraft/historyid";
+            std::string path = "/api/v1/game/minecraft/historyid";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getGameMinecraftServerstatus(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/game/minecraft/serverstatus";
+            std::string path = "/api/v1/game/minecraft/serverstatus";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getGameMinecraftUserinfo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/game/minecraft/userinfo";
+            std::string path = "/api/v1/game/minecraft/userinfo";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getGameSteamSummary(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/game/steam/summary";
+            std::string path = "/api/v1/game/steam/summary";
             auto query = args;
             return c->request("GET", path, query);
         }
@@ -127,52 +127,52 @@ public:
         Client* c;
         explicit ImageApi(Client* cli): c(cli) {}
         std::string getAvatarGravatar(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/avatar/gravatar";
+            std::string path = "/api/v1/avatar/gravatar";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getImageBingDaily(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/bing-daily";
+            std::string path = "/api/v1/image/bing-daily";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getImageMotou(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/motou";
+            std::string path = "/api/v1/image/motou";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getImageQrcode(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/qrcode";
+            std::string path = "/api/v1/image/qrcode";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getImageTobase64(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/tobase64";
+            std::string path = "/api/v1/image/tobase64";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postImageCompress(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/compress";
+            std::string path = "/api/v1/image/compress";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postImageFrombase64(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/frombase64";
+            std::string path = "/api/v1/image/frombase64";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postImageMotou(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/motou";
+            std::string path = "/api/v1/image/motou";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postImageSpeechless(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/speechless";
+            std::string path = "/api/v1/image/speechless";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postImageSvg(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/image/svg";
+            std::string path = "/api/v1/image/svg";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -182,57 +182,57 @@ public:
         Client* c;
         explicit MiscApi(Client* cli): c(cli) {}
         std::string getHistoryProgrammer(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/history/programmer";
+            std::string path = "/api/v1/history/programmer";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getHistoryProgrammerToday(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/history/programmer/today";
+            std::string path = "/api/v1/history/programmer/today";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscHotboard(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/hotboard";
+            std::string path = "/api/v1/misc/hotboard";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscPhoneinfo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/phoneinfo";
+            std::string path = "/api/v1/misc/phoneinfo";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscRandomnumber(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/randomnumber";
+            std::string path = "/api/v1/misc/randomnumber";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscTimestamp(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/timestamp";
+            std::string path = "/api/v1/misc/timestamp";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscTrackingCarriers(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/tracking/carriers";
+            std::string path = "/api/v1/misc/tracking/carriers";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscTrackingDetect(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/tracking/detect";
+            std::string path = "/api/v1/misc/tracking/detect";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscTrackingQuery(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/tracking/query";
+            std::string path = "/api/v1/misc/tracking/query";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscWeather(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/weather";
+            std::string path = "/api/v1/misc/weather";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getMiscWorldtime(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/misc/worldtime";
+            std::string path = "/api/v1/misc/worldtime";
             auto query = args;
             return c->request("GET", path, query);
         }
@@ -242,52 +242,52 @@ public:
         Client* c;
         explicit NetworkApi(Client* cli): c(cli) {}
         std::string getNetworkDns(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/dns";
+            std::string path = "/api/v1/network/dns";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkIcp(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/icp";
+            std::string path = "/api/v1/network/icp";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkIpinfo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/ipinfo";
+            std::string path = "/api/v1/network/ipinfo";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkMyip(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/myip";
+            std::string path = "/api/v1/network/myip";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkPing(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/ping";
+            std::string path = "/api/v1/network/ping";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkPingmyip(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/pingmyip";
+            std::string path = "/api/v1/network/pingmyip";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkPortscan(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/portscan";
+            std::string path = "/api/v1/network/portscan";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkUrlstatus(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/urlstatus";
+            std::string path = "/api/v1/network/urlstatus";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkWhois(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/whois";
+            std::string path = "/api/v1/network/whois";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getNetworkWxdomain(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/network/wxdomain";
+            std::string path = "/api/v1/network/wxdomain";
             auto query = args;
             return c->request("GET", path, query);
         }
@@ -297,7 +297,7 @@ public:
         Client* c;
         explicit PoemApi(Client* cli): c(cli) {}
         std::string getSaying(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/saying";
+            std::string path = "/api/v1/saying";
             auto query = args;
             return c->request("GET", path, query);
         }
@@ -307,22 +307,22 @@ public:
         Client* c;
         explicit RandomApi(Client* cli): c(cli) {}
         std::string getAnswerbookAsk(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/answerbook/ask";
+            std::string path = "/api/v1/answerbook/ask";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getRandomImage(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/random/image";
+            std::string path = "/api/v1/random/image";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getRandomString(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/random/string";
+            std::string path = "/api/v1/random/string";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postAnswerbookAsk(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/answerbook/ask";
+            std::string path = "/api/v1/answerbook/ask";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -332,42 +332,42 @@ public:
         Client* c;
         explicit SocialApi(Client* cli): c(cli) {}
         std::string getGithubRepo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/github/repo";
+            std::string path = "/api/v1/github/repo";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getSocialBilibiliArchives(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/social/bilibili/archives";
+            std::string path = "/api/v1/social/bilibili/archives";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getSocialBilibiliLiveroom(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/social/bilibili/liveroom";
+            std::string path = "/api/v1/social/bilibili/liveroom";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getSocialBilibiliReplies(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/social/bilibili/replies";
+            std::string path = "/api/v1/social/bilibili/replies";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getSocialBilibiliUserinfo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/social/bilibili/userinfo";
+            std::string path = "/api/v1/social/bilibili/userinfo";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getSocialBilibiliVideoinfo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/social/bilibili/videoinfo";
+            std::string path = "/api/v1/social/bilibili/videoinfo";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getSocialQqGroupinfo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/social/qq/groupinfo";
+            std::string path = "/api/v1/social/qq/groupinfo";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getSocialQqUserinfo(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/social/qq/userinfo";
+            std::string path = "/api/v1/social/qq/userinfo";
             auto query = args;
             return c->request("GET", path, query);
         }
@@ -377,12 +377,12 @@ public:
         Client* c;
         explicit StatusApi(Client* cli): c(cli) {}
         std::string getStatusRatelimit(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/status/ratelimit";
+            std::string path = "/api/v1/status/ratelimit";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getStatusUsage(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/status/usage";
+            std::string path = "/api/v1/status/usage";
             auto query = args;
             return c->request("GET", path, query);
         }
@@ -392,42 +392,42 @@ public:
         Client* c;
         explicit TextApi(Client* cli): c(cli) {}
         std::string getTextMd5(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/md5";
+            std::string path = "/api/v1/text/md5";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postTextAesDecrypt(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/aes/decrypt";
+            std::string path = "/api/v1/text/aes/decrypt";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTextAesEncrypt(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/aes/encrypt";
+            std::string path = "/api/v1/text/aes/encrypt";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTextAnalyze(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/analyze";
+            std::string path = "/api/v1/text/analyze";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTextBase64Decode(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/base64/decode";
+            std::string path = "/api/v1/text/base64/decode";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTextBase64Encode(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/base64/encode";
+            std::string path = "/api/v1/text/base64/encode";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTextMd5(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/md5";
+            std::string path = "/api/v1/text/md5";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTextMd5Verify(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/md5/verify";
+            std::string path = "/api/v1/text/md5/verify";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -437,22 +437,22 @@ public:
         Client* c;
         explicit TranslateApi(Client* cli): c(cli) {}
         std::string getAiTranslateLanguages(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/ai/translate/languages";
+            std::string path = "/api/v1/ai/translate/languages";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postAiTranslate(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/ai/translate";
+            std::string path = "/api/v1/ai/translate";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTranslateStream(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/translate/stream";
+            std::string path = "/api/v1/translate/stream";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postTranslateText(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/translate/text";
+            std::string path = "/api/v1/translate/text";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -462,24 +462,24 @@ public:
         Client* c;
         explicit WebparseApi(Client* cli): c(cli) {}
         std::string getWebTomarkdownAsyncStatus(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/web/tomarkdown/async/{task_id}";
+            std::string path = "/api/v1/web/tomarkdown/async/{task_id}";
             if (auto it = args.find("task_id"); it != args.end()) { auto ph = std::string("{") + "task_id" + "}"; auto pos = path.find(ph); if (pos!=std::string::npos) path.replace(pos, ph.size(), it->second); }
             auto query = args;
             if (auto it = query.find("task_id"); it != query.end()) query.erase(it);
             return c->request("GET", path, query);
         }
         std::string getWebparseExtractimages(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/webparse/extractimages";
+            std::string path = "/api/v1/webparse/extractimages";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string getWebparseMetadata(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/webparse/metadata";
+            std::string path = "/api/v1/webparse/metadata";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postWebTomarkdownAsync(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/web/tomarkdown/async";
+            std::string path = "/api/v1/web/tomarkdown/async";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -489,17 +489,17 @@ public:
         Client* c;
         explicit MinGanCiShiBieApi(Client* cli): c(cli) {}
         std::string getSensitiveWordAnalyzeQuery(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/sensitive-word/analyze-query";
+            std::string path = "/api/v1/sensitive-word/analyze-query";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postSensitiveWordAnalyze(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/sensitive-word/analyze";
+            std::string path = "/api/v1/sensitive-word/analyze";
             auto query = args;
             return c->request("POST", path, query);
         }
         std::string postSensitiveWordQuickCheck(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/text/profanitycheck";
+            std::string path = "/api/v1/text/profanitycheck";
             auto query = args;
             return c->request("POST", path, query);
         }
@@ -509,12 +509,12 @@ public:
         Client* c;
         explicit ZhiNengSouSuoApi(Client* cli): c(cli) {}
         std::string getSearchEngines(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/search/engines";
+            std::string path = "/api/v1/search/engines";
             auto query = args;
             return c->request("GET", path, query);
         }
         std::string postSearchAggregate(const std::map<std::string, std::string>& args = {}) {
-            std::string path = "/search/aggregate";
+            std::string path = "/api/v1/search/aggregate";
             auto query = args;
             return c->request("POST", path, query);
         }
