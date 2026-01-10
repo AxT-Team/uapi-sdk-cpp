@@ -51,20 +51,26 @@ public:
         explicit ClipzyZaiXianJianTieBanApi(Client* cli): c(cli) {}
         std::string getClipzyGet(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/api/get";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("id"); it != args.end()) query["id"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getClipzyRaw(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/api/raw/{id}";
             if (auto it = args.find("id"); it != args.end()) { auto ph = std::string("{") + "id" + "}"; auto pos = path.find(ph); if (pos!=std::string::npos) path.replace(pos, ph.size(), it->second); }
-            auto query = args;
-            if (auto it = query.find("id"); it != query.end()) query.erase(it);
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("key"); it != args.end()) query["key"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string postClipzyStore(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/api/store";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("compressedData"); it != args.end()) body["compressedData"] = it->second;
+            if (auto it = args.find("ttl"); it != args.end()) body["ttl"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     ClipzyZaiXianJianTieBanApi clipzyZaiXianJianTieBan() { return ClipzyZaiXianJianTieBanApi(this); }
@@ -73,13 +79,17 @@ public:
         explicit ConvertApi(Client* cli): c(cli) {}
         std::string getConvertUnixtime(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/convert/unixtime";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("time"); it != args.end()) query["time"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string postConvertJson(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/convert/json";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("content"); it != args.end()) body["content"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     ConvertApi convert() { return ConvertApi(this); }
@@ -88,8 +98,9 @@ public:
         explicit DailyApi(Client* cli): c(cli) {}
         std::string getDailyNewsImage(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/daily/news-image";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
     };
     DailyApi daily() { return DailyApi(this); }
@@ -98,28 +109,41 @@ public:
         explicit GameApi(Client* cli): c(cli) {}
         std::string getGameEpicFree(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/epic-free";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string getGameMinecraftHistoryid(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/minecraft/historyid";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("name"); it != args.end()) query["name"] = it->second;
+            if (auto it = args.find("uuid"); it != args.end()) query["uuid"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getGameMinecraftServerstatus(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/minecraft/serverstatus";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("server"); it != args.end()) query["server"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getGameMinecraftUserinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/minecraft/userinfo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("username"); it != args.end()) query["username"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getGameSteamSummary(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/steam/summary";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("steamid"); it != args.end()) query["steamid"] = it->second;
+            if (auto it = args.find("id"); it != args.end()) query["id"] = it->second;
+            if (auto it = args.find("id3"); it != args.end()) query["id3"] = it->second;
+            if (auto it = args.find("key"); it != args.end()) query["key"] = it->second;
+            return c->request("GET", path, query, body);
         }
     };
     GameApi game() { return GameApi(this); }
@@ -128,53 +152,88 @@ public:
         explicit ImageApi(Client* cli): c(cli) {}
         std::string getAvatarGravatar(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/avatar/gravatar";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("email"); it != args.end()) query["email"] = it->second;
+            if (auto it = args.find("hash"); it != args.end()) query["hash"] = it->second;
+            if (auto it = args.find("s"); it != args.end()) query["s"] = it->second;
+            if (auto it = args.find("d"); it != args.end()) query["d"] = it->second;
+            if (auto it = args.find("r"); it != args.end()) query["r"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getImageBingDaily(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/bing-daily";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string getImageMotou(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/motou";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("qq"); it != args.end()) query["qq"] = it->second;
+            if (auto it = args.find("bg_color"); it != args.end()) query["bg_color"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getImageQrcode(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/qrcode";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("text"); it != args.end()) query["text"] = it->second;
+            if (auto it = args.find("size"); it != args.end()) query["size"] = it->second;
+            if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getImageTobase64(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/tobase64";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string postImageCompress(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/compress";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("level"); it != args.end()) query["level"] = it->second;
+            if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postImageFrombase64(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/frombase64";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("imageData"); it != args.end()) body["imageData"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postImageMotou(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/motou";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("bg_color"); it != args.end()) body["bg_color"] = it->second;
+            if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
+            if (auto it = args.find("image_url"); it != args.end()) body["image_url"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postImageSpeechless(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/speechless";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("bottom_text"); it != args.end()) body["bottom_text"] = it->second;
+            if (auto it = args.find("top_text"); it != args.end()) body["top_text"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postImageSvg(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/svg";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            if (auto it = args.find("width"); it != args.end()) query["width"] = it->second;
+            if (auto it = args.find("height"); it != args.end()) query["height"] = it->second;
+            if (auto it = args.find("quality"); it != args.end()) query["quality"] = it->second;
+            if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     ImageApi image() { return ImageApi(this); }
@@ -183,58 +242,98 @@ public:
         explicit MiscApi(Client* cli): c(cli) {}
         std::string getHistoryProgrammer(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/history/programmer";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("month"); it != args.end()) query["month"] = it->second;
+            if (auto it = args.find("day"); it != args.end()) query["day"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getHistoryProgrammerToday(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/history/programmer/today";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscHotboard(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/hotboard";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscPhoneinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/phoneinfo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("phone"); it != args.end()) query["phone"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscRandomnumber(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/randomnumber";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("min"); it != args.end()) query["min"] = it->second;
+            if (auto it = args.find("max"); it != args.end()) query["max"] = it->second;
+            if (auto it = args.find("count"); it != args.end()) query["count"] = it->second;
+            if (auto it = args.find("allow_repeat"); it != args.end()) query["allow_repeat"] = it->second;
+            if (auto it = args.find("allow_decimal"); it != args.end()) query["allow_decimal"] = it->second;
+            if (auto it = args.find("decimal_places"); it != args.end()) query["decimal_places"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscTimestamp(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/timestamp";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("ts"); it != args.end()) query["ts"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscTrackingCarriers(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/tracking/carriers";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscTrackingDetect(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/tracking/detect";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("tracking_number"); it != args.end()) query["tracking_number"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscTrackingQuery(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/tracking/query";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("tracking_number"); it != args.end()) query["tracking_number"] = it->second;
+            if (auto it = args.find("carrier_code"); it != args.end()) query["carrier_code"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscWeather(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/weather";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("city"); it != args.end()) query["city"] = it->second;
+            if (auto it = args.find("adcode"); it != args.end()) query["adcode"] = it->second;
+            if (auto it = args.find("extended"); it != args.end()) query["extended"] = it->second;
+            if (auto it = args.find("indices"); it != args.end()) query["indices"] = it->second;
+            if (auto it = args.find("forecast"); it != args.end()) query["forecast"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getMiscWorldtime(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/worldtime";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("city"); it != args.end()) query["city"] = it->second;
+            return c->request("GET", path, query, body);
+        }
+        std::string postMiscDateDiff(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/misc/date-diff";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("end_date"); it != args.end()) body["end_date"] = it->second;
+            if (auto it = args.find("format"); it != args.end()) body["format"] = it->second;
+            if (auto it = args.find("start_date"); it != args.end()) body["start_date"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     MiscApi misc() { return MiscApi(this); }
@@ -243,53 +342,77 @@ public:
         explicit NetworkApi(Client* cli): c(cli) {}
         std::string getNetworkDns(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/dns";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
+            if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkIcp(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/icp";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkIpinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/ipinfo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("ip"); it != args.end()) query["ip"] = it->second;
+            if (auto it = args.find("source"); it != args.end()) query["source"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkMyip(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/myip";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("source"); it != args.end()) query["source"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkPing(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/ping";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("host"); it != args.end()) query["host"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkPingmyip(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/pingmyip";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkPortscan(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/portscan";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("host"); it != args.end()) query["host"] = it->second;
+            if (auto it = args.find("port"); it != args.end()) query["port"] = it->second;
+            if (auto it = args.find("protocol"); it != args.end()) query["protocol"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkUrlstatus(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/urlstatus";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkWhois(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/whois";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
+            if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getNetworkWxdomain(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/wxdomain";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
+            return c->request("GET", path, query, body);
         }
     };
     NetworkApi network() { return NetworkApi(this); }
@@ -298,8 +421,9 @@ public:
         explicit PoemApi(Client* cli): c(cli) {}
         std::string getSaying(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/saying";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
     };
     PoemApi poem() { return PoemApi(this); }
@@ -308,23 +432,33 @@ public:
         explicit RandomApi(Client* cli): c(cli) {}
         std::string getAnswerbookAsk(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/answerbook/ask";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("question"); it != args.end()) query["question"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getRandomImage(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/random/image";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("category"); it != args.end()) query["category"] = it->second;
+            if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getRandomString(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/random/string";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("length"); it != args.end()) query["length"] = it->second;
+            if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string postAnswerbookAsk(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/answerbook/ask";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("question"); it != args.end()) body["question"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     RandomApi random() { return RandomApi(this); }
@@ -333,43 +467,68 @@ public:
         explicit SocialApi(Client* cli): c(cli) {}
         std::string getGithubRepo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/github/repo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("repo"); it != args.end()) query["repo"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getSocialBilibiliArchives(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/archives";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("mid"); it != args.end()) query["mid"] = it->second;
+            if (auto it = args.find("keywords"); it != args.end()) query["keywords"] = it->second;
+            if (auto it = args.find("orderby"); it != args.end()) query["orderby"] = it->second;
+            if (auto it = args.find("ps"); it != args.end()) query["ps"] = it->second;
+            if (auto it = args.find("pn"); it != args.end()) query["pn"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getSocialBilibiliLiveroom(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/liveroom";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("mid"); it != args.end()) query["mid"] = it->second;
+            if (auto it = args.find("room_id"); it != args.end()) query["room_id"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getSocialBilibiliReplies(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/replies";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("oid"); it != args.end()) query["oid"] = it->second;
+            if (auto it = args.find("sort"); it != args.end()) query["sort"] = it->second;
+            if (auto it = args.find("ps"); it != args.end()) query["ps"] = it->second;
+            if (auto it = args.find("pn"); it != args.end()) query["pn"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getSocialBilibiliUserinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/userinfo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("uid"); it != args.end()) query["uid"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getSocialBilibiliVideoinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/videoinfo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("aid"); it != args.end()) query["aid"] = it->second;
+            if (auto it = args.find("bvid"); it != args.end()) query["bvid"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getSocialQqGroupinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/qq/groupinfo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("group_id"); it != args.end()) query["group_id"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getSocialQqUserinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/qq/userinfo";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("qq"); it != args.end()) query["qq"] = it->second;
+            return c->request("GET", path, query, body);
         }
     };
     SocialApi social() { return SocialApi(this); }
@@ -378,13 +537,16 @@ public:
         explicit StatusApi(Client* cli): c(cli) {}
         std::string getStatusRatelimit(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/status/ratelimit";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string getStatusUsage(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/status/usage";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("path"); it != args.end()) query["path"] = it->second;
+            return c->request("GET", path, query, body);
         }
     };
     StatusApi status() { return StatusApi(this); }
@@ -393,43 +555,96 @@ public:
         explicit TextApi(Client* cli): c(cli) {}
         std::string getTextMd5(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/md5";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("text"); it != args.end()) query["text"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string postTextAesDecrypt(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/aes/decrypt";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
+            if (auto it = args.find("nonce"); it != args.end()) body["nonce"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
+        }
+        std::string postTextAesDecryptAdvanced(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/text/aes/decrypt-advanced";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("iv"); it != args.end()) body["iv"] = it->second;
+            if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
+            if (auto it = args.find("mode"); it != args.end()) body["mode"] = it->second;
+            if (auto it = args.find("padding"); it != args.end()) body["padding"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTextAesEncrypt(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/aes/encrypt";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
+        }
+        std::string postTextAesEncryptAdvanced(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/text/aes/encrypt-advanced";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("iv"); it != args.end()) body["iv"] = it->second;
+            if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
+            if (auto it = args.find("mode"); it != args.end()) body["mode"] = it->second;
+            if (auto it = args.find("output_format"); it != args.end()) body["output_format"] = it->second;
+            if (auto it = args.find("padding"); it != args.end()) body["padding"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTextAnalyze(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/analyze";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTextBase64Decode(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/base64/decode";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTextBase64Encode(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/base64/encode";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
+        }
+        std::string postTextConvert(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/text/convert";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("from"); it != args.end()) body["from"] = it->second;
+            if (auto it = args.find("options"); it != args.end()) body["options"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            if (auto it = args.find("to"); it != args.end()) body["to"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTextMd5(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/md5";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTextMd5Verify(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/md5/verify";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("hash"); it != args.end()) body["hash"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     TextApi text() { return TextApi(this); }
@@ -438,23 +653,42 @@ public:
         explicit TranslateApi(Client* cli): c(cli) {}
         std::string getAiTranslateLanguages(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/ai/translate/languages";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string postAiTranslate(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/ai/translate";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("target_lang"); it != args.end()) query["target_lang"] = it->second;
+            if (auto it = args.find("context"); it != args.end()) body["context"] = it->second;
+            if (auto it = args.find("fast_mode"); it != args.end()) body["fast_mode"] = it->second;
+            if (auto it = args.find("max_concurrency"); it != args.end()) body["max_concurrency"] = it->second;
+            if (auto it = args.find("preserve_format"); it != args.end()) body["preserve_format"] = it->second;
+            if (auto it = args.find("source_lang"); it != args.end()) body["source_lang"] = it->second;
+            if (auto it = args.find("style"); it != args.end()) body["style"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            if (auto it = args.find("texts"); it != args.end()) body["texts"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTranslateStream(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/translate/stream";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("from_lang"); it != args.end()) body["from_lang"] = it->second;
+            if (auto it = args.find("query"); it != args.end()) body["query"] = it->second;
+            if (auto it = args.find("to_lang"); it != args.end()) body["to_lang"] = it->second;
+            if (auto it = args.find("tone"); it != args.end()) body["tone"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postTranslateText(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/translate/text";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("to_lang"); it != args.end()) query["to_lang"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     TranslateApi translate() { return TranslateApi(this); }
@@ -464,24 +698,30 @@ public:
         std::string getWebTomarkdownAsyncStatus(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/web/tomarkdown/async/{task_id}";
             if (auto it = args.find("task_id"); it != args.end()) { auto ph = std::string("{") + "task_id" + "}"; auto pos = path.find(ph); if (pos!=std::string::npos) path.replace(pos, ph.size(), it->second); }
-            auto query = args;
-            if (auto it = query.find("task_id"); it != query.end()) query.erase(it);
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string getWebparseExtractimages(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/webparse/extractimages";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string getWebparseMetadata(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/webparse/metadata";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string postWebTomarkdownAsync(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/web/tomarkdown/async";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     WebparseApi webparse() { return WebparseApi(this); }
@@ -490,18 +730,24 @@ public:
         explicit MinGanCiShiBieApi(Client* cli): c(cli) {}
         std::string getSensitiveWordAnalyzeQuery(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/sensitive-word/analyze-query";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("keyword"); it != args.end()) query["keyword"] = it->second;
+            return c->request("GET", path, query, body);
         }
         std::string postSensitiveWordAnalyze(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/sensitive-word/analyze";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("keywords"); it != args.end()) body["keywords"] = it->second;
+            return c->request("POST", path, query, body);
         }
         std::string postSensitiveWordQuickCheck(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/profanitycheck";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     MinGanCiShiBieApi minGanCiShiBie() { return MinGanCiShiBieApi(this); }
@@ -510,13 +756,22 @@ public:
         explicit ZhiNengSouSuoApi(Client* cli): c(cli) {}
         std::string getSearchEngines(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/search/engines";
-            auto query = args;
-            return c->request("GET", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            return c->request("GET", path, query, body);
         }
         std::string postSearchAggregate(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/search/aggregate";
-            auto query = args;
-            return c->request("POST", path, query);
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("fetch_full"); it != args.end()) body["fetch_full"] = it->second;
+            if (auto it = args.find("filetype"); it != args.end()) body["filetype"] = it->second;
+            if (auto it = args.find("query"); it != args.end()) body["query"] = it->second;
+            if (auto it = args.find("site"); it != args.end()) body["site"] = it->second;
+            if (auto it = args.find("sort"); it != args.end()) body["sort"] = it->second;
+            if (auto it = args.find("time_range"); it != args.end()) body["time_range"] = it->second;
+            if (auto it = args.find("timeout_ms"); it != args.end()) body["timeout_ms"] = it->second;
+            return c->request("POST", path, query, body);
         }
     };
     ZhiNengSouSuoApi zhiNengSouSuo() { return ZhiNengSouSuoApi(this); }
@@ -529,17 +784,17 @@ private:
     bool secure;
     std::string token;
 
-    std::string request(const std::string& method, std::string path, const std::map<std::string, std::string>& query) const;
+    std::string request(const std::string& method, std::string path, const std::map<std::string, std::string>& query, const std::map<std::string, std::string>& body = {}) const;
     std::string buildQuery(const std::map<std::string, std::string>& query) const;
     static std::string urlEncode(const std::string& value);
     std::string defaultCode(int status) const;
     void raiseError(int status, const std::string& body) const;
     static std::string extractField(const std::string& body, const std::string& key);
 #ifdef _WIN32
-    std::string sendWinHttp(const std::string& method, const std::string& pathAndQuery) const;
+    std::string sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body = "") const;
     static std::wstring widen(const std::string& input);
 #else
-    std::string sendCurl(const std::string& method, const std::string& absoluteUrl) const;
+    std::string sendCurl(const std::string& method, const std::string& absoluteUrl, const std::string& body = "") const;
     static std::string shellEscape(const std::string& value);
 #endif
 };
@@ -568,7 +823,7 @@ inline Client::Client(std::string baseUrl, std::string tok): host(), basePath("/
     }
 }
 
-inline std::string Client::request(const std::string& method, std::string path, const std::map<std::string, std::string>& query) const {
+inline std::string Client::request(const std::string& method, std::string path, const std::map<std::string, std::string>& query, const std::map<std::string, std::string>& body) const {
     if (!path.empty() && path.front() == '/') path.erase(0, 1);
     std::string normalized = basePath;
     if (!normalized.empty() && normalized.back() == '/' && !path.empty()) {
@@ -579,10 +834,21 @@ inline std::string Client::request(const std::string& method, std::string path, 
     }
     if (normalized.empty()) normalized = "/";
     auto queryString = buildQuery(query);
+    std::string jsonBody;
+    if (!body.empty()) {
+        jsonBody = "{";
+        bool first = true;
+        for (const auto& kv : body) {
+            if (!first) jsonBody += ",";
+            first = false;
+            jsonBody += "\"" + kv.first + "\":\"" + kv.second + "\"";
+        }
+        jsonBody += "}";
+    }
 #ifdef _WIN32
-    return sendWinHttp(method, normalized + queryString);
+    return sendWinHttp(method, normalized + queryString, jsonBody);
 #else
-    return sendCurl(method, origin + normalized + queryString);
+    return sendCurl(method, origin + normalized + queryString, jsonBody);
 #endif
 }
 
@@ -674,7 +940,7 @@ inline std::wstring Client::widen(const std::string& input) {
     return wide;
 }
 
-inline std::string Client::sendWinHttp(const std::string& method, const std::string& pathAndQuery) const {
+inline std::string Client::sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body) const {
     auto hSession = WinHttpOpen(L"uapi-sdk-cpp/0.1.2", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
     if (!hSession) throw std::runtime_error("WinHttpOpen failed");
     auto closeSession = [&]() { if (hSession) WinHttpCloseHandle(hSession); hSession = nullptr; };
@@ -688,7 +954,12 @@ inline std::string Client::sendWinHttp(const std::string& method, const std::str
 
     std::wstring headers = L"Accept: application/json\r\n";
     if (!token.empty()) headers += L"Authorization: Bearer " + widen(token) + L"\r\n";
-    if (!WinHttpSendRequest(hRequest, headers.c_str(), static_cast<DWORD>(headers.length()), WINHTTP_NO_REQUEST_DATA, 0, 0, 0)) {
+    if (!body.empty()) headers += L"Content-Type: application/json\r\n";
+    
+    LPVOID bodyData = body.empty() ? WINHTTP_NO_REQUEST_DATA : (LPVOID)body.c_str();
+    DWORD bodyLen = body.empty() ? 0 : static_cast<DWORD>(body.length());
+    
+    if (!WinHttpSendRequest(hRequest, headers.c_str(), static_cast<DWORD>(headers.length()), bodyData, bodyLen, bodyLen, 0)) {
         WinHttpCloseHandle(hRequest); closeConnect(); closeSession();
         throw std::runtime_error("WinHttpSendRequest failed");
     }
@@ -727,9 +998,13 @@ inline std::string Client::shellEscape(const std::string& value) {
     return escaped;
 }
 
-inline std::string Client::sendCurl(const std::string& method, const std::string& absoluteUrl) const {
+inline std::string Client::sendCurl(const std::string& method, const std::string& absoluteUrl, const std::string& body) const {
     std::string cmd = "curl -s -S -w \"\\n%{http_code}\" -X " + method + " " + shellEscape(absoluteUrl) + " -H \"Accept: application/json\"";
     if (!token.empty()) cmd += " -H " + shellEscape("Authorization: Bearer " + token);
+    if (!body.empty()) {
+        cmd += " -H \"Content-Type: application/json\"";
+        cmd += " -d " + shellEscape(body);
+    }
     FILE* pipe = popen(cmd.c_str(), "r");
     if (!pipe) throw std::runtime_error("failed to start curl");
     std::string output;
@@ -741,13 +1016,13 @@ inline std::string Client::sendCurl(const std::string& method, const std::string
     (void)rc;
     auto pos = output.find_last_of('\n');
     if (pos == std::string::npos) throw std::runtime_error("unexpected curl output");
-    std::string body = output.substr(0, pos);
+    std::string respBody = output.substr(0, pos);
     std::string statusLine = output.substr(pos + 1);
     int status = std::stoi(statusLine);
     if (status >= 400) {
-        raiseError(status, body);
+        raiseError(status, respBody);
     }
-    return body;
+    return respBody;
 }
 #endif
 
