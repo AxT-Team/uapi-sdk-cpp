@@ -54,14 +54,6 @@ public:
 
 
     /// <summary>
-    /// 状态码，200代表成功。
-    /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
     /// 服务器图标的 Base64 Data URI。你可以直接在 &#x60;&lt;img&gt;&#x60; 标签的 &#x60;src&#x60; 属性中使用它。
     /// </summary>
     utility::string_t getFaviconUrl() const;
@@ -135,9 +127,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Favicon_url;
     bool m_Favicon_urlIsSet;
 

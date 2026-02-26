@@ -418,7 +418,7 @@ pplx::task<std::shared_ptr<Get_network_ipinfo_200_response>> NetworkApi::getNetw
         return localVarResult;
     });
 }
-pplx::task<std::shared_ptr<Get_network_ipinfo_200_response>> NetworkApi::getNetworkMyip(boost::optional<utility::string_t> source) const
+pplx::task<std::shared_ptr<Get_network_myip_200_response>> NetworkApi::getNetworkMyip(boost::optional<utility::string_t> source) const
 {
 
 
@@ -523,7 +523,7 @@ pplx::task<std::shared_ptr<Get_network_ipinfo_200_response>> NetworkApi::getNetw
     })
     .then([=, this](utility::string_t localVarResponse)
     {
-        std::shared_ptr<Get_network_ipinfo_200_response> localVarResult(new Get_network_ipinfo_200_response());
+        std::shared_ptr<Get_network_myip_200_response> localVarResult(new Get_network_myip_200_response());
 
         if(localVarResponseHttpContentType == utility::conversions::to_string_t("application/json"))
         {

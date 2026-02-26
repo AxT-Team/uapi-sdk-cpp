@@ -26,7 +26,6 @@
 #include "CppRestOpenAPIClient/model/Get_status_ratelimit_401_response.h"
 #include "CppRestOpenAPIClient/model/Get_status_usage_200_response.h"
 #include "CppRestOpenAPIClient/model/Get_status_usage_404_response.h"
-#include "CppRestOpenAPIClient/model/Get_status_usage_500_response.h"
 #include <cpprest/details/basic_types.h>
 #include <boost/optional.hpp>
 
@@ -48,7 +47,7 @@ public:
     virtual ~StatusApi();
 
     /// <summary>
-    /// 获取API限流器实时状态
+    /// 限流状态
     /// </summary>
     /// <remarks>
     /// 想了解我们API的当前负载情况吗？这个接口为你提供了服务的“心电图”。  ## 功能概述 此接口返回我们后端自适应限流器的实时状态。你可以看到当前并发请求数、并发上限、系统负载、请求接受/拒绝数等核心指标。这对于监控API健康状况和性能表现至关重要。  &gt; [!IMPORTANT] &gt; 此接口为管理接口，需要提供有效的管理员级别API密钥才能访问。  ### 认证方式 请在请求头中添加 &#x60;Authorization: Bearer &lt;你的API密钥&gt;&#x60;。

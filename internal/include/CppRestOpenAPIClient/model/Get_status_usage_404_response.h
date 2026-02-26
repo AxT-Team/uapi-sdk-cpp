@@ -22,7 +22,6 @@
 #include "CppRestOpenAPIClient/ModelBase.h"
 
 #include <cpprest/details/basic_types.h>
-#include "CppRestOpenAPIClient/Object.h"
 
 namespace org {
 namespace openapitools {
@@ -59,11 +58,6 @@ public:
     void unsetCode();
     void setCode(const utility::string_t& value);
 
-    std::shared_ptr<Object> getDetails() const;
-    bool detailsIsSet() const;
-    void unsetDetails();
-    void setDetails(const std::shared_ptr<Object>& value);
-
     utility::string_t getMessage() const;
     bool messageIsSet() const;
     void unsetMessage();
@@ -73,9 +67,6 @@ public:
 protected:
     utility::string_t m_Code;
     bool m_CodeIsSet;
-
-    std::shared_ptr<Object> m_Details;
-    bool m_DetailsIsSet;
 
     utility::string_t m_Message;
     bool m_MessageIsSet;

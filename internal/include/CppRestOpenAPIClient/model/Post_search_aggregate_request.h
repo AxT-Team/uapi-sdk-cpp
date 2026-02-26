@@ -18,6 +18,7 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Post_search_aggregate_request_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_Post_search_aggregate_request_H_
 
+#include <stdexcept>
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
@@ -51,6 +52,32 @@ public:
 
     /////////////////////////////////////////////
     /// Post_search_aggregate_request members
+
+    enum class SortEnum
+    {
+        RELEVANCE,
+        DATE,
+    };
+    /// <summary>
+    /// 排序方式
+    /// </summary>
+    enum class Time_rangeEnum
+    {
+        DAY,
+        WEEK,
+        MONTH,
+        YEAR,
+    };
+    /// <summary>
+    /// 时间范围过滤
+    /// </summary>
+
+    SortEnum toSortEnum(const utility::string_t& value) const;
+    const utility::string_t fromSortEnum(const SortEnum value) const;
+
+
+    Time_rangeEnum toTime_rangeEnum(const utility::string_t& value) const;
+    const utility::string_t fromTime_rangeEnum(const Time_rangeEnum value) const;
 
 
     /// <summary>
@@ -93,6 +120,22 @@ public:
     void unsetTimeout_ms();
     void setTimeoutMs(int32_t value);
 
+    /// <summary>
+    /// 排序方式
+    /// </summary>
+    SortEnum getSort() const;
+    bool sortIsSet() const;
+    void unsetSort();
+    void setSort(const SortEnum value);
+
+    /// <summary>
+    /// 时间范围过滤
+    /// </summary>
+    Time_rangeEnum getTimeRange() const;
+    bool timeRangeIsSet() const;
+    void unsetTime_range();
+    void setTimeRange(const Time_rangeEnum value);
+
 
 protected:
     utility::string_t m_Query;
@@ -109,6 +152,12 @@ protected:
 
     int32_t m_Timeout_ms;
     bool m_Timeout_msIsSet;
+
+    SortEnum m_Sort;
+    bool m_SortIsSet;
+
+    Time_rangeEnum m_Time_range;
+    bool m_Time_rangeIsSet;
 
 };
 

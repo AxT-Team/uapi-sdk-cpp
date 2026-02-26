@@ -157,7 +157,7 @@ pplx::task<std::shared_ptr<Get_game_epic_free_200_response>> GameApi::getGameEpi
         return localVarResult;
     });
 }
-pplx::task<std::shared_ptr<Get_game_minecraft_historyid_200_response>> GameApi::getGameMinecraftHistoryid(utility::string_t uuid) const
+pplx::task<std::shared_ptr<Get_game_minecraft_historyid_200_response>> GameApi::getGameMinecraftHistoryid(boost::optional<utility::string_t> name, boost::optional<utility::string_t> uuid) const
 {
 
 
@@ -198,8 +198,13 @@ pplx::task<std::shared_ptr<Get_game_minecraft_historyid_200_response>> GameApi::
 
     std::unordered_set<utility::string_t> localVarConsumeHttpContentTypes;
 
+    if (name)
     {
-        localVarQueryParams[utility::conversions::to_string_t("uuid")] = ApiClient::parameterToString(uuid);
+        localVarQueryParams[utility::conversions::to_string_t("name")] = ApiClient::parameterToString(*name);
+    }
+    if (uuid)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("uuid")] = ApiClient::parameterToString(*uuid);
     }
 
     std::shared_ptr<IHttpBody> localVarHttpBody;

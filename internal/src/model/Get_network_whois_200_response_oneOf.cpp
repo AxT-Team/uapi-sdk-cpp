@@ -20,8 +20,6 @@ namespace model {
 
 Get_network_whois_200_response_oneOf::Get_network_whois_200_response_oneOf()
 {
-    m_Code = 0;
-    m_CodeIsSet = false;
     m_Whois = utility::conversions::to_string_t("");
     m_WhoisIsSet = false;
 }
@@ -38,11 +36,6 @@ void Get_network_whois_200_response_oneOf::validate()
 web::json::value Get_network_whois_200_response_oneOf::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
-    }
     if(m_WhoisIsSet)
     {   
         
@@ -55,17 +48,6 @@ web::json::value Get_network_whois_200_response_oneOf::toJson() const
 bool Get_network_whois_200_response_oneOf::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
-            
-        }
-    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("whois"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("whois")));
@@ -87,10 +69,6 @@ void Get_network_whois_200_response_oneOf::toMultipart(std::shared_ptr<Multipart
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
-    }
     if(m_WhoisIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("whois")), m_Whois));
@@ -106,12 +84,6 @@ bool Get_network_whois_200_response_oneOf::fromMultiPart(std::shared_ptr<Multipa
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
-    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("whois"))))
     {
         utility::string_t refVal_setWhois;
@@ -122,26 +94,6 @@ bool Get_network_whois_200_response_oneOf::fromMultiPart(std::shared_ptr<Multipa
 }
 
 
-int32_t Get_network_whois_200_response_oneOf::getCode() const
-{
-    return m_Code;
-}
-
-void Get_network_whois_200_response_oneOf::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_network_whois_200_response_oneOf::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_network_whois_200_response_oneOf::unsetCode()
-{
-    m_CodeIsSet = false;
-}
 utility::string_t Get_network_whois_200_response_oneOf::getWhois() const
 {
     return m_Whois;

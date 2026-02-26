@@ -62,14 +62,6 @@ public:
     void setBase64(const utility::string_t& value);
 
     /// <summary>
-    /// 状态码，200代表成功。
-    /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
     /// 操作结果描述。
     /// </summary>
     utility::string_t getMsg() const;
@@ -81,9 +73,6 @@ public:
 protected:
     utility::string_t m_Base64;
     bool m_Base64IsSet;
-
-    int32_t m_Code;
-    bool m_CodeIsSet;
 
     utility::string_t m_Msg;
     bool m_MsgIsSet;

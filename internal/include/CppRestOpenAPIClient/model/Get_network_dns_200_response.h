@@ -56,11 +56,6 @@ public:
     /// Get_network_dns_200_response members
 
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
     utility::string_t getDomain() const;
     bool domainIsSet() const;
     void unsetDomain();
@@ -83,9 +78,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Domain;
     bool m_DomainIsSet;
 

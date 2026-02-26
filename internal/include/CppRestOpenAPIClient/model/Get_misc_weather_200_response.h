@@ -21,13 +21,24 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include "CppRestOpenAPIClient/model/Get_misc_weather_200_response_hourly_forecast_inner.h"
+#include "CppRestOpenAPIClient/model/Get_misc_weather_200_response_air_pollutants.h"
+#include "CppRestOpenAPIClient/model/Get_misc_weather_200_response_life_indices.h"
+#include "CppRestOpenAPIClient/model/Get_misc_weather_200_response_minutely_precip.h"
 #include <cpprest/details/basic_types.h>
+#include <vector>
+#include "CppRestOpenAPIClient/model/Get_misc_weather_200_response_forecast_inner.h"
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
+class Get_misc_weather_200_response_air_pollutants;
+class Get_misc_weather_200_response_forecast_inner;
+class Get_misc_weather_200_response_hourly_forecast_inner;
+class Get_misc_weather_200_response_minutely_precip;
+class Get_misc_weather_200_response_life_indices;
 
 
 class  Get_misc_weather_200_response
@@ -53,79 +64,284 @@ public:
     /// Get_misc_weather_200_response members
 
 
-    utility::string_t getAdcode() const;
-    bool adcodeIsSet() const;
-    void unsetAdcode();
-    void setAdcode(const utility::string_t& value);
-
-    utility::string_t getCity() const;
-    bool cityIsSet() const;
-    void unsetCity();
-    void setCity(const utility::string_t& value);
-
-    int32_t getHumidity() const;
-    bool humidityIsSet() const;
-    void unsetHumidity();
-    void setHumidity(int32_t value);
-
+    /// <summary>
+    /// 省份
+    /// </summary>
     utility::string_t getProvince() const;
     bool provinceIsSet() const;
     void unsetProvince();
     void setProvince(const utility::string_t& value);
 
-    utility::string_t getReportTime() const;
-    bool reportTimeIsSet() const;
-    void unsetReport_time();
-    void setReportTime(const utility::string_t& value);
+    /// <summary>
+    /// 城市名
+    /// </summary>
+    utility::string_t getCity() const;
+    bool cityIsSet() const;
+    void unsetCity();
+    void setCity(const utility::string_t& value);
 
-    int32_t getTemperature() const;
-    bool temperatureIsSet() const;
-    void unsetTemperature();
-    void setTemperature(int32_t value);
+    /// <summary>
+    /// 行政区划代码（部分数据源可能为空）
+    /// </summary>
+    utility::string_t getAdcode() const;
+    bool adcodeIsSet() const;
+    void unsetAdcode();
+    void setAdcode(const utility::string_t& value);
 
+    /// <summary>
+    /// 天气状况描述。默认返回中文，传 &#x60;lang&#x3D;en&#x60; 时返回英文。非固定枚举。
+    /// </summary>
     utility::string_t getWeather() const;
     bool weatherIsSet() const;
     void unsetWeather();
     void setWeather(const utility::string_t& value);
 
+    /// <summary>
+    /// 当前温度 °C
+    /// </summary>
+    double getTemperature() const;
+    bool temperatureIsSet() const;
+    void unsetTemperature();
+    void setTemperature(double value);
+
+    /// <summary>
+    /// 风向
+    /// </summary>
     utility::string_t getWindDirection() const;
     bool windDirectionIsSet() const;
     void unsetWind_direction();
     void setWindDirection(const utility::string_t& value);
 
+    /// <summary>
+    /// 风力等级
+    /// </summary>
     utility::string_t getWindPower() const;
     bool windPowerIsSet() const;
     void unsetWind_power();
     void setWindPower(const utility::string_t& value);
 
+    /// <summary>
+    /// 相对湿度 %
+    /// </summary>
+    double getHumidity() const;
+    bool humidityIsSet() const;
+    void unsetHumidity();
+    void setHumidity(double value);
+
+    /// <summary>
+    /// 数据更新时间
+    /// </summary>
+    utility::string_t getReportTime() const;
+    bool reportTimeIsSet() const;
+    void unsetReport_time();
+    void setReportTime(const utility::string_t& value);
+
+    /// <summary>
+    /// 体感温度 °C（extended&#x3D;true 时返回）
+    /// </summary>
+    double getFeelsLike() const;
+    bool feelsLikeIsSet() const;
+    void unsetFeels_like();
+    void setFeelsLike(double value);
+
+    /// <summary>
+    /// 能见度 km（extended&#x3D;true 时返回）
+    /// </summary>
+    double getVisibility() const;
+    bool visibilityIsSet() const;
+    void unsetVisibility();
+    void setVisibility(double value);
+
+    /// <summary>
+    /// 气压 hPa（extended&#x3D;true 时返回）
+    /// </summary>
+    double getPressure() const;
+    bool pressureIsSet() const;
+    void unsetPressure();
+    void setPressure(double value);
+
+    /// <summary>
+    /// 紫外线指数（extended&#x3D;true 时返回）
+    /// </summary>
+    double getUv() const;
+    bool uvIsSet() const;
+    void unsetUv();
+    void setUv(double value);
+
+    /// <summary>
+    /// 当前降水量 mm（extended&#x3D;true 时返回）
+    /// </summary>
+    double getPrecipitation() const;
+    bool precipitationIsSet() const;
+    void unsetPrecipitation();
+    void setPrecipitation(double value);
+
+    /// <summary>
+    /// 云量 %（extended&#x3D;true 时返回）
+    /// </summary>
+    double getCloud() const;
+    bool cloudIsSet() const;
+    void unsetCloud();
+    void setCloud(double value);
+
+    /// <summary>
+    /// 空气质量指数 0-500（extended&#x3D;true 时返回）
+    /// </summary>
+    double getAqi() const;
+    bool aqiIsSet() const;
+    void unsetAqi();
+    void setAqi(double value);
+
+    /// <summary>
+    /// AQI 等级 1-6（extended&#x3D;true 时返回）
+    /// </summary>
+    double getAqiLevel() const;
+    bool aqiLevelIsSet() const;
+    void unsetAqi_level();
+    void setAqiLevel(double value);
+
+    /// <summary>
+    /// AQI 等级描述（优/良/轻度污染/中度污染/重度污染/严重污染）（extended&#x3D;true 时返回）
+    /// </summary>
+    utility::string_t getAqiCategory() const;
+    bool aqiCategoryIsSet() const;
+    void unsetAqi_category();
+    void setAqiCategory(const utility::string_t& value);
+
+    /// <summary>
+    /// 主要污染物（如 PM2.5、PM10、O3 等）（extended&#x3D;true 时返回）
+    /// </summary>
+    utility::string_t getAqiPrimary() const;
+    bool aqiPrimaryIsSet() const;
+    void unsetAqi_primary();
+    void setAqiPrimary(const utility::string_t& value);
+
+    std::shared_ptr<Get_misc_weather_200_response_air_pollutants> getAirPollutants() const;
+    bool airPollutantsIsSet() const;
+    void unsetAir_pollutants();
+    void setAirPollutants(const std::shared_ptr<Get_misc_weather_200_response_air_pollutants>& value);
+
+    /// <summary>
+    /// 当天最高温 °C（forecast&#x3D;true 时返回）
+    /// </summary>
+    double getTempMax() const;
+    bool tempMaxIsSet() const;
+    void unsetTemp_max();
+    void setTempMax(double value);
+
+    /// <summary>
+    /// 当天最低温 °C（forecast&#x3D;true 时返回）
+    /// </summary>
+    double getTempMin() const;
+    bool tempMinIsSet() const;
+    void unsetTemp_min();
+    void setTempMin(double value);
+
+    /// <summary>
+    /// 多天天气预报，最多7天（forecast&#x3D;true 时返回）
+    /// </summary>
+    std::vector<std::shared_ptr<Get_misc_weather_200_response_forecast_inner>> getForecast() const;
+    bool forecastIsSet() const;
+    void unsetForecast();
+    void setForecast(const std::vector<std::shared_ptr<Get_misc_weather_200_response_forecast_inner>>& value);
+
+    /// <summary>
+    /// 逐小时预报，最多24小时（hourly&#x3D;true 时返回）
+    /// </summary>
+    std::vector<std::shared_ptr<Get_misc_weather_200_response_hourly_forecast_inner>> getHourlyForecast() const;
+    bool hourlyForecastIsSet() const;
+    void unsetHourly_forecast();
+    void setHourlyForecast(const std::vector<std::shared_ptr<Get_misc_weather_200_response_hourly_forecast_inner>>& value);
+
+    std::shared_ptr<Get_misc_weather_200_response_minutely_precip> getMinutelyPrecip() const;
+    bool minutelyPrecipIsSet() const;
+    void unsetMinutely_precip();
+    void setMinutelyPrecip(const std::shared_ptr<Get_misc_weather_200_response_minutely_precip>& value);
+
+    std::shared_ptr<Get_misc_weather_200_response_life_indices> getLifeIndices() const;
+    bool lifeIndicesIsSet() const;
+    void unsetLife_indices();
+    void setLifeIndices(const std::shared_ptr<Get_misc_weather_200_response_life_indices>& value);
+
 
 protected:
-    utility::string_t m_Adcode;
-    bool m_AdcodeIsSet;
+    utility::string_t m_Province;
+    bool m_ProvinceIsSet;
 
     utility::string_t m_City;
     bool m_CityIsSet;
 
-    int32_t m_Humidity;
-    bool m_HumidityIsSet;
-
-    utility::string_t m_Province;
-    bool m_ProvinceIsSet;
-
-    utility::string_t m_Report_time;
-    bool m_Report_timeIsSet;
-
-    int32_t m_Temperature;
-    bool m_TemperatureIsSet;
+    utility::string_t m_Adcode;
+    bool m_AdcodeIsSet;
 
     utility::string_t m_Weather;
     bool m_WeatherIsSet;
+
+    double m_Temperature;
+    bool m_TemperatureIsSet;
 
     utility::string_t m_Wind_direction;
     bool m_Wind_directionIsSet;
 
     utility::string_t m_Wind_power;
     bool m_Wind_powerIsSet;
+
+    double m_Humidity;
+    bool m_HumidityIsSet;
+
+    utility::string_t m_Report_time;
+    bool m_Report_timeIsSet;
+
+    double m_Feels_like;
+    bool m_Feels_likeIsSet;
+
+    double m_Visibility;
+    bool m_VisibilityIsSet;
+
+    double m_Pressure;
+    bool m_PressureIsSet;
+
+    double m_Uv;
+    bool m_UvIsSet;
+
+    double m_Precipitation;
+    bool m_PrecipitationIsSet;
+
+    double m_Cloud;
+    bool m_CloudIsSet;
+
+    double m_Aqi;
+    bool m_AqiIsSet;
+
+    double m_Aqi_level;
+    bool m_Aqi_levelIsSet;
+
+    utility::string_t m_Aqi_category;
+    bool m_Aqi_categoryIsSet;
+
+    utility::string_t m_Aqi_primary;
+    bool m_Aqi_primaryIsSet;
+
+    std::shared_ptr<Get_misc_weather_200_response_air_pollutants> m_Air_pollutants;
+    bool m_Air_pollutantsIsSet;
+
+    double m_Temp_max;
+    bool m_Temp_maxIsSet;
+
+    double m_Temp_min;
+    bool m_Temp_minIsSet;
+
+    std::vector<std::shared_ptr<Get_misc_weather_200_response_forecast_inner>> m_Forecast;
+    bool m_ForecastIsSet;
+
+    std::vector<std::shared_ptr<Get_misc_weather_200_response_hourly_forecast_inner>> m_Hourly_forecast;
+    bool m_Hourly_forecastIsSet;
+
+    std::shared_ptr<Get_misc_weather_200_response_minutely_precip> m_Minutely_precip;
+    bool m_Minutely_precipIsSet;
+
+    std::shared_ptr<Get_misc_weather_200_response_life_indices> m_Life_indices;
+    bool m_Life_indicesIsSet;
 
 };
 

@@ -53,11 +53,6 @@ public:
     /// Get_random_string_200_response members
 
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
     utility::string_t getText() const;
     bool textIsSet() const;
     void unsetText();
@@ -65,9 +60,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Text;
     bool m_TextIsSet;
 

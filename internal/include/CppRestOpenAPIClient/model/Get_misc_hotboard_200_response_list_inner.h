@@ -83,6 +83,14 @@ public:
     void unsetUrl();
     void setUrl(const utility::string_t& value);
 
+    /// <summary>
+    /// 封面图 URL，音乐类热榜返回专辑封面，其他平台无此字段。
+    /// </summary>
+    utility::string_t getCover() const;
+    bool coverIsSet() const;
+    void unsetCover();
+    void setCover(const utility::string_t& value);
+
 
 protected:
     std::map<utility::string_t, std::shared_ptr<AnyType>> m_Extra;
@@ -99,6 +107,9 @@ protected:
 
     utility::string_t m_Url;
     bool m_UrlIsSet;
+
+    utility::string_t m_Cover;
+    bool m_CoverIsSet;
 
 };
 

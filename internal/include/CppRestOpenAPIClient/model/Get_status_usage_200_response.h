@@ -21,11 +21,11 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Endpoints_aggregate.h"
-#include "CppRestOpenAPIClient/model/Endpoints_aggregate_unaggregated.h"
-#include "CppRestOpenAPIClient/model/Single_endpoint.h"
+#include "CppRestOpenAPIClient/model/Get_status_usage_200_response_anyOf_unaggregated.h"
+#include "CppRestOpenAPIClient/model/Get_status_usage_200_response_anyOf_1.h"
+#include "CppRestOpenAPIClient/model/Get_status_usage_200_response_anyOf.h"
+#include "CppRestOpenAPIClient/model/Get_status_usage_200_response_anyOf_endpoints_inner.h"
 #include <cpprest/details/basic_types.h>
-#include "CppRestOpenAPIClient/model/Endpoints_aggregate_endpoints_inner.h"
 #include <vector>
 
 namespace org {
@@ -33,8 +33,8 @@ namespace openapitools {
 namespace client {
 namespace model {
 
-class Endpoints_aggregate_endpoints_inner;
-class Endpoints_aggregate_unaggregated;
+class Get_status_usage_200_response_anyOf_endpoints_inner;
+class Get_status_usage_200_response_anyOf_unaggregated;
 
 
 class  Get_status_usage_200_response
@@ -60,15 +60,15 @@ public:
     /// Get_status_usage_200_response members
 
 
-    std::vector<std::shared_ptr<Endpoints_aggregate_endpoints_inner>> getEndpoints() const;
+    std::vector<std::shared_ptr<Get_status_usage_200_response_anyOf_endpoints_inner>> getEndpoints() const;
     bool endpointsIsSet() const;
     void unsetEndpoints();
-    void setEndpoints(const std::vector<std::shared_ptr<Endpoints_aggregate_endpoints_inner>>& value);
+    void setEndpoints(const std::vector<std::shared_ptr<Get_status_usage_200_response_anyOf_endpoints_inner>>& value);
 
-    std::shared_ptr<Endpoints_aggregate_unaggregated> getUnaggregated() const;
+    std::shared_ptr<Get_status_usage_200_response_anyOf_unaggregated> getUnaggregated() const;
     bool unaggregatedIsSet() const;
     void unsetUnaggregated();
-    void setUnaggregated(const std::shared_ptr<Endpoints_aggregate_unaggregated>& value);
+    void setUnaggregated(const std::shared_ptr<Get_status_usage_200_response_anyOf_unaggregated>& value);
 
     utility::string_t getPath() const;
     bool pathIsSet() const;
@@ -82,10 +82,10 @@ public:
 
 
 protected:
-    std::vector<std::shared_ptr<Endpoints_aggregate_endpoints_inner>> m_Endpoints;
+    std::vector<std::shared_ptr<Get_status_usage_200_response_anyOf_endpoints_inner>> m_Endpoints;
     bool m_EndpointsIsSet;
 
-    std::shared_ptr<Endpoints_aggregate_unaggregated> m_Unaggregated;
+    std::shared_ptr<Get_status_usage_200_response_anyOf_unaggregated> m_Unaggregated;
     bool m_UnaggregatedIsSet;
 
     utility::string_t m_Path;

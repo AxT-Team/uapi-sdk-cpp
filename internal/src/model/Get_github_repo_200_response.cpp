@@ -62,6 +62,7 @@ Get_github_repo_200_response::Get_github_repo_200_response()
     m_LanguagesIsSet = false;
     m_CollaboratorsIsSet = false;
     m_MaintainersIsSet = false;
+    m_Latest_releaseIsSet = false;
 }
 
 Get_github_repo_200_response::~Get_github_repo_200_response()
@@ -190,6 +191,11 @@ web::json::value Get_github_repo_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("maintainers"))] = ModelBase::toJson(m_Maintainers);
+    }
+    if(m_Latest_releaseIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("latest_release"))] = ModelBase::toJson(m_Latest_release);
     }
 
     return val;
@@ -451,6 +457,17 @@ bool Get_github_repo_200_response::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("latest_release"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("latest_release")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_github_repo_200_response_latest_release> refVal_setLatestRelease;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLatestRelease);
+            setLatestRelease(refVal_setLatestRelease);
+            
+        }
+    }
     return ok;
 }
 
@@ -552,6 +569,10 @@ void Get_github_repo_200_response::toMultipart(std::shared_ptr<MultipartFormData
     if(m_MaintainersIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("maintainers")), m_Maintainers));
+    }
+    if(m_Latest_releaseIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("latest_release")), m_Latest_release));
     }
 }
 
@@ -701,6 +722,12 @@ bool Get_github_repo_200_response::fromMultiPart(std::shared_ptr<MultipartFormDa
         std::vector<std::shared_ptr<Get_github_repo_200_response_collaborators_inner>> refVal_setMaintainers;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("maintainers"))), refVal_setMaintainers );
         setMaintainers(refVal_setMaintainers);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("latest_release"))))
+    {
+        std::shared_ptr<Get_github_repo_200_response_latest_release> refVal_setLatestRelease;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("latest_release"))), refVal_setLatestRelease );
+        setLatestRelease(refVal_setLatestRelease);
     }
     return ok;
 }
@@ -1180,6 +1207,27 @@ bool Get_github_repo_200_response::maintainersIsSet() const
 void Get_github_repo_200_response::unsetMaintainers()
 {
     m_MaintainersIsSet = false;
+}
+std::shared_ptr<Get_github_repo_200_response_latest_release> Get_github_repo_200_response::getLatestRelease() const
+{
+    return m_Latest_release;
+}
+
+
+void Get_github_repo_200_response::setLatestRelease(const std::shared_ptr<Get_github_repo_200_response_latest_release>& value)
+{
+    m_Latest_release = value;
+    m_Latest_releaseIsSet = true;
+}
+
+bool Get_github_repo_200_response::latestReleaseIsSet() const
+{
+    return m_Latest_releaseIsSet;
+}
+
+void Get_github_repo_200_response::unsetLatest_release()
+{
+    m_Latest_releaseIsSet = false;
 }
 
 }

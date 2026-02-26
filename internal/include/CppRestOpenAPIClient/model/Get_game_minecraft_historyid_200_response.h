@@ -12,7 +12,7 @@
 /*
  * Get_game_minecraft_historyid_200_response.h
  *
- * 
+ * 响应结构根据查询参数不同而变化
  */
 
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Get_game_minecraft_historyid_200_response_H_
@@ -21,6 +21,7 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include "CppRestOpenAPIClient/model/Get_game_minecraft_historyid_200_response_results_inner.h"
 #include <cpprest/details/basic_types.h>
 #include <vector>
 #include "CppRestOpenAPIClient/model/Get_game_minecraft_historyid_200_response_history_inner.h"
@@ -30,9 +31,13 @@ namespace openapitools {
 namespace client {
 namespace model {
 
+class Get_game_minecraft_historyid_200_response_results_inner;
 class Get_game_minecraft_historyid_200_response_history_inner;
 
 
+/// <summary>
+/// 响应结构根据查询参数不同而变化
+/// </summary>
 class  Get_game_minecraft_historyid_200_response
     : public ModelBase
 {
@@ -57,23 +62,31 @@ public:
 
 
     /// <summary>
-    /// 状态码，200代表成功。
+    /// 【name 查询时返回】查询的用户名。
     /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
+    utility::string_t getQuery() const;
+    bool queryIsSet() const;
+    void unsetQuery();
+    void setQuery(const utility::string_t& value);
 
     /// <summary>
-    /// 一个包含所有历史用户名的数组，按时间倒序排列。
+    /// 【name 查询时返回】匹配到的用户数量，为 0 时表示未找到。
     /// </summary>
-    std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> getHistory() const;
-    bool historyIsSet() const;
-    void unsetHistory();
-    void setHistory(const std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>>& value);
+    int32_t getCount() const;
+    bool countIsSet() const;
+    void unsetCount();
+    void setCount(int32_t value);
 
     /// <summary>
-    /// 玩家当前的用户名。
+    /// 【name 查询时返回】匹配用户列表，包含当前用户名或曾用名匹配的所有玩家。
+    /// </summary>
+    std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_results_inner>> getResults() const;
+    bool resultsIsSet() const;
+    void unsetResults();
+    void setResults(const std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_results_inner>>& value);
+
+    /// <summary>
+    /// 【uuid 查询时返回】玩家当前的用户名。
     /// </summary>
     utility::string_t getId() const;
     bool idIsSet() const;
@@ -81,7 +94,15 @@ public:
     void setId(const utility::string_t& value);
 
     /// <summary>
-    /// 历史名称的总数（包含当前名称）。
+    /// 【uuid 查询时返回】被查询玩家的UUID（带连字符格式）。
+    /// </summary>
+    utility::string_t getUuid() const;
+    bool uuidIsSet() const;
+    void unsetUuid();
+    void setUuid(const utility::string_t& value);
+
+    /// <summary>
+    /// 【uuid 查询时返回】历史名称的总数（包含当前名称）。
     /// </summary>
     int32_t getNameNum() const;
     bool nameNumIsSet() const;
@@ -89,29 +110,35 @@ public:
     void setNameNum(int32_t value);
 
     /// <summary>
-    /// 被查询玩家的32位无破折号UUID。
+    /// 【uuid 查询时返回】包含所有历史用户名的数组，按时间倒序排列。
     /// </summary>
-    utility::string_t getUuid() const;
-    bool uuidIsSet() const;
-    void unsetUuid();
-    void setUuid(const utility::string_t& value);
+    std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> getHistory() const;
+    bool historyIsSet() const;
+    void unsetHistory();
+    void setHistory(const std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>>& value);
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
+    utility::string_t m_Query;
+    bool m_QueryIsSet;
 
-    std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> m_History;
-    bool m_HistoryIsSet;
+    int32_t m_Count;
+    bool m_CountIsSet;
+
+    std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_results_inner>> m_Results;
+    bool m_ResultsIsSet;
 
     utility::string_t m_Id;
     bool m_IdIsSet;
 
+    utility::string_t m_Uuid;
+    bool m_UuidIsSet;
+
     int32_t m_Name_num;
     bool m_Name_numIsSet;
 
-    utility::string_t m_Uuid;
-    bool m_UuidIsSet;
+    std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> m_History;
+    bool m_HistoryIsSet;
 
 };
 

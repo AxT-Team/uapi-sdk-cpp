@@ -61,11 +61,6 @@ public:
     void unsetAvg();
     void setAvg(double value);
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
     utility::string_t getHost() const;
     bool hostIsSet() const;
     void unsetHost();
@@ -101,9 +96,6 @@ public:
 protected:
     double m_Avg;
     bool m_AvgIsSet;
-
-    int32_t m_Code;
-    bool m_CodeIsSet;
 
     utility::string_t m_Host;
     bool m_HostIsSet;

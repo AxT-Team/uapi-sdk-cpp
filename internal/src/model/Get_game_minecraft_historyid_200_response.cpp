@@ -20,15 +20,18 @@ namespace model {
 
 Get_game_minecraft_historyid_200_response::Get_game_minecraft_historyid_200_response()
 {
-    m_Code = 0;
-    m_CodeIsSet = false;
-    m_HistoryIsSet = false;
+    m_Query = utility::conversions::to_string_t("");
+    m_QueryIsSet = false;
+    m_Count = 0;
+    m_CountIsSet = false;
+    m_ResultsIsSet = false;
     m_Id = utility::conversions::to_string_t("");
     m_IdIsSet = false;
-    m_Name_num = 0;
-    m_Name_numIsSet = false;
     m_Uuid = utility::conversions::to_string_t("");
     m_UuidIsSet = false;
+    m_Name_num = 0;
+    m_Name_numIsSet = false;
+    m_HistoryIsSet = false;
 }
 
 Get_game_minecraft_historyid_200_response::~Get_game_minecraft_historyid_200_response()
@@ -43,30 +46,40 @@ void Get_game_minecraft_historyid_200_response::validate()
 web::json::value Get_game_minecraft_historyid_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
+    if(m_QueryIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
+        val[utility::conversions::to_string_t(_XPLATSTR("query"))] = ModelBase::toJson(m_Query);
     }
-    if(m_HistoryIsSet)
+    if(m_CountIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("history"))] = ModelBase::toJson(m_History);
+        val[utility::conversions::to_string_t(_XPLATSTR("count"))] = ModelBase::toJson(m_Count);
+    }
+    if(m_ResultsIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("results"))] = ModelBase::toJson(m_Results);
     }
     if(m_IdIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("id"))] = ModelBase::toJson(m_Id);
     }
+    if(m_UuidIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("uuid"))] = ModelBase::toJson(m_Uuid);
+    }
     if(m_Name_numIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("name_num"))] = ModelBase::toJson(m_Name_num);
     }
-    if(m_UuidIsSet)
+    if(m_HistoryIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("uuid"))] = ModelBase::toJson(m_Uuid);
+        val[utility::conversions::to_string_t(_XPLATSTR("history"))] = ModelBase::toJson(m_History);
     }
 
     return val;
@@ -75,25 +88,36 @@ web::json::value Get_game_minecraft_historyid_200_response::toJson() const
 bool Get_game_minecraft_historyid_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("query"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("query")));
         if(!fieldValue.is_null())
         {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
+            utility::string_t refVal_setQuery;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setQuery);
+            setQuery(refVal_setQuery);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("history"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("count"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("history")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("count")));
         if(!fieldValue.is_null())
         {
-            std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> refVal_setHistory;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setHistory);
-            setHistory(refVal_setHistory);
+            int32_t refVal_setCount;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCount);
+            setCount(refVal_setCount);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("results"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("results")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_results_inner>> refVal_setResults;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setResults);
+            setResults(refVal_setResults);
             
         }
     }
@@ -108,6 +132,17 @@ bool Get_game_minecraft_historyid_200_response::fromJson(const web::json::value&
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("uuid"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("uuid")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setUuid;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setUuid);
+            setUuid(refVal_setUuid);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("name_num"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("name_num")));
@@ -119,14 +154,14 @@ bool Get_game_minecraft_historyid_200_response::fromJson(const web::json::value&
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("uuid"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("history"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("uuid")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("history")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setUuid;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setUuid);
-            setUuid(refVal_setUuid);
+            std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> refVal_setHistory;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setHistory);
+            setHistory(refVal_setHistory);
             
         }
     }
@@ -140,25 +175,33 @@ void Get_game_minecraft_historyid_200_response::toMultipart(std::shared_ptr<Mult
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
+    if(m_QueryIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("query")), m_Query));
     }
-    if(m_HistoryIsSet)
+    if(m_CountIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("history")), m_History));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("count")), m_Count));
+    }
+    if(m_ResultsIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("results")), m_Results));
     }
     if(m_IdIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("id")), m_Id));
     }
+    if(m_UuidIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("uuid")), m_Uuid));
+    }
     if(m_Name_numIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("name_num")), m_Name_num));
     }
-    if(m_UuidIsSet)
+    if(m_HistoryIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("uuid")), m_Uuid));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("history")), m_History));
     }
 }
 
@@ -171,17 +214,23 @@ bool Get_game_minecraft_historyid_200_response::fromMultiPart(std::shared_ptr<Mu
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("query"))))
     {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
+        utility::string_t refVal_setQuery;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("query"))), refVal_setQuery );
+        setQuery(refVal_setQuery);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("history"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("count"))))
     {
-        std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> refVal_setHistory;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("history"))), refVal_setHistory );
-        setHistory(refVal_setHistory);
+        int32_t refVal_setCount;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("count"))), refVal_setCount );
+        setCount(refVal_setCount);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("results"))))
+    {
+        std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_results_inner>> refVal_setResults;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("results"))), refVal_setResults );
+        setResults(refVal_setResults);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("id"))))
     {
@@ -189,62 +238,89 @@ bool Get_game_minecraft_historyid_200_response::fromMultiPart(std::shared_ptr<Mu
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("id"))), refVal_setId );
         setId(refVal_setId);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("name_num"))))
-    {
-        int32_t refVal_setNameNum;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("name_num"))), refVal_setNameNum );
-        setNameNum(refVal_setNameNum);
-    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("uuid"))))
     {
         utility::string_t refVal_setUuid;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("uuid"))), refVal_setUuid );
         setUuid(refVal_setUuid);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("name_num"))))
+    {
+        int32_t refVal_setNameNum;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("name_num"))), refVal_setNameNum );
+        setNameNum(refVal_setNameNum);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("history"))))
+    {
+        std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> refVal_setHistory;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("history"))), refVal_setHistory );
+        setHistory(refVal_setHistory);
+    }
     return ok;
 }
 
 
-int32_t Get_game_minecraft_historyid_200_response::getCode() const
+utility::string_t Get_game_minecraft_historyid_200_response::getQuery() const
 {
-    return m_Code;
-}
-
-void Get_game_minecraft_historyid_200_response::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_game_minecraft_historyid_200_response::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_game_minecraft_historyid_200_response::unsetCode()
-{
-    m_CodeIsSet = false;
-}
-std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> Get_game_minecraft_historyid_200_response::getHistory() const
-{
-    return m_History;
+    return m_Query;
 }
 
 
-void Get_game_minecraft_historyid_200_response::setHistory(const std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>>& value)
+void Get_game_minecraft_historyid_200_response::setQuery(const utility::string_t& value)
 {
-    m_History = value;
-    m_HistoryIsSet = true;
+    m_Query = value;
+    m_QueryIsSet = true;
 }
 
-bool Get_game_minecraft_historyid_200_response::historyIsSet() const
+bool Get_game_minecraft_historyid_200_response::queryIsSet() const
 {
-    return m_HistoryIsSet;
+    return m_QueryIsSet;
 }
 
-void Get_game_minecraft_historyid_200_response::unsetHistory()
+void Get_game_minecraft_historyid_200_response::unsetQuery()
 {
-    m_HistoryIsSet = false;
+    m_QueryIsSet = false;
+}
+int32_t Get_game_minecraft_historyid_200_response::getCount() const
+{
+    return m_Count;
+}
+
+void Get_game_minecraft_historyid_200_response::setCount(int32_t value)
+{
+    m_Count = value;
+    m_CountIsSet = true;
+}
+
+bool Get_game_minecraft_historyid_200_response::countIsSet() const
+{
+    return m_CountIsSet;
+}
+
+void Get_game_minecraft_historyid_200_response::unsetCount()
+{
+    m_CountIsSet = false;
+}
+std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_results_inner>> Get_game_minecraft_historyid_200_response::getResults() const
+{
+    return m_Results;
+}
+
+
+void Get_game_minecraft_historyid_200_response::setResults(const std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_results_inner>>& value)
+{
+    m_Results = value;
+    m_ResultsIsSet = true;
+}
+
+bool Get_game_minecraft_historyid_200_response::resultsIsSet() const
+{
+    return m_ResultsIsSet;
+}
+
+void Get_game_minecraft_historyid_200_response::unsetResults()
+{
+    m_ResultsIsSet = false;
 }
 utility::string_t Get_game_minecraft_historyid_200_response::getId() const
 {
@@ -267,26 +343,6 @@ void Get_game_minecraft_historyid_200_response::unsetId()
 {
     m_IdIsSet = false;
 }
-int32_t Get_game_minecraft_historyid_200_response::getNameNum() const
-{
-    return m_Name_num;
-}
-
-void Get_game_minecraft_historyid_200_response::setNameNum(int32_t value)
-{
-    m_Name_num = value;
-    m_Name_numIsSet = true;
-}
-
-bool Get_game_minecraft_historyid_200_response::nameNumIsSet() const
-{
-    return m_Name_numIsSet;
-}
-
-void Get_game_minecraft_historyid_200_response::unsetName_num()
-{
-    m_Name_numIsSet = false;
-}
 utility::string_t Get_game_minecraft_historyid_200_response::getUuid() const
 {
     return m_Uuid;
@@ -307,6 +363,47 @@ bool Get_game_minecraft_historyid_200_response::uuidIsSet() const
 void Get_game_minecraft_historyid_200_response::unsetUuid()
 {
     m_UuidIsSet = false;
+}
+int32_t Get_game_minecraft_historyid_200_response::getNameNum() const
+{
+    return m_Name_num;
+}
+
+void Get_game_minecraft_historyid_200_response::setNameNum(int32_t value)
+{
+    m_Name_num = value;
+    m_Name_numIsSet = true;
+}
+
+bool Get_game_minecraft_historyid_200_response::nameNumIsSet() const
+{
+    return m_Name_numIsSet;
+}
+
+void Get_game_minecraft_historyid_200_response::unsetName_num()
+{
+    m_Name_numIsSet = false;
+}
+std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>> Get_game_minecraft_historyid_200_response::getHistory() const
+{
+    return m_History;
+}
+
+
+void Get_game_minecraft_historyid_200_response::setHistory(const std::vector<std::shared_ptr<Get_game_minecraft_historyid_200_response_history_inner>>& value)
+{
+    m_History = value;
+    m_HistoryIsSet = true;
+}
+
+bool Get_game_minecraft_historyid_200_response::historyIsSet() const
+{
+    return m_HistoryIsSet;
+}
+
+void Get_game_minecraft_historyid_200_response::unsetHistory()
+{
+    m_HistoryIsSet = false;
 }
 
 }

@@ -54,14 +54,6 @@ public:
 
 
     /// <summary>
-    /// 状态码，200代表操作成功。
-    /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
     /// 标准格式（YYYY-MM-DD HH:mm:ss）的日期时间字符串。
     /// </summary>
     utility::string_t getDatetime() const;
@@ -79,9 +71,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Datetime;
     bool m_DatetimeIsSet;
 

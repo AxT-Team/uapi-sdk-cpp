@@ -25,6 +25,14 @@ Get_misc_hotboard_200_response::Get_misc_hotboard_200_response()
     m_TypeIsSet = false;
     m_Update_time = utility::conversions::to_string_t("");
     m_Update_timeIsSet = false;
+    m_Snapshot_time = 0;
+    m_Snapshot_timeIsSet = false;
+    m_Keyword = utility::conversions::to_string_t("");
+    m_KeywordIsSet = false;
+    m_Count = 0;
+    m_CountIsSet = false;
+    m_ResultsIsSet = false;
+    m_SourcesIsSet = false;
 }
 
 Get_misc_hotboard_200_response::~Get_misc_hotboard_200_response()
@@ -53,6 +61,31 @@ web::json::value Get_misc_hotboard_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("update_time"))] = ModelBase::toJson(m_Update_time);
+    }
+    if(m_Snapshot_timeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("snapshot_time"))] = ModelBase::toJson(m_Snapshot_time);
+    }
+    if(m_KeywordIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("keyword"))] = ModelBase::toJson(m_Keyword);
+    }
+    if(m_CountIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("count"))] = ModelBase::toJson(m_Count);
+    }
+    if(m_ResultsIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("results"))] = ModelBase::toJson(m_Results);
+    }
+    if(m_SourcesIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("sources"))] = ModelBase::toJson(m_Sources);
     }
 
     return val;
@@ -94,6 +127,61 @@ bool Get_misc_hotboard_200_response::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("snapshot_time"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("snapshot_time")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setSnapshotTime;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSnapshotTime);
+            setSnapshotTime(refVal_setSnapshotTime);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("keyword"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("keyword")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setKeyword;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setKeyword);
+            setKeyword(refVal_setKeyword);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("count"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("count")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setCount;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCount);
+            setCount(refVal_setCount);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("results"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("results")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>> refVal_setResults;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setResults);
+            setResults(refVal_setResults);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("sources"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("sources")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<utility::string_t> refVal_setSources;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSources);
+            setSources(refVal_setSources);
+            
+        }
+    }
     return ok;
 }
 
@@ -115,6 +203,26 @@ void Get_misc_hotboard_200_response::toMultipart(std::shared_ptr<MultipartFormDa
     if(m_Update_timeIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("update_time")), m_Update_time));
+    }
+    if(m_Snapshot_timeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("snapshot_time")), m_Snapshot_time));
+    }
+    if(m_KeywordIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("keyword")), m_Keyword));
+    }
+    if(m_CountIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("count")), m_Count));
+    }
+    if(m_ResultsIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("results")), m_Results));
+    }
+    if(m_SourcesIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("sources")), m_Sources));
     }
 }
 
@@ -144,6 +252,36 @@ bool Get_misc_hotboard_200_response::fromMultiPart(std::shared_ptr<MultipartForm
         utility::string_t refVal_setUpdateTime;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("update_time"))), refVal_setUpdateTime );
         setUpdateTime(refVal_setUpdateTime);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("snapshot_time"))))
+    {
+        int32_t refVal_setSnapshotTime;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("snapshot_time"))), refVal_setSnapshotTime );
+        setSnapshotTime(refVal_setSnapshotTime);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("keyword"))))
+    {
+        utility::string_t refVal_setKeyword;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("keyword"))), refVal_setKeyword );
+        setKeyword(refVal_setKeyword);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("count"))))
+    {
+        int32_t refVal_setCount;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("count"))), refVal_setCount );
+        setCount(refVal_setCount);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("results"))))
+    {
+        std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>> refVal_setResults;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("results"))), refVal_setResults );
+        setResults(refVal_setResults);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("sources"))))
+    {
+        std::vector<utility::string_t> refVal_setSources;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("sources"))), refVal_setSources );
+        setSources(refVal_setSources);
     }
     return ok;
 }
@@ -211,6 +349,109 @@ bool Get_misc_hotboard_200_response::updateTimeIsSet() const
 void Get_misc_hotboard_200_response::unsetUpdate_time()
 {
     m_Update_timeIsSet = false;
+}
+int32_t Get_misc_hotboard_200_response::getSnapshotTime() const
+{
+    return m_Snapshot_time;
+}
+
+void Get_misc_hotboard_200_response::setSnapshotTime(int32_t value)
+{
+    m_Snapshot_time = value;
+    m_Snapshot_timeIsSet = true;
+}
+
+bool Get_misc_hotboard_200_response::snapshotTimeIsSet() const
+{
+    return m_Snapshot_timeIsSet;
+}
+
+void Get_misc_hotboard_200_response::unsetSnapshot_time()
+{
+    m_Snapshot_timeIsSet = false;
+}
+utility::string_t Get_misc_hotboard_200_response::getKeyword() const
+{
+    return m_Keyword;
+}
+
+
+void Get_misc_hotboard_200_response::setKeyword(const utility::string_t& value)
+{
+    m_Keyword = value;
+    m_KeywordIsSet = true;
+}
+
+bool Get_misc_hotboard_200_response::keywordIsSet() const
+{
+    return m_KeywordIsSet;
+}
+
+void Get_misc_hotboard_200_response::unsetKeyword()
+{
+    m_KeywordIsSet = false;
+}
+int32_t Get_misc_hotboard_200_response::getCount() const
+{
+    return m_Count;
+}
+
+void Get_misc_hotboard_200_response::setCount(int32_t value)
+{
+    m_Count = value;
+    m_CountIsSet = true;
+}
+
+bool Get_misc_hotboard_200_response::countIsSet() const
+{
+    return m_CountIsSet;
+}
+
+void Get_misc_hotboard_200_response::unsetCount()
+{
+    m_CountIsSet = false;
+}
+std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>> Get_misc_hotboard_200_response::getResults() const
+{
+    return m_Results;
+}
+
+
+void Get_misc_hotboard_200_response::setResults(const std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>>& value)
+{
+    m_Results = value;
+    m_ResultsIsSet = true;
+}
+
+bool Get_misc_hotboard_200_response::resultsIsSet() const
+{
+    return m_ResultsIsSet;
+}
+
+void Get_misc_hotboard_200_response::unsetResults()
+{
+    m_ResultsIsSet = false;
+}
+std::vector<utility::string_t> Get_misc_hotboard_200_response::getSources() const
+{
+    return m_Sources;
+}
+
+
+void Get_misc_hotboard_200_response::setSources(const std::vector<utility::string_t>& value)
+{
+    m_Sources = value;
+    m_SourcesIsSet = true;
+}
+
+bool Get_misc_hotboard_200_response::sourcesIsSet() const
+{
+    return m_SourcesIsSet;
+}
+
+void Get_misc_hotboard_200_response::unsetSources()
+{
+    m_SourcesIsSet = false;
 }
 
 }

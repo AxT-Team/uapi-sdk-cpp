@@ -54,14 +54,6 @@ public:
 
 
     /// <summary>
-    /// 状态码，200代表操作成功。
-    /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
     /// 格式化后的JSON字符串，带有标准缩进和换行。
     /// </summary>
     utility::string_t getContent() const;
@@ -71,9 +63,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Content;
     bool m_ContentIsSet;
 

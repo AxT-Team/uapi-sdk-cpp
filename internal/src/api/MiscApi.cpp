@@ -285,7 +285,307 @@ pplx::task<std::shared_ptr<Get_history_programmer_today_200_response>> MiscApi::
         return localVarResult;
     });
 }
-pplx::task<std::shared_ptr<Get_misc_hotboard_200_response>> MiscApi::getMiscHotboard(utility::string_t type) const
+pplx::task<std::shared_ptr<Get_misc_district_200_response>> MiscApi::getMiscDistrict(boost::optional<utility::string_t> keywords, boost::optional<utility::string_t> adcode, boost::optional<double> lat, boost::optional<double> lng, boost::optional<utility::string_t> level, boost::optional<utility::string_t> country, boost::optional<int32_t> limit) const
+{
+
+
+    std::shared_ptr<const ApiConfiguration> localVarApiConfiguration( m_ApiClient->getConfiguration() );
+    utility::string_t localVarPath = utility::conversions::to_string_t("/misc/district");
+
+    std::map<utility::string_t, utility::string_t> localVarQueryParams;
+    std::map<utility::string_t, utility::string_t> localVarHeaderParams( localVarApiConfiguration->getDefaultHeaders() );
+    std::map<utility::string_t, utility::string_t> localVarFormParams;
+    std::map<utility::string_t, std::shared_ptr<HttpContent>> localVarFileParams;
+
+    std::unordered_set<utility::string_t> localVarResponseHttpContentTypes;
+    localVarResponseHttpContentTypes.insert( utility::conversions::to_string_t("application/json") );
+
+    utility::string_t localVarResponseHttpContentType;
+
+    // use JSON if possible
+    if ( localVarResponseHttpContentTypes.size() == 0 )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // JSON
+    else if ( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // multipart formdata
+    else if( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+    }
+    else
+    {
+        throw ApiException(400, utility::conversions::to_string_t("MiscApi->getMiscDistrict does not produce any supported media type"));
+    }
+
+    localVarHeaderParams[utility::conversions::to_string_t("Accept")] = localVarResponseHttpContentType;
+
+    std::unordered_set<utility::string_t> localVarConsumeHttpContentTypes;
+
+    if (keywords)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("keywords")] = ApiClient::parameterToString(*keywords);
+    }
+    if (adcode)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("adcode")] = ApiClient::parameterToString(*adcode);
+    }
+    if (lat)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("lat")] = ApiClient::parameterToString(*lat);
+    }
+    if (lng)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("lng")] = ApiClient::parameterToString(*lng);
+    }
+    if (level)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("level")] = ApiClient::parameterToString(*level);
+    }
+    if (country)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("country")] = ApiClient::parameterToString(*country);
+    }
+    if (limit)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("limit")] = ApiClient::parameterToString(*limit);
+    }
+
+    std::shared_ptr<IHttpBody> localVarHttpBody;
+    utility::string_t localVarRequestHttpContentType;
+
+    // use JSON if possible
+    if ( localVarConsumeHttpContentTypes.size() == 0 || localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // multipart formdata
+    else if( localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+    }
+    else if (localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/x-www-form-urlencoded")) != localVarConsumeHttpContentTypes.end())
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/x-www-form-urlencoded");
+    }
+    else
+    {
+        throw ApiException(415, utility::conversions::to_string_t("MiscApi->getMiscDistrict does not consume any supported media type"));
+    }
+
+
+    return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("GET"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
+    .then([=, this](web::http::http_response localVarResponse)
+    {
+        if (m_ApiClient->getResponseHandler())
+        {
+            m_ApiClient->getResponseHandler()(localVarResponse.status_code(), localVarResponse.headers());
+        }
+
+        // 1xx - informational : OK
+        // 2xx - successful       : OK
+        // 3xx - redirection   : OK
+        // 4xx - client error  : not OK
+        // 5xx - client error  : not OK
+        if (localVarResponse.status_code() >= 400)
+        {
+            throw ApiException(localVarResponse.status_code()
+                , utility::conversions::to_string_t("error calling getMiscDistrict: ") + localVarResponse.reason_phrase()
+                , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+        }
+
+        // check response content type
+        if(localVarResponse.headers().has(utility::conversions::to_string_t("Content-Type")))
+        {
+            utility::string_t localVarContentType = localVarResponse.headers()[utility::conversions::to_string_t("Content-Type")];
+            if( localVarContentType.find(localVarResponseHttpContentType) == std::string::npos )
+            {
+                throw ApiException(500
+                    , utility::conversions::to_string_t("error calling getMiscDistrict: unexpected response type: ") + localVarContentType
+                    , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+            }
+        }
+
+        return localVarResponse.extract_string();
+    })
+    .then([=, this](utility::string_t localVarResponse)
+    {
+        std::shared_ptr<Get_misc_district_200_response> localVarResult(new Get_misc_district_200_response());
+
+        if(localVarResponseHttpContentType == utility::conversions::to_string_t("application/json"))
+        {
+            web::json::value localVarJson = web::json::value::parse(localVarResponse);
+
+            ModelBase::fromJson(localVarJson, localVarResult);
+        }
+        // else if(localVarResponseHttpContentType == utility::conversions::to_string_t("multipart/form-data"))
+        // {
+        // TODO multipart response parsing
+        // }
+        else
+        {
+            throw ApiException(500
+                , utility::conversions::to_string_t("error calling getMiscDistrict: unsupported response type"));
+        }
+
+        return localVarResult;
+    });
+}
+pplx::task<std::shared_ptr<Get_misc_holiday_calendar_200_response>> MiscApi::getMiscHolidayCalendar(boost::optional<utility::string_t> date, boost::optional<utility::string_t> month, boost::optional<utility::string_t> year, boost::optional<utility::string_t> timezone, boost::optional<utility::string_t> holidayType, boost::optional<bool> includeNearby, boost::optional<int32_t> nearbyLimit) const
+{
+
+
+    std::shared_ptr<const ApiConfiguration> localVarApiConfiguration( m_ApiClient->getConfiguration() );
+    utility::string_t localVarPath = utility::conversions::to_string_t("/misc/holiday-calendar");
+
+    std::map<utility::string_t, utility::string_t> localVarQueryParams;
+    std::map<utility::string_t, utility::string_t> localVarHeaderParams( localVarApiConfiguration->getDefaultHeaders() );
+    std::map<utility::string_t, utility::string_t> localVarFormParams;
+    std::map<utility::string_t, std::shared_ptr<HttpContent>> localVarFileParams;
+
+    std::unordered_set<utility::string_t> localVarResponseHttpContentTypes;
+    localVarResponseHttpContentTypes.insert( utility::conversions::to_string_t("application/json") );
+
+    utility::string_t localVarResponseHttpContentType;
+
+    // use JSON if possible
+    if ( localVarResponseHttpContentTypes.size() == 0 )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // JSON
+    else if ( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // multipart formdata
+    else if( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+    }
+    else
+    {
+        throw ApiException(400, utility::conversions::to_string_t("MiscApi->getMiscHolidayCalendar does not produce any supported media type"));
+    }
+
+    localVarHeaderParams[utility::conversions::to_string_t("Accept")] = localVarResponseHttpContentType;
+
+    std::unordered_set<utility::string_t> localVarConsumeHttpContentTypes;
+
+    if (date)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("date")] = ApiClient::parameterToString(*date);
+    }
+    if (month)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("month")] = ApiClient::parameterToString(*month);
+    }
+    if (year)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("year")] = ApiClient::parameterToString(*year);
+    }
+    if (timezone)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("timezone")] = ApiClient::parameterToString(*timezone);
+    }
+    if (holidayType)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("holiday_type")] = ApiClient::parameterToString(*holidayType);
+    }
+    if (includeNearby)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("include_nearby")] = ApiClient::parameterToString(*includeNearby);
+    }
+    if (nearbyLimit)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("nearby_limit")] = ApiClient::parameterToString(*nearbyLimit);
+    }
+
+    std::shared_ptr<IHttpBody> localVarHttpBody;
+    utility::string_t localVarRequestHttpContentType;
+
+    // use JSON if possible
+    if ( localVarConsumeHttpContentTypes.size() == 0 || localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // multipart formdata
+    else if( localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+    }
+    else if (localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/x-www-form-urlencoded")) != localVarConsumeHttpContentTypes.end())
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/x-www-form-urlencoded");
+    }
+    else
+    {
+        throw ApiException(415, utility::conversions::to_string_t("MiscApi->getMiscHolidayCalendar does not consume any supported media type"));
+    }
+
+
+    return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("GET"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
+    .then([=, this](web::http::http_response localVarResponse)
+    {
+        if (m_ApiClient->getResponseHandler())
+        {
+            m_ApiClient->getResponseHandler()(localVarResponse.status_code(), localVarResponse.headers());
+        }
+
+        // 1xx - informational : OK
+        // 2xx - successful       : OK
+        // 3xx - redirection   : OK
+        // 4xx - client error  : not OK
+        // 5xx - client error  : not OK
+        if (localVarResponse.status_code() >= 400)
+        {
+            throw ApiException(localVarResponse.status_code()
+                , utility::conversions::to_string_t("error calling getMiscHolidayCalendar: ") + localVarResponse.reason_phrase()
+                , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+        }
+
+        // check response content type
+        if(localVarResponse.headers().has(utility::conversions::to_string_t("Content-Type")))
+        {
+            utility::string_t localVarContentType = localVarResponse.headers()[utility::conversions::to_string_t("Content-Type")];
+            if( localVarContentType.find(localVarResponseHttpContentType) == std::string::npos )
+            {
+                throw ApiException(500
+                    , utility::conversions::to_string_t("error calling getMiscHolidayCalendar: unexpected response type: ") + localVarContentType
+                    , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+            }
+        }
+
+        return localVarResponse.extract_string();
+    })
+    .then([=, this](utility::string_t localVarResponse)
+    {
+        std::shared_ptr<Get_misc_holiday_calendar_200_response> localVarResult(new Get_misc_holiday_calendar_200_response());
+
+        if(localVarResponseHttpContentType == utility::conversions::to_string_t("application/json"))
+        {
+            web::json::value localVarJson = web::json::value::parse(localVarResponse);
+
+            ModelBase::fromJson(localVarJson, localVarResult);
+        }
+        // else if(localVarResponseHttpContentType == utility::conversions::to_string_t("multipart/form-data"))
+        // {
+        // TODO multipart response parsing
+        // }
+        else
+        {
+            throw ApiException(500
+                , utility::conversions::to_string_t("error calling getMiscHolidayCalendar: unsupported response type"));
+        }
+
+        return localVarResult;
+    });
+}
+pplx::task<std::shared_ptr<Get_misc_hotboard_200_response>> MiscApi::getMiscHotboard(utility::string_t type, boost::optional<int64_t> time, boost::optional<utility::string_t> keyword, boost::optional<int64_t> timeStart, boost::optional<int64_t> timeEnd, boost::optional<int32_t> limit, boost::optional<bool> sources) const
 {
 
 
@@ -328,6 +628,30 @@ pplx::task<std::shared_ptr<Get_misc_hotboard_200_response>> MiscApi::getMiscHotb
 
     {
         localVarQueryParams[utility::conversions::to_string_t("type")] = ApiClient::parameterToString(type);
+    }
+    if (time)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("time")] = ApiClient::parameterToString(*time);
+    }
+    if (keyword)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("keyword")] = ApiClient::parameterToString(*keyword);
+    }
+    if (timeStart)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("time_start")] = ApiClient::parameterToString(*timeStart);
+    }
+    if (timeEnd)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("time_end")] = ApiClient::parameterToString(*timeEnd);
+    }
+    if (limit)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("limit")] = ApiClient::parameterToString(*limit);
+    }
+    if (sources)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("sources")] = ApiClient::parameterToString(*sources);
     }
 
     std::shared_ptr<IHttpBody> localVarHttpBody;
@@ -405,6 +729,136 @@ pplx::task<std::shared_ptr<Get_misc_hotboard_200_response>> MiscApi::getMiscHotb
         {
             throw ApiException(500
                 , utility::conversions::to_string_t("error calling getMiscHotboard: unsupported response type"));
+        }
+
+        return localVarResult;
+    });
+}
+pplx::task<std::shared_ptr<Get_misc_lunartime_200_response>> MiscApi::getMiscLunartime(boost::optional<utility::string_t> ts, boost::optional<utility::string_t> timezone) const
+{
+
+
+    std::shared_ptr<const ApiConfiguration> localVarApiConfiguration( m_ApiClient->getConfiguration() );
+    utility::string_t localVarPath = utility::conversions::to_string_t("/misc/lunartime");
+
+    std::map<utility::string_t, utility::string_t> localVarQueryParams;
+    std::map<utility::string_t, utility::string_t> localVarHeaderParams( localVarApiConfiguration->getDefaultHeaders() );
+    std::map<utility::string_t, utility::string_t> localVarFormParams;
+    std::map<utility::string_t, std::shared_ptr<HttpContent>> localVarFileParams;
+
+    std::unordered_set<utility::string_t> localVarResponseHttpContentTypes;
+    localVarResponseHttpContentTypes.insert( utility::conversions::to_string_t("application/json") );
+
+    utility::string_t localVarResponseHttpContentType;
+
+    // use JSON if possible
+    if ( localVarResponseHttpContentTypes.size() == 0 )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // JSON
+    else if ( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // multipart formdata
+    else if( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+    }
+    else
+    {
+        throw ApiException(400, utility::conversions::to_string_t("MiscApi->getMiscLunartime does not produce any supported media type"));
+    }
+
+    localVarHeaderParams[utility::conversions::to_string_t("Accept")] = localVarResponseHttpContentType;
+
+    std::unordered_set<utility::string_t> localVarConsumeHttpContentTypes;
+
+    if (ts)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("ts")] = ApiClient::parameterToString(*ts);
+    }
+    if (timezone)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("timezone")] = ApiClient::parameterToString(*timezone);
+    }
+
+    std::shared_ptr<IHttpBody> localVarHttpBody;
+    utility::string_t localVarRequestHttpContentType;
+
+    // use JSON if possible
+    if ( localVarConsumeHttpContentTypes.size() == 0 || localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // multipart formdata
+    else if( localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+    }
+    else if (localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/x-www-form-urlencoded")) != localVarConsumeHttpContentTypes.end())
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/x-www-form-urlencoded");
+    }
+    else
+    {
+        throw ApiException(415, utility::conversions::to_string_t("MiscApi->getMiscLunartime does not consume any supported media type"));
+    }
+
+
+    return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("GET"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
+    .then([=, this](web::http::http_response localVarResponse)
+    {
+        if (m_ApiClient->getResponseHandler())
+        {
+            m_ApiClient->getResponseHandler()(localVarResponse.status_code(), localVarResponse.headers());
+        }
+
+        // 1xx - informational : OK
+        // 2xx - successful       : OK
+        // 3xx - redirection   : OK
+        // 4xx - client error  : not OK
+        // 5xx - client error  : not OK
+        if (localVarResponse.status_code() >= 400)
+        {
+            throw ApiException(localVarResponse.status_code()
+                , utility::conversions::to_string_t("error calling getMiscLunartime: ") + localVarResponse.reason_phrase()
+                , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+        }
+
+        // check response content type
+        if(localVarResponse.headers().has(utility::conversions::to_string_t("Content-Type")))
+        {
+            utility::string_t localVarContentType = localVarResponse.headers()[utility::conversions::to_string_t("Content-Type")];
+            if( localVarContentType.find(localVarResponseHttpContentType) == std::string::npos )
+            {
+                throw ApiException(500
+                    , utility::conversions::to_string_t("error calling getMiscLunartime: unexpected response type: ") + localVarContentType
+                    , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+            }
+        }
+
+        return localVarResponse.extract_string();
+    })
+    .then([=, this](utility::string_t localVarResponse)
+    {
+        std::shared_ptr<Get_misc_lunartime_200_response> localVarResult(new Get_misc_lunartime_200_response());
+
+        if(localVarResponseHttpContentType == utility::conversions::to_string_t("application/json"))
+        {
+            web::json::value localVarJson = web::json::value::parse(localVarResponse);
+
+            ModelBase::fromJson(localVarJson, localVarResult);
+        }
+        // else if(localVarResponseHttpContentType == utility::conversions::to_string_t("multipart/form-data"))
+        // {
+        // TODO multipart response parsing
+        // }
+        else
+        {
+            throw ApiException(500
+                , utility::conversions::to_string_t("error calling getMiscLunartime: unsupported response type"));
         }
 
         return localVarResult;
@@ -1053,7 +1507,7 @@ pplx::task<std::shared_ptr<Get_misc_tracking_detect_200_response>> MiscApi::getM
         return localVarResult;
     });
 }
-pplx::task<std::shared_ptr<Get_misc_tracking_query_200_response>> MiscApi::getMiscTrackingQuery(utility::string_t trackingNumber, boost::optional<utility::string_t> carrierCode) const
+pplx::task<std::shared_ptr<Get_misc_tracking_query_200_response>> MiscApi::getMiscTrackingQuery(utility::string_t trackingNumber, boost::optional<utility::string_t> carrierCode, boost::optional<utility::string_t> phone) const
 {
 
 
@@ -1100,6 +1554,10 @@ pplx::task<std::shared_ptr<Get_misc_tracking_query_200_response>> MiscApi::getMi
     if (carrierCode)
     {
         localVarQueryParams[utility::conversions::to_string_t("carrier_code")] = ApiClient::parameterToString(*carrierCode);
+    }
+    if (phone)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("phone")] = ApiClient::parameterToString(*phone);
     }
 
     std::shared_ptr<IHttpBody> localVarHttpBody;
@@ -1182,7 +1640,7 @@ pplx::task<std::shared_ptr<Get_misc_tracking_query_200_response>> MiscApi::getMi
         return localVarResult;
     });
 }
-pplx::task<std::shared_ptr<Get_misc_weather_200_response>> MiscApi::getMiscWeather(boost::optional<utility::string_t> city, boost::optional<utility::string_t> adcode) const
+pplx::task<std::shared_ptr<Get_misc_weather_200_response>> MiscApi::getMiscWeather(boost::optional<utility::string_t> city, boost::optional<utility::string_t> adcode, boost::optional<bool> extended, boost::optional<bool> forecast, boost::optional<bool> hourly, boost::optional<bool> minutely, boost::optional<bool> indices, boost::optional<utility::string_t> lang) const
 {
 
 
@@ -1230,6 +1688,30 @@ pplx::task<std::shared_ptr<Get_misc_weather_200_response>> MiscApi::getMiscWeath
     if (adcode)
     {
         localVarQueryParams[utility::conversions::to_string_t("adcode")] = ApiClient::parameterToString(*adcode);
+    }
+    if (extended)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("extended")] = ApiClient::parameterToString(*extended);
+    }
+    if (forecast)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("forecast")] = ApiClient::parameterToString(*forecast);
+    }
+    if (hourly)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("hourly")] = ApiClient::parameterToString(*hourly);
+    }
+    if (minutely)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("minutely")] = ApiClient::parameterToString(*minutely);
+    }
+    if (indices)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("indices")] = ApiClient::parameterToString(*indices);
+    }
+    if (lang)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("lang")] = ApiClient::parameterToString(*lang);
     }
 
     std::shared_ptr<IHttpBody> localVarHttpBody;
@@ -1432,6 +1914,151 @@ pplx::task<std::shared_ptr<Get_misc_worldtime_200_response>> MiscApi::getMiscWor
         {
             throw ApiException(500
                 , utility::conversions::to_string_t("error calling getMiscWorldtime: unsupported response type"));
+        }
+
+        return localVarResult;
+    });
+}
+pplx::task<std::shared_ptr<Post_misc_date_diff_200_response>> MiscApi::postMiscDateDiff(std::shared_ptr<Post_misc_date_diff_request> postMiscDateDiffRequest) const
+{
+
+    // verify the required parameter 'postMiscDateDiffRequest' is set
+    if (postMiscDateDiffRequest == nullptr)
+    {
+        throw ApiException(400, utility::conversions::to_string_t("Missing required parameter 'postMiscDateDiffRequest' when calling MiscApi->postMiscDateDiff"));
+    }
+
+
+    std::shared_ptr<const ApiConfiguration> localVarApiConfiguration( m_ApiClient->getConfiguration() );
+    utility::string_t localVarPath = utility::conversions::to_string_t("/misc/date-diff");
+
+    std::map<utility::string_t, utility::string_t> localVarQueryParams;
+    std::map<utility::string_t, utility::string_t> localVarHeaderParams( localVarApiConfiguration->getDefaultHeaders() );
+    std::map<utility::string_t, utility::string_t> localVarFormParams;
+    std::map<utility::string_t, std::shared_ptr<HttpContent>> localVarFileParams;
+
+    std::unordered_set<utility::string_t> localVarResponseHttpContentTypes;
+    localVarResponseHttpContentTypes.insert( utility::conversions::to_string_t("application/json") );
+
+    utility::string_t localVarResponseHttpContentType;
+
+    // use JSON if possible
+    if ( localVarResponseHttpContentTypes.size() == 0 )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // JSON
+    else if ( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("application/json");
+    }
+    // multipart formdata
+    else if( localVarResponseHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarResponseHttpContentTypes.end() )
+    {
+        localVarResponseHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+    }
+    else
+    {
+        throw ApiException(400, utility::conversions::to_string_t("MiscApi->postMiscDateDiff does not produce any supported media type"));
+    }
+
+    localVarHeaderParams[utility::conversions::to_string_t("Accept")] = localVarResponseHttpContentType;
+
+    std::unordered_set<utility::string_t> localVarConsumeHttpContentTypes;
+    localVarConsumeHttpContentTypes.insert( utility::conversions::to_string_t("application/json") );
+
+
+    std::shared_ptr<IHttpBody> localVarHttpBody;
+    utility::string_t localVarRequestHttpContentType;
+
+    // use JSON if possible
+    if ( localVarConsumeHttpContentTypes.size() == 0 || localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/json")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/json");
+        web::json::value localVarJson;
+
+        localVarJson = ModelBase::toJson(postMiscDateDiffRequest);
+        
+
+        localVarHttpBody = std::shared_ptr<IHttpBody>( new JsonBody( localVarJson ) );
+    }
+    // multipart formdata
+    else if( localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("multipart/form-data")) != localVarConsumeHttpContentTypes.end() )
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("multipart/form-data");
+        std::shared_ptr<MultipartFormData> localVarMultipart(new MultipartFormData);
+
+        if(postMiscDateDiffRequest.get())
+        {
+            postMiscDateDiffRequest->toMultipart(localVarMultipart, utility::conversions::to_string_t("postMiscDateDiffRequest"));
+        }
+        
+
+        localVarHttpBody = localVarMultipart;
+        localVarRequestHttpContentType += utility::conversions::to_string_t("; boundary=") + localVarMultipart->getBoundary();
+    }
+    else if (localVarConsumeHttpContentTypes.find(utility::conversions::to_string_t("application/x-www-form-urlencoded")) != localVarConsumeHttpContentTypes.end())
+    {
+        localVarRequestHttpContentType = utility::conversions::to_string_t("application/x-www-form-urlencoded");
+    }
+    else
+    {
+        throw ApiException(415, utility::conversions::to_string_t("MiscApi->postMiscDateDiff does not consume any supported media type"));
+    }
+
+
+    return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("POST"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
+    .then([=, this](web::http::http_response localVarResponse)
+    {
+        if (m_ApiClient->getResponseHandler())
+        {
+            m_ApiClient->getResponseHandler()(localVarResponse.status_code(), localVarResponse.headers());
+        }
+
+        // 1xx - informational : OK
+        // 2xx - successful       : OK
+        // 3xx - redirection   : OK
+        // 4xx - client error  : not OK
+        // 5xx - client error  : not OK
+        if (localVarResponse.status_code() >= 400)
+        {
+            throw ApiException(localVarResponse.status_code()
+                , utility::conversions::to_string_t("error calling postMiscDateDiff: ") + localVarResponse.reason_phrase()
+                , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+        }
+
+        // check response content type
+        if(localVarResponse.headers().has(utility::conversions::to_string_t("Content-Type")))
+        {
+            utility::string_t localVarContentType = localVarResponse.headers()[utility::conversions::to_string_t("Content-Type")];
+            if( localVarContentType.find(localVarResponseHttpContentType) == std::string::npos )
+            {
+                throw ApiException(500
+                    , utility::conversions::to_string_t("error calling postMiscDateDiff: unexpected response type: ") + localVarContentType
+                    , std::make_shared<std::stringstream>(localVarResponse.extract_utf8string(true).get()));
+            }
+        }
+
+        return localVarResponse.extract_string();
+    })
+    .then([=, this](utility::string_t localVarResponse)
+    {
+        std::shared_ptr<Post_misc_date_diff_200_response> localVarResult(new Post_misc_date_diff_200_response());
+
+        if(localVarResponseHttpContentType == utility::conversions::to_string_t("application/json"))
+        {
+            web::json::value localVarJson = web::json::value::parse(localVarResponse);
+
+            ModelBase::fromJson(localVarJson, localVarResult);
+        }
+        // else if(localVarResponseHttpContentType == utility::conversions::to_string_t("multipart/form-data"))
+        // {
+        // TODO multipart response parsing
+        // }
+        else
+        {
+            throw ApiException(500
+                , utility::conversions::to_string_t("error calling postMiscDateDiff: unsupported response type"));
         }
 
         return localVarResult;

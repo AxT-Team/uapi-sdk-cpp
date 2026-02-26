@@ -20,8 +20,6 @@ namespace model {
 
 Get_game_minecraft_serverstatus_200_response::Get_game_minecraft_serverstatus_200_response()
 {
-    m_Code = 0;
-    m_CodeIsSet = false;
     m_Favicon_url = utility::conversions::to_string_t("");
     m_Favicon_urlIsSet = false;
     m_Ip = utility::conversions::to_string_t("");
@@ -54,11 +52,6 @@ void Get_game_minecraft_serverstatus_200_response::validate()
 web::json::value Get_game_minecraft_serverstatus_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
-    }
     if(m_Favicon_urlIsSet)
     {   
         
@@ -111,17 +104,6 @@ web::json::value Get_game_minecraft_serverstatus_200_response::toJson() const
 bool Get_game_minecraft_serverstatus_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
-            
-        }
-    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("favicon_url"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("favicon_url")));
@@ -231,10 +213,6 @@ void Get_game_minecraft_serverstatus_200_response::toMultipart(std::shared_ptr<M
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
-    }
     if(m_Favicon_urlIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("favicon_url")), m_Favicon_url));
@@ -282,12 +260,6 @@ bool Get_game_minecraft_serverstatus_200_response::fromMultiPart(std::shared_ptr
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
-    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("favicon_url"))))
     {
         utility::string_t refVal_setFaviconUrl;
@@ -346,26 +318,6 @@ bool Get_game_minecraft_serverstatus_200_response::fromMultiPart(std::shared_ptr
 }
 
 
-int32_t Get_game_minecraft_serverstatus_200_response::getCode() const
-{
-    return m_Code;
-}
-
-void Get_game_minecraft_serverstatus_200_response::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_game_minecraft_serverstatus_200_response::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_game_minecraft_serverstatus_200_response::unsetCode()
-{
-    m_CodeIsSet = false;
-}
 utility::string_t Get_game_minecraft_serverstatus_200_response::getFaviconUrl() const
 {
     return m_Favicon_url;

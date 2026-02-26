@@ -109,6 +109,94 @@ public:
     void unsetLast_updated();
     void setLastUpdated(const utility::string_t& value);
 
+    /// <summary>
+    /// 当前成员数
+    /// </summary>
+    int32_t getMemberCount() const;
+    bool memberCountIsSet() const;
+    void unsetMember_count();
+    void setMemberCount(int32_t value);
+
+    /// <summary>
+    /// 最大成员数
+    /// </summary>
+    int32_t getMaxMemberCount() const;
+    bool maxMemberCountIsSet() const;
+    void unsetMax_member_count();
+    void setMaxMemberCount(int32_t value);
+
+    /// <summary>
+    /// 活跃成员数（可选，部分群有此数据）
+    /// </summary>
+    int32_t getActiveMemberNum() const;
+    bool activeMemberNumIsSet() const;
+    void unsetActive_member_num();
+    void setActiveMemberNum(int32_t value);
+
+    /// <summary>
+    /// 群主QQ号（可选）
+    /// </summary>
+    utility::string_t getOwnerUin() const;
+    bool ownerUinIsSet() const;
+    void unsetOwner_uin();
+    void setOwnerUin(const utility::string_t& value);
+
+    /// <summary>
+    /// 群主UID（可选）
+    /// </summary>
+    utility::string_t getOwnerUid() const;
+    bool ownerUidIsSet() const;
+    void unsetOwner_uid();
+    void setOwnerUid(const utility::string_t& value);
+
+    /// <summary>
+    /// 建群时间戳（Unix时间戳，可选）
+    /// </summary>
+    int32_t getCreateTime() const;
+    bool createTimeIsSet() const;
+    void unsetCreate_time();
+    void setCreateTime(int32_t value);
+
+    /// <summary>
+    /// 建群时间格式化字符串（可选）
+    /// </summary>
+    utility::string_t getCreateTimeStr() const;
+    bool createTimeStrIsSet() const;
+    void unsetCreate_time_str();
+    void setCreateTimeStr(const utility::string_t& value);
+
+    /// <summary>
+    /// 群等级（可选）
+    /// </summary>
+    int32_t getGroupGrade() const;
+    bool groupGradeIsSet() const;
+    void unsetGroup_grade();
+    void setGroupGrade(int32_t value);
+
+    /// <summary>
+    /// 群公告/简介（可选）
+    /// </summary>
+    utility::string_t getGroupMemo() const;
+    bool groupMemoIsSet() const;
+    void unsetGroup_memo();
+    void setGroupMemo(const utility::string_t& value);
+
+    /// <summary>
+    /// 认证类型（0&#x3D;未认证，可选）
+    /// </summary>
+    int32_t getCertType() const;
+    bool certTypeIsSet() const;
+    void unsetCert_type();
+    void setCertType(int32_t value);
+
+    /// <summary>
+    /// 认证说明文本（可选）
+    /// </summary>
+    utility::string_t getCertText() const;
+    bool certTextIsSet() const;
+    void unsetCert_text();
+    void setCertText(const utility::string_t& value);
+
 
 protected:
     utility::string_t m_Group_id;
@@ -131,6 +219,39 @@ protected:
 
     utility::string_t m_Last_updated;
     bool m_Last_updatedIsSet;
+
+    int32_t m_Member_count;
+    bool m_Member_countIsSet;
+
+    int32_t m_Max_member_count;
+    bool m_Max_member_countIsSet;
+
+    int32_t m_Active_member_num;
+    bool m_Active_member_numIsSet;
+
+    utility::string_t m_Owner_uin;
+    bool m_Owner_uinIsSet;
+
+    utility::string_t m_Owner_uid;
+    bool m_Owner_uidIsSet;
+
+    int32_t m_Create_time;
+    bool m_Create_timeIsSet;
+
+    utility::string_t m_Create_time_str;
+    bool m_Create_time_strIsSet;
+
+    int32_t m_Group_grade;
+    bool m_Group_gradeIsSet;
+
+    utility::string_t m_Group_memo;
+    bool m_Group_memoIsSet;
+
+    int32_t m_Cert_type;
+    bool m_Cert_typeIsSet;
+
+    utility::string_t m_Cert_text;
+    bool m_Cert_textIsSet;
 
 };
 

@@ -22,13 +22,10 @@ Post_sensitive_word_analyze_200_response_results_inner::Post_sensitive_word_anal
 {
     m_k = utility::conversions::to_string_t("");
     m_kIsSet = false;
-    m_r = utility::conversions::to_string_t("");
-    m_rIsSet = false;
-    m_sIsSet = false;
-    m_vIsSet = false;
-    m_tIsSet = false;
-    m_d = utility::conversions::to_string_t("");
-    m_dIsSet = false;
+    m_LabelIsSet = false;
+    m_CategoryIsSet = false;
+    m_Confidence = 0.0;
+    m_ConfidenceIsSet = false;
 }
 
 Post_sensitive_word_analyze_200_response_results_inner::~Post_sensitive_word_analyze_200_response_results_inner()
@@ -48,30 +45,24 @@ web::json::value Post_sensitive_word_analyze_200_response_results_inner::toJson(
         
         val[utility::conversions::to_string_t(_XPLATSTR("k"))] = ModelBase::toJson(m_k);
     }
-    if(m_rIsSet)
+    if(m_LabelIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("r"))] = ModelBase::toJson(m_r);
+        utility::string_t refVal = fromLabelEnum(m_Label);
+        val[utility::conversions::to_string_t(_XPLATSTR("label"))] = ModelBase::toJson(refVal);
+        
     }
-    if(m_sIsSet)
+    if(m_CategoryIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("s"))] = ModelBase::toJson(m_s);
+        utility::string_t refVal = fromCategoryEnum(m_Category);
+        val[utility::conversions::to_string_t(_XPLATSTR("category"))] = ModelBase::toJson(refVal);
+        
     }
-    if(m_vIsSet)
+    if(m_ConfidenceIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("v"))] = ModelBase::toJson(m_v);
-    }
-    if(m_tIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("t"))] = ModelBase::toJson(m_t);
-    }
-    if(m_dIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("d"))] = ModelBase::toJson(m_d);
+        val[utility::conversions::to_string_t(_XPLATSTR("confidence"))] = ModelBase::toJson(m_Confidence);
     }
 
     return val;
@@ -91,58 +82,38 @@ bool Post_sensitive_word_analyze_200_response_results_inner::fromJson(const web:
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("r"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("label"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("r")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("label")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setR;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setR);
-            setR(refVal_setR);
+            utility::string_t refVal_setLabel;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLabel);
+            
+            setLabel(toLabelEnum(refVal_setLabel));
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("s"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("category"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("s")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("category")));
         if(!fieldValue.is_null())
         {
-            std::vector<double> refVal_setS;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setS);
-            setS(refVal_setS);
+            utility::string_t refVal_setCategory;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCategory);
+            
+            setCategory(toCategoryEnum(refVal_setCategory));
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("v"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("confidence"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("v")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("confidence")));
         if(!fieldValue.is_null())
         {
-            std::vector<utility::string_t> refVal_setV;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setV);
-            setV(refVal_setV);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("t"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("t")));
-        if(!fieldValue.is_null())
-        {
-            std::vector<utility::string_t> refVal_setT;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setT);
-            setT(refVal_setT);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("d"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("d")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setD;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setD);
-            setD(refVal_setD);
+            double refVal_setConfidence;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setConfidence);
+            setConfidence(refVal_setConfidence);
             
         }
     }
@@ -160,25 +131,17 @@ void Post_sensitive_word_analyze_200_response_results_inner::toMultipart(std::sh
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("k")), m_k));
     }
-    if(m_rIsSet)
+    if(m_LabelIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("r")), m_r));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("label")), fromLabelEnum(m_Label)));
     }
-    if(m_sIsSet)
+    if(m_CategoryIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("s")), m_s));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("category")), fromCategoryEnum(m_Category)));
     }
-    if(m_vIsSet)
+    if(m_ConfidenceIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("v")), m_v));
-    }
-    if(m_tIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("t")), m_t));
-    }
-    if(m_dIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("d")), m_d));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("confidence")), m_Confidence));
     }
 }
 
@@ -197,37 +160,97 @@ bool Post_sensitive_word_analyze_200_response_results_inner::fromMultiPart(std::
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("k"))), refVal_setK );
         setK(refVal_setK);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("r"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("label"))))
     {
-        utility::string_t refVal_setR;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("r"))), refVal_setR );
-        setR(refVal_setR);
+        utility::string_t refVal_setLabel;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("label"))), refVal_setLabel );
+        setLabel(toLabelEnum(refVal_setLabel));
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("s"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("category"))))
     {
-        std::vector<double> refVal_setS;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("s"))), refVal_setS );
-        setS(refVal_setS);
+        utility::string_t refVal_setCategory;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("category"))), refVal_setCategory );
+        setCategory(toCategoryEnum(refVal_setCategory));
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("v"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("confidence"))))
     {
-        std::vector<utility::string_t> refVal_setV;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("v"))), refVal_setV );
-        setV(refVal_setV);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("t"))))
-    {
-        std::vector<utility::string_t> refVal_setT;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("t"))), refVal_setT );
-        setT(refVal_setT);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("d"))))
-    {
-        utility::string_t refVal_setD;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("d"))), refVal_setD );
-        setD(refVal_setD);
+        double refVal_setConfidence;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("confidence"))), refVal_setConfidence );
+        setConfidence(refVal_setConfidence);
     }
     return ok;
+}
+
+Post_sensitive_word_analyze_200_response_results_inner::LabelEnum Post_sensitive_word_analyze_200_response_results_inner::toLabelEnum(const utility::string_t& value) const
+{
+    
+    if (value == utility::conversions::to_string_t("sensitive")) {
+        return LabelEnum::SENSITIVE;
+    }
+    
+    if (value == utility::conversions::to_string_t("normal")) {
+        return LabelEnum::NORMAL;
+    }
+    
+    throw std::invalid_argument("Invalid value for conversion to LabelEnum");
+}
+
+
+const utility::string_t Post_sensitive_word_analyze_200_response_results_inner::fromLabelEnum(const LabelEnum value) const
+{
+    switch(value)
+    {
+        
+        case LabelEnum::SENSITIVE: return utility::conversions::to_string_t("sensitive");
+        
+        case LabelEnum::NORMAL: return utility::conversions::to_string_t("normal");
+        
+    }
+}
+
+Post_sensitive_word_analyze_200_response_results_inner::CategoryEnum Post_sensitive_word_analyze_200_response_results_inner::toCategoryEnum(const utility::string_t& value) const
+{
+    
+    if (value == utility::conversions::to_string_t("safe")) {
+        return CategoryEnum::SAFE;
+    }
+    
+    if (value == utility::conversions::to_string_t("threat")) {
+        return CategoryEnum::THREAT;
+    }
+    
+    if (value == utility::conversions::to_string_t("porn")) {
+        return CategoryEnum::PORN;
+    }
+    
+    if (value == utility::conversions::to_string_t("fraud")) {
+        return CategoryEnum::FRAUD;
+    }
+    
+    if (value == utility::conversions::to_string_t("insult")) {
+        return CategoryEnum::INSULT;
+    }
+    
+    throw std::invalid_argument("Invalid value for conversion to CategoryEnum");
+}
+
+
+const utility::string_t Post_sensitive_word_analyze_200_response_results_inner::fromCategoryEnum(const CategoryEnum value) const
+{
+    switch(value)
+    {
+        
+        case CategoryEnum::SAFE: return utility::conversions::to_string_t("safe");
+        
+        case CategoryEnum::THREAT: return utility::conversions::to_string_t("threat");
+        
+        case CategoryEnum::PORN: return utility::conversions::to_string_t("porn");
+        
+        case CategoryEnum::FRAUD: return utility::conversions::to_string_t("fraud");
+        
+        case CategoryEnum::INSULT: return utility::conversions::to_string_t("insult");
+        
+    }
 }
 
 
@@ -252,109 +275,67 @@ void Post_sensitive_word_analyze_200_response_results_inner::unsetk()
 {
     m_kIsSet = false;
 }
-utility::string_t Post_sensitive_word_analyze_200_response_results_inner::getR() const
+Post_sensitive_word_analyze_200_response_results_inner::LabelEnum Post_sensitive_word_analyze_200_response_results_inner::getLabel() const
 {
-    return m_r;
+    return m_Label;
 }
 
 
-void Post_sensitive_word_analyze_200_response_results_inner::setR(const utility::string_t& value)
+void Post_sensitive_word_analyze_200_response_results_inner::setLabel(const LabelEnum value)
 {
-    m_r = value;
-    m_rIsSet = true;
+    m_Label = value;
+    m_LabelIsSet = true;
 }
 
-bool Post_sensitive_word_analyze_200_response_results_inner::RIsSet() const
+bool Post_sensitive_word_analyze_200_response_results_inner::labelIsSet() const
 {
-    return m_rIsSet;
+    return m_LabelIsSet;
 }
 
-void Post_sensitive_word_analyze_200_response_results_inner::unsetr()
+void Post_sensitive_word_analyze_200_response_results_inner::unsetLabel()
 {
-    m_rIsSet = false;
+    m_LabelIsSet = false;
 }
-std::vector<double> Post_sensitive_word_analyze_200_response_results_inner::getS() const
+Post_sensitive_word_analyze_200_response_results_inner::CategoryEnum Post_sensitive_word_analyze_200_response_results_inner::getCategory() const
 {
-    return m_s;
-}
-
-void Post_sensitive_word_analyze_200_response_results_inner::setS(std::vector<double> value)
-{
-    m_s = value;
-    m_sIsSet = true;
-}
-
-bool Post_sensitive_word_analyze_200_response_results_inner::SIsSet() const
-{
-    return m_sIsSet;
-}
-
-void Post_sensitive_word_analyze_200_response_results_inner::unsets()
-{
-    m_sIsSet = false;
-}
-std::vector<utility::string_t> Post_sensitive_word_analyze_200_response_results_inner::getV() const
-{
-    return m_v;
+    return m_Category;
 }
 
 
-void Post_sensitive_word_analyze_200_response_results_inner::setV(const std::vector<utility::string_t>& value)
+void Post_sensitive_word_analyze_200_response_results_inner::setCategory(const CategoryEnum value)
 {
-    m_v = value;
-    m_vIsSet = true;
+    m_Category = value;
+    m_CategoryIsSet = true;
 }
 
-bool Post_sensitive_word_analyze_200_response_results_inner::VIsSet() const
+bool Post_sensitive_word_analyze_200_response_results_inner::categoryIsSet() const
 {
-    return m_vIsSet;
+    return m_CategoryIsSet;
 }
 
-void Post_sensitive_word_analyze_200_response_results_inner::unsetv()
+void Post_sensitive_word_analyze_200_response_results_inner::unsetCategory()
 {
-    m_vIsSet = false;
+    m_CategoryIsSet = false;
 }
-std::vector<utility::string_t> Post_sensitive_word_analyze_200_response_results_inner::getT() const
+double Post_sensitive_word_analyze_200_response_results_inner::getConfidence() const
 {
-    return m_t;
-}
-
-
-void Post_sensitive_word_analyze_200_response_results_inner::setT(const std::vector<utility::string_t>& value)
-{
-    m_t = value;
-    m_tIsSet = true;
+    return m_Confidence;
 }
 
-bool Post_sensitive_word_analyze_200_response_results_inner::TIsSet() const
+void Post_sensitive_word_analyze_200_response_results_inner::setConfidence(double value)
 {
-    return m_tIsSet;
+    m_Confidence = value;
+    m_ConfidenceIsSet = true;
 }
 
-void Post_sensitive_word_analyze_200_response_results_inner::unsett()
+bool Post_sensitive_word_analyze_200_response_results_inner::confidenceIsSet() const
 {
-    m_tIsSet = false;
-}
-utility::string_t Post_sensitive_word_analyze_200_response_results_inner::getD() const
-{
-    return m_d;
+    return m_ConfidenceIsSet;
 }
 
-
-void Post_sensitive_word_analyze_200_response_results_inner::setD(const utility::string_t& value)
+void Post_sensitive_word_analyze_200_response_results_inner::unsetConfidence()
 {
-    m_d = value;
-    m_dIsSet = true;
-}
-
-bool Post_sensitive_word_analyze_200_response_results_inner::DIsSet() const
-{
-    return m_dIsSet;
-}
-
-void Post_sensitive_word_analyze_200_response_results_inner::unsetd()
-{
-    m_dIsSet = false;
+    m_ConfidenceIsSet = false;
 }
 
 }

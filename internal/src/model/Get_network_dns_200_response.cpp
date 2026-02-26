@@ -20,8 +20,6 @@ namespace model {
 
 Get_network_dns_200_response::Get_network_dns_200_response()
 {
-    m_Code = 0;
-    m_CodeIsSet = false;
     m_Domain = utility::conversions::to_string_t("");
     m_DomainIsSet = false;
     m_Error = utility::conversions::to_string_t("");
@@ -43,11 +41,6 @@ void Get_network_dns_200_response::validate()
 web::json::value Get_network_dns_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
-    }
     if(m_DomainIsSet)
     {   
         
@@ -75,17 +68,6 @@ web::json::value Get_network_dns_200_response::toJson() const
 bool Get_network_dns_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
-            
-        }
-    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("domain"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("domain")));
@@ -140,10 +122,6 @@ void Get_network_dns_200_response::toMultipart(std::shared_ptr<MultipartFormData
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
-    }
     if(m_DomainIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("domain")), m_Domain));
@@ -171,12 +149,6 @@ bool Get_network_dns_200_response::fromMultiPart(std::shared_ptr<MultipartFormDa
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
-    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("domain"))))
     {
         utility::string_t refVal_setDomain;
@@ -205,26 +177,6 @@ bool Get_network_dns_200_response::fromMultiPart(std::shared_ptr<MultipartFormDa
 }
 
 
-int32_t Get_network_dns_200_response::getCode() const
-{
-    return m_Code;
-}
-
-void Get_network_dns_200_response::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_network_dns_200_response::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_network_dns_200_response::unsetCode()
-{
-    m_CodeIsSet = false;
-}
 utility::string_t Get_network_dns_200_response::getDomain() const
 {
     return m_Domain;

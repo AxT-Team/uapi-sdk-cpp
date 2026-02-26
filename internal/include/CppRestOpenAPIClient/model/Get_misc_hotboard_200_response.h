@@ -22,6 +22,7 @@
 #include "CppRestOpenAPIClient/ModelBase.h"
 
 #include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_list_inner.h"
+#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_results_inner.h"
 #include <cpprest/details/basic_types.h>
 #include <vector>
 
@@ -31,6 +32,7 @@ namespace client {
 namespace model {
 
 class Get_misc_hotboard_200_response_list_inner;
+class Get_misc_hotboard_200_response_results_inner;
 
 
 class  Get_misc_hotboard_200_response
@@ -74,6 +76,46 @@ public:
     void unsetUpdate_time();
     void setUpdateTime(const utility::string_t& value);
 
+    /// <summary>
+    /// 时光机模式返回的快照实际时间戳（毫秒）。
+    /// </summary>
+    int32_t getSnapshotTime() const;
+    bool snapshotTimeIsSet() const;
+    void unsetSnapshot_time();
+    void setSnapshotTime(int32_t value);
+
+    /// <summary>
+    /// 搜索模式返回的搜索关键词。
+    /// </summary>
+    utility::string_t getKeyword() const;
+    bool keywordIsSet() const;
+    void unsetKeyword();
+    void setKeyword(const utility::string_t& value);
+
+    /// <summary>
+    /// 搜索模式返回的结果数量。
+    /// </summary>
+    int32_t getCount() const;
+    bool countIsSet() const;
+    void unsetCount();
+    void setCount(int32_t value);
+
+    /// <summary>
+    /// 搜索模式返回的结果数组。
+    /// </summary>
+    std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>> getResults() const;
+    bool resultsIsSet() const;
+    void unsetResults();
+    void setResults(const std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>>& value);
+
+    /// <summary>
+    /// 数据源列表模式返回的可用历史数据源数组。
+    /// </summary>
+    std::vector<utility::string_t> getSources() const;
+    bool sourcesIsSet() const;
+    void unsetSources();
+    void setSources(const std::vector<utility::string_t>& value);
+
 
 protected:
     std::vector<std::shared_ptr<Get_misc_hotboard_200_response_list_inner>> m_List;
@@ -84,6 +126,21 @@ protected:
 
     utility::string_t m_Update_time;
     bool m_Update_timeIsSet;
+
+    int32_t m_Snapshot_time;
+    bool m_Snapshot_timeIsSet;
+
+    utility::string_t m_Keyword;
+    bool m_KeywordIsSet;
+
+    int32_t m_Count;
+    bool m_CountIsSet;
+
+    std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>> m_Results;
+    bool m_ResultsIsSet;
+
+    std::vector<utility::string_t> m_Sources;
+    bool m_SourcesIsSet;
 
 };
 

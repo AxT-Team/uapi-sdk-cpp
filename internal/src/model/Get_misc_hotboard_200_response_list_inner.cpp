@@ -29,6 +29,8 @@ Get_misc_hotboard_200_response_list_inner::Get_misc_hotboard_200_response_list_i
     m_TitleIsSet = false;
     m_Url = utility::conversions::to_string_t("");
     m_UrlIsSet = false;
+    m_Cover = utility::conversions::to_string_t("");
+    m_CoverIsSet = false;
 }
 
 Get_misc_hotboard_200_response_list_inner::~Get_misc_hotboard_200_response_list_inner()
@@ -67,6 +69,11 @@ web::json::value Get_misc_hotboard_200_response_list_inner::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("url"))] = ModelBase::toJson(m_Url);
+    }
+    if(m_CoverIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("cover"))] = ModelBase::toJson(m_Cover);
     }
 
     return val;
@@ -130,6 +137,17 @@ bool Get_misc_hotboard_200_response_list_inner::fromJson(const web::json::value&
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("cover"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("cover")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setCover;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCover);
+            setCover(refVal_setCover);
+            
+        }
+    }
     return ok;
 }
 
@@ -159,6 +177,10 @@ void Get_misc_hotboard_200_response_list_inner::toMultipart(std::shared_ptr<Mult
     if(m_UrlIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("url")), m_Url));
+    }
+    if(m_CoverIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("cover")), m_Cover));
     }
 }
 
@@ -200,6 +222,12 @@ bool Get_misc_hotboard_200_response_list_inner::fromMultiPart(std::shared_ptr<Mu
         utility::string_t refVal_setUrl;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("url"))), refVal_setUrl );
         setUrl(refVal_setUrl);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("cover"))))
+    {
+        utility::string_t refVal_setCover;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("cover"))), refVal_setCover );
+        setCover(refVal_setCover);
     }
     return ok;
 }
@@ -308,6 +336,27 @@ bool Get_misc_hotboard_200_response_list_inner::urlIsSet() const
 void Get_misc_hotboard_200_response_list_inner::unsetUrl()
 {
     m_UrlIsSet = false;
+}
+utility::string_t Get_misc_hotboard_200_response_list_inner::getCover() const
+{
+    return m_Cover;
+}
+
+
+void Get_misc_hotboard_200_response_list_inner::setCover(const utility::string_t& value)
+{
+    m_Cover = value;
+    m_CoverIsSet = true;
+}
+
+bool Get_misc_hotboard_200_response_list_inner::coverIsSet() const
+{
+    return m_CoverIsSet;
+}
+
+void Get_misc_hotboard_200_response_list_inner::unsetCover()
+{
+    m_CoverIsSet = false;
 }
 
 }

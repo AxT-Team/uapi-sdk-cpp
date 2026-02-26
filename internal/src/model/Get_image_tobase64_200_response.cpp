@@ -22,8 +22,6 @@ Get_image_tobase64_200_response::Get_image_tobase64_200_response()
 {
     m_Base64 = utility::conversions::to_string_t("");
     m_Base64IsSet = false;
-    m_Code = 0;
-    m_CodeIsSet = false;
     m_Msg = utility::conversions::to_string_t("");
     m_MsgIsSet = false;
 }
@@ -45,11 +43,6 @@ web::json::value Get_image_tobase64_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("base64"))] = ModelBase::toJson(m_Base64);
     }
-    if(m_CodeIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
-    }
     if(m_MsgIsSet)
     {   
         
@@ -70,17 +63,6 @@ bool Get_image_tobase64_200_response::fromJson(const web::json::value& val)
             utility::string_t refVal_setBase64;
             ok &= ModelBase::fromJson(fieldValue, refVal_setBase64);
             setBase64(refVal_setBase64);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
             
         }
     }
@@ -109,10 +91,6 @@ void Get_image_tobase64_200_response::toMultipart(std::shared_ptr<MultipartFormD
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("base64")), m_Base64));
     }
-    if(m_CodeIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
-    }
     if(m_MsgIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("msg")), m_Msg));
@@ -133,12 +111,6 @@ bool Get_image_tobase64_200_response::fromMultiPart(std::shared_ptr<MultipartFor
         utility::string_t refVal_setBase64;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("base64"))), refVal_setBase64 );
         setBase64(refVal_setBase64);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("msg"))))
     {
@@ -170,26 +142,6 @@ bool Get_image_tobase64_200_response::base64IsSet() const
 void Get_image_tobase64_200_response::unsetBase64()
 {
     m_Base64IsSet = false;
-}
-int32_t Get_image_tobase64_200_response::getCode() const
-{
-    return m_Code;
-}
-
-void Get_image_tobase64_200_response::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_image_tobase64_200_response::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_image_tobase64_200_response::unsetCode()
-{
-    m_CodeIsSet = false;
 }
 utility::string_t Get_image_tobase64_200_response::getMsg() const
 {

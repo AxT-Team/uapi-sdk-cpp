@@ -56,11 +56,6 @@ public:
     /// Get_history_programmer_today_200_response members
 
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
     utility::string_t getMessage() const;
     bool messageIsSet() const;
     void unsetMessage();
@@ -78,9 +73,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Message;
     bool m_MessageIsSet;
 

@@ -20,24 +20,53 @@ namespace model {
 
 Get_misc_weather_200_response::Get_misc_weather_200_response()
 {
-    m_Adcode = utility::conversions::to_string_t("");
-    m_AdcodeIsSet = false;
-    m_City = utility::conversions::to_string_t("");
-    m_CityIsSet = false;
-    m_Humidity = 0;
-    m_HumidityIsSet = false;
     m_Province = utility::conversions::to_string_t("");
     m_ProvinceIsSet = false;
-    m_Report_time = utility::conversions::to_string_t("");
-    m_Report_timeIsSet = false;
-    m_Temperature = 0;
-    m_TemperatureIsSet = false;
+    m_City = utility::conversions::to_string_t("");
+    m_CityIsSet = false;
+    m_Adcode = utility::conversions::to_string_t("");
+    m_AdcodeIsSet = false;
     m_Weather = utility::conversions::to_string_t("");
     m_WeatherIsSet = false;
+    m_Temperature = 0.0;
+    m_TemperatureIsSet = false;
     m_Wind_direction = utility::conversions::to_string_t("");
     m_Wind_directionIsSet = false;
     m_Wind_power = utility::conversions::to_string_t("");
     m_Wind_powerIsSet = false;
+    m_Humidity = 0.0;
+    m_HumidityIsSet = false;
+    m_Report_time = utility::conversions::to_string_t("");
+    m_Report_timeIsSet = false;
+    m_Feels_like = 0.0;
+    m_Feels_likeIsSet = false;
+    m_Visibility = 0.0;
+    m_VisibilityIsSet = false;
+    m_Pressure = 0.0;
+    m_PressureIsSet = false;
+    m_Uv = 0.0;
+    m_UvIsSet = false;
+    m_Precipitation = 0.0;
+    m_PrecipitationIsSet = false;
+    m_Cloud = 0.0;
+    m_CloudIsSet = false;
+    m_Aqi = 0.0;
+    m_AqiIsSet = false;
+    m_Aqi_level = 0.0;
+    m_Aqi_levelIsSet = false;
+    m_Aqi_category = utility::conversions::to_string_t("");
+    m_Aqi_categoryIsSet = false;
+    m_Aqi_primary = utility::conversions::to_string_t("");
+    m_Aqi_primaryIsSet = false;
+    m_Air_pollutantsIsSet = false;
+    m_Temp_max = 0.0;
+    m_Temp_maxIsSet = false;
+    m_Temp_min = 0.0;
+    m_Temp_minIsSet = false;
+    m_ForecastIsSet = false;
+    m_Hourly_forecastIsSet = false;
+    m_Minutely_precipIsSet = false;
+    m_Life_indicesIsSet = false;
 }
 
 Get_misc_weather_200_response::~Get_misc_weather_200_response()
@@ -52,40 +81,30 @@ void Get_misc_weather_200_response::validate()
 web::json::value Get_misc_weather_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_AdcodeIsSet)
+    if(m_ProvinceIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("adcode"))] = ModelBase::toJson(m_Adcode);
+        val[utility::conversions::to_string_t(_XPLATSTR("province"))] = ModelBase::toJson(m_Province);
     }
     if(m_CityIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("city"))] = ModelBase::toJson(m_City);
     }
-    if(m_HumidityIsSet)
+    if(m_AdcodeIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("humidity"))] = ModelBase::toJson(m_Humidity);
-    }
-    if(m_ProvinceIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("province"))] = ModelBase::toJson(m_Province);
-    }
-    if(m_Report_timeIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("report_time"))] = ModelBase::toJson(m_Report_time);
-    }
-    if(m_TemperatureIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("temperature"))] = ModelBase::toJson(m_Temperature);
+        val[utility::conversions::to_string_t(_XPLATSTR("adcode"))] = ModelBase::toJson(m_Adcode);
     }
     if(m_WeatherIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("weather"))] = ModelBase::toJson(m_Weather);
+    }
+    if(m_TemperatureIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("temperature"))] = ModelBase::toJson(m_Temperature);
     }
     if(m_Wind_directionIsSet)
     {   
@@ -97,6 +116,101 @@ web::json::value Get_misc_weather_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("wind_power"))] = ModelBase::toJson(m_Wind_power);
     }
+    if(m_HumidityIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("humidity"))] = ModelBase::toJson(m_Humidity);
+    }
+    if(m_Report_timeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("report_time"))] = ModelBase::toJson(m_Report_time);
+    }
+    if(m_Feels_likeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("feels_like"))] = ModelBase::toJson(m_Feels_like);
+    }
+    if(m_VisibilityIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("visibility"))] = ModelBase::toJson(m_Visibility);
+    }
+    if(m_PressureIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("pressure"))] = ModelBase::toJson(m_Pressure);
+    }
+    if(m_UvIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("uv"))] = ModelBase::toJson(m_Uv);
+    }
+    if(m_PrecipitationIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("precipitation"))] = ModelBase::toJson(m_Precipitation);
+    }
+    if(m_CloudIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("cloud"))] = ModelBase::toJson(m_Cloud);
+    }
+    if(m_AqiIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("aqi"))] = ModelBase::toJson(m_Aqi);
+    }
+    if(m_Aqi_levelIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("aqi_level"))] = ModelBase::toJson(m_Aqi_level);
+    }
+    if(m_Aqi_categoryIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("aqi_category"))] = ModelBase::toJson(m_Aqi_category);
+    }
+    if(m_Aqi_primaryIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("aqi_primary"))] = ModelBase::toJson(m_Aqi_primary);
+    }
+    if(m_Air_pollutantsIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("air_pollutants"))] = ModelBase::toJson(m_Air_pollutants);
+    }
+    if(m_Temp_maxIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("temp_max"))] = ModelBase::toJson(m_Temp_max);
+    }
+    if(m_Temp_minIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("temp_min"))] = ModelBase::toJson(m_Temp_min);
+    }
+    if(m_ForecastIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("forecast"))] = ModelBase::toJson(m_Forecast);
+    }
+    if(m_Hourly_forecastIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("hourly_forecast"))] = ModelBase::toJson(m_Hourly_forecast);
+    }
+    if(m_Minutely_precipIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("minutely_precip"))] = ModelBase::toJson(m_Minutely_precip);
+    }
+    if(m_Life_indicesIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("life_indices"))] = ModelBase::toJson(m_Life_indices);
+    }
 
     return val;
 }
@@ -104,14 +218,14 @@ web::json::value Get_misc_weather_200_response::toJson() const
 bool Get_misc_weather_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("adcode"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("province"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("adcode")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("province")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setAdcode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setAdcode);
-            setAdcode(refVal_setAdcode);
+            utility::string_t refVal_setProvince;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setProvince);
+            setProvince(refVal_setProvince);
             
         }
     }
@@ -126,47 +240,14 @@ bool Get_misc_weather_200_response::fromJson(const web::json::value& val)
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("humidity"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("adcode"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("humidity")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("adcode")));
         if(!fieldValue.is_null())
         {
-            int32_t refVal_setHumidity;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setHumidity);
-            setHumidity(refVal_setHumidity);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("province"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("province")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setProvince;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setProvince);
-            setProvince(refVal_setProvince);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("report_time"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("report_time")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setReportTime;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setReportTime);
-            setReportTime(refVal_setReportTime);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("temperature"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("temperature")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setTemperature;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setTemperature);
-            setTemperature(refVal_setTemperature);
+            utility::string_t refVal_setAdcode;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setAdcode);
+            setAdcode(refVal_setAdcode);
             
         }
     }
@@ -178,6 +259,17 @@ bool Get_misc_weather_200_response::fromJson(const web::json::value& val)
             utility::string_t refVal_setWeather;
             ok &= ModelBase::fromJson(fieldValue, refVal_setWeather);
             setWeather(refVal_setWeather);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("temperature"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("temperature")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setTemperature;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTemperature);
+            setTemperature(refVal_setTemperature);
             
         }
     }
@@ -203,6 +295,215 @@ bool Get_misc_weather_200_response::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("humidity"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("humidity")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setHumidity;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setHumidity);
+            setHumidity(refVal_setHumidity);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("report_time"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("report_time")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setReportTime;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setReportTime);
+            setReportTime(refVal_setReportTime);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("feels_like"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("feels_like")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setFeelsLike;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setFeelsLike);
+            setFeelsLike(refVal_setFeelsLike);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("visibility"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("visibility")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setVisibility;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setVisibility);
+            setVisibility(refVal_setVisibility);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("pressure"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("pressure")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setPressure;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setPressure);
+            setPressure(refVal_setPressure);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("uv"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("uv")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setUv;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setUv);
+            setUv(refVal_setUv);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("precipitation"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("precipitation")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setPrecipitation;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setPrecipitation);
+            setPrecipitation(refVal_setPrecipitation);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("cloud"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("cloud")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setCloud;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCloud);
+            setCloud(refVal_setCloud);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("aqi"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("aqi")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setAqi;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setAqi);
+            setAqi(refVal_setAqi);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("aqi_level"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("aqi_level")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setAqiLevel;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setAqiLevel);
+            setAqiLevel(refVal_setAqiLevel);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("aqi_category"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("aqi_category")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setAqiCategory;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setAqiCategory);
+            setAqiCategory(refVal_setAqiCategory);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("aqi_primary"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("aqi_primary")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setAqiPrimary;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setAqiPrimary);
+            setAqiPrimary(refVal_setAqiPrimary);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("air_pollutants"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("air_pollutants")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_misc_weather_200_response_air_pollutants> refVal_setAirPollutants;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setAirPollutants);
+            setAirPollutants(refVal_setAirPollutants);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("temp_max"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("temp_max")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setTempMax;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTempMax);
+            setTempMax(refVal_setTempMax);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("temp_min"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("temp_min")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setTempMin;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTempMin);
+            setTempMin(refVal_setTempMin);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("forecast"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("forecast")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_misc_weather_200_response_forecast_inner>> refVal_setForecast;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setForecast);
+            setForecast(refVal_setForecast);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("hourly_forecast"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("hourly_forecast")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_misc_weather_200_response_hourly_forecast_inner>> refVal_setHourlyForecast;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setHourlyForecast);
+            setHourlyForecast(refVal_setHourlyForecast);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("minutely_precip"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("minutely_precip")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_misc_weather_200_response_minutely_precip> refVal_setMinutelyPrecip;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMinutelyPrecip);
+            setMinutelyPrecip(refVal_setMinutelyPrecip);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("life_indices"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("life_indices")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_misc_weather_200_response_life_indices> refVal_setLifeIndices;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLifeIndices);
+            setLifeIndices(refVal_setLifeIndices);
+            
+        }
+    }
     return ok;
 }
 
@@ -213,33 +514,25 @@ void Get_misc_weather_200_response::toMultipart(std::shared_ptr<MultipartFormDat
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_AdcodeIsSet)
+    if(m_ProvinceIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("adcode")), m_Adcode));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("province")), m_Province));
     }
     if(m_CityIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("city")), m_City));
     }
-    if(m_HumidityIsSet)
+    if(m_AdcodeIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("humidity")), m_Humidity));
-    }
-    if(m_ProvinceIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("province")), m_Province));
-    }
-    if(m_Report_timeIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("report_time")), m_Report_time));
-    }
-    if(m_TemperatureIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("temperature")), m_Temperature));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("adcode")), m_Adcode));
     }
     if(m_WeatherIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("weather")), m_Weather));
+    }
+    if(m_TemperatureIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("temperature")), m_Temperature));
     }
     if(m_Wind_directionIsSet)
     {
@@ -248,6 +541,82 @@ void Get_misc_weather_200_response::toMultipart(std::shared_ptr<MultipartFormDat
     if(m_Wind_powerIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("wind_power")), m_Wind_power));
+    }
+    if(m_HumidityIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("humidity")), m_Humidity));
+    }
+    if(m_Report_timeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("report_time")), m_Report_time));
+    }
+    if(m_Feels_likeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("feels_like")), m_Feels_like));
+    }
+    if(m_VisibilityIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("visibility")), m_Visibility));
+    }
+    if(m_PressureIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("pressure")), m_Pressure));
+    }
+    if(m_UvIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("uv")), m_Uv));
+    }
+    if(m_PrecipitationIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("precipitation")), m_Precipitation));
+    }
+    if(m_CloudIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("cloud")), m_Cloud));
+    }
+    if(m_AqiIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("aqi")), m_Aqi));
+    }
+    if(m_Aqi_levelIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("aqi_level")), m_Aqi_level));
+    }
+    if(m_Aqi_categoryIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("aqi_category")), m_Aqi_category));
+    }
+    if(m_Aqi_primaryIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("aqi_primary")), m_Aqi_primary));
+    }
+    if(m_Air_pollutantsIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("air_pollutants")), m_Air_pollutants));
+    }
+    if(m_Temp_maxIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("temp_max")), m_Temp_max));
+    }
+    if(m_Temp_minIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("temp_min")), m_Temp_min));
+    }
+    if(m_ForecastIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("forecast")), m_Forecast));
+    }
+    if(m_Hourly_forecastIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("hourly_forecast")), m_Hourly_forecast));
+    }
+    if(m_Minutely_precipIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("minutely_precip")), m_Minutely_precip));
+    }
+    if(m_Life_indicesIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("life_indices")), m_Life_indices));
     }
 }
 
@@ -260,11 +629,11 @@ bool Get_misc_weather_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("adcode"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("province"))))
     {
-        utility::string_t refVal_setAdcode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("adcode"))), refVal_setAdcode );
-        setAdcode(refVal_setAdcode);
+        utility::string_t refVal_setProvince;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("province"))), refVal_setProvince );
+        setProvince(refVal_setProvince);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("city"))))
     {
@@ -272,35 +641,23 @@ bool Get_misc_weather_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("city"))), refVal_setCity );
         setCity(refVal_setCity);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("humidity"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("adcode"))))
     {
-        int32_t refVal_setHumidity;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("humidity"))), refVal_setHumidity );
-        setHumidity(refVal_setHumidity);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("province"))))
-    {
-        utility::string_t refVal_setProvince;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("province"))), refVal_setProvince );
-        setProvince(refVal_setProvince);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("report_time"))))
-    {
-        utility::string_t refVal_setReportTime;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("report_time"))), refVal_setReportTime );
-        setReportTime(refVal_setReportTime);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("temperature"))))
-    {
-        int32_t refVal_setTemperature;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("temperature"))), refVal_setTemperature );
-        setTemperature(refVal_setTemperature);
+        utility::string_t refVal_setAdcode;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("adcode"))), refVal_setAdcode );
+        setAdcode(refVal_setAdcode);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("weather"))))
     {
         utility::string_t refVal_setWeather;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("weather"))), refVal_setWeather );
         setWeather(refVal_setWeather);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("temperature"))))
+    {
+        double refVal_setTemperature;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("temperature"))), refVal_setTemperature );
+        setTemperature(refVal_setTemperature);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("wind_direction"))))
     {
@@ -314,30 +671,144 @@ bool Get_misc_weather_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("wind_power"))), refVal_setWindPower );
         setWindPower(refVal_setWindPower);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("humidity"))))
+    {
+        double refVal_setHumidity;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("humidity"))), refVal_setHumidity );
+        setHumidity(refVal_setHumidity);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("report_time"))))
+    {
+        utility::string_t refVal_setReportTime;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("report_time"))), refVal_setReportTime );
+        setReportTime(refVal_setReportTime);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("feels_like"))))
+    {
+        double refVal_setFeelsLike;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("feels_like"))), refVal_setFeelsLike );
+        setFeelsLike(refVal_setFeelsLike);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("visibility"))))
+    {
+        double refVal_setVisibility;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("visibility"))), refVal_setVisibility );
+        setVisibility(refVal_setVisibility);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("pressure"))))
+    {
+        double refVal_setPressure;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("pressure"))), refVal_setPressure );
+        setPressure(refVal_setPressure);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("uv"))))
+    {
+        double refVal_setUv;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("uv"))), refVal_setUv );
+        setUv(refVal_setUv);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("precipitation"))))
+    {
+        double refVal_setPrecipitation;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("precipitation"))), refVal_setPrecipitation );
+        setPrecipitation(refVal_setPrecipitation);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("cloud"))))
+    {
+        double refVal_setCloud;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("cloud"))), refVal_setCloud );
+        setCloud(refVal_setCloud);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("aqi"))))
+    {
+        double refVal_setAqi;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("aqi"))), refVal_setAqi );
+        setAqi(refVal_setAqi);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("aqi_level"))))
+    {
+        double refVal_setAqiLevel;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("aqi_level"))), refVal_setAqiLevel );
+        setAqiLevel(refVal_setAqiLevel);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("aqi_category"))))
+    {
+        utility::string_t refVal_setAqiCategory;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("aqi_category"))), refVal_setAqiCategory );
+        setAqiCategory(refVal_setAqiCategory);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("aqi_primary"))))
+    {
+        utility::string_t refVal_setAqiPrimary;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("aqi_primary"))), refVal_setAqiPrimary );
+        setAqiPrimary(refVal_setAqiPrimary);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("air_pollutants"))))
+    {
+        std::shared_ptr<Get_misc_weather_200_response_air_pollutants> refVal_setAirPollutants;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("air_pollutants"))), refVal_setAirPollutants );
+        setAirPollutants(refVal_setAirPollutants);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("temp_max"))))
+    {
+        double refVal_setTempMax;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("temp_max"))), refVal_setTempMax );
+        setTempMax(refVal_setTempMax);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("temp_min"))))
+    {
+        double refVal_setTempMin;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("temp_min"))), refVal_setTempMin );
+        setTempMin(refVal_setTempMin);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("forecast"))))
+    {
+        std::vector<std::shared_ptr<Get_misc_weather_200_response_forecast_inner>> refVal_setForecast;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("forecast"))), refVal_setForecast );
+        setForecast(refVal_setForecast);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("hourly_forecast"))))
+    {
+        std::vector<std::shared_ptr<Get_misc_weather_200_response_hourly_forecast_inner>> refVal_setHourlyForecast;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("hourly_forecast"))), refVal_setHourlyForecast );
+        setHourlyForecast(refVal_setHourlyForecast);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("minutely_precip"))))
+    {
+        std::shared_ptr<Get_misc_weather_200_response_minutely_precip> refVal_setMinutelyPrecip;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("minutely_precip"))), refVal_setMinutelyPrecip );
+        setMinutelyPrecip(refVal_setMinutelyPrecip);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("life_indices"))))
+    {
+        std::shared_ptr<Get_misc_weather_200_response_life_indices> refVal_setLifeIndices;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("life_indices"))), refVal_setLifeIndices );
+        setLifeIndices(refVal_setLifeIndices);
+    }
     return ok;
 }
 
 
-utility::string_t Get_misc_weather_200_response::getAdcode() const
+utility::string_t Get_misc_weather_200_response::getProvince() const
 {
-    return m_Adcode;
+    return m_Province;
 }
 
 
-void Get_misc_weather_200_response::setAdcode(const utility::string_t& value)
+void Get_misc_weather_200_response::setProvince(const utility::string_t& value)
 {
-    m_Adcode = value;
-    m_AdcodeIsSet = true;
+    m_Province = value;
+    m_ProvinceIsSet = true;
 }
 
-bool Get_misc_weather_200_response::adcodeIsSet() const
+bool Get_misc_weather_200_response::provinceIsSet() const
 {
-    return m_AdcodeIsSet;
+    return m_ProvinceIsSet;
 }
 
-void Get_misc_weather_200_response::unsetAdcode()
+void Get_misc_weather_200_response::unsetProvince()
 {
-    m_AdcodeIsSet = false;
+    m_ProvinceIsSet = false;
 }
 utility::string_t Get_misc_weather_200_response::getCity() const
 {
@@ -360,87 +831,26 @@ void Get_misc_weather_200_response::unsetCity()
 {
     m_CityIsSet = false;
 }
-int32_t Get_misc_weather_200_response::getHumidity() const
+utility::string_t Get_misc_weather_200_response::getAdcode() const
 {
-    return m_Humidity;
-}
-
-void Get_misc_weather_200_response::setHumidity(int32_t value)
-{
-    m_Humidity = value;
-    m_HumidityIsSet = true;
-}
-
-bool Get_misc_weather_200_response::humidityIsSet() const
-{
-    return m_HumidityIsSet;
-}
-
-void Get_misc_weather_200_response::unsetHumidity()
-{
-    m_HumidityIsSet = false;
-}
-utility::string_t Get_misc_weather_200_response::getProvince() const
-{
-    return m_Province;
+    return m_Adcode;
 }
 
 
-void Get_misc_weather_200_response::setProvince(const utility::string_t& value)
+void Get_misc_weather_200_response::setAdcode(const utility::string_t& value)
 {
-    m_Province = value;
-    m_ProvinceIsSet = true;
+    m_Adcode = value;
+    m_AdcodeIsSet = true;
 }
 
-bool Get_misc_weather_200_response::provinceIsSet() const
+bool Get_misc_weather_200_response::adcodeIsSet() const
 {
-    return m_ProvinceIsSet;
+    return m_AdcodeIsSet;
 }
 
-void Get_misc_weather_200_response::unsetProvince()
+void Get_misc_weather_200_response::unsetAdcode()
 {
-    m_ProvinceIsSet = false;
-}
-utility::string_t Get_misc_weather_200_response::getReportTime() const
-{
-    return m_Report_time;
-}
-
-
-void Get_misc_weather_200_response::setReportTime(const utility::string_t& value)
-{
-    m_Report_time = value;
-    m_Report_timeIsSet = true;
-}
-
-bool Get_misc_weather_200_response::reportTimeIsSet() const
-{
-    return m_Report_timeIsSet;
-}
-
-void Get_misc_weather_200_response::unsetReport_time()
-{
-    m_Report_timeIsSet = false;
-}
-int32_t Get_misc_weather_200_response::getTemperature() const
-{
-    return m_Temperature;
-}
-
-void Get_misc_weather_200_response::setTemperature(int32_t value)
-{
-    m_Temperature = value;
-    m_TemperatureIsSet = true;
-}
-
-bool Get_misc_weather_200_response::temperatureIsSet() const
-{
-    return m_TemperatureIsSet;
-}
-
-void Get_misc_weather_200_response::unsetTemperature()
-{
-    m_TemperatureIsSet = false;
+    m_AdcodeIsSet = false;
 }
 utility::string_t Get_misc_weather_200_response::getWeather() const
 {
@@ -462,6 +872,26 @@ bool Get_misc_weather_200_response::weatherIsSet() const
 void Get_misc_weather_200_response::unsetWeather()
 {
     m_WeatherIsSet = false;
+}
+double Get_misc_weather_200_response::getTemperature() const
+{
+    return m_Temperature;
+}
+
+void Get_misc_weather_200_response::setTemperature(double value)
+{
+    m_Temperature = value;
+    m_TemperatureIsSet = true;
+}
+
+bool Get_misc_weather_200_response::temperatureIsSet() const
+{
+    return m_TemperatureIsSet;
+}
+
+void Get_misc_weather_200_response::unsetTemperature()
+{
+    m_TemperatureIsSet = false;
 }
 utility::string_t Get_misc_weather_200_response::getWindDirection() const
 {
@@ -504,6 +934,394 @@ bool Get_misc_weather_200_response::windPowerIsSet() const
 void Get_misc_weather_200_response::unsetWind_power()
 {
     m_Wind_powerIsSet = false;
+}
+double Get_misc_weather_200_response::getHumidity() const
+{
+    return m_Humidity;
+}
+
+void Get_misc_weather_200_response::setHumidity(double value)
+{
+    m_Humidity = value;
+    m_HumidityIsSet = true;
+}
+
+bool Get_misc_weather_200_response::humidityIsSet() const
+{
+    return m_HumidityIsSet;
+}
+
+void Get_misc_weather_200_response::unsetHumidity()
+{
+    m_HumidityIsSet = false;
+}
+utility::string_t Get_misc_weather_200_response::getReportTime() const
+{
+    return m_Report_time;
+}
+
+
+void Get_misc_weather_200_response::setReportTime(const utility::string_t& value)
+{
+    m_Report_time = value;
+    m_Report_timeIsSet = true;
+}
+
+bool Get_misc_weather_200_response::reportTimeIsSet() const
+{
+    return m_Report_timeIsSet;
+}
+
+void Get_misc_weather_200_response::unsetReport_time()
+{
+    m_Report_timeIsSet = false;
+}
+double Get_misc_weather_200_response::getFeelsLike() const
+{
+    return m_Feels_like;
+}
+
+void Get_misc_weather_200_response::setFeelsLike(double value)
+{
+    m_Feels_like = value;
+    m_Feels_likeIsSet = true;
+}
+
+bool Get_misc_weather_200_response::feelsLikeIsSet() const
+{
+    return m_Feels_likeIsSet;
+}
+
+void Get_misc_weather_200_response::unsetFeels_like()
+{
+    m_Feels_likeIsSet = false;
+}
+double Get_misc_weather_200_response::getVisibility() const
+{
+    return m_Visibility;
+}
+
+void Get_misc_weather_200_response::setVisibility(double value)
+{
+    m_Visibility = value;
+    m_VisibilityIsSet = true;
+}
+
+bool Get_misc_weather_200_response::visibilityIsSet() const
+{
+    return m_VisibilityIsSet;
+}
+
+void Get_misc_weather_200_response::unsetVisibility()
+{
+    m_VisibilityIsSet = false;
+}
+double Get_misc_weather_200_response::getPressure() const
+{
+    return m_Pressure;
+}
+
+void Get_misc_weather_200_response::setPressure(double value)
+{
+    m_Pressure = value;
+    m_PressureIsSet = true;
+}
+
+bool Get_misc_weather_200_response::pressureIsSet() const
+{
+    return m_PressureIsSet;
+}
+
+void Get_misc_weather_200_response::unsetPressure()
+{
+    m_PressureIsSet = false;
+}
+double Get_misc_weather_200_response::getUv() const
+{
+    return m_Uv;
+}
+
+void Get_misc_weather_200_response::setUv(double value)
+{
+    m_Uv = value;
+    m_UvIsSet = true;
+}
+
+bool Get_misc_weather_200_response::uvIsSet() const
+{
+    return m_UvIsSet;
+}
+
+void Get_misc_weather_200_response::unsetUv()
+{
+    m_UvIsSet = false;
+}
+double Get_misc_weather_200_response::getPrecipitation() const
+{
+    return m_Precipitation;
+}
+
+void Get_misc_weather_200_response::setPrecipitation(double value)
+{
+    m_Precipitation = value;
+    m_PrecipitationIsSet = true;
+}
+
+bool Get_misc_weather_200_response::precipitationIsSet() const
+{
+    return m_PrecipitationIsSet;
+}
+
+void Get_misc_weather_200_response::unsetPrecipitation()
+{
+    m_PrecipitationIsSet = false;
+}
+double Get_misc_weather_200_response::getCloud() const
+{
+    return m_Cloud;
+}
+
+void Get_misc_weather_200_response::setCloud(double value)
+{
+    m_Cloud = value;
+    m_CloudIsSet = true;
+}
+
+bool Get_misc_weather_200_response::cloudIsSet() const
+{
+    return m_CloudIsSet;
+}
+
+void Get_misc_weather_200_response::unsetCloud()
+{
+    m_CloudIsSet = false;
+}
+double Get_misc_weather_200_response::getAqi() const
+{
+    return m_Aqi;
+}
+
+void Get_misc_weather_200_response::setAqi(double value)
+{
+    m_Aqi = value;
+    m_AqiIsSet = true;
+}
+
+bool Get_misc_weather_200_response::aqiIsSet() const
+{
+    return m_AqiIsSet;
+}
+
+void Get_misc_weather_200_response::unsetAqi()
+{
+    m_AqiIsSet = false;
+}
+double Get_misc_weather_200_response::getAqiLevel() const
+{
+    return m_Aqi_level;
+}
+
+void Get_misc_weather_200_response::setAqiLevel(double value)
+{
+    m_Aqi_level = value;
+    m_Aqi_levelIsSet = true;
+}
+
+bool Get_misc_weather_200_response::aqiLevelIsSet() const
+{
+    return m_Aqi_levelIsSet;
+}
+
+void Get_misc_weather_200_response::unsetAqi_level()
+{
+    m_Aqi_levelIsSet = false;
+}
+utility::string_t Get_misc_weather_200_response::getAqiCategory() const
+{
+    return m_Aqi_category;
+}
+
+
+void Get_misc_weather_200_response::setAqiCategory(const utility::string_t& value)
+{
+    m_Aqi_category = value;
+    m_Aqi_categoryIsSet = true;
+}
+
+bool Get_misc_weather_200_response::aqiCategoryIsSet() const
+{
+    return m_Aqi_categoryIsSet;
+}
+
+void Get_misc_weather_200_response::unsetAqi_category()
+{
+    m_Aqi_categoryIsSet = false;
+}
+utility::string_t Get_misc_weather_200_response::getAqiPrimary() const
+{
+    return m_Aqi_primary;
+}
+
+
+void Get_misc_weather_200_response::setAqiPrimary(const utility::string_t& value)
+{
+    m_Aqi_primary = value;
+    m_Aqi_primaryIsSet = true;
+}
+
+bool Get_misc_weather_200_response::aqiPrimaryIsSet() const
+{
+    return m_Aqi_primaryIsSet;
+}
+
+void Get_misc_weather_200_response::unsetAqi_primary()
+{
+    m_Aqi_primaryIsSet = false;
+}
+std::shared_ptr<Get_misc_weather_200_response_air_pollutants> Get_misc_weather_200_response::getAirPollutants() const
+{
+    return m_Air_pollutants;
+}
+
+
+void Get_misc_weather_200_response::setAirPollutants(const std::shared_ptr<Get_misc_weather_200_response_air_pollutants>& value)
+{
+    m_Air_pollutants = value;
+    m_Air_pollutantsIsSet = true;
+}
+
+bool Get_misc_weather_200_response::airPollutantsIsSet() const
+{
+    return m_Air_pollutantsIsSet;
+}
+
+void Get_misc_weather_200_response::unsetAir_pollutants()
+{
+    m_Air_pollutantsIsSet = false;
+}
+double Get_misc_weather_200_response::getTempMax() const
+{
+    return m_Temp_max;
+}
+
+void Get_misc_weather_200_response::setTempMax(double value)
+{
+    m_Temp_max = value;
+    m_Temp_maxIsSet = true;
+}
+
+bool Get_misc_weather_200_response::tempMaxIsSet() const
+{
+    return m_Temp_maxIsSet;
+}
+
+void Get_misc_weather_200_response::unsetTemp_max()
+{
+    m_Temp_maxIsSet = false;
+}
+double Get_misc_weather_200_response::getTempMin() const
+{
+    return m_Temp_min;
+}
+
+void Get_misc_weather_200_response::setTempMin(double value)
+{
+    m_Temp_min = value;
+    m_Temp_minIsSet = true;
+}
+
+bool Get_misc_weather_200_response::tempMinIsSet() const
+{
+    return m_Temp_minIsSet;
+}
+
+void Get_misc_weather_200_response::unsetTemp_min()
+{
+    m_Temp_minIsSet = false;
+}
+std::vector<std::shared_ptr<Get_misc_weather_200_response_forecast_inner>> Get_misc_weather_200_response::getForecast() const
+{
+    return m_Forecast;
+}
+
+
+void Get_misc_weather_200_response::setForecast(const std::vector<std::shared_ptr<Get_misc_weather_200_response_forecast_inner>>& value)
+{
+    m_Forecast = value;
+    m_ForecastIsSet = true;
+}
+
+bool Get_misc_weather_200_response::forecastIsSet() const
+{
+    return m_ForecastIsSet;
+}
+
+void Get_misc_weather_200_response::unsetForecast()
+{
+    m_ForecastIsSet = false;
+}
+std::vector<std::shared_ptr<Get_misc_weather_200_response_hourly_forecast_inner>> Get_misc_weather_200_response::getHourlyForecast() const
+{
+    return m_Hourly_forecast;
+}
+
+
+void Get_misc_weather_200_response::setHourlyForecast(const std::vector<std::shared_ptr<Get_misc_weather_200_response_hourly_forecast_inner>>& value)
+{
+    m_Hourly_forecast = value;
+    m_Hourly_forecastIsSet = true;
+}
+
+bool Get_misc_weather_200_response::hourlyForecastIsSet() const
+{
+    return m_Hourly_forecastIsSet;
+}
+
+void Get_misc_weather_200_response::unsetHourly_forecast()
+{
+    m_Hourly_forecastIsSet = false;
+}
+std::shared_ptr<Get_misc_weather_200_response_minutely_precip> Get_misc_weather_200_response::getMinutelyPrecip() const
+{
+    return m_Minutely_precip;
+}
+
+
+void Get_misc_weather_200_response::setMinutelyPrecip(const std::shared_ptr<Get_misc_weather_200_response_minutely_precip>& value)
+{
+    m_Minutely_precip = value;
+    m_Minutely_precipIsSet = true;
+}
+
+bool Get_misc_weather_200_response::minutelyPrecipIsSet() const
+{
+    return m_Minutely_precipIsSet;
+}
+
+void Get_misc_weather_200_response::unsetMinutely_precip()
+{
+    m_Minutely_precipIsSet = false;
+}
+std::shared_ptr<Get_misc_weather_200_response_life_indices> Get_misc_weather_200_response::getLifeIndices() const
+{
+    return m_Life_indices;
+}
+
+
+void Get_misc_weather_200_response::setLifeIndices(const std::shared_ptr<Get_misc_weather_200_response_life_indices>& value)
+{
+    m_Life_indices = value;
+    m_Life_indicesIsSet = true;
+}
+
+bool Get_misc_weather_200_response::lifeIndicesIsSet() const
+{
+    return m_Life_indicesIsSet;
+}
+
+void Get_misc_weather_200_response::unsetLife_indices()
+{
+    m_Life_indicesIsSet = false;
 }
 
 }

@@ -34,6 +34,28 @@ Get_social_qq_groupinfo_200_response::Get_social_qq_groupinfo_200_response()
     m_Join_urlIsSet = false;
     m_Last_updated = utility::conversions::to_string_t("");
     m_Last_updatedIsSet = false;
+    m_Member_count = 0;
+    m_Member_countIsSet = false;
+    m_Max_member_count = 0;
+    m_Max_member_countIsSet = false;
+    m_Active_member_num = 0;
+    m_Active_member_numIsSet = false;
+    m_Owner_uin = utility::conversions::to_string_t("");
+    m_Owner_uinIsSet = false;
+    m_Owner_uid = utility::conversions::to_string_t("");
+    m_Owner_uidIsSet = false;
+    m_Create_time = 0;
+    m_Create_timeIsSet = false;
+    m_Create_time_str = utility::conversions::to_string_t("");
+    m_Create_time_strIsSet = false;
+    m_Group_grade = 0;
+    m_Group_gradeIsSet = false;
+    m_Group_memo = utility::conversions::to_string_t("");
+    m_Group_memoIsSet = false;
+    m_Cert_type = 0;
+    m_Cert_typeIsSet = false;
+    m_Cert_text = utility::conversions::to_string_t("");
+    m_Cert_textIsSet = false;
 }
 
 Get_social_qq_groupinfo_200_response::~Get_social_qq_groupinfo_200_response()
@@ -82,6 +104,61 @@ web::json::value Get_social_qq_groupinfo_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("last_updated"))] = ModelBase::toJson(m_Last_updated);
+    }
+    if(m_Member_countIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("member_count"))] = ModelBase::toJson(m_Member_count);
+    }
+    if(m_Max_member_countIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("max_member_count"))] = ModelBase::toJson(m_Max_member_count);
+    }
+    if(m_Active_member_numIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("active_member_num"))] = ModelBase::toJson(m_Active_member_num);
+    }
+    if(m_Owner_uinIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("owner_uin"))] = ModelBase::toJson(m_Owner_uin);
+    }
+    if(m_Owner_uidIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("owner_uid"))] = ModelBase::toJson(m_Owner_uid);
+    }
+    if(m_Create_timeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("create_time"))] = ModelBase::toJson(m_Create_time);
+    }
+    if(m_Create_time_strIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("create_time_str"))] = ModelBase::toJson(m_Create_time_str);
+    }
+    if(m_Group_gradeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("group_grade"))] = ModelBase::toJson(m_Group_grade);
+    }
+    if(m_Group_memoIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("group_memo"))] = ModelBase::toJson(m_Group_memo);
+    }
+    if(m_Cert_typeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("cert_type"))] = ModelBase::toJson(m_Cert_type);
+    }
+    if(m_Cert_textIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("cert_text"))] = ModelBase::toJson(m_Cert_text);
     }
 
     return val;
@@ -167,6 +244,127 @@ bool Get_social_qq_groupinfo_200_response::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("member_count"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("member_count")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setMemberCount;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMemberCount);
+            setMemberCount(refVal_setMemberCount);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("max_member_count"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("max_member_count")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setMaxMemberCount;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMaxMemberCount);
+            setMaxMemberCount(refVal_setMaxMemberCount);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("active_member_num"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("active_member_num")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setActiveMemberNum;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setActiveMemberNum);
+            setActiveMemberNum(refVal_setActiveMemberNum);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("owner_uin"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("owner_uin")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setOwnerUin;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setOwnerUin);
+            setOwnerUin(refVal_setOwnerUin);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("owner_uid"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("owner_uid")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setOwnerUid;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setOwnerUid);
+            setOwnerUid(refVal_setOwnerUid);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("create_time"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("create_time")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setCreateTime;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCreateTime);
+            setCreateTime(refVal_setCreateTime);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("create_time_str"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("create_time_str")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setCreateTimeStr;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCreateTimeStr);
+            setCreateTimeStr(refVal_setCreateTimeStr);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("group_grade"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("group_grade")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setGroupGrade;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setGroupGrade);
+            setGroupGrade(refVal_setGroupGrade);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("group_memo"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("group_memo")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setGroupMemo;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setGroupMemo);
+            setGroupMemo(refVal_setGroupMemo);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("cert_type"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("cert_type")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setCertType;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCertType);
+            setCertType(refVal_setCertType);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("cert_text"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("cert_text")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setCertText;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCertText);
+            setCertText(refVal_setCertText);
+            
+        }
+    }
     return ok;
 }
 
@@ -204,6 +402,50 @@ void Get_social_qq_groupinfo_200_response::toMultipart(std::shared_ptr<Multipart
     if(m_Last_updatedIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("last_updated")), m_Last_updated));
+    }
+    if(m_Member_countIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("member_count")), m_Member_count));
+    }
+    if(m_Max_member_countIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("max_member_count")), m_Max_member_count));
+    }
+    if(m_Active_member_numIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("active_member_num")), m_Active_member_num));
+    }
+    if(m_Owner_uinIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("owner_uin")), m_Owner_uin));
+    }
+    if(m_Owner_uidIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("owner_uid")), m_Owner_uid));
+    }
+    if(m_Create_timeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("create_time")), m_Create_time));
+    }
+    if(m_Create_time_strIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("create_time_str")), m_Create_time_str));
+    }
+    if(m_Group_gradeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("group_grade")), m_Group_grade));
+    }
+    if(m_Group_memoIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("group_memo")), m_Group_memo));
+    }
+    if(m_Cert_typeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("cert_type")), m_Cert_type));
+    }
+    if(m_Cert_textIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("cert_text")), m_Cert_text));
     }
 }
 
@@ -257,6 +499,72 @@ bool Get_social_qq_groupinfo_200_response::fromMultiPart(std::shared_ptr<Multipa
         utility::string_t refVal_setLastUpdated;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("last_updated"))), refVal_setLastUpdated );
         setLastUpdated(refVal_setLastUpdated);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("member_count"))))
+    {
+        int32_t refVal_setMemberCount;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("member_count"))), refVal_setMemberCount );
+        setMemberCount(refVal_setMemberCount);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("max_member_count"))))
+    {
+        int32_t refVal_setMaxMemberCount;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("max_member_count"))), refVal_setMaxMemberCount );
+        setMaxMemberCount(refVal_setMaxMemberCount);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("active_member_num"))))
+    {
+        int32_t refVal_setActiveMemberNum;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("active_member_num"))), refVal_setActiveMemberNum );
+        setActiveMemberNum(refVal_setActiveMemberNum);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("owner_uin"))))
+    {
+        utility::string_t refVal_setOwnerUin;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("owner_uin"))), refVal_setOwnerUin );
+        setOwnerUin(refVal_setOwnerUin);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("owner_uid"))))
+    {
+        utility::string_t refVal_setOwnerUid;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("owner_uid"))), refVal_setOwnerUid );
+        setOwnerUid(refVal_setOwnerUid);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("create_time"))))
+    {
+        int32_t refVal_setCreateTime;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("create_time"))), refVal_setCreateTime );
+        setCreateTime(refVal_setCreateTime);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("create_time_str"))))
+    {
+        utility::string_t refVal_setCreateTimeStr;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("create_time_str"))), refVal_setCreateTimeStr );
+        setCreateTimeStr(refVal_setCreateTimeStr);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("group_grade"))))
+    {
+        int32_t refVal_setGroupGrade;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("group_grade"))), refVal_setGroupGrade );
+        setGroupGrade(refVal_setGroupGrade);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("group_memo"))))
+    {
+        utility::string_t refVal_setGroupMemo;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("group_memo"))), refVal_setGroupMemo );
+        setGroupMemo(refVal_setGroupMemo);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("cert_type"))))
+    {
+        int32_t refVal_setCertType;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("cert_type"))), refVal_setCertType );
+        setCertType(refVal_setCertType);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("cert_text"))))
+    {
+        utility::string_t refVal_setCertText;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("cert_text"))), refVal_setCertText );
+        setCertText(refVal_setCertText);
     }
     return ok;
 }
@@ -408,6 +716,231 @@ bool Get_social_qq_groupinfo_200_response::lastUpdatedIsSet() const
 void Get_social_qq_groupinfo_200_response::unsetLast_updated()
 {
     m_Last_updatedIsSet = false;
+}
+int32_t Get_social_qq_groupinfo_200_response::getMemberCount() const
+{
+    return m_Member_count;
+}
+
+void Get_social_qq_groupinfo_200_response::setMemberCount(int32_t value)
+{
+    m_Member_count = value;
+    m_Member_countIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::memberCountIsSet() const
+{
+    return m_Member_countIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetMember_count()
+{
+    m_Member_countIsSet = false;
+}
+int32_t Get_social_qq_groupinfo_200_response::getMaxMemberCount() const
+{
+    return m_Max_member_count;
+}
+
+void Get_social_qq_groupinfo_200_response::setMaxMemberCount(int32_t value)
+{
+    m_Max_member_count = value;
+    m_Max_member_countIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::maxMemberCountIsSet() const
+{
+    return m_Max_member_countIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetMax_member_count()
+{
+    m_Max_member_countIsSet = false;
+}
+int32_t Get_social_qq_groupinfo_200_response::getActiveMemberNum() const
+{
+    return m_Active_member_num;
+}
+
+void Get_social_qq_groupinfo_200_response::setActiveMemberNum(int32_t value)
+{
+    m_Active_member_num = value;
+    m_Active_member_numIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::activeMemberNumIsSet() const
+{
+    return m_Active_member_numIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetActive_member_num()
+{
+    m_Active_member_numIsSet = false;
+}
+utility::string_t Get_social_qq_groupinfo_200_response::getOwnerUin() const
+{
+    return m_Owner_uin;
+}
+
+
+void Get_social_qq_groupinfo_200_response::setOwnerUin(const utility::string_t& value)
+{
+    m_Owner_uin = value;
+    m_Owner_uinIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::ownerUinIsSet() const
+{
+    return m_Owner_uinIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetOwner_uin()
+{
+    m_Owner_uinIsSet = false;
+}
+utility::string_t Get_social_qq_groupinfo_200_response::getOwnerUid() const
+{
+    return m_Owner_uid;
+}
+
+
+void Get_social_qq_groupinfo_200_response::setOwnerUid(const utility::string_t& value)
+{
+    m_Owner_uid = value;
+    m_Owner_uidIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::ownerUidIsSet() const
+{
+    return m_Owner_uidIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetOwner_uid()
+{
+    m_Owner_uidIsSet = false;
+}
+int32_t Get_social_qq_groupinfo_200_response::getCreateTime() const
+{
+    return m_Create_time;
+}
+
+void Get_social_qq_groupinfo_200_response::setCreateTime(int32_t value)
+{
+    m_Create_time = value;
+    m_Create_timeIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::createTimeIsSet() const
+{
+    return m_Create_timeIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetCreate_time()
+{
+    m_Create_timeIsSet = false;
+}
+utility::string_t Get_social_qq_groupinfo_200_response::getCreateTimeStr() const
+{
+    return m_Create_time_str;
+}
+
+
+void Get_social_qq_groupinfo_200_response::setCreateTimeStr(const utility::string_t& value)
+{
+    m_Create_time_str = value;
+    m_Create_time_strIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::createTimeStrIsSet() const
+{
+    return m_Create_time_strIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetCreate_time_str()
+{
+    m_Create_time_strIsSet = false;
+}
+int32_t Get_social_qq_groupinfo_200_response::getGroupGrade() const
+{
+    return m_Group_grade;
+}
+
+void Get_social_qq_groupinfo_200_response::setGroupGrade(int32_t value)
+{
+    m_Group_grade = value;
+    m_Group_gradeIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::groupGradeIsSet() const
+{
+    return m_Group_gradeIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetGroup_grade()
+{
+    m_Group_gradeIsSet = false;
+}
+utility::string_t Get_social_qq_groupinfo_200_response::getGroupMemo() const
+{
+    return m_Group_memo;
+}
+
+
+void Get_social_qq_groupinfo_200_response::setGroupMemo(const utility::string_t& value)
+{
+    m_Group_memo = value;
+    m_Group_memoIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::groupMemoIsSet() const
+{
+    return m_Group_memoIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetGroup_memo()
+{
+    m_Group_memoIsSet = false;
+}
+int32_t Get_social_qq_groupinfo_200_response::getCertType() const
+{
+    return m_Cert_type;
+}
+
+void Get_social_qq_groupinfo_200_response::setCertType(int32_t value)
+{
+    m_Cert_type = value;
+    m_Cert_typeIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::certTypeIsSet() const
+{
+    return m_Cert_typeIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetCert_type()
+{
+    m_Cert_typeIsSet = false;
+}
+utility::string_t Get_social_qq_groupinfo_200_response::getCertText() const
+{
+    return m_Cert_text;
+}
+
+
+void Get_social_qq_groupinfo_200_response::setCertText(const utility::string_t& value)
+{
+    m_Cert_text = value;
+    m_Cert_textIsSet = true;
+}
+
+bool Get_social_qq_groupinfo_200_response::certTextIsSet() const
+{
+    return m_Cert_textIsSet;
+}
+
+void Get_social_qq_groupinfo_200_response::unsetCert_text()
+{
+    m_Cert_textIsSet = false;
 }
 
 }

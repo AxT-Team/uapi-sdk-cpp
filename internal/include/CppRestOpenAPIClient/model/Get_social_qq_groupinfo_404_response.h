@@ -22,7 +22,6 @@
 #include "CppRestOpenAPIClient/ModelBase.h"
 
 #include <cpprest/details/basic_types.h>
-#include "CppRestOpenAPIClient/Object.h"
 
 namespace org {
 namespace openapitools {
@@ -54,31 +53,15 @@ public:
     /// Get_social_qq_groupinfo_404_response members
 
 
-    utility::string_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(const utility::string_t& value);
-
-    std::shared_ptr<Object> getDetails() const;
-    bool detailsIsSet() const;
-    void unsetDetails();
-    void setDetails(const std::shared_ptr<Object>& value);
-
-    utility::string_t getMessage() const;
-    bool messageIsSet() const;
-    void unsetMessage();
-    void setMessage(const utility::string_t& value);
+    utility::string_t getError() const;
+    bool errorIsSet() const;
+    void unsetError();
+    void setError(const utility::string_t& value);
 
 
 protected:
-    utility::string_t m_Code;
-    bool m_CodeIsSet;
-
-    std::shared_ptr<Object> m_Details;
-    bool m_DetailsIsSet;
-
-    utility::string_t m_Message;
-    bool m_MessageIsSet;
+    utility::string_t m_Error;
+    bool m_ErrorIsSet;
 
 };
 

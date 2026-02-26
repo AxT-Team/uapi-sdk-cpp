@@ -56,11 +56,6 @@ public:
     /// Get_network_whois_200_response_oneOf members
 
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
     /// <summary>
     /// **WHOIS原始文本**  返回未经处理的原始WHOIS查询结果文本。
     /// </summary>
@@ -71,9 +66,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Whois;
     bool m_WhoisIsSet;
 

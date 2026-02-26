@@ -1,6 +1,6 @@
 # uapi-sdk-cpp
 
-![Banner](https://raw.githubusercontent.com/uapis/uapi-sdk-cpp/main/banner.png)
+![Banner](https://raw.githubusercontent.com/AxT-Team/uapi-sdk-cpp/main/banner.png)
 
 [![C++](https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
 [![Docs](https://img.shields.io/badge/Docs-uapis.cn-2EAE5D?style=flat-square)](https://uapis.cn/)

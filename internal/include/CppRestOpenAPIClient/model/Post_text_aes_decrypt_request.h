@@ -70,7 +70,7 @@ public:
     void setText(const utility::string_t& value);
 
     /// <summary>
-    /// 16�ֽڵ�IV/Nonce����Ϊ16���ַ�
+    /// 16字节的IV/Nonce，必须为16个字符
     /// </summary>
     utility::string_t getNonce() const;
     bool nonceIsSet() const;

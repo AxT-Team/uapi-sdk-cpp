@@ -30,6 +30,8 @@ Post_search_aggregate_request::Post_search_aggregate_request()
     m_Fetch_fullIsSet = false;
     m_Timeout_ms = 0;
     m_Timeout_msIsSet = false;
+    m_SortIsSet = false;
+    m_Time_rangeIsSet = false;
 }
 
 Post_search_aggregate_request::~Post_search_aggregate_request()
@@ -68,6 +70,20 @@ web::json::value Post_search_aggregate_request::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("timeout_ms"))] = ModelBase::toJson(m_Timeout_ms);
+    }
+    if(m_SortIsSet)
+    {   
+        
+        utility::string_t refVal = fromSortEnum(m_Sort);
+        val[utility::conversions::to_string_t(_XPLATSTR("sort"))] = ModelBase::toJson(refVal);
+        
+    }
+    if(m_Time_rangeIsSet)
+    {   
+        
+        utility::string_t refVal = fromTime_rangeEnum(m_Time_range);
+        val[utility::conversions::to_string_t(_XPLATSTR("time_range"))] = ModelBase::toJson(refVal);
+        
     }
 
     return val;
@@ -131,6 +147,30 @@ bool Post_search_aggregate_request::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("sort"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("sort")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setSort;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSort);
+            
+            setSort(toSortEnum(refVal_setSort));
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("time_range"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("time_range")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setTimeRange;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTimeRange);
+            
+            setTimeRange(toTime_rangeEnum(refVal_setTimeRange));
+            
+        }
+    }
     return ok;
 }
 
@@ -160,6 +200,14 @@ void Post_search_aggregate_request::toMultipart(std::shared_ptr<MultipartFormDat
     if(m_Timeout_msIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("timeout_ms")), m_Timeout_ms));
+    }
+    if(m_SortIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("sort")), fromSortEnum(m_Sort)));
+    }
+    if(m_Time_rangeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("time_range")), fromTime_rangeEnum(m_Time_range)));
     }
 }
 
@@ -202,7 +250,85 @@ bool Post_search_aggregate_request::fromMultiPart(std::shared_ptr<MultipartFormD
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("timeout_ms"))), refVal_setTimeoutMs );
         setTimeoutMs(refVal_setTimeoutMs);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("sort"))))
+    {
+        utility::string_t refVal_setSort;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("sort"))), refVal_setSort );
+        setSort(toSortEnum(refVal_setSort));
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("time_range"))))
+    {
+        utility::string_t refVal_setTimeRange;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("time_range"))), refVal_setTimeRange );
+        setTimeRange(toTime_rangeEnum(refVal_setTimeRange));
+    }
     return ok;
+}
+
+Post_search_aggregate_request::SortEnum Post_search_aggregate_request::toSortEnum(const utility::string_t& value) const
+{
+    
+    if (value == utility::conversions::to_string_t("relevance")) {
+        return SortEnum::RELEVANCE;
+    }
+    
+    if (value == utility::conversions::to_string_t("date")) {
+        return SortEnum::DATE;
+    }
+    
+    throw std::invalid_argument("Invalid value for conversion to SortEnum");
+}
+
+
+const utility::string_t Post_search_aggregate_request::fromSortEnum(const SortEnum value) const
+{
+    switch(value)
+    {
+        
+        case SortEnum::RELEVANCE: return utility::conversions::to_string_t("relevance");
+        
+        case SortEnum::DATE: return utility::conversions::to_string_t("date");
+        
+    }
+}
+
+Post_search_aggregate_request::Time_rangeEnum Post_search_aggregate_request::toTime_rangeEnum(const utility::string_t& value) const
+{
+    
+    if (value == utility::conversions::to_string_t("day")) {
+        return Time_rangeEnum::DAY;
+    }
+    
+    if (value == utility::conversions::to_string_t("week")) {
+        return Time_rangeEnum::WEEK;
+    }
+    
+    if (value == utility::conversions::to_string_t("month")) {
+        return Time_rangeEnum::MONTH;
+    }
+    
+    if (value == utility::conversions::to_string_t("year")) {
+        return Time_rangeEnum::YEAR;
+    }
+    
+    throw std::invalid_argument("Invalid value for conversion to Time_rangeEnum");
+}
+
+
+const utility::string_t Post_search_aggregate_request::fromTime_rangeEnum(const Time_rangeEnum value) const
+{
+    switch(value)
+    {
+        
+        case Time_rangeEnum::DAY: return utility::conversions::to_string_t("day");
+        
+        case Time_rangeEnum::WEEK: return utility::conversions::to_string_t("week");
+        
+        case Time_rangeEnum::MONTH: return utility::conversions::to_string_t("month");
+        
+        case Time_rangeEnum::YEAR: return utility::conversions::to_string_t("year");
+        
+    }
 }
 
 
@@ -308,6 +434,48 @@ bool Post_search_aggregate_request::timeoutMsIsSet() const
 void Post_search_aggregate_request::unsetTimeout_ms()
 {
     m_Timeout_msIsSet = false;
+}
+Post_search_aggregate_request::SortEnum Post_search_aggregate_request::getSort() const
+{
+    return m_Sort;
+}
+
+
+void Post_search_aggregate_request::setSort(const SortEnum value)
+{
+    m_Sort = value;
+    m_SortIsSet = true;
+}
+
+bool Post_search_aggregate_request::sortIsSet() const
+{
+    return m_SortIsSet;
+}
+
+void Post_search_aggregate_request::unsetSort()
+{
+    m_SortIsSet = false;
+}
+Post_search_aggregate_request::Time_rangeEnum Post_search_aggregate_request::getTimeRange() const
+{
+    return m_Time_range;
+}
+
+
+void Post_search_aggregate_request::setTimeRange(const Time_rangeEnum value)
+{
+    m_Time_range = value;
+    m_Time_rangeIsSet = true;
+}
+
+bool Post_search_aggregate_request::timeRangeIsSet() const
+{
+    return m_Time_rangeIsSet;
+}
+
+void Post_search_aggregate_request::unsetTime_range()
+{
+    m_Time_rangeIsSet = false;
 }
 
 }

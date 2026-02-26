@@ -22,7 +22,6 @@ Get_misc_weather_500_response::Get_misc_weather_500_response()
 {
     m_Code = utility::conversions::to_string_t("");
     m_CodeIsSet = false;
-    m_DetailsIsSet = false;
     m_Message = utility::conversions::to_string_t("");
     m_MessageIsSet = false;
 }
@@ -44,11 +43,6 @@ web::json::value Get_misc_weather_500_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
     }
-    if(m_DetailsIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("details"))] = ModelBase::toJson(m_Details);
-    }
     if(m_MessageIsSet)
     {   
         
@@ -69,17 +63,6 @@ bool Get_misc_weather_500_response::fromJson(const web::json::value& val)
             utility::string_t refVal_setCode;
             ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
             setCode(refVal_setCode);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("details"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("details")));
-        if(!fieldValue.is_null())
-        {
-            std::shared_ptr<Object> refVal_setDetails;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setDetails);
-            setDetails(refVal_setDetails);
             
         }
     }
@@ -108,10 +91,6 @@ void Get_misc_weather_500_response::toMultipart(std::shared_ptr<MultipartFormDat
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
     }
-    if(m_DetailsIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("details")), m_Details));
-    }
     if(m_MessageIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
@@ -132,12 +111,6 @@ bool Get_misc_weather_500_response::fromMultiPart(std::shared_ptr<MultipartFormD
         utility::string_t refVal_setCode;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
         setCode(refVal_setCode);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("details"))))
-    {
-        std::shared_ptr<Object> refVal_setDetails;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("details"))), refVal_setDetails );
-        setDetails(refVal_setDetails);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
     {
@@ -169,27 +142,6 @@ bool Get_misc_weather_500_response::codeIsSet() const
 void Get_misc_weather_500_response::unsetCode()
 {
     m_CodeIsSet = false;
-}
-std::shared_ptr<Object> Get_misc_weather_500_response::getDetails() const
-{
-    return m_Details;
-}
-
-
-void Get_misc_weather_500_response::setDetails(const std::shared_ptr<Object>& value)
-{
-    m_Details = value;
-    m_DetailsIsSet = true;
-}
-
-bool Get_misc_weather_500_response::detailsIsSet() const
-{
-    return m_DetailsIsSet;
-}
-
-void Get_misc_weather_500_response::unsetDetails()
-{
-    m_DetailsIsSet = false;
 }
 utility::string_t Get_misc_weather_500_response::getMessage() const
 {

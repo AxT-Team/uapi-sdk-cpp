@@ -18,199 +18,51 @@ namespace openapitools {
 namespace client {
 namespace model {
 
-Get_network_urlstatus_200_response::Get_network_urlstatus_200_response()
-{
-    m_Code = 0;
-    m_CodeIsSet = false;
-    m_Status = 0;
-    m_StatusIsSet = false;
-    m_Url = utility::conversions::to_string_t("");
-    m_UrlIsSet = false;
-}
-
-Get_network_urlstatus_200_response::~Get_network_urlstatus_200_response()
-{
-}
-
 void Get_network_urlstatus_200_response::validate()
 {
     // TODO: implement validation
 }
 
+const Get_network_urlstatus_200_response::VariantType& Get_network_urlstatus_200_response::getVariant() const
+{
+    return m_variantValue;
+}
+
+void Get_network_urlstatus_200_response::setVariant(Get_network_urlstatus_200_response::VariantType value)
+{
+    m_variantValue = value;
+}
+
 web::json::value Get_network_urlstatus_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
-    }
-    if(m_StatusIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("status"))] = ModelBase::toJson(m_Status);
-    }
-    if(m_UrlIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("url"))] = ModelBase::toJson(m_Url);
-    }
+
+    std::visit([&](auto&& arg) {
+        using T = std::decay_t<decltype(arg)>;
+        if constexpr (std::is_same_v<T, std::monostate>) {
+            val = web::json::value::null();
+        } else {
+            val = arg.toJson();
+        }
+    }, m_variantValue);
 
     return val;
 }
 
-bool Get_network_urlstatus_200_response::fromJson(const web::json::value& val)
-{
-    bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("status"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("status")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setStatus;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setStatus);
-            setStatus(refVal_setStatus);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("url"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("url")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setUrl;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setUrl);
-            setUrl(refVal_setUrl);
-            
-        }
-    }
-    return ok;
-}
-
 void Get_network_urlstatus_200_response::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
 {
-    utility::string_t namePrefix = prefix;
-    if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t(_XPLATSTR(".")))
-    {
-        namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
-    }
-    if(m_CodeIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
-    }
-    if(m_StatusIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("status")), m_Status));
-    }
-    if(m_UrlIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("url")), m_Url));
-    }
+    std::visit([&](auto&& arg) {
+        using T = std::decay_t<decltype(arg)>;
+        if constexpr (!std::is_same_v<T, std::monostate>) {
+          arg.toMultipart(multipart, prefix);
+        }
+    }, m_variantValue);
 }
 
-bool Get_network_urlstatus_200_response::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
-{
-    bool ok = true;
-    utility::string_t namePrefix = prefix;
-    if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t(_XPLATSTR(".")))
-    {
-        namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
-    }
-
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
-    {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("status"))))
-    {
-        int32_t refVal_setStatus;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("status"))), refVal_setStatus );
-        setStatus(refVal_setStatus);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("url"))))
-    {
-        utility::string_t refVal_setUrl;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("url"))), refVal_setUrl );
-        setUrl(refVal_setUrl);
-    }
-    return ok;
-}
-
-
-int32_t Get_network_urlstatus_200_response::getCode() const
-{
-    return m_Code;
-}
-
-void Get_network_urlstatus_200_response::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_network_urlstatus_200_response::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_network_urlstatus_200_response::unsetCode()
-{
-    m_CodeIsSet = false;
-}
-int32_t Get_network_urlstatus_200_response::getStatus() const
-{
-    return m_Status;
-}
-
-void Get_network_urlstatus_200_response::setStatus(int32_t value)
-{
-    m_Status = value;
-    m_StatusIsSet = true;
-}
-
-bool Get_network_urlstatus_200_response::statusIsSet() const
-{
-    return m_StatusIsSet;
-}
-
-void Get_network_urlstatus_200_response::unsetStatus()
-{
-    m_StatusIsSet = false;
-}
-utility::string_t Get_network_urlstatus_200_response::getUrl() const
-{
-    return m_Url;
-}
-
-
-void Get_network_urlstatus_200_response::setUrl(const utility::string_t& value)
-{
-    m_Url = value;
-    m_UrlIsSet = true;
-}
-
-bool Get_network_urlstatus_200_response::urlIsSet() const
-{
-    return m_UrlIsSet;
-}
-
-void Get_network_urlstatus_200_response::unsetUrl()
-{
-    m_UrlIsSet = false;
-}
+template bool Get_network_urlstatus_200_response::fromJson<Get_network_urlstatus_200_response_oneOf>(const web::json::value& json);
+template bool Get_network_urlstatus_200_response::fromMultiPart<Get_network_urlstatus_200_response_oneOf>(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix);
+template bool Get_network_urlstatus_200_response::fromJson<Get_network_urlstatus_200_response_oneOf_1>(const web::json::value& json);
+template bool Get_network_urlstatus_200_response::fromMultiPart<Get_network_urlstatus_200_response_oneOf_1>(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix);
 
 }
 }

@@ -83,7 +83,7 @@ public:
     void setResults(const std::vector<std::shared_ptr<Post_search_aggregate_200_response_results_inner>>& value);
 
     /// <summary>
-    /// 各搜索引擎的结果数量统计
+    /// 各搜索源的结果统计
     /// </summary>
     std::vector<std::shared_ptr<Post_search_aggregate_200_response_sources_inner>> getSources() const;
     bool sourcesIsSet() const;

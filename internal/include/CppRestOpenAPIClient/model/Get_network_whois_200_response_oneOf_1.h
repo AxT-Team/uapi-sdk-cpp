@@ -56,11 +56,6 @@ public:
     /// Get_network_whois_200_response_oneOf_1 members
 
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
     /// <summary>
     /// ### 结构化WHOIS信息  返回经过解析的JSON对象，包含以下主要部分：  - **域名信息**: 包含域名ID、注册状态、DNS服务器等 - **注册商信息**: 注册服务商的详细信息 - **注册人信息**: 域名所有者的相关信息（可能因隐私保护而部分隐藏） - **重要日期**: 包括注册日期、更新日期和到期日期
     /// </summary>
@@ -71,9 +66,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     std::shared_ptr<Object> m_Whois;
     bool m_WhoisIsSet;
 

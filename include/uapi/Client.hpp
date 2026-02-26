@@ -182,6 +182,9 @@ public:
             if (auto it = args.find("text"); it != args.end()) query["text"] = it->second;
             if (auto it = args.find("size"); it != args.end()) query["size"] = it->second;
             if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            if (auto it = args.find("transparent"); it != args.end()) query["transparent"] = it->second;
+            if (auto it = args.find("fgcolor"); it != args.end()) query["fgcolor"] = it->second;
+            if (auto it = args.find("bgcolor"); it != args.end()) query["bgcolor"] = it->second;
             return c->request("GET", path, query, body);
         }
         std::string getImageTobase64(const std::map<std::string, std::string>& args = {}) {
@@ -214,6 +217,14 @@ public:
             if (auto it = args.find("bg_color"); it != args.end()) body["bg_color"] = it->second;
             if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
             if (auto it = args.find("image_url"); it != args.end()) body["image_url"] = it->second;
+            return c->request("POST", path, query, body);
+        }
+        std::string postImageNsfw(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/image/nsfw";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
+            if (auto it = args.find("url"); it != args.end()) body["url"] = it->second;
             return c->request("POST", path, query, body);
         }
         std::string postImageSpeechless(const std::map<std::string, std::string>& args = {}) {
@@ -254,11 +265,51 @@ public:
             std::map<std::string, std::string> body;
             return c->request("GET", path, query, body);
         }
+        std::string getMiscDistrict(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/misc/district";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("keywords"); it != args.end()) query["keywords"] = it->second;
+            if (auto it = args.find("adcode"); it != args.end()) query["adcode"] = it->second;
+            if (auto it = args.find("lat"); it != args.end()) query["lat"] = it->second;
+            if (auto it = args.find("lng"); it != args.end()) query["lng"] = it->second;
+            if (auto it = args.find("level"); it != args.end()) query["level"] = it->second;
+            if (auto it = args.find("country"); it != args.end()) query["country"] = it->second;
+            if (auto it = args.find("limit"); it != args.end()) query["limit"] = it->second;
+            return c->request("GET", path, query, body);
+        }
+        std::string getMiscHolidayCalendar(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/misc/holiday-calendar";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("date"); it != args.end()) query["date"] = it->second;
+            if (auto it = args.find("month"); it != args.end()) query["month"] = it->second;
+            if (auto it = args.find("year"); it != args.end()) query["year"] = it->second;
+            if (auto it = args.find("timezone"); it != args.end()) query["timezone"] = it->second;
+            if (auto it = args.find("holiday_type"); it != args.end()) query["holiday_type"] = it->second;
+            if (auto it = args.find("include_nearby"); it != args.end()) query["include_nearby"] = it->second;
+            if (auto it = args.find("nearby_limit"); it != args.end()) query["nearby_limit"] = it->second;
+            return c->request("GET", path, query, body);
+        }
         std::string getMiscHotboard(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/hotboard";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
             if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
+            if (auto it = args.find("time"); it != args.end()) query["time"] = it->second;
+            if (auto it = args.find("keyword"); it != args.end()) query["keyword"] = it->second;
+            if (auto it = args.find("time_start"); it != args.end()) query["time_start"] = it->second;
+            if (auto it = args.find("time_end"); it != args.end()) query["time_end"] = it->second;
+            if (auto it = args.find("limit"); it != args.end()) query["limit"] = it->second;
+            if (auto it = args.find("sources"); it != args.end()) query["sources"] = it->second;
+            return c->request("GET", path, query, body);
+        }
+        std::string getMiscLunartime(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/misc/lunartime";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            if (auto it = args.find("ts"); it != args.end()) query["ts"] = it->second;
+            if (auto it = args.find("timezone"); it != args.end()) query["timezone"] = it->second;
             return c->request("GET", path, query, body);
         }
         std::string getMiscPhoneinfo(const std::map<std::string, std::string>& args = {}) {
@@ -306,6 +357,7 @@ public:
             std::map<std::string, std::string> body;
             if (auto it = args.find("tracking_number"); it != args.end()) query["tracking_number"] = it->second;
             if (auto it = args.find("carrier_code"); it != args.end()) query["carrier_code"] = it->second;
+            if (auto it = args.find("phone"); it != args.end()) query["phone"] = it->second;
             return c->request("GET", path, query, body);
         }
         std::string getMiscWeather(const std::map<std::string, std::string>& args = {}) {
@@ -315,8 +367,11 @@ public:
             if (auto it = args.find("city"); it != args.end()) query["city"] = it->second;
             if (auto it = args.find("adcode"); it != args.end()) query["adcode"] = it->second;
             if (auto it = args.find("extended"); it != args.end()) query["extended"] = it->second;
-            if (auto it = args.find("indices"); it != args.end()) query["indices"] = it->second;
             if (auto it = args.find("forecast"); it != args.end()) query["forecast"] = it->second;
+            if (auto it = args.find("hourly"); it != args.end()) query["hourly"] = it->second;
+            if (auto it = args.find("minutely"); it != args.end()) query["minutely"] = it->second;
+            if (auto it = args.find("indices"); it != args.end()) query["indices"] = it->second;
+            if (auto it = args.find("lang"); it != args.end()) query["lang"] = it->second;
             return c->request("GET", path, query, body);
         }
         std::string getMiscWorldtime(const std::map<std::string, std::string>& args = {}) {

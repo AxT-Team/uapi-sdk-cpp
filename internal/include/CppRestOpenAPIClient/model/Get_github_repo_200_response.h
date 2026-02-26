@@ -25,6 +25,7 @@
 #include <cpprest/details/basic_types.h>
 #include <map>
 #include <vector>
+#include "CppRestOpenAPIClient/model/Get_github_repo_200_response_latest_release.h"
 
 namespace org {
 namespace openapitools {
@@ -32,6 +33,7 @@ namespace client {
 namespace model {
 
 class Get_github_repo_200_response_collaborators_inner;
+class Get_github_repo_200_response_latest_release;
 
 
 class  Get_github_repo_200_response
@@ -172,6 +174,11 @@ public:
     void unsetMaintainers();
     void setMaintainers(const std::vector<std::shared_ptr<Get_github_repo_200_response_collaborators_inner>>& value);
 
+    std::shared_ptr<Get_github_repo_200_response_latest_release> getLatestRelease() const;
+    bool latestReleaseIsSet() const;
+    void unsetLatest_release();
+    void setLatestRelease(const std::shared_ptr<Get_github_repo_200_response_latest_release>& value);
+
 
 protected:
     utility::string_t m_Full_name;
@@ -242,6 +249,9 @@ protected:
 
     std::vector<std::shared_ptr<Get_github_repo_200_response_collaborators_inner>> m_Maintainers;
     bool m_MaintainersIsSet;
+
+    std::shared_ptr<Get_github_repo_200_response_latest_release> m_Latest_release;
+    bool m_Latest_releaseIsSet;
 
 };
 

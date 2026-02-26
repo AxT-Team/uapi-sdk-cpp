@@ -42,6 +42,10 @@
 #include "CppRestOpenAPIClient/model/Post_image_frombase64_request.h"
 #include "CppRestOpenAPIClient/model/Post_image_motou_400_response.h"
 #include "CppRestOpenAPIClient/model/Post_image_motou_500_response.h"
+#include "CppRestOpenAPIClient/model/Post_image_nsfw_200_response.h"
+#include "CppRestOpenAPIClient/model/Post_image_nsfw_400_response.h"
+#include "CppRestOpenAPIClient/model/Post_image_nsfw_413_response.h"
+#include "CppRestOpenAPIClient/model/Post_image_nsfw_500_response.h"
 #include "CppRestOpenAPIClient/model/Post_image_speechless_400_response.h"
 #include "CppRestOpenAPIClient/model/Post_image_speechless_500_response.h"
 #include "CppRestOpenAPIClient/model/Post_image_speechless_request.h"
@@ -86,7 +90,7 @@ public:
         boost::optional<utility::string_t> r
     ) const;
     /// <summary>
-    /// 获取必应每日壁纸
+    /// 必应壁纸
     /// </summary>
     /// <remarks>
     /// 每天都想换张新壁纸？让必应的美图点亮你的一天吧！  ## 功能概述 这个接口会获取 Bing 搜索引擎当天全球同步的每日壁纸，并直接以图片形式返回。你可以用它来做应用的启动页、网站背景，或者任何需要每日更新精美图片的地方。  ## 使用须知  &gt; [!NOTE] &gt; **响应格式是图片** &gt; 请注意，此接口成功时直接返回图片二进制数据（通常为 &#x60;image/jpeg&#x60;），而非 JSON 格式。请确保客户端能够正确处理。  我们内置了备用方案：如果从必应官方获取图片失败，系统会尝试返回一张预存的高质量风景图，以保证服务的稳定性。
@@ -94,7 +98,7 @@ public:
     pplx::task<std::shared_ptr<HttpContent>> getImageBingDaily(
     ) const;
     /// <summary>
-    /// 生成摸摸头GIF (QQ号方式)
+    /// 生成摸摸头GIF (QQ号)
     /// </summary>
     /// <remarks>
     /// 想在线rua一下好友的头像吗？这个趣味接口可以满足你。  ## 功能概述 此接口通过GET方法，专门用于通过QQ号生成摸摸头GIF。你只需要提供一个QQ号码，我们就会自动获取其公开头像，并制作成一个可爱的动图。  ## 使用须知 - **响应格式**：接口成功时直接返回 &#x60;image/gif&#x60; 格式的二进制数据。 - **背景颜色**：你可以通过 &#x60;bg_color&#x60; 参数来控制GIF的背景。使用 &#x60;transparent&#x60; 选项可以让它更好地融入各种聊天背景中。
@@ -106,21 +110,27 @@ public:
         boost::optional<utility::string_t> bgColor
     ) const;
     /// <summary>
-    /// 动态生成二维码
+    /// 生成二维码
     /// </summary>
     /// <remarks>
-    /// 无论是网址、文本还是联系方式，通通可以变成一个二维码！这是一个非常灵活的二维码生成工具。  ## 功能概述 你提供一段文本内容，我们为你生成对应的二维码图片。你可以自定义尺寸，并选择不同的返回格式以适应不同场景。  ## 使用须知  &gt; [!IMPORTANT] &gt; **关键参数 &#x60;format&#x60;** &gt; 此参数决定了成功响应的内容类型和结构，请务必根据你的需求选择并正确处理响应： &gt; - **&#x60;image&#x60;** (默认): 直接返回 &#x60;image/png&#x60; 格式的图片二进制数据，适合在 &#x60;&lt;img&gt;&#x60; 标签中直接使用。 &gt; - **&#x60;json&#x60;**: 返回一个包含 Base64 Data URI 的 JSON 对象，适合需要在前端直接嵌入CSS或HTML的场景。 &gt; - **&#x60;json_url&#x60;**: 返回一个包含图片临时URL的JSON对象，适合需要图片链接的场景。
+    /// 无论是网址、文本还是联系方式，通通可以变成一个二维码！这是一个非常灵活的二维码生成工具。  ## 功能概述 你提供一段文本内容，我们为你生成对应的二维码图片。你可以自定义尺寸、前景色、背景色，还支持透明背景，并选择不同的返回格式以适应不同场景。  ## 使用须知  &gt; [!IMPORTANT] &gt; **关键参数 &#x60;format&#x60;** &gt; 此参数决定了成功响应的内容类型和结构，请务必根据你的需求选择并正确处理响应： &gt; - **&#x60;image&#x60;** (默认): 直接返回 &#x60;image/png&#x60; 格式的图片二进制数据，适合在 &#x60;&lt;img&gt;&#x60; 标签中直接使用。 &gt; - **&#x60;json&#x60;**: 返回一个包含 Base64 Data URI 的 JSON 对象，适合需要在前端直接嵌入CSS或HTML的场景。 &gt; - **&#x60;json_url&#x60;**: 返回一个包含图片临时URL的JSON对象，适合需要图片链接的场景。  &gt; [!TIP] &gt; **颜色参数说明** &gt; - 颜色参数使用十六进制格式（如 &#x60;#FF0000&#x60;） &gt; - URL 中需要对 &#x60;#&#x60; 进行编码，即 &#x60;%23&#x60;（例如：&#x60;fgcolor&#x3D;%23FF0000&#x60;） &gt; - 当 &#x60;transparent&#x3D;true&#x60; 时，&#x60;bgcolor&#x60; 参数会被忽略
     /// </remarks>
     /// <param name="text">你希望编码到二维码中的任何文本内容，比如一个URL、一段话或者一个JSON字符串。</param>
-    /// <param name="size">二维码图片的边长（正方形），单位是像素。有效范围是 256 到 1024 之间。 (optional, default to 0)</param>
+    /// <param name="size">二维码图片的边长（正方形），单位是像素。有效范围是 256 到 2048 之间。 (optional, default to 0)</param>
     /// <param name="format">指定响应内容的格式。可选值为 &#x60;image&#x60;, &#x60;json&#x60;, &#x60;json_url&#x60;。 (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
+    /// <param name="transparent">是否使用透明背景。启用后生成的 PNG 图片将具有 alpha 通道，背景透明。 (optional, default to false)</param>
+    /// <param name="fgcolor">二维码前景色（即二维码本身的颜色），使用十六进制格式。URL 中需要将 &#x60;#&#x60; 编码为 &#x60;%23&#x60;。 (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
+    /// <param name="bgcolor">二维码背景色，使用十六进制格式。当 &#x60;transparent&#x3D;true&#x60; 时此参数会被忽略。URL 中需要将 &#x60;#&#x60; 编码为 &#x60;%23&#x60;。 (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
     pplx::task<std::shared_ptr<HttpContent>> getImageQrcode(
         utility::string_t text,
         boost::optional<int32_t> size,
-        boost::optional<utility::string_t> format
+        boost::optional<utility::string_t> format,
+        boost::optional<bool> transparent,
+        boost::optional<utility::string_t> fgcolor,
+        boost::optional<utility::string_t> bgcolor
     ) const;
     /// <summary>
-    /// 将在线图片转换为Base64
+    /// 图片转 Base64
     /// </summary>
     /// <remarks>
     /// 看到一张网上的图片，想把它转换成 Base64 编码以便嵌入到你的 HTML 或 CSS 中？用这个接口就对了。  ## 功能概述 你提供一个公开可访问的图片 URL，我们帮你把它下载下来，并转换成包含 MIME 类型的 Base64 Data URI 字符串返回给你。
@@ -133,7 +143,7 @@ public:
     /// 无损压缩图片
     /// </summary>
     /// <remarks>
-    /// 还在为图片体积和加载速度发愁吗？体验一下我们强大的**无损压缩服务**，它能在几乎不牺牲任何肉眼可感知的画质的前提下，将图片体积压缩到极致。  ## 功能概述 你只需要上传一张常见的图片（如 PNG, JPG），选择一个压缩等级，就能获得一个体积小到惊人的压缩文件。这对于需要大量展示高清图片的网站、App 或小程序来说，是优化用户体验、节省带宽和存储成本的利器。  ## 使用须知 &gt; [!TIP] &gt; 为了给您最好的压缩效果，我们的算法需要进行复杂计算，处理时间可能会稍长一些，请耐心等待。  &gt; [!WARNING] &gt; **服务排队提醒** &gt; 这是一个计算密集型服务。在高并发时，您的请求可能会被排队等待处理。如果您需要将其集成到对延迟敏感的生产服务中，请注意这一点。  ### 请求与响应格式 - 请求必须使用 &#x60;multipart/form-data&#x60; 格式上传文件。 - 成功响应将直接返回压缩后的文件二进制流 (&#x60;application/octet-stream&#x60;)，并附带 &#x60;Content-Disposition&#x60; 头，建议客户端根据此头信息保存文件。  ## 参数详解 ### &#x60;level&#x60; (压缩等级) 这是一个从 &#x60;1&#x60; 到 &#x60;5&#x60; 的整数，它决定了压缩的强度和策略，数字越小，压缩率越高。所有等级都经过精心调校，以在最大化压缩率的同时保证出色的视觉质量。 - &#x60;1&#x60;: **极限压缩** (推荐，体积最小，画质优异) - &#x60;2&#x60;: **高效压缩** - &#x60;3&#x60;: **智能均衡** (默认选项) - &#x60;4&#x60;: **画质优先** - &#x60;5&#x60;: **专业保真** (压缩率稍低，保留最多图像信息)  ## 错误处理指南 - **400 Bad Request**: 通常因为没有上传文件，或者 &#x60;level&#x60; 参数不在 1-5 的范围内。 - **500 Internal Server Error**: 如果在压缩过程中服务器发生内部错误，会返回此状态码。
+    /// 还在为图片体积和加载速度发愁吗？体验一下我们强大的**无损压缩服务**，它能在几乎不牺牲任何肉眼可感知的画质的前提下，将图片体积压缩到极致。  ## 功能概述 你只需要上传一张常见的图片（如 PNG, JPG），选择一个压缩等级，就能获得一个体积小到惊人的压缩文件。这对于需要大量展示高清图片的网站、App 或小程序来说，是优化用户体验、节省带宽和存储成本的利器。  ## 使用须知 &gt; [!TIP] &gt; 为了给您最好的压缩效果，我们的算法需要进行复杂计算，处理时间可能会稍长一些，请耐心等待。  &gt; [!WARNING] &gt; **服务排队提醒** &gt; 这是一个计算密集型服务。在高并发时，您的请求可能会被排队等待处理。如果您需要将其集成到对延迟敏感的生产服务中，请注意这一点。  ### 请求与响应格式 - 请求必须使用 &#x60;multipart/form-data&#x60; 格式上传文件。 - 成功响应将直接返回压缩后的文件二进制流 (&#x60;image/_*&#x60;)，并附带 &#x60;Content-Disposition&#x60; 头，建议客户端根据此头信息保存文件。  ## 参数详解 ### &#x60;level&#x60; (压缩等级) 这是一个从 &#x60;1&#x60; 到 &#x60;5&#x60; 的整数，它决定了压缩的强度和策略，数字越小，压缩率越高。所有等级都经过精心调校，以在最大化压缩率的同时保证出色的视觉质量。 - &#x60;1&#x60;: **极限压缩** (推荐，体积最小，画质优异) - &#x60;2&#x60;: **高效压缩** - &#x60;3&#x60;: **智能均衡** (默认选项) - &#x60;4&#x60;: **画质优先** - &#x60;5&#x60;: **专业保真** (压缩率稍低，保留最多图像信息)  ## 错误处理指南 - **400 Bad Request**: 通常因为没有上传文件，或者 &#x60;level&#x60; 参数不在 1-5 的范围内。 - **500 Internal Server Error**: 如果在压缩过程中服务器发生内部错误，会返回此状态码。
     /// </remarks>
     /// <param name="file">支持PNG, JPG, JPEG等常见图片格式。文件大小不超过15MB。</param>
     /// <param name="level">压缩强度 (1-5)，默认为 3。数字越小，压缩率越高。 (optional, default to 0)</param>
@@ -154,7 +164,7 @@ public:
         std::shared_ptr<Post_image_frombase64_request> postImageFrombase64Request
     ) const;
     /// <summary>
-    /// 生成摸摸头GIF (图片上传或URL方式)
+    /// 生成摸摸头GIF
     /// </summary>
     /// <remarks>
     /// 除了使用QQ头像，你还可以通过上传自己的图片或提供图片URL来制作独一无二的摸摸头GIF。  ## 功能概述 此接口通过POST方法，支持两种方式生成GIF： 1.  **图片URL**：在表单中提供 &#x60;image_url&#x60; 字段。 2.  **上传图片**：在表单中上传 &#x60;file&#x60; 文件。  ## 使用须知 - **响应格式**：接口成功时直接返回 &#x60;image/gif&#x60; 格式的二进制数据。 - **参数优先级**：如果同时提供了 &#x60;image_url&#x60; 和上传的 &#x60;file&#x60; 文件，系统将 **优先使用 &#x60;image_url&#x60;**。 - **背景颜色**：同样支持 &#x60;bg_color&#x60; 表单字段来控制GIF背景。
@@ -168,10 +178,22 @@ public:
         boost::optional<utility::string_t> bgColor
     ) const;
     /// <summary>
+    /// 图片敏感检测
+    /// </summary>
+    /// <remarks>
+    /// 这是一个图片内容审核接口，自动识别图片中的违规内容并返回处理建议。  &gt; [!VIP] &gt; 此接口限时免费开放，无需企业认证即可使用。  ## 功能概述 上传图片文件或提供图片URL，接口会自动分析图片内容，返回是否违规、风险等级和处理建议。适合对接到用户上传流程中，实现自动化内容审核。  ## 返回字段说明 - **is_nsfw**: 是否判定为违规内容，&#x60;true&#x60; 表示违规，&#x60;false&#x60; 表示正常 - **nsfw_score**: 违规内容置信度，0-1 之间，越高表示越可能违规 - **normal_score**: 正常内容置信度，0-1 之间，与 nsfw_score 互补 - **suggestion**: 处理建议   - &#x60;pass&#x60;: 内容正常，可以直接放行   - &#x60;review&#x60;: 存在风险，建议转人工复核   - &#x60;block&#x60;: 高风险内容，建议直接拦截 - **risk_level**: 风险等级   - &#x60;low&#x60;: 低风险   - &#x60;medium&#x60;: 中风险   - &#x60;high&#x60;: 高风险 - **label**: 内容标签，&#x60;nsfw&#x60; 或 &#x60;normal&#x60; - **confidence**: 模型对当前判断的整体置信度 - **inference_time_ms**: 模型推理耗时，单位毫秒
+    /// </remarks>
+    /// <param name="file">要检测的图片文件。支持 JPG、JPEG、PNG、GIF、WebP 格式，最大 20MB。 (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
+    /// <param name="url">图片的 URL 地址。如果同时提供 file 和 url，将优先使用 file。 (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
+    pplx::task<std::shared_ptr<Post_image_nsfw_200_response>> postImageNsfw(
+        boost::optional<std::shared_ptr<HttpContent>> file,
+        boost::optional<utility::string_t> url
+    ) const;
+    /// <summary>
     /// 生成你们怎么不说话了表情包
     /// </summary>
     /// <remarks>
-    /// 你们怎么不说话了？是不是都在偷偷玩Uapi，求求你们不要玩Uapi了  ## 效果展示 ![示例](https://uapis.cn/static/uploads/33580466897f1e5815296f235b582815.png)  ## 使用须知 - **响应格式**：接口成功时直接返回 &#x60;image/jpeg&#x60; 格式的二进制数据。 - **文字内容**：至少需要提供 &#x60;top_text&#x60;（上方文字）或 &#x60;bottom_text&#x60;（下方文字）之一。 - **梗图逻辑**：上方描述某个行为，下方通常以「们」开头表示劝阻，形成戏谑的对比效果。
+    /// 你们怎么不说话了？是不是都在偷偷玩Uapi，求求你们不要玩Uapi了  ## 使用须知 - **响应格式**：接口成功时直接返回 &#x60;image/png&#x60; 格式的二进制数据。 - **文字内容**：至少需要提供 &#x60;top_text&#x60;（上方文字）或 &#x60;bottom_text&#x60;（下方文字）之一。 - **梗图逻辑**：上方描述某个行为，下方通常以「们」开头表示劝阻，形成戏谑的对比效果。
     /// </remarks>
     /// <param name="postImageSpeechlessRequest">包含表情包文字内容的JSON对象。至少需要提供上方或下方文字之一。</param>
     pplx::task<std::shared_ptr<HttpContent>> postImageSpeechless(

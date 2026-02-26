@@ -20,11 +20,8 @@ namespace model {
 
 Get_social_qq_groupinfo_404_response::Get_social_qq_groupinfo_404_response()
 {
-    m_Code = utility::conversions::to_string_t("");
-    m_CodeIsSet = false;
-    m_DetailsIsSet = false;
-    m_Message = utility::conversions::to_string_t("");
-    m_MessageIsSet = false;
+    m_Error = utility::conversions::to_string_t("");
+    m_ErrorIsSet = false;
 }
 
 Get_social_qq_groupinfo_404_response::~Get_social_qq_groupinfo_404_response()
@@ -39,20 +36,10 @@ void Get_social_qq_groupinfo_404_response::validate()
 web::json::value Get_social_qq_groupinfo_404_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
+    if(m_ErrorIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
-    }
-    if(m_DetailsIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("details"))] = ModelBase::toJson(m_Details);
-    }
-    if(m_MessageIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
+        val[utility::conversions::to_string_t(_XPLATSTR("error"))] = ModelBase::toJson(m_Error);
     }
 
     return val;
@@ -61,36 +48,14 @@ web::json::value Get_social_qq_groupinfo_404_response::toJson() const
 bool Get_social_qq_groupinfo_404_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("error"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("error")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("details"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("details")));
-        if(!fieldValue.is_null())
-        {
-            std::shared_ptr<Object> refVal_setDetails;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setDetails);
-            setDetails(refVal_setDetails);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setMessage;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
-            setMessage(refVal_setMessage);
+            utility::string_t refVal_setError;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setError);
+            setError(refVal_setError);
             
         }
     }
@@ -104,17 +69,9 @@ void Get_social_qq_groupinfo_404_response::toMultipart(std::shared_ptr<Multipart
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
+    if(m_ErrorIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
-    }
-    if(m_DetailsIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("details")), m_Details));
-    }
-    if(m_MessageIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("error")), m_Error));
     }
 }
 
@@ -127,90 +84,36 @@ bool Get_social_qq_groupinfo_404_response::fromMultiPart(std::shared_ptr<Multipa
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("error"))))
     {
-        utility::string_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("details"))))
-    {
-        std::shared_ptr<Object> refVal_setDetails;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("details"))), refVal_setDetails );
-        setDetails(refVal_setDetails);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
-    {
-        utility::string_t refVal_setMessage;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
-        setMessage(refVal_setMessage);
+        utility::string_t refVal_setError;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("error"))), refVal_setError );
+        setError(refVal_setError);
     }
     return ok;
 }
 
 
-utility::string_t Get_social_qq_groupinfo_404_response::getCode() const
+utility::string_t Get_social_qq_groupinfo_404_response::getError() const
 {
-    return m_Code;
+    return m_Error;
 }
 
 
-void Get_social_qq_groupinfo_404_response::setCode(const utility::string_t& value)
+void Get_social_qq_groupinfo_404_response::setError(const utility::string_t& value)
 {
-    m_Code = value;
-    m_CodeIsSet = true;
+    m_Error = value;
+    m_ErrorIsSet = true;
 }
 
-bool Get_social_qq_groupinfo_404_response::codeIsSet() const
+bool Get_social_qq_groupinfo_404_response::errorIsSet() const
 {
-    return m_CodeIsSet;
+    return m_ErrorIsSet;
 }
 
-void Get_social_qq_groupinfo_404_response::unsetCode()
+void Get_social_qq_groupinfo_404_response::unsetError()
 {
-    m_CodeIsSet = false;
-}
-std::shared_ptr<Object> Get_social_qq_groupinfo_404_response::getDetails() const
-{
-    return m_Details;
-}
-
-
-void Get_social_qq_groupinfo_404_response::setDetails(const std::shared_ptr<Object>& value)
-{
-    m_Details = value;
-    m_DetailsIsSet = true;
-}
-
-bool Get_social_qq_groupinfo_404_response::detailsIsSet() const
-{
-    return m_DetailsIsSet;
-}
-
-void Get_social_qq_groupinfo_404_response::unsetDetails()
-{
-    m_DetailsIsSet = false;
-}
-utility::string_t Get_social_qq_groupinfo_404_response::getMessage() const
-{
-    return m_Message;
-}
-
-
-void Get_social_qq_groupinfo_404_response::setMessage(const utility::string_t& value)
-{
-    m_Message = value;
-    m_MessageIsSet = true;
-}
-
-bool Get_social_qq_groupinfo_404_response::messageIsSet() const
-{
-    return m_MessageIsSet;
-}
-
-void Get_social_qq_groupinfo_404_response::unsetMessage()
-{
-    m_MessageIsSet = false;
+    m_ErrorIsSet = false;
 }
 
 }

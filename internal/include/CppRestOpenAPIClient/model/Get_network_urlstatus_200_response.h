@@ -18,10 +18,13 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Get_network_urlstatus_200_response_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_Get_network_urlstatus_200_response_H_
 
+#include <variant>
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include "CppRestOpenAPIClient/model/Get_network_urlstatus_200_response_oneOf.h"
 #include <cpprest/details/basic_types.h>
+#include "CppRestOpenAPIClient/model/Get_network_urlstatus_200_response_oneOf_1.h"
 
 namespace org {
 namespace openapitools {
@@ -31,58 +34,55 @@ namespace model {
 
 
 class  Get_network_urlstatus_200_response
-    : public ModelBase
 {
 public:
-    Get_network_urlstatus_200_response();
-    virtual ~Get_network_urlstatus_200_response();
+    Get_network_urlstatus_200_response() = default;
+    ~Get_network_urlstatus_200_response() = default;
 
     /////////////////////////////////////////////
-    /// ModelBase overrides
 
-    void validate() override;
+    void validate();
 
-    web::json::value toJson() const override;
-    bool fromJson(const web::json::value& json) override;
+    web::json::value toJson() const;
 
-    void toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) const override;
-    bool fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) override;
+    template<typename Target>
+    bool fromJson(const web::json::value& json) {
+        // convert json to Target type
+        Target target;
+        if (!target.fromJson(json)) {
+            return false;
+        }
 
+        m_variantValue = target;
+        return true;
+    }
+
+    void toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) const;
+
+    template<typename Target>
+    bool fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) {
+        // convert multipart to Target type
+        Target target;
+        if (!target.fromMultiPart(multipart, namePrefix)) {
+            return false;
+        }
+
+        m_variantValue = target;
+        return true;
+    }
 
     /////////////////////////////////////////////
     /// Get_network_urlstatus_200_response members
 
+    using VariantType = std::variant<Get_network_urlstatus_200_response_oneOf, Get_network_urlstatus_200_response_oneOf_1>;
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
-    /// HTTP响应状态码
-    /// </summary>
-    int32_t getStatus() const;
-    bool statusIsSet() const;
-    void unsetStatus();
-    void setStatus(int32_t value);
-
-    utility::string_t getUrl() const;
-    bool urlIsSet() const;
-    void unsetUrl();
-    void setUrl(const utility::string_t& value);
-
+    const VariantType& getVariant() const;
+    void setVariant(VariantType value);
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
-    int32_t m_Status;
-    bool m_StatusIsSet;
-
-    utility::string_t m_Url;
-    bool m_UrlIsSet;
-
+    VariantType m_variantValue;
 };
+
 
 
 }

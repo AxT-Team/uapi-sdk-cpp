@@ -18,11 +18,11 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Post_sensitive_word_analyze_200_response_results_inner_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_Post_sensitive_word_analyze_200_response_results_inner_H_
 
+#include <stdexcept>
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
 #include <cpprest/details/basic_types.h>
-#include <vector>
 
 namespace org {
 namespace openapitools {
@@ -53,56 +53,61 @@ public:
     /////////////////////////////////////////////
     /// Post_sensitive_word_analyze_200_response_results_inner members
 
+    enum class LabelEnum
+    {
+        SENSITIVE,
+        NORMAL,
+    };
+    enum class CategoryEnum
+    {
+        SAFE,
+        THREAT,
+        PORN,
+        FRAUD,
+        INSULT,
+    };
+
+    LabelEnum toLabelEnum(const utility::string_t& value) const;
+    const utility::string_t fromLabelEnum(const LabelEnum value) const;
+
+
+    CategoryEnum toCategoryEnum(const utility::string_t& value) const;
+    const utility::string_t fromCategoryEnum(const CategoryEnum value) const;
+
 
     utility::string_t getK() const;
     bool KIsSet() const;
     void unsetk();
     void setK(const utility::string_t& value);
 
-    utility::string_t getR() const;
-    bool RIsSet() const;
-    void unsetr();
-    void setR(const utility::string_t& value);
+    LabelEnum getLabel() const;
+    bool labelIsSet() const;
+    void unsetLabel();
+    void setLabel(const LabelEnum value);
 
-    std::vector<double> getS() const;
-    bool SIsSet() const;
-    void unsets();
-    void setS(std::vector<double> value);
+    CategoryEnum getCategory() const;
+    bool categoryIsSet() const;
+    void unsetCategory();
+    void setCategory(const CategoryEnum value);
 
-    std::vector<utility::string_t> getV() const;
-    bool VIsSet() const;
-    void unsetv();
-    void setV(const std::vector<utility::string_t>& value);
-
-    std::vector<utility::string_t> getT() const;
-    bool TIsSet() const;
-    void unsett();
-    void setT(const std::vector<utility::string_t>& value);
-
-    utility::string_t getD() const;
-    bool DIsSet() const;
-    void unsetd();
-    void setD(const utility::string_t& value);
+    double getConfidence() const;
+    bool confidenceIsSet() const;
+    void unsetConfidence();
+    void setConfidence(double value);
 
 
 protected:
     utility::string_t m_k;
     bool m_kIsSet;
 
-    utility::string_t m_r;
-    bool m_rIsSet;
+    LabelEnum m_Label;
+    bool m_LabelIsSet;
 
-    std::vector<double> m_s;
-    bool m_sIsSet;
+    CategoryEnum m_Category;
+    bool m_CategoryIsSet;
 
-    std::vector<utility::string_t> m_v;
-    bool m_vIsSet;
-
-    std::vector<utility::string_t> m_t;
-    bool m_tIsSet;
-
-    utility::string_t m_d;
-    bool m_dIsSet;
+    double m_Confidence;
+    bool m_ConfidenceIsSet;
 
 };
 

@@ -78,14 +78,6 @@ public:
     void setAvatarmedium(const utility::string_t& value);
 
     /// <summary>
-    /// 状态码，200代表成功。
-    /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
     /// 社区资料的可见性状态: 1&#x3D;私密, 3&#x3D;公开。
     /// </summary>
     int32_t getCommunityvisibilitystate() const;
@@ -183,9 +175,6 @@ protected:
 
     utility::string_t m_Avatarmedium;
     bool m_AvatarmediumIsSet;
-
-    int32_t m_Code;
-    bool m_CodeIsSet;
 
     int32_t m_Communityvisibilitystate;
     bool m_CommunityvisibilitystateIsSet;

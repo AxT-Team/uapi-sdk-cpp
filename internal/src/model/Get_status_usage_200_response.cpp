@@ -72,7 +72,7 @@ bool Get_status_usage_200_response::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("endpoints")));
         if(!fieldValue.is_null())
         {
-            std::vector<std::shared_ptr<Endpoints_aggregate_endpoints_inner>> refVal_setEndpoints;
+            std::vector<std::shared_ptr<Get_status_usage_200_response_anyOf_endpoints_inner>> refVal_setEndpoints;
             ok &= ModelBase::fromJson(fieldValue, refVal_setEndpoints);
             setEndpoints(refVal_setEndpoints);
             
@@ -83,7 +83,7 @@ bool Get_status_usage_200_response::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("unaggregated")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Endpoints_aggregate_unaggregated> refVal_setUnaggregated;
+            std::shared_ptr<Get_status_usage_200_response_anyOf_unaggregated> refVal_setUnaggregated;
             ok &= ModelBase::fromJson(fieldValue, refVal_setUnaggregated);
             setUnaggregated(refVal_setUnaggregated);
             
@@ -150,13 +150,13 @@ bool Get_status_usage_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
 
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("endpoints"))))
     {
-        std::vector<std::shared_ptr<Endpoints_aggregate_endpoints_inner>> refVal_setEndpoints;
+        std::vector<std::shared_ptr<Get_status_usage_200_response_anyOf_endpoints_inner>> refVal_setEndpoints;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("endpoints"))), refVal_setEndpoints );
         setEndpoints(refVal_setEndpoints);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("unaggregated"))))
     {
-        std::shared_ptr<Endpoints_aggregate_unaggregated> refVal_setUnaggregated;
+        std::shared_ptr<Get_status_usage_200_response_anyOf_unaggregated> refVal_setUnaggregated;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("unaggregated"))), refVal_setUnaggregated );
         setUnaggregated(refVal_setUnaggregated);
     }
@@ -176,13 +176,13 @@ bool Get_status_usage_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
 }
 
 
-std::vector<std::shared_ptr<Endpoints_aggregate_endpoints_inner>> Get_status_usage_200_response::getEndpoints() const
+std::vector<std::shared_ptr<Get_status_usage_200_response_anyOf_endpoints_inner>> Get_status_usage_200_response::getEndpoints() const
 {
     return m_Endpoints;
 }
 
 
-void Get_status_usage_200_response::setEndpoints(const std::vector<std::shared_ptr<Endpoints_aggregate_endpoints_inner>>& value)
+void Get_status_usage_200_response::setEndpoints(const std::vector<std::shared_ptr<Get_status_usage_200_response_anyOf_endpoints_inner>>& value)
 {
     m_Endpoints = value;
     m_EndpointsIsSet = true;
@@ -197,13 +197,13 @@ void Get_status_usage_200_response::unsetEndpoints()
 {
     m_EndpointsIsSet = false;
 }
-std::shared_ptr<Endpoints_aggregate_unaggregated> Get_status_usage_200_response::getUnaggregated() const
+std::shared_ptr<Get_status_usage_200_response_anyOf_unaggregated> Get_status_usage_200_response::getUnaggregated() const
 {
     return m_Unaggregated;
 }
 
 
-void Get_status_usage_200_response::setUnaggregated(const std::shared_ptr<Endpoints_aggregate_unaggregated>& value)
+void Get_status_usage_200_response::setUnaggregated(const std::shared_ptr<Get_status_usage_200_response_anyOf_unaggregated>& value)
 {
     m_Unaggregated = value;
     m_UnaggregatedIsSet = true;

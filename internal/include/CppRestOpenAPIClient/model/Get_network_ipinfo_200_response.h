@@ -54,67 +54,15 @@ public:
 
 
     /// <summary>
-    /// 自治系统编号 (由GeoLite2或商业版提供)
+    /// 查询的IP地址
     /// </summary>
-    utility::string_t getAsn() const;
-    bool asnIsSet() const;
-    void unsetAsn();
-    void setAsn(const utility::string_t& value);
-
-    /// <summary>
-    /// IP范围起始 (仅在默认查询中提供)
-    /// </summary>
-    utility::string_t getBeginip() const;
-    bool beginipIsSet() const;
-    void unsetBeginip();
-    void setBeginip(const utility::string_t& value);
-
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
-    /// IP范围结束 (仅在默认查询中提供)
-    /// </summary>
-    utility::string_t getEndip() const;
-    bool endipIsSet() const;
-    void unsetEndip();
-    void setEndip(const utility::string_t& value);
-
     utility::string_t getIp() const;
     bool ipIsSet() const;
     void unsetIp();
     void setIp(const utility::string_t& value);
 
     /// <summary>
-    /// 运营商
-    /// </summary>
-    utility::string_t getIsp() const;
-    bool ispIsSet() const;
-    void unsetIsp();
-    void setIsp(const utility::string_t& value);
-
-    double getLatitude() const;
-    bool latitudeIsSet() const;
-    void unsetLatitude();
-    void setLatitude(double value);
-
-    /// <summary>
-    /// 归属
-    /// </summary>
-    utility::string_t getLlc() const;
-    bool llcIsSet() const;
-    void unsetLlc();
-    void setLlc(const utility::string_t& value);
-
-    double getLongitude() const;
-    bool longitudeIsSet() const;
-    void unsetLongitude();
-    void setLongitude(double value);
-
-    /// <summary>
-    /// 格式：国家 省份 城市
+    /// 地理位置，格式：国家 省份 城市
     /// </summary>
     utility::string_t getRegion() const;
     bool regionIsSet() const;
@@ -122,124 +70,100 @@ public:
     void setRegion(const utility::string_t& value);
 
     /// <summary>
-    /// 行政区 (仅在商业查询中提供)
+    /// 运营商名称
+    /// </summary>
+    utility::string_t getIsp() const;
+    bool ispIsSet() const;
+    void unsetIsp();
+    void setIsp(const utility::string_t& value);
+
+    /// <summary>
+    /// 归属机构
+    /// </summary>
+    utility::string_t getLlc() const;
+    bool llcIsSet() const;
+    void unsetLlc();
+    void setLlc(const utility::string_t& value);
+
+    /// <summary>
+    /// 自治系统编号
+    /// </summary>
+    utility::string_t getAsn() const;
+    bool asnIsSet() const;
+    void unsetAsn();
+    void setAsn(const utility::string_t& value);
+
+    /// <summary>
+    /// 纬度
+    /// </summary>
+    double getLatitude() const;
+    bool latitudeIsSet() const;
+    void unsetLatitude();
+    void setLatitude(double value);
+
+    /// <summary>
+    /// 经度
+    /// </summary>
+    double getLongitude() const;
+    bool longitudeIsSet() const;
+    void unsetLongitude();
+    void setLongitude(double value);
+
+    /// <summary>
+    /// IP段起始地址（标准查询）
+    /// </summary>
+    utility::string_t getBeginip() const;
+    bool beginipIsSet() const;
+    void unsetBeginip();
+    void setBeginip(const utility::string_t& value);
+
+    /// <summary>
+    /// IP段结束地址（标准查询）
+    /// </summary>
+    utility::string_t getEndip() const;
+    bool endipIsSet() const;
+    void unsetEndip();
+    void setEndip(const utility::string_t& value);
+
+    /// <summary>
+    /// 行政区（商业查询）
     /// </summary>
     utility::string_t getDistrict() const;
     bool districtIsSet() const;
     void unsetDistrict();
     void setDistrict(const utility::string_t& value);
 
-    /// <summary>
-    /// 行政区划代码 (仅在商业查询中提供)
-    /// </summary>
-    utility::string_t getAreaCode() const;
-    bool areaCodeIsSet() const;
-    void unsetArea_code();
-    void setAreaCode(const utility::string_t& value);
-
-    /// <summary>
-    /// 城市区号 (仅在商业查询中提供)
-    /// </summary>
-    utility::string_t getCityCode() const;
-    bool cityCodeIsSet() const;
-    void unsetCity_code();
-    void setCityCode(const utility::string_t& value);
-
-    /// <summary>
-    /// 邮政编码 (仅在商业查询中提供)
-    /// </summary>
-    utility::string_t getZipCode() const;
-    bool zipCodeIsSet() const;
-    void unsetZip_code();
-    void setZipCode(const utility::string_t& value);
-
-    /// <summary>
-    /// 时区 (仅在商业查询中提供)
-    /// </summary>
-    utility::string_t getTimeZone() const;
-    bool timeZoneIsSet() const;
-    void unsetTime_zone();
-    void setTimeZone(const utility::string_t& value);
-
-    /// <summary>
-    /// 应用场景 (仅在商业查询中提供)
-    /// </summary>
-    utility::string_t getScenes() const;
-    bool scenesIsSet() const;
-    void unsetScenes();
-    void setScenes(const utility::string_t& value);
-
-    /// <summary>
-    /// 海拔（米）(仅在商业查询中提供)
-    /// </summary>
-    utility::string_t getElevation() const;
-    bool elevationIsSet() const;
-    void unsetElevation();
-    void setElevation(const utility::string_t& value);
-
-    /// <summary>
-    /// 气象站代码 (仅在商业查询中提供)
-    /// </summary>
-    utility::string_t getWeatherStation() const;
-    bool weatherStationIsSet() const;
-    void unsetWeather_station();
-    void setWeatherStation(const utility::string_t& value);
-
 
 protected:
-    utility::string_t m_Asn;
-    bool m_AsnIsSet;
-
-    utility::string_t m_Beginip;
-    bool m_BeginipIsSet;
-
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
-    utility::string_t m_Endip;
-    bool m_EndipIsSet;
-
     utility::string_t m_Ip;
     bool m_IpIsSet;
-
-    utility::string_t m_Isp;
-    bool m_IspIsSet;
-
-    double m_Latitude;
-    bool m_LatitudeIsSet;
-
-    utility::string_t m_Llc;
-    bool m_LlcIsSet;
-
-    double m_Longitude;
-    bool m_LongitudeIsSet;
 
     utility::string_t m_Region;
     bool m_RegionIsSet;
 
+    utility::string_t m_Isp;
+    bool m_IspIsSet;
+
+    utility::string_t m_Llc;
+    bool m_LlcIsSet;
+
+    utility::string_t m_Asn;
+    bool m_AsnIsSet;
+
+    double m_Latitude;
+    bool m_LatitudeIsSet;
+
+    double m_Longitude;
+    bool m_LongitudeIsSet;
+
+    utility::string_t m_Beginip;
+    bool m_BeginipIsSet;
+
+    utility::string_t m_Endip;
+    bool m_EndipIsSet;
+
     utility::string_t m_District;
     bool m_DistrictIsSet;
-
-    utility::string_t m_Area_code;
-    bool m_Area_codeIsSet;
-
-    utility::string_t m_City_code;
-    bool m_City_codeIsSet;
-
-    utility::string_t m_Zip_code;
-    bool m_Zip_codeIsSet;
-
-    utility::string_t m_Time_zone;
-    bool m_Time_zoneIsSet;
-
-    utility::string_t m_Scenes;
-    bool m_ScenesIsSet;
-
-    utility::string_t m_Elevation;
-    bool m_ElevationIsSet;
-
-    utility::string_t m_Weather_station;
-    bool m_Weather_stationIsSet;
 
 };
 

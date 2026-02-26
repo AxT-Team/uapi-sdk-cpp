@@ -54,14 +54,6 @@ public:
 
 
     /// <summary>
-    /// 状态码，200代表成功。
-    /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
-
-    /// <summary>
     /// 玩家当前使用的皮肤图片URL。
     /// </summary>
     utility::string_t getSkinUrl() const;
@@ -87,9 +79,6 @@ public:
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
-
     utility::string_t m_Skin_url;
     bool m_Skin_urlIsSet;
 
