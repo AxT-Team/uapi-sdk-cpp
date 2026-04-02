@@ -64,6 +64,14 @@ public:
     void setPage(const std::shared_ptr<Get_social_bilibili_replies_200_response_page>& value);
 
     /// <summary>
+    /// 评论区配置。不同视频或不同权限下可能为 null。
+    /// </summary>
+    std::shared_ptr<Object> getConfig() const;
+    bool configIsSet() const;
+    void unsetConfig();
+    void setConfig(const std::shared_ptr<Object>& value);
+
+    /// <summary>
     /// 热门评论列表。结构与 &#x60;replies&#x60; 中的对象一致。如果当前页是第一页，且有热门评论，则此数组非空。
     /// </summary>
     std::vector<std::shared_ptr<Object>> getHots() const;
@@ -79,16 +87,96 @@ public:
     void unsetReplies();
     void setReplies(const std::vector<std::shared_ptr<Get_social_bilibili_replies_200_response_replies_inner>>& value);
 
+    /// <summary>
+    /// UP 主相关信息。无数据时为 null。
+    /// </summary>
+    std::shared_ptr<Object> getUpper() const;
+    bool upperIsSet() const;
+    void unsetUpper();
+    void setUpper(const std::shared_ptr<Object>& value);
+
+    /// <summary>
+    /// 置顶评论信息。没有置顶评论时为 null。
+    /// </summary>
+    std::shared_ptr<Object> getTop() const;
+    bool topIsSet() const;
+    void unsetTop();
+    void setTop(const std::shared_ptr<Object>& value);
+
+    /// <summary>
+    /// 评论区公告信息。没有公告时为 null。
+    /// </summary>
+    std::shared_ptr<Object> getNotice() const;
+    bool noticeIsSet() const;
+    void unsetNotice();
+    void setNotice(const std::shared_ptr<Object>& value);
+
+    /// <summary>
+    /// 评论区投票相关状态值。没有投票时通常为 0。
+    /// </summary>
+    double getVote() const;
+    bool voteIsSet() const;
+    void unsetVote();
+    void setVote(double value);
+
+    /// <summary>
+    /// 评论折叠相关信息。没有数据时为 null。
+    /// </summary>
+    std::shared_ptr<Object> getFolder() const;
+    bool folderIsSet() const;
+    void unsetFolder();
+    void setFolder(const std::shared_ptr<Object>& value);
+
+    /// <summary>
+    /// 评论区控制信息。没有数据时为 null。
+    /// </summary>
+    std::shared_ptr<Object> getControl() const;
+    bool controlIsSet() const;
+    void unsetControl();
+    void setControl(const std::shared_ptr<Object>& value);
+
+    /// <summary>
+    /// 游标翻页信息。部分场景下为 null。
+    /// </summary>
+    std::shared_ptr<Object> getCursor() const;
+    bool cursorIsSet() const;
+    void unsetCursor();
+    void setCursor(const std::shared_ptr<Object>& value);
+
 
 protected:
     std::shared_ptr<Get_social_bilibili_replies_200_response_page> m_Page;
     bool m_PageIsSet;
+
+    std::shared_ptr<Object> m_Config;
+    bool m_ConfigIsSet;
 
     std::vector<std::shared_ptr<Object>> m_Hots;
     bool m_HotsIsSet;
 
     std::vector<std::shared_ptr<Get_social_bilibili_replies_200_response_replies_inner>> m_Replies;
     bool m_RepliesIsSet;
+
+    std::shared_ptr<Object> m_Upper;
+    bool m_UpperIsSet;
+
+    std::shared_ptr<Object> m_Top;
+    bool m_TopIsSet;
+
+    std::shared_ptr<Object> m_Notice;
+    bool m_NoticeIsSet;
+
+    double m_Vote;
+    bool m_VoteIsSet;
+
+    std::shared_ptr<Object> m_Folder;
+    bool m_FolderIsSet;
+
+    std::shared_ptr<Object> m_Control;
+    bool m_ControlIsSet;
+
+    std::shared_ptr<Object> m_Cursor;
+    bool m_CursorIsSet;
 
 };
 

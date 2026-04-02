@@ -20,11 +20,13 @@ namespace model {
 
 Get_misc_holiday_calendar_200_response::Get_misc_holiday_calendar_200_response()
 {
-    m_Code = 0;
-    m_CodeIsSet = false;
-    m_Message = utility::conversions::to_string_t("");
-    m_MessageIsSet = false;
-    m_DataIsSet = false;
+    m_Mode = utility::conversions::to_string_t("");
+    m_ModeIsSet = false;
+    m_QueryIsSet = false;
+    m_SummaryIsSet = false;
+    m_DaysIsSet = false;
+    m_HolidaysIsSet = false;
+    m_NearbyIsSet = false;
 }
 
 Get_misc_holiday_calendar_200_response::~Get_misc_holiday_calendar_200_response()
@@ -39,20 +41,35 @@ void Get_misc_holiday_calendar_200_response::validate()
 web::json::value Get_misc_holiday_calendar_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
+    if(m_ModeIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
+        val[utility::conversions::to_string_t(_XPLATSTR("mode"))] = ModelBase::toJson(m_Mode);
     }
-    if(m_MessageIsSet)
+    if(m_QueryIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
+        val[utility::conversions::to_string_t(_XPLATSTR("query"))] = ModelBase::toJson(m_Query);
     }
-    if(m_DataIsSet)
+    if(m_SummaryIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("data"))] = ModelBase::toJson(m_Data);
+        val[utility::conversions::to_string_t(_XPLATSTR("summary"))] = ModelBase::toJson(m_Summary);
+    }
+    if(m_DaysIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("days"))] = ModelBase::toJson(m_Days);
+    }
+    if(m_HolidaysIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("holidays"))] = ModelBase::toJson(m_Holidays);
+    }
+    if(m_NearbyIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("nearby"))] = ModelBase::toJson(m_Nearby);
     }
 
     return val;
@@ -61,36 +78,69 @@ web::json::value Get_misc_holiday_calendar_200_response::toJson() const
 bool Get_misc_holiday_calendar_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("mode"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("mode")));
         if(!fieldValue.is_null())
         {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
+            utility::string_t refVal_setMode;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMode);
+            setMode(refVal_setMode);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("query"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("query")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setMessage;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
-            setMessage(refVal_setMessage);
+            std::shared_ptr<Get_misc_holiday_calendar_200_response_query> refVal_setQuery;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setQuery);
+            setQuery(refVal_setQuery);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("summary"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("data")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("summary")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Get_misc_holiday_calendar_200_response_data> refVal_setData;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setData);
-            setData(refVal_setData);
+            std::shared_ptr<Get_misc_holiday_calendar_200_response_summary> refVal_setSummary;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSummary);
+            setSummary(refVal_setSummary);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("days"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("days")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_days_inner>> refVal_setDays;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDays);
+            setDays(refVal_setDays);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("holidays"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("holidays")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_holidays_inner>> refVal_setHolidays;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setHolidays);
+            setHolidays(refVal_setHolidays);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("nearby"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("nearby")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_misc_holiday_calendar_200_response_nearby> refVal_setNearby;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setNearby);
+            setNearby(refVal_setNearby);
             
         }
     }
@@ -104,17 +154,29 @@ void Get_misc_holiday_calendar_200_response::toMultipart(std::shared_ptr<Multipa
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
+    if(m_ModeIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("mode")), m_Mode));
     }
-    if(m_MessageIsSet)
+    if(m_QueryIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("query")), m_Query));
     }
-    if(m_DataIsSet)
+    if(m_SummaryIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("data")), m_Data));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("summary")), m_Summary));
+    }
+    if(m_DaysIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("days")), m_Days));
+    }
+    if(m_HolidaysIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("holidays")), m_Holidays));
+    }
+    if(m_NearbyIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("nearby")), m_Nearby));
     }
 }
 
@@ -127,89 +189,171 @@ bool Get_misc_holiday_calendar_200_response::fromMultiPart(std::shared_ptr<Multi
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("mode"))))
     {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
+        utility::string_t refVal_setMode;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("mode"))), refVal_setMode );
+        setMode(refVal_setMode);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("query"))))
     {
-        utility::string_t refVal_setMessage;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
-        setMessage(refVal_setMessage);
+        std::shared_ptr<Get_misc_holiday_calendar_200_response_query> refVal_setQuery;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("query"))), refVal_setQuery );
+        setQuery(refVal_setQuery);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("summary"))))
     {
-        std::shared_ptr<Get_misc_holiday_calendar_200_response_data> refVal_setData;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("data"))), refVal_setData );
-        setData(refVal_setData);
+        std::shared_ptr<Get_misc_holiday_calendar_200_response_summary> refVal_setSummary;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("summary"))), refVal_setSummary );
+        setSummary(refVal_setSummary);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("days"))))
+    {
+        std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_days_inner>> refVal_setDays;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("days"))), refVal_setDays );
+        setDays(refVal_setDays);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("holidays"))))
+    {
+        std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_holidays_inner>> refVal_setHolidays;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("holidays"))), refVal_setHolidays );
+        setHolidays(refVal_setHolidays);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("nearby"))))
+    {
+        std::shared_ptr<Get_misc_holiday_calendar_200_response_nearby> refVal_setNearby;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("nearby"))), refVal_setNearby );
+        setNearby(refVal_setNearby);
     }
     return ok;
 }
 
 
-int32_t Get_misc_holiday_calendar_200_response::getCode() const
+utility::string_t Get_misc_holiday_calendar_200_response::getMode() const
 {
-    return m_Code;
-}
-
-void Get_misc_holiday_calendar_200_response::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_misc_holiday_calendar_200_response::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_misc_holiday_calendar_200_response::unsetCode()
-{
-    m_CodeIsSet = false;
-}
-utility::string_t Get_misc_holiday_calendar_200_response::getMessage() const
-{
-    return m_Message;
+    return m_Mode;
 }
 
 
-void Get_misc_holiday_calendar_200_response::setMessage(const utility::string_t& value)
+void Get_misc_holiday_calendar_200_response::setMode(const utility::string_t& value)
 {
-    m_Message = value;
-    m_MessageIsSet = true;
+    m_Mode = value;
+    m_ModeIsSet = true;
 }
 
-bool Get_misc_holiday_calendar_200_response::messageIsSet() const
+bool Get_misc_holiday_calendar_200_response::modeIsSet() const
 {
-    return m_MessageIsSet;
+    return m_ModeIsSet;
 }
 
-void Get_misc_holiday_calendar_200_response::unsetMessage()
+void Get_misc_holiday_calendar_200_response::unsetMode()
 {
-    m_MessageIsSet = false;
+    m_ModeIsSet = false;
 }
-std::shared_ptr<Get_misc_holiday_calendar_200_response_data> Get_misc_holiday_calendar_200_response::getData() const
+std::shared_ptr<Get_misc_holiday_calendar_200_response_query> Get_misc_holiday_calendar_200_response::getQuery() const
 {
-    return m_Data;
+    return m_Query;
+}
+
+
+void Get_misc_holiday_calendar_200_response::setQuery(const std::shared_ptr<Get_misc_holiday_calendar_200_response_query>& value)
+{
+    m_Query = value;
+    m_QueryIsSet = true;
+}
+
+bool Get_misc_holiday_calendar_200_response::queryIsSet() const
+{
+    return m_QueryIsSet;
+}
+
+void Get_misc_holiday_calendar_200_response::unsetQuery()
+{
+    m_QueryIsSet = false;
+}
+std::shared_ptr<Get_misc_holiday_calendar_200_response_summary> Get_misc_holiday_calendar_200_response::getSummary() const
+{
+    return m_Summary;
 }
 
 
-void Get_misc_holiday_calendar_200_response::setData(const std::shared_ptr<Get_misc_holiday_calendar_200_response_data>& value)
+void Get_misc_holiday_calendar_200_response::setSummary(const std::shared_ptr<Get_misc_holiday_calendar_200_response_summary>& value)
 {
-    m_Data = value;
-    m_DataIsSet = true;
+    m_Summary = value;
+    m_SummaryIsSet = true;
 }
 
-bool Get_misc_holiday_calendar_200_response::dataIsSet() const
+bool Get_misc_holiday_calendar_200_response::summaryIsSet() const
 {
-    return m_DataIsSet;
+    return m_SummaryIsSet;
 }
 
-void Get_misc_holiday_calendar_200_response::unsetData()
+void Get_misc_holiday_calendar_200_response::unsetSummary()
 {
-    m_DataIsSet = false;
+    m_SummaryIsSet = false;
+}
+std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_days_inner>> Get_misc_holiday_calendar_200_response::getDays() const
+{
+    return m_Days;
+}
+
+
+void Get_misc_holiday_calendar_200_response::setDays(const std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_days_inner>>& value)
+{
+    m_Days = value;
+    m_DaysIsSet = true;
+}
+
+bool Get_misc_holiday_calendar_200_response::daysIsSet() const
+{
+    return m_DaysIsSet;
+}
+
+void Get_misc_holiday_calendar_200_response::unsetDays()
+{
+    m_DaysIsSet = false;
+}
+std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_holidays_inner>> Get_misc_holiday_calendar_200_response::getHolidays() const
+{
+    return m_Holidays;
+}
+
+
+void Get_misc_holiday_calendar_200_response::setHolidays(const std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_holidays_inner>>& value)
+{
+    m_Holidays = value;
+    m_HolidaysIsSet = true;
+}
+
+bool Get_misc_holiday_calendar_200_response::holidaysIsSet() const
+{
+    return m_HolidaysIsSet;
+}
+
+void Get_misc_holiday_calendar_200_response::unsetHolidays()
+{
+    m_HolidaysIsSet = false;
+}
+std::shared_ptr<Get_misc_holiday_calendar_200_response_nearby> Get_misc_holiday_calendar_200_response::getNearby() const
+{
+    return m_Nearby;
+}
+
+
+void Get_misc_holiday_calendar_200_response::setNearby(const std::shared_ptr<Get_misc_holiday_calendar_200_response_nearby>& value)
+{
+    m_Nearby = value;
+    m_NearbyIsSet = true;
+}
+
+bool Get_misc_holiday_calendar_200_response::nearbyIsSet() const
+{
+    return m_NearbyIsSet;
+}
+
+void Get_misc_holiday_calendar_200_response::unsetNearby()
+{
+    m_NearbyIsSet = false;
 }
 
 }

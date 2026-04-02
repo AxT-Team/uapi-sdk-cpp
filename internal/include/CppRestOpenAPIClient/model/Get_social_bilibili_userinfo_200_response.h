@@ -21,7 +21,6 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Get_social_bilibili_userinfo_200_response_data.h"
 #include <cpprest/details/basic_types.h>
 
 namespace org {
@@ -29,7 +28,6 @@ namespace openapitools {
 namespace client {
 namespace model {
 
-class Get_social_bilibili_userinfo_200_response_data;
 
 
 class  Get_social_bilibili_userinfo_200_response
@@ -55,31 +53,111 @@ public:
     /// Get_social_bilibili_userinfo_200_response members
 
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
+    int32_t getMid() const;
+    bool midIsSet() const;
+    void unsetMid();
+    void setMid(int32_t value);
 
-    std::shared_ptr<Get_social_bilibili_userinfo_200_response_data> getData() const;
-    bool dataIsSet() const;
-    void unsetData();
-    void setData(const std::shared_ptr<Get_social_bilibili_userinfo_200_response_data>& value);
+    utility::string_t getName() const;
+    bool nameIsSet() const;
+    void unsetName();
+    void setName(const utility::string_t& value);
 
-    utility::string_t getMessage() const;
-    bool messageIsSet() const;
-    void unsetMessage();
-    void setMessage(const utility::string_t& value);
+    utility::string_t getSex() const;
+    bool sexIsSet() const;
+    void unsetSex();
+    void setSex(const utility::string_t& value);
+
+    utility::string_t getFace() const;
+    bool faceIsSet() const;
+    void unsetFace();
+    void setFace(const utility::string_t& value);
+
+    utility::string_t getSign() const;
+    bool signIsSet() const;
+    void unsetSign();
+    void setSign(const utility::string_t& value);
+
+    int32_t getLevel() const;
+    bool levelIsSet() const;
+    void unsetLevel();
+    void setLevel(int32_t value);
+
+    utility::string_t getBirthday() const;
+    bool birthdayIsSet() const;
+    void unsetBirthday();
+    void setBirthday(const utility::string_t& value);
+
+    int32_t getVipType() const;
+    bool vipTypeIsSet() const;
+    void unsetVip_type();
+    void setVipType(int32_t value);
+
+    int32_t getVipStatus() const;
+    bool vipStatusIsSet() const;
+    void unsetVip_status();
+    void setVipStatus(int32_t value);
+
+    int32_t getFollowing() const;
+    bool followingIsSet() const;
+    void unsetFollowing();
+    void setFollowing(int32_t value);
+
+    int32_t getFollower() const;
+    bool followerIsSet() const;
+    void unsetFollower();
+    void setFollower(int32_t value);
+
+    int32_t getArchiveCount() const;
+    bool archiveCountIsSet() const;
+    void unsetArchive_count();
+    void setArchiveCount(int32_t value);
+
+    int32_t getArticleCount() const;
+    bool articleCountIsSet() const;
+    void unsetArticle_count();
+    void setArticleCount(int32_t value);
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
+    int32_t m_Mid;
+    bool m_MidIsSet;
 
-    std::shared_ptr<Get_social_bilibili_userinfo_200_response_data> m_Data;
-    bool m_DataIsSet;
+    utility::string_t m_Name;
+    bool m_NameIsSet;
 
-    utility::string_t m_Message;
-    bool m_MessageIsSet;
+    utility::string_t m_Sex;
+    bool m_SexIsSet;
+
+    utility::string_t m_Face;
+    bool m_FaceIsSet;
+
+    utility::string_t m_Sign;
+    bool m_SignIsSet;
+
+    int32_t m_Level;
+    bool m_LevelIsSet;
+
+    utility::string_t m_Birthday;
+    bool m_BirthdayIsSet;
+
+    int32_t m_Vip_type;
+    bool m_Vip_typeIsSet;
+
+    int32_t m_Vip_status;
+    bool m_Vip_statusIsSet;
+
+    int32_t m_Following;
+    bool m_FollowingIsSet;
+
+    int32_t m_Follower;
+    bool m_FollowerIsSet;
+
+    int32_t m_Archive_count;
+    bool m_Archive_countIsSet;
+
+    int32_t m_Article_count;
+    bool m_Article_countIsSet;
 
 };
 

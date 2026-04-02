@@ -57,18 +57,10 @@ public:
     void unsetProcessing_time_ms();
     void setProcessingTimeMs(int32_t value);
 
-    bool isCacheHit() const;
-    bool cacheHitIsSet() const;
-    void unsetCache_hit();
-    void setCacheHit(bool value);
-
 
 protected:
     int32_t m_Processing_time_ms;
     bool m_Processing_time_msIsSet;
-
-    bool m_Cache_hit;
-    bool m_Cache_hitIsSet;
 
 };
 

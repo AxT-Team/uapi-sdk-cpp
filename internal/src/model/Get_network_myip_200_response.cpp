@@ -40,6 +40,8 @@ Get_network_myip_200_response::Get_network_myip_200_response()
     m_EndipIsSet = false;
     m_District = utility::conversions::to_string_t("");
     m_DistrictIsSet = false;
+    m_Time_zone = utility::conversions::to_string_t("");
+    m_Time_zoneIsSet = false;
 }
 
 Get_network_myip_200_response::~Get_network_myip_200_response()
@@ -103,6 +105,11 @@ web::json::value Get_network_myip_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("district"))] = ModelBase::toJson(m_District);
+    }
+    if(m_Time_zoneIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("time_zone"))] = ModelBase::toJson(m_Time_zone);
     }
 
     return val;
@@ -221,6 +228,17 @@ bool Get_network_myip_200_response::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("time_zone"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("time_zone")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setTimeZone;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTimeZone);
+            setTimeZone(refVal_setTimeZone);
+            
+        }
+    }
     return ok;
 }
 
@@ -270,6 +288,10 @@ void Get_network_myip_200_response::toMultipart(std::shared_ptr<MultipartFormDat
     if(m_DistrictIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("district")), m_District));
+    }
+    if(m_Time_zoneIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("time_zone")), m_Time_zone));
     }
 }
 
@@ -341,6 +363,12 @@ bool Get_network_myip_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
         utility::string_t refVal_setDistrict;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("district"))), refVal_setDistrict );
         setDistrict(refVal_setDistrict);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("time_zone"))))
+    {
+        utility::string_t refVal_setTimeZone;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("time_zone"))), refVal_setTimeZone );
+        setTimeZone(refVal_setTimeZone);
     }
     return ok;
 }
@@ -553,6 +581,27 @@ bool Get_network_myip_200_response::districtIsSet() const
 void Get_network_myip_200_response::unsetDistrict()
 {
     m_DistrictIsSet = false;
+}
+utility::string_t Get_network_myip_200_response::getTimeZone() const
+{
+    return m_Time_zone;
+}
+
+
+void Get_network_myip_200_response::setTimeZone(const utility::string_t& value)
+{
+    m_Time_zone = value;
+    m_Time_zoneIsSet = true;
+}
+
+bool Get_network_myip_200_response::timeZoneIsSet() const
+{
+    return m_Time_zoneIsSet;
+}
+
+void Get_network_myip_200_response::unsetTime_zone()
+{
+    m_Time_zoneIsSet = false;
 }
 
 }

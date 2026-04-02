@@ -93,7 +93,7 @@ public:
     /// <remarks>
     /// 通过POST请求向答案之书提问并获得神秘答案。  ## 功能概述 与GET方式相同，但通过JSON请求体发送问题，适合在需要发送较长问题或希望避免URL编码问题的场景中使用。  ## 请求体格式 请求体必须是有效的JSON格式，包含question字段。
     /// </remarks>
-    /// <param name="postAnswerbookAskRequest">包含问题的JSON对象</param>
+    /// <param name="postAnswerbookAskRequest"></param>
     pplx::task<std::shared_ptr<Post_answerbook_ask_200_response>> postAnswerbookAsk(
         std::shared_ptr<Post_answerbook_ask_request> postAnswerbookAskRequest
     ) const;

@@ -21,14 +21,12 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Get_ai_translate_languages_200_response_performance_typical_response_time_ms.h"
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
-class Get_ai_translate_languages_200_response_performance_typical_response_time_ms;
 
 
 class  Get_ai_translate_languages_200_response_performance
@@ -54,47 +52,31 @@ public:
     /// Get_ai_translate_languages_200_response_performance members
 
 
-    bool isFastModeAvailable() const;
-    bool fastModeAvailableIsSet() const;
-    void unsetFast_mode_available();
-    void setFastModeAvailable(bool value);
-
     bool isBatchTranslationAvailable() const;
     bool batchTranslationAvailableIsSet() const;
     void unsetBatch_translation_available();
     void setBatchTranslationAvailable(bool value);
-
-    int32_t getMaxTextLength() const;
-    bool maxTextLengthIsSet() const;
-    void unsetMax_text_length();
-    void setMaxTextLength(int32_t value);
 
     int32_t getMaxBatchSize() const;
     bool maxBatchSizeIsSet() const;
     void unsetMax_batch_size();
     void setMaxBatchSize(int32_t value);
 
-    std::shared_ptr<Get_ai_translate_languages_200_response_performance_typical_response_time_ms> getTypicalResponseTimeMs() const;
-    bool typicalResponseTimeMsIsSet() const;
-    void unsetTypical_response_time_ms();
-    void setTypicalResponseTimeMs(const std::shared_ptr<Get_ai_translate_languages_200_response_performance_typical_response_time_ms>& value);
+    int32_t getMaxTextLength() const;
+    bool maxTextLengthIsSet() const;
+    void unsetMax_text_length();
+    void setMaxTextLength(int32_t value);
 
 
 protected:
-    bool m_Fast_mode_available;
-    bool m_Fast_mode_availableIsSet;
-
     bool m_Batch_translation_available;
     bool m_Batch_translation_availableIsSet;
-
-    int32_t m_Max_text_length;
-    bool m_Max_text_lengthIsSet;
 
     int32_t m_Max_batch_size;
     bool m_Max_batch_sizeIsSet;
 
-    std::shared_ptr<Get_ai_translate_languages_200_response_performance_typical_response_time_ms> m_Typical_response_time_ms;
-    bool m_Typical_response_time_msIsSet;
+    int32_t m_Max_text_length;
+    bool m_Max_text_lengthIsSet;
 
 };
 

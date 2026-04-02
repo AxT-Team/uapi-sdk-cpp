@@ -54,63 +54,39 @@ public:
 
 
     /// <summary>
-    /// 平均延迟(ms)
+    /// 当前客户端的公网 IP 地址。
     /// </summary>
-    double getAvg() const;
-    bool avgIsSet() const;
-    void unsetAvg();
-    void setAvg(double value);
-
-    utility::string_t getHost() const;
-    bool hostIsSet() const;
-    void unsetHost();
-    void setHost(const utility::string_t& value);
-
-    utility::string_t getIp() const;
-    bool ipIsSet() const;
-    void unsetIp();
-    void setIp(const utility::string_t& value);
-
-    utility::string_t getLocation() const;
-    bool locationIsSet() const;
-    void unsetLocation();
-    void setLocation(const utility::string_t& value);
+    utility::string_t getClientIp() const;
+    bool clientIpIsSet() const;
+    void unsetClient_ip();
+    void setClientIp(const utility::string_t& value);
 
     /// <summary>
-    /// 最大延迟(ms)
+    /// 是否成功完成对当前客户端 IP 的 Ping。
     /// </summary>
-    double getMax() const;
-    bool maxIsSet() const;
-    void unsetMax();
-    void setMax(double value);
+    bool isPingSuccessful() const;
+    bool pingSuccessfulIsSet() const;
+    void unsetPing_successful();
+    void setPingSuccessful(bool value);
 
     /// <summary>
-    /// 最小延迟(ms)
+    /// 操作结果说明。成功时通常会附带平均延迟信息。
     /// </summary>
-    double getMin() const;
-    bool minIsSet() const;
-    void unsetMin();
-    void setMin(double value);
+    utility::string_t getMessage() const;
+    bool messageIsSet() const;
+    void unsetMessage();
+    void setMessage(const utility::string_t& value);
 
 
 protected:
-    double m_Avg;
-    bool m_AvgIsSet;
+    utility::string_t m_Client_ip;
+    bool m_Client_ipIsSet;
 
-    utility::string_t m_Host;
-    bool m_HostIsSet;
+    bool m_Ping_successful;
+    bool m_Ping_successfulIsSet;
 
-    utility::string_t m_Ip;
-    bool m_IpIsSet;
-
-    utility::string_t m_Location;
-    bool m_LocationIsSet;
-
-    double m_Max;
-    bool m_MaxIsSet;
-
-    double m_Min;
-    bool m_MinIsSet;
+    utility::string_t m_Message;
+    bool m_MessageIsSet;
 
 };
 

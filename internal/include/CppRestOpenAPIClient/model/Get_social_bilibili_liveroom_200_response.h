@@ -21,8 +21,8 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_liveroom_200_response_new_pendants.h"
 #include <cpprest/details/basic_types.h>
-#include "CppRestOpenAPIClient/Object.h"
 #include <vector>
 
 namespace org {
@@ -30,6 +30,7 @@ namespace openapitools {
 namespace client {
 namespace model {
 
+class Get_social_bilibili_liveroom_200_response_new_pendants;
 
 
 class  Get_social_bilibili_liveroom_200_response
@@ -88,12 +89,20 @@ public:
     void setAttention(double value);
 
     /// <summary>
-    /// 直播间当前的人气值。注意这不是真实在线人数。
+    /// 直播间当前的人气值（对应你文档里的 PopularValue，不代表真实在线人数）。
     /// </summary>
     double getOnline() const;
     bool onlineIsSet() const;
     void unsetOnline();
     void setOnline(double value);
+
+    /// <summary>
+    /// 是否为竖屏直播。
+    /// </summary>
+    bool isIsPortrait() const;
+    bool isPortraitIsSet() const;
+    void unsetIs_portrait();
+    void setIsPortrait(bool value);
 
     /// <summary>
     /// 直播状态。0:未开播, 1:直播中, 2:轮播中。
@@ -118,6 +127,14 @@ public:
     bool parentAreaNameIsSet() const;
     void unsetParent_area_name();
     void setParentAreaName(const utility::string_t& value);
+
+    /// <summary>
+    /// 父分区 ID。
+    /// </summary>
+    double getParentAreaId() const;
+    bool parentAreaIdIsSet() const;
+    void unsetParent_area_id();
+    void setParentAreaId(double value);
 
     /// <summary>
     /// 子分区名称。
@@ -168,6 +185,14 @@ public:
     void setLiveTime(const utility::string_t& value);
 
     /// <summary>
+    /// 关键帧封面图链接。
+    /// </summary>
+    utility::string_t getKeyframe() const;
+    bool keyframeIsSet() const;
+    void unsetKeyframe();
+    void setKeyframe(const utility::string_t& value);
+
+    /// <summary>
     /// 直播间设置的标签，以逗号分隔。
     /// </summary>
     utility::string_t getTags() const;
@@ -183,13 +208,10 @@ public:
     void unsetHot_words();
     void setHotWords(const std::vector<utility::string_t>& value);
 
-    /// <summary>
-    /// 主播佩戴的头像框、大航海等级等信息，结构可能比较复杂。
-    /// </summary>
-    std::shared_ptr<Object> getNewPendants() const;
+    std::shared_ptr<Get_social_bilibili_liveroom_200_response_new_pendants> getNewPendants() const;
     bool newPendantsIsSet() const;
     void unsetNew_pendants();
-    void setNewPendants(const std::shared_ptr<Object>& value);
+    void setNewPendants(const std::shared_ptr<Get_social_bilibili_liveroom_200_response_new_pendants>& value);
 
 
 protected:
@@ -208,6 +230,9 @@ protected:
     double m_Online;
     bool m_OnlineIsSet;
 
+    bool m_Is_portrait;
+    bool m_Is_portraitIsSet;
+
     double m_Live_status;
     bool m_Live_statusIsSet;
 
@@ -216,6 +241,9 @@ protected:
 
     utility::string_t m_Parent_area_name;
     bool m_Parent_area_nameIsSet;
+
+    double m_Parent_area_id;
+    bool m_Parent_area_idIsSet;
 
     utility::string_t m_Area_name;
     bool m_Area_nameIsSet;
@@ -235,13 +263,16 @@ protected:
     utility::string_t m_Live_time;
     bool m_Live_timeIsSet;
 
+    utility::string_t m_Keyframe;
+    bool m_KeyframeIsSet;
+
     utility::string_t m_Tags;
     bool m_TagsIsSet;
 
     std::vector<utility::string_t> m_Hot_words;
     bool m_Hot_wordsIsSet;
 
-    std::shared_ptr<Object> m_New_pendants;
+    std::shared_ptr<Get_social_bilibili_liveroom_200_response_new_pendants> m_New_pendants;
     bool m_New_pendantsIsSet;
 
 };

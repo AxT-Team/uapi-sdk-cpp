@@ -21,15 +21,14 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Get_misc_lunartime_200_response_data.h"
 #include <cpprest/details/basic_types.h>
+#include <vector>
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
-class Get_misc_lunartime_200_response_data;
 
 
 class  Get_misc_lunartime_200_response
@@ -56,36 +55,248 @@ public:
 
 
     /// <summary>
-    /// 业务状态码，200 表示成功。
+    /// 原始 ts 入参。
     /// </summary>
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
+    utility::string_t getQueryTimestamp() const;
+    bool queryTimestampIsSet() const;
+    void unsetQuery_timestamp();
+    void setQueryTimestamp(const utility::string_t& value);
 
     /// <summary>
-    /// 状态描述。
+    /// 原始 timezone 入参。
     /// </summary>
-    utility::string_t getMessage() const;
-    bool messageIsSet() const;
-    void unsetMessage();
-    void setMessage(const utility::string_t& value);
+    utility::string_t getQueryTimezone() const;
+    bool queryTimezoneIsSet() const;
+    void unsetQuery_timezone();
+    void setQueryTimezone(const utility::string_t& value);
 
-    std::shared_ptr<Get_misc_lunartime_200_response_data> getData() const;
-    bool dataIsSet() const;
-    void unsetData();
-    void setData(const std::shared_ptr<Get_misc_lunartime_200_response_data>& value);
+    /// <summary>
+    /// 解析后的时区。
+    /// </summary>
+    utility::string_t getTimezone() const;
+    bool timezoneIsSet() const;
+    void unsetTimezone();
+    void setTimezone(const utility::string_t& value);
+
+    /// <summary>
+    /// 本地化时间，格式 YYYY-MM-DD HH:mm:ss。
+    /// </summary>
+    utility::string_t getDatetime() const;
+    bool datetimeIsSet() const;
+    void unsetDatetime();
+    void setDatetime(const utility::string_t& value);
+
+    /// <summary>
+    /// RFC3339 时间格式。
+    /// </summary>
+    utility::string_t getDatetimeRfc3339() const;
+    bool datetimeRfc3339IsSet() const;
+    void unsetDatetime_rfc3339();
+    void setDatetimeRfc3339(const utility::string_t& value);
+
+    /// <summary>
+    /// 秒级 Unix 时间戳。
+    /// </summary>
+    int32_t getTimestampUnix() const;
+    bool timestampUnixIsSet() const;
+    void unsetTimestamp_unix();
+    void setTimestampUnix(int32_t value);
+
+    /// <summary>
+    /// 星期英文。
+    /// </summary>
+    utility::string_t getWeekday() const;
+    bool weekdayIsSet() const;
+    void unsetWeekday();
+    void setWeekday(const utility::string_t& value);
+
+    /// <summary>
+    /// 星期中文。
+    /// </summary>
+    utility::string_t getWeekdayCn() const;
+    bool weekdayCnIsSet() const;
+    void unsetWeekday_cn();
+    void setWeekdayCn(const utility::string_t& value);
+
+    /// <summary>
+    /// 农历年份（数字）。
+    /// </summary>
+    int32_t getLunarYear() const;
+    bool lunarYearIsSet() const;
+    void unsetLunar_year();
+    void setLunarYear(int32_t value);
+
+    /// <summary>
+    /// 农历月份（数字）。
+    /// </summary>
+    int32_t getLunarMonth() const;
+    bool lunarMonthIsSet() const;
+    void unsetLunar_month();
+    void setLunarMonth(int32_t value);
+
+    /// <summary>
+    /// 农历日期（数字）。
+    /// </summary>
+    int32_t getLunarDay() const;
+    bool lunarDayIsSet() const;
+    void unsetLunar_day();
+    void setLunarDay(int32_t value);
+
+    /// <summary>
+    /// 是否闰月。
+    /// </summary>
+    bool isIsLeapMonth() const;
+    bool isLeapMonthIsSet() const;
+    void unsetIs_leap_month();
+    void setIsLeapMonth(bool value);
+
+    /// <summary>
+    /// 农历年份中文表示。
+    /// </summary>
+    utility::string_t getLunarYearCn() const;
+    bool lunarYearCnIsSet() const;
+    void unsetLunar_year_cn();
+    void setLunarYearCn(const utility::string_t& value);
+
+    /// <summary>
+    /// 农历月份中文表示。
+    /// </summary>
+    utility::string_t getLunarMonthCn() const;
+    bool lunarMonthCnIsSet() const;
+    void unsetLunar_month_cn();
+    void setLunarMonthCn(const utility::string_t& value);
+
+    /// <summary>
+    /// 农历日期中文表示。
+    /// </summary>
+    utility::string_t getLunarDayCn() const;
+    bool lunarDayCnIsSet() const;
+    void unsetLunar_day_cn();
+    void setLunarDayCn(const utility::string_t& value);
+
+    /// <summary>
+    /// 干支年。
+    /// </summary>
+    utility::string_t getGanzhiYear() const;
+    bool ganzhiYearIsSet() const;
+    void unsetGanzhi_year();
+    void setGanzhiYear(const utility::string_t& value);
+
+    /// <summary>
+    /// 干支月。
+    /// </summary>
+    utility::string_t getGanzhiMonth() const;
+    bool ganzhiMonthIsSet() const;
+    void unsetGanzhi_month();
+    void setGanzhiMonth(const utility::string_t& value);
+
+    /// <summary>
+    /// 干支日。
+    /// </summary>
+    utility::string_t getGanzhiDay() const;
+    bool ganzhiDayIsSet() const;
+    void unsetGanzhi_day();
+    void setGanzhiDay(const utility::string_t& value);
+
+    /// <summary>
+    /// 生肖。
+    /// </summary>
+    utility::string_t getZodiac() const;
+    bool zodiacIsSet() const;
+    void unsetZodiac();
+    void setZodiac(const utility::string_t& value);
+
+    /// <summary>
+    /// 节气名称。有值时返回，无值时可能为空字符串或不返回。
+    /// </summary>
+    utility::string_t getSolarTerm() const;
+    bool solarTermIsSet() const;
+    void unsetSolar_term();
+    void setSolarTerm(const utility::string_t& value);
+
+    /// <summary>
+    /// 农历节日数组。
+    /// </summary>
+    std::vector<utility::string_t> getLunarFestivals() const;
+    bool lunarFestivalsIsSet() const;
+    void unsetLunar_festivals();
+    void setLunarFestivals(const std::vector<utility::string_t>& value);
+
+    /// <summary>
+    /// 公历节日数组。
+    /// </summary>
+    std::vector<utility::string_t> getSolarFestivals() const;
+    bool solarFestivalsIsSet() const;
+    void unsetSolar_festivals();
+    void setSolarFestivals(const std::vector<utility::string_t>& value);
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
+    utility::string_t m_Query_timestamp;
+    bool m_Query_timestampIsSet;
 
-    utility::string_t m_Message;
-    bool m_MessageIsSet;
+    utility::string_t m_Query_timezone;
+    bool m_Query_timezoneIsSet;
 
-    std::shared_ptr<Get_misc_lunartime_200_response_data> m_Data;
-    bool m_DataIsSet;
+    utility::string_t m_Timezone;
+    bool m_TimezoneIsSet;
+
+    utility::string_t m_Datetime;
+    bool m_DatetimeIsSet;
+
+    utility::string_t m_Datetime_rfc3339;
+    bool m_Datetime_rfc3339IsSet;
+
+    int32_t m_Timestamp_unix;
+    bool m_Timestamp_unixIsSet;
+
+    utility::string_t m_Weekday;
+    bool m_WeekdayIsSet;
+
+    utility::string_t m_Weekday_cn;
+    bool m_Weekday_cnIsSet;
+
+    int32_t m_Lunar_year;
+    bool m_Lunar_yearIsSet;
+
+    int32_t m_Lunar_month;
+    bool m_Lunar_monthIsSet;
+
+    int32_t m_Lunar_day;
+    bool m_Lunar_dayIsSet;
+
+    bool m_Is_leap_month;
+    bool m_Is_leap_monthIsSet;
+
+    utility::string_t m_Lunar_year_cn;
+    bool m_Lunar_year_cnIsSet;
+
+    utility::string_t m_Lunar_month_cn;
+    bool m_Lunar_month_cnIsSet;
+
+    utility::string_t m_Lunar_day_cn;
+    bool m_Lunar_day_cnIsSet;
+
+    utility::string_t m_Ganzhi_year;
+    bool m_Ganzhi_yearIsSet;
+
+    utility::string_t m_Ganzhi_month;
+    bool m_Ganzhi_monthIsSet;
+
+    utility::string_t m_Ganzhi_day;
+    bool m_Ganzhi_dayIsSet;
+
+    utility::string_t m_Zodiac;
+    bool m_ZodiacIsSet;
+
+    utility::string_t m_Solar_term;
+    bool m_Solar_termIsSet;
+
+    std::vector<utility::string_t> m_Lunar_festivals;
+    bool m_Lunar_festivalsIsSet;
+
+    std::vector<utility::string_t> m_Solar_festivals;
+    bool m_Solar_festivalsIsSet;
 
 };
 

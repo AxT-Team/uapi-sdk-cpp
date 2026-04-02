@@ -20,15 +20,12 @@ namespace model {
 
 Get_ai_translate_languages_200_response_performance::Get_ai_translate_languages_200_response_performance()
 {
-    m_Fast_mode_available = false;
-    m_Fast_mode_availableIsSet = false;
     m_Batch_translation_available = false;
     m_Batch_translation_availableIsSet = false;
-    m_Max_text_length = 0;
-    m_Max_text_lengthIsSet = false;
     m_Max_batch_size = 0;
     m_Max_batch_sizeIsSet = false;
-    m_Typical_response_time_msIsSet = false;
+    m_Max_text_length = 0;
+    m_Max_text_lengthIsSet = false;
 }
 
 Get_ai_translate_languages_200_response_performance::~Get_ai_translate_languages_200_response_performance()
@@ -43,30 +40,20 @@ void Get_ai_translate_languages_200_response_performance::validate()
 web::json::value Get_ai_translate_languages_200_response_performance::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_Fast_mode_availableIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("fast_mode_available"))] = ModelBase::toJson(m_Fast_mode_available);
-    }
     if(m_Batch_translation_availableIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("batch_translation_available"))] = ModelBase::toJson(m_Batch_translation_available);
-    }
-    if(m_Max_text_lengthIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("max_text_length"))] = ModelBase::toJson(m_Max_text_length);
     }
     if(m_Max_batch_sizeIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("max_batch_size"))] = ModelBase::toJson(m_Max_batch_size);
     }
-    if(m_Typical_response_time_msIsSet)
+    if(m_Max_text_lengthIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("typical_response_time_ms"))] = ModelBase::toJson(m_Typical_response_time_ms);
+        val[utility::conversions::to_string_t(_XPLATSTR("max_text_length"))] = ModelBase::toJson(m_Max_text_length);
     }
 
     return val;
@@ -75,17 +62,6 @@ web::json::value Get_ai_translate_languages_200_response_performance::toJson() c
 bool Get_ai_translate_languages_200_response_performance::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("fast_mode_available"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("fast_mode_available")));
-        if(!fieldValue.is_null())
-        {
-            bool refVal_setFastModeAvailable;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setFastModeAvailable);
-            setFastModeAvailable(refVal_setFastModeAvailable);
-            
-        }
-    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("batch_translation_available"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("batch_translation_available")));
@@ -94,17 +70,6 @@ bool Get_ai_translate_languages_200_response_performance::fromJson(const web::js
             bool refVal_setBatchTranslationAvailable;
             ok &= ModelBase::fromJson(fieldValue, refVal_setBatchTranslationAvailable);
             setBatchTranslationAvailable(refVal_setBatchTranslationAvailable);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("max_text_length"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("max_text_length")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setMaxTextLength;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMaxTextLength);
-            setMaxTextLength(refVal_setMaxTextLength);
             
         }
     }
@@ -119,14 +84,14 @@ bool Get_ai_translate_languages_200_response_performance::fromJson(const web::js
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("typical_response_time_ms"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("max_text_length"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("typical_response_time_ms")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("max_text_length")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Get_ai_translate_languages_200_response_performance_typical_response_time_ms> refVal_setTypicalResponseTimeMs;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setTypicalResponseTimeMs);
-            setTypicalResponseTimeMs(refVal_setTypicalResponseTimeMs);
+            int32_t refVal_setMaxTextLength;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMaxTextLength);
+            setMaxTextLength(refVal_setMaxTextLength);
             
         }
     }
@@ -140,25 +105,17 @@ void Get_ai_translate_languages_200_response_performance::toMultipart(std::share
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_Fast_mode_availableIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("fast_mode_available")), m_Fast_mode_available));
-    }
     if(m_Batch_translation_availableIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("batch_translation_available")), m_Batch_translation_available));
-    }
-    if(m_Max_text_lengthIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("max_text_length")), m_Max_text_length));
     }
     if(m_Max_batch_sizeIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("max_batch_size")), m_Max_batch_size));
     }
-    if(m_Typical_response_time_msIsSet)
+    if(m_Max_text_lengthIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("typical_response_time_ms")), m_Typical_response_time_ms));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("max_text_length")), m_Max_text_length));
     }
 }
 
@@ -171,23 +128,11 @@ bool Get_ai_translate_languages_200_response_performance::fromMultiPart(std::sha
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("fast_mode_available"))))
-    {
-        bool refVal_setFastModeAvailable;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("fast_mode_available"))), refVal_setFastModeAvailable );
-        setFastModeAvailable(refVal_setFastModeAvailable);
-    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("batch_translation_available"))))
     {
         bool refVal_setBatchTranslationAvailable;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("batch_translation_available"))), refVal_setBatchTranslationAvailable );
         setBatchTranslationAvailable(refVal_setBatchTranslationAvailable);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("max_text_length"))))
-    {
-        int32_t refVal_setMaxTextLength;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("max_text_length"))), refVal_setMaxTextLength );
-        setMaxTextLength(refVal_setMaxTextLength);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("max_batch_size"))))
     {
@@ -195,36 +140,16 @@ bool Get_ai_translate_languages_200_response_performance::fromMultiPart(std::sha
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("max_batch_size"))), refVal_setMaxBatchSize );
         setMaxBatchSize(refVal_setMaxBatchSize);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("typical_response_time_ms"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("max_text_length"))))
     {
-        std::shared_ptr<Get_ai_translate_languages_200_response_performance_typical_response_time_ms> refVal_setTypicalResponseTimeMs;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("typical_response_time_ms"))), refVal_setTypicalResponseTimeMs );
-        setTypicalResponseTimeMs(refVal_setTypicalResponseTimeMs);
+        int32_t refVal_setMaxTextLength;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("max_text_length"))), refVal_setMaxTextLength );
+        setMaxTextLength(refVal_setMaxTextLength);
     }
     return ok;
 }
 
 
-bool Get_ai_translate_languages_200_response_performance::isFastModeAvailable() const
-{
-    return m_Fast_mode_available;
-}
-
-void Get_ai_translate_languages_200_response_performance::setFastModeAvailable(bool value)
-{
-    m_Fast_mode_available = value;
-    m_Fast_mode_availableIsSet = true;
-}
-
-bool Get_ai_translate_languages_200_response_performance::fastModeAvailableIsSet() const
-{
-    return m_Fast_mode_availableIsSet;
-}
-
-void Get_ai_translate_languages_200_response_performance::unsetFast_mode_available()
-{
-    m_Fast_mode_availableIsSet = false;
-}
 bool Get_ai_translate_languages_200_response_performance::isBatchTranslationAvailable() const
 {
     return m_Batch_translation_available;
@@ -244,26 +169,6 @@ bool Get_ai_translate_languages_200_response_performance::batchTranslationAvaila
 void Get_ai_translate_languages_200_response_performance::unsetBatch_translation_available()
 {
     m_Batch_translation_availableIsSet = false;
-}
-int32_t Get_ai_translate_languages_200_response_performance::getMaxTextLength() const
-{
-    return m_Max_text_length;
-}
-
-void Get_ai_translate_languages_200_response_performance::setMaxTextLength(int32_t value)
-{
-    m_Max_text_length = value;
-    m_Max_text_lengthIsSet = true;
-}
-
-bool Get_ai_translate_languages_200_response_performance::maxTextLengthIsSet() const
-{
-    return m_Max_text_lengthIsSet;
-}
-
-void Get_ai_translate_languages_200_response_performance::unsetMax_text_length()
-{
-    m_Max_text_lengthIsSet = false;
 }
 int32_t Get_ai_translate_languages_200_response_performance::getMaxBatchSize() const
 {
@@ -285,26 +190,25 @@ void Get_ai_translate_languages_200_response_performance::unsetMax_batch_size()
 {
     m_Max_batch_sizeIsSet = false;
 }
-std::shared_ptr<Get_ai_translate_languages_200_response_performance_typical_response_time_ms> Get_ai_translate_languages_200_response_performance::getTypicalResponseTimeMs() const
+int32_t Get_ai_translate_languages_200_response_performance::getMaxTextLength() const
 {
-    return m_Typical_response_time_ms;
+    return m_Max_text_length;
 }
 
-
-void Get_ai_translate_languages_200_response_performance::setTypicalResponseTimeMs(const std::shared_ptr<Get_ai_translate_languages_200_response_performance_typical_response_time_ms>& value)
+void Get_ai_translate_languages_200_response_performance::setMaxTextLength(int32_t value)
 {
-    m_Typical_response_time_ms = value;
-    m_Typical_response_time_msIsSet = true;
+    m_Max_text_length = value;
+    m_Max_text_lengthIsSet = true;
 }
 
-bool Get_ai_translate_languages_200_response_performance::typicalResponseTimeMsIsSet() const
+bool Get_ai_translate_languages_200_response_performance::maxTextLengthIsSet() const
 {
-    return m_Typical_response_time_msIsSet;
+    return m_Max_text_lengthIsSet;
 }
 
-void Get_ai_translate_languages_200_response_performance::unsetTypical_response_time_ms()
+void Get_ai_translate_languages_200_response_performance::unsetMax_text_length()
 {
-    m_Typical_response_time_msIsSet = false;
+    m_Max_text_lengthIsSet = false;
 }
 
 }

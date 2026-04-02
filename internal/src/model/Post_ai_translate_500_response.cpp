@@ -26,8 +26,6 @@ Post_ai_translate_500_response::Post_ai_translate_500_response()
     m_MessageIsSet = false;
     m_Error = utility::conversions::to_string_t("");
     m_ErrorIsSet = false;
-    m_Is_batch = false;
-    m_Is_batchIsSet = false;
 }
 
 Post_ai_translate_500_response::~Post_ai_translate_500_response()
@@ -56,11 +54,6 @@ web::json::value Post_ai_translate_500_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("error"))] = ModelBase::toJson(m_Error);
-    }
-    if(m_Is_batchIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("is_batch"))] = ModelBase::toJson(m_Is_batch);
     }
 
     return val;
@@ -102,17 +95,6 @@ bool Post_ai_translate_500_response::fromJson(const web::json::value& val)
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("is_batch"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("is_batch")));
-        if(!fieldValue.is_null())
-        {
-            bool refVal_setIsBatch;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setIsBatch);
-            setIsBatch(refVal_setIsBatch);
-            
-        }
-    }
     return ok;
 }
 
@@ -134,10 +116,6 @@ void Post_ai_translate_500_response::toMultipart(std::shared_ptr<MultipartFormDa
     if(m_ErrorIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("error")), m_Error));
-    }
-    if(m_Is_batchIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("is_batch")), m_Is_batch));
     }
 }
 
@@ -167,12 +145,6 @@ bool Post_ai_translate_500_response::fromMultiPart(std::shared_ptr<MultipartForm
         utility::string_t refVal_setError;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("error"))), refVal_setError );
         setError(refVal_setError);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("is_batch"))))
-    {
-        bool refVal_setIsBatch;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("is_batch"))), refVal_setIsBatch );
-        setIsBatch(refVal_setIsBatch);
     }
     return ok;
 }
@@ -239,26 +211,6 @@ bool Post_ai_translate_500_response::errorIsSet() const
 void Post_ai_translate_500_response::unsetError()
 {
     m_ErrorIsSet = false;
-}
-bool Post_ai_translate_500_response::isIsBatch() const
-{
-    return m_Is_batch;
-}
-
-void Post_ai_translate_500_response::setIsBatch(bool value)
-{
-    m_Is_batch = value;
-    m_Is_batchIsSet = true;
-}
-
-bool Post_ai_translate_500_response::isBatchIsSet() const
-{
-    return m_Is_batchIsSet;
-}
-
-void Post_ai_translate_500_response::unsetIs_batch()
-{
-    m_Is_batchIsSet = false;
 }
 
 }

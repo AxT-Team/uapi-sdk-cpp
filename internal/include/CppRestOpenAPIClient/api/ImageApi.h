@@ -93,7 +93,7 @@ public:
     /// 必应壁纸
     /// </summary>
     /// <remarks>
-    /// 每天都想换张新壁纸？让必应的美图点亮你的一天吧！  ## 功能概述 这个接口会获取 Bing 搜索引擎当天全球同步的每日壁纸，并直接以图片形式返回。你可以用它来做应用的启动页、网站背景，或者任何需要每日更新精美图片的地方。  ## 使用须知  &gt; [!NOTE] &gt; **响应格式是图片** &gt; 请注意，此接口成功时直接返回图片二进制数据（通常为 &#x60;image/jpeg&#x60;），而非 JSON 格式。请确保客户端能够正确处理。  我们内置了备用方案：如果从必应官方获取图片失败，系统会尝试返回一张预存的高质量风景图，以保证服务的稳定性。
+    /// 每天都想换张新壁纸？让必应的美图点亮你的一天吧！  ## 功能概述 这个接口会获取 Bing 搜索引擎当天全球同步的每日壁纸，并直接以图片形式返回。你可以用它来做应用的启动页、网站背景，或者任何需要每日更新精美图片的地方。  ## 使用须知 此接口成功时直接返回图片二进制数据，通常是 &#x60;image/jpeg&#x60;，不是 JSON 格式。接入时请按图片响应来处理。
     /// </remarks>
     pplx::task<std::shared_ptr<HttpContent>> getImageBingDaily(
     ) const;
@@ -113,7 +113,7 @@ public:
     /// 生成二维码
     /// </summary>
     /// <remarks>
-    /// 无论是网址、文本还是联系方式，通通可以变成一个二维码！这是一个非常灵活的二维码生成工具。  ## 功能概述 你提供一段文本内容，我们为你生成对应的二维码图片。你可以自定义尺寸、前景色、背景色，还支持透明背景，并选择不同的返回格式以适应不同场景。  ## 使用须知  &gt; [!IMPORTANT] &gt; **关键参数 &#x60;format&#x60;** &gt; 此参数决定了成功响应的内容类型和结构，请务必根据你的需求选择并正确处理响应： &gt; - **&#x60;image&#x60;** (默认): 直接返回 &#x60;image/png&#x60; 格式的图片二进制数据，适合在 &#x60;&lt;img&gt;&#x60; 标签中直接使用。 &gt; - **&#x60;json&#x60;**: 返回一个包含 Base64 Data URI 的 JSON 对象，适合需要在前端直接嵌入CSS或HTML的场景。 &gt; - **&#x60;json_url&#x60;**: 返回一个包含图片临时URL的JSON对象，适合需要图片链接的场景。  &gt; [!TIP] &gt; **颜色参数说明** &gt; - 颜色参数使用十六进制格式（如 &#x60;#FF0000&#x60;） &gt; - URL 中需要对 &#x60;#&#x60; 进行编码，即 &#x60;%23&#x60;（例如：&#x60;fgcolor&#x3D;%23FF0000&#x60;） &gt; - 当 &#x60;transparent&#x3D;true&#x60; 时，&#x60;bgcolor&#x60; 参数会被忽略
+    /// 无论是网址、文本还是联系方式，通通可以变成一个二维码！这是一个非常灵活的二维码生成工具。  ## 功能概述 你提供一段文本内容，我们为你生成对应的二维码图片。你可以自定义尺寸、前景色、背景色，还支持透明背景，并选择不同的返回格式以适应不同场景。
     /// </remarks>
     /// <param name="text">你希望编码到二维码中的任何文本内容，比如一个URL、一段话或者一个JSON字符串。</param>
     /// <param name="size">二维码图片的边长（正方形），单位是像素。有效范围是 256 到 2048 之间。 (optional, default to 0)</param>
@@ -159,7 +159,7 @@ public:
     /// <remarks>
     /// 当你需要在前端处理完图片（比如裁剪、加滤镜后），不通过传统表单，而是直接上传图片的场景，这个接口就派上用场了。  ## 功能概述 你只需要将图片的 Base64 编码字符串发送过来，我们就会把它解码、保存为图片文件，并返回一个可供访问的公开 URL。  ## 使用须知  &gt; [!IMPORTANT] &gt; **关于 &#x60;imageData&#x60; 格式** &gt; 你发送的 &#x60;imageData&#x60; 字符串必须是完整的 Base64 Data URI 格式，它需要包含 MIME 类型信息，例如 &#x60;data:image/png;base64,iVBORw0KGgo...&#x60;。缺少 &#x60;data:image/...;base64,&#x60; 前缀将导致解码失败。
     /// </remarks>
-    /// <param name="postImageFrombase64Request">一个JSON对象，包含 &#x60;imageData&#x60; 字段，其值为你想要上传图片的完整Base64 Data URI。</param>
+    /// <param name="postImageFrombase64Request"></param>
     pplx::task<std::shared_ptr<Post_image_frombase64_200_response>> postImageFrombase64(
         std::shared_ptr<Post_image_frombase64_request> postImageFrombase64Request
     ) const;
@@ -181,7 +181,7 @@ public:
     /// 图片敏感检测
     /// </summary>
     /// <remarks>
-    /// 这是一个图片内容审核接口，自动识别图片中的违规内容并返回处理建议。  &gt; [!VIP] &gt; 此接口限时免费开放，无需企业认证即可使用。  ## 功能概述 上传图片文件或提供图片URL，接口会自动分析图片内容，返回是否违规、风险等级和处理建议。适合对接到用户上传流程中，实现自动化内容审核。  ## 返回字段说明 - **is_nsfw**: 是否判定为违规内容，&#x60;true&#x60; 表示违规，&#x60;false&#x60; 表示正常 - **nsfw_score**: 违规内容置信度，0-1 之间，越高表示越可能违规 - **normal_score**: 正常内容置信度，0-1 之间，与 nsfw_score 互补 - **suggestion**: 处理建议   - &#x60;pass&#x60;: 内容正常，可以直接放行   - &#x60;review&#x60;: 存在风险，建议转人工复核   - &#x60;block&#x60;: 高风险内容，建议直接拦截 - **risk_level**: 风险等级   - &#x60;low&#x60;: 低风险   - &#x60;medium&#x60;: 中风险   - &#x60;high&#x60;: 高风险 - **label**: 内容标签，&#x60;nsfw&#x60; 或 &#x60;normal&#x60; - **confidence**: 模型对当前判断的整体置信度 - **inference_time_ms**: 模型推理耗时，单位毫秒
+    /// 这是一个图片内容审核接口，自动识别图片中的违规内容并返回处理建议。  ## 功能概述 上传图片文件或提供图片URL，接口会自动分析图片内容，返回是否违规、风险等级和处理建议。适合对接到用户上传流程中，实现自动化内容审核。  ## 返回字段说明 - **is_nsfw**: 是否判定为违规内容，&#x60;true&#x60; 表示违规，&#x60;false&#x60; 表示正常 - **nsfw_score**: 违规内容置信度，0-1 之间，越高表示越可能违规 - **normal_score**: 正常内容置信度，0-1 之间，与 nsfw_score 互补 - **suggestion**: 处理建议   - &#x60;pass&#x60;: 内容正常，可以直接放行   - &#x60;review&#x60;: 存在风险，建议转人工复核   - &#x60;block&#x60;: 高风险内容，建议直接拦截 - **risk_level**: 风险等级   - &#x60;low&#x60;: 低风险   - &#x60;medium&#x60;: 中风险   - &#x60;high&#x60;: 高风险 - **label**: 内容标签，&#x60;nsfw&#x60; 或 &#x60;normal&#x60; - **confidence**: 模型对当前判断的整体置信度 - **inference_time_ms**: 模型推理耗时，单位毫秒
     /// </remarks>
     /// <param name="file">要检测的图片文件。支持 JPG、JPEG、PNG、GIF、WebP 格式，最大 20MB。 (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
     /// <param name="url">图片的 URL 地址。如果同时提供 file 和 url，将优先使用 file。 (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>

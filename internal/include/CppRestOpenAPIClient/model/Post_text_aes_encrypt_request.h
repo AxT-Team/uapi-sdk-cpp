@@ -54,13 +54,16 @@ public:
 
 
     /// <summary>
-    /// Key must be 16, 24, or 32 bytes long to select AES-128, AES-192, or AES-256.
+    /// 密钥长度必须为 16、24 或 32 字节，分别对应 AES-128、AES-192、AES-256。
     /// </summary>
     utility::string_t getKey() const;
     bool keyIsSet() const;
     void unsetKey();
     void setKey(const utility::string_t& value);
 
+    /// <summary>
+    /// 待加密的明文文本。
+    /// </summary>
     utility::string_t getText() const;
     bool textIsSet() const;
     void unsetText();

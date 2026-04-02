@@ -54,7 +54,7 @@ public:
 
 
     /// <summary>
-    /// 待翻译的文本内容。
+    /// 待翻译的文本内容，最大长度3000字符。
     /// </summary>
     utility::string_t getText() const;
     bool textIsSet() const;

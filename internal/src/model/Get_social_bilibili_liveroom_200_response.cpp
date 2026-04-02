@@ -30,12 +30,16 @@ Get_social_bilibili_liveroom_200_response::Get_social_bilibili_liveroom_200_resp
     m_AttentionIsSet = false;
     m_Online = 0.0;
     m_OnlineIsSet = false;
+    m_Is_portrait = false;
+    m_Is_portraitIsSet = false;
     m_Live_status = 0.0;
     m_Live_statusIsSet = false;
     m_Area_id = 0.0;
     m_Area_idIsSet = false;
     m_Parent_area_name = utility::conversions::to_string_t("");
     m_Parent_area_nameIsSet = false;
+    m_Parent_area_id = 0.0;
+    m_Parent_area_idIsSet = false;
     m_Area_name = utility::conversions::to_string_t("");
     m_Area_nameIsSet = false;
     m_Background = utility::conversions::to_string_t("");
@@ -48,6 +52,8 @@ Get_social_bilibili_liveroom_200_response::Get_social_bilibili_liveroom_200_resp
     m_DescriptionIsSet = false;
     m_Live_time = utility::conversions::to_string_t("");
     m_Live_timeIsSet = false;
+    m_Keyframe = utility::conversions::to_string_t("");
+    m_KeyframeIsSet = false;
     m_Tags = utility::conversions::to_string_t("");
     m_TagsIsSet = false;
     m_Hot_wordsIsSet = false;
@@ -91,6 +97,11 @@ web::json::value Get_social_bilibili_liveroom_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("online"))] = ModelBase::toJson(m_Online);
     }
+    if(m_Is_portraitIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("is_portrait"))] = ModelBase::toJson(m_Is_portrait);
+    }
     if(m_Live_statusIsSet)
     {   
         
@@ -105,6 +116,11 @@ web::json::value Get_social_bilibili_liveroom_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("parent_area_name"))] = ModelBase::toJson(m_Parent_area_name);
+    }
+    if(m_Parent_area_idIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("parent_area_id"))] = ModelBase::toJson(m_Parent_area_id);
     }
     if(m_Area_nameIsSet)
     {   
@@ -135,6 +151,11 @@ web::json::value Get_social_bilibili_liveroom_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("live_time"))] = ModelBase::toJson(m_Live_time);
+    }
+    if(m_KeyframeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("keyframe"))] = ModelBase::toJson(m_Keyframe);
     }
     if(m_TagsIsSet)
     {   
@@ -213,6 +234,17 @@ bool Get_social_bilibili_liveroom_200_response::fromJson(const web::json::value&
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("is_portrait"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("is_portrait")));
+        if(!fieldValue.is_null())
+        {
+            bool refVal_setIsPortrait;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setIsPortrait);
+            setIsPortrait(refVal_setIsPortrait);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("live_status"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("live_status")));
@@ -243,6 +275,17 @@ bool Get_social_bilibili_liveroom_200_response::fromJson(const web::json::value&
             utility::string_t refVal_setParentAreaName;
             ok &= ModelBase::fromJson(fieldValue, refVal_setParentAreaName);
             setParentAreaName(refVal_setParentAreaName);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("parent_area_id"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("parent_area_id")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setParentAreaId;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setParentAreaId);
+            setParentAreaId(refVal_setParentAreaId);
             
         }
     }
@@ -312,6 +355,17 @@ bool Get_social_bilibili_liveroom_200_response::fromJson(const web::json::value&
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("keyframe"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("keyframe")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setKeyframe;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setKeyframe);
+            setKeyframe(refVal_setKeyframe);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("tags"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("tags")));
@@ -339,7 +393,7 @@ bool Get_social_bilibili_liveroom_200_response::fromJson(const web::json::value&
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("new_pendants")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Object> refVal_setNewPendants;
+            std::shared_ptr<Get_social_bilibili_liveroom_200_response_new_pendants> refVal_setNewPendants;
             ok &= ModelBase::fromJson(fieldValue, refVal_setNewPendants);
             setNewPendants(refVal_setNewPendants);
             
@@ -375,6 +429,10 @@ void Get_social_bilibili_liveroom_200_response::toMultipart(std::shared_ptr<Mult
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("online")), m_Online));
     }
+    if(m_Is_portraitIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("is_portrait")), m_Is_portrait));
+    }
     if(m_Live_statusIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("live_status")), m_Live_status));
@@ -386,6 +444,10 @@ void Get_social_bilibili_liveroom_200_response::toMultipart(std::shared_ptr<Mult
     if(m_Parent_area_nameIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("parent_area_name")), m_Parent_area_name));
+    }
+    if(m_Parent_area_idIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("parent_area_id")), m_Parent_area_id));
     }
     if(m_Area_nameIsSet)
     {
@@ -410,6 +472,10 @@ void Get_social_bilibili_liveroom_200_response::toMultipart(std::shared_ptr<Mult
     if(m_Live_timeIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("live_time")), m_Live_time));
+    }
+    if(m_KeyframeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("keyframe")), m_Keyframe));
     }
     if(m_TagsIsSet)
     {
@@ -464,6 +530,12 @@ bool Get_social_bilibili_liveroom_200_response::fromMultiPart(std::shared_ptr<Mu
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("online"))), refVal_setOnline );
         setOnline(refVal_setOnline);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("is_portrait"))))
+    {
+        bool refVal_setIsPortrait;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("is_portrait"))), refVal_setIsPortrait );
+        setIsPortrait(refVal_setIsPortrait);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("live_status"))))
     {
         double refVal_setLiveStatus;
@@ -481,6 +553,12 @@ bool Get_social_bilibili_liveroom_200_response::fromMultiPart(std::shared_ptr<Mu
         utility::string_t refVal_setParentAreaName;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("parent_area_name"))), refVal_setParentAreaName );
         setParentAreaName(refVal_setParentAreaName);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("parent_area_id"))))
+    {
+        double refVal_setParentAreaId;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("parent_area_id"))), refVal_setParentAreaId );
+        setParentAreaId(refVal_setParentAreaId);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("area_name"))))
     {
@@ -518,6 +596,12 @@ bool Get_social_bilibili_liveroom_200_response::fromMultiPart(std::shared_ptr<Mu
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("live_time"))), refVal_setLiveTime );
         setLiveTime(refVal_setLiveTime);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("keyframe"))))
+    {
+        utility::string_t refVal_setKeyframe;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("keyframe"))), refVal_setKeyframe );
+        setKeyframe(refVal_setKeyframe);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("tags"))))
     {
         utility::string_t refVal_setTags;
@@ -532,7 +616,7 @@ bool Get_social_bilibili_liveroom_200_response::fromMultiPart(std::shared_ptr<Mu
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("new_pendants"))))
     {
-        std::shared_ptr<Object> refVal_setNewPendants;
+        std::shared_ptr<Get_social_bilibili_liveroom_200_response_new_pendants> refVal_setNewPendants;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("new_pendants"))), refVal_setNewPendants );
         setNewPendants(refVal_setNewPendants);
     }
@@ -640,6 +724,26 @@ void Get_social_bilibili_liveroom_200_response::unsetOnline()
 {
     m_OnlineIsSet = false;
 }
+bool Get_social_bilibili_liveroom_200_response::isIsPortrait() const
+{
+    return m_Is_portrait;
+}
+
+void Get_social_bilibili_liveroom_200_response::setIsPortrait(bool value)
+{
+    m_Is_portrait = value;
+    m_Is_portraitIsSet = true;
+}
+
+bool Get_social_bilibili_liveroom_200_response::isPortraitIsSet() const
+{
+    return m_Is_portraitIsSet;
+}
+
+void Get_social_bilibili_liveroom_200_response::unsetIs_portrait()
+{
+    m_Is_portraitIsSet = false;
+}
 double Get_social_bilibili_liveroom_200_response::getLiveStatus() const
 {
     return m_Live_status;
@@ -700,6 +804,26 @@ bool Get_social_bilibili_liveroom_200_response::parentAreaNameIsSet() const
 void Get_social_bilibili_liveroom_200_response::unsetParent_area_name()
 {
     m_Parent_area_nameIsSet = false;
+}
+double Get_social_bilibili_liveroom_200_response::getParentAreaId() const
+{
+    return m_Parent_area_id;
+}
+
+void Get_social_bilibili_liveroom_200_response::setParentAreaId(double value)
+{
+    m_Parent_area_id = value;
+    m_Parent_area_idIsSet = true;
+}
+
+bool Get_social_bilibili_liveroom_200_response::parentAreaIdIsSet() const
+{
+    return m_Parent_area_idIsSet;
+}
+
+void Get_social_bilibili_liveroom_200_response::unsetParent_area_id()
+{
+    m_Parent_area_idIsSet = false;
 }
 utility::string_t Get_social_bilibili_liveroom_200_response::getAreaName() const
 {
@@ -827,6 +951,27 @@ void Get_social_bilibili_liveroom_200_response::unsetLive_time()
 {
     m_Live_timeIsSet = false;
 }
+utility::string_t Get_social_bilibili_liveroom_200_response::getKeyframe() const
+{
+    return m_Keyframe;
+}
+
+
+void Get_social_bilibili_liveroom_200_response::setKeyframe(const utility::string_t& value)
+{
+    m_Keyframe = value;
+    m_KeyframeIsSet = true;
+}
+
+bool Get_social_bilibili_liveroom_200_response::keyframeIsSet() const
+{
+    return m_KeyframeIsSet;
+}
+
+void Get_social_bilibili_liveroom_200_response::unsetKeyframe()
+{
+    m_KeyframeIsSet = false;
+}
 utility::string_t Get_social_bilibili_liveroom_200_response::getTags() const
 {
     return m_Tags;
@@ -869,13 +1014,13 @@ void Get_social_bilibili_liveroom_200_response::unsetHot_words()
 {
     m_Hot_wordsIsSet = false;
 }
-std::shared_ptr<Object> Get_social_bilibili_liveroom_200_response::getNewPendants() const
+std::shared_ptr<Get_social_bilibili_liveroom_200_response_new_pendants> Get_social_bilibili_liveroom_200_response::getNewPendants() const
 {
     return m_New_pendants;
 }
 
 
-void Get_social_bilibili_liveroom_200_response::setNewPendants(const std::shared_ptr<Object>& value)
+void Get_social_bilibili_liveroom_200_response::setNewPendants(const std::shared_ptr<Get_social_bilibili_liveroom_200_response_new_pendants>& value)
 {
     m_New_pendants = value;
     m_New_pendantsIsSet = true;

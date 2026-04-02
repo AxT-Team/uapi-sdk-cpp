@@ -22,8 +22,6 @@ Post_ai_translate_200_response_performance::Post_ai_translate_200_response_perfo
 {
     m_Processing_time_ms = 0;
     m_Processing_time_msIsSet = false;
-    m_Cache_hit = false;
-    m_Cache_hitIsSet = false;
 }
 
 Post_ai_translate_200_response_performance::~Post_ai_translate_200_response_performance()
@@ -43,11 +41,6 @@ web::json::value Post_ai_translate_200_response_performance::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("processing_time_ms"))] = ModelBase::toJson(m_Processing_time_ms);
     }
-    if(m_Cache_hitIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("cache_hit"))] = ModelBase::toJson(m_Cache_hit);
-    }
 
     return val;
 }
@@ -66,17 +59,6 @@ bool Post_ai_translate_200_response_performance::fromJson(const web::json::value
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("cache_hit"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("cache_hit")));
-        if(!fieldValue.is_null())
-        {
-            bool refVal_setCacheHit;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCacheHit);
-            setCacheHit(refVal_setCacheHit);
-            
-        }
-    }
     return ok;
 }
 
@@ -90,10 +72,6 @@ void Post_ai_translate_200_response_performance::toMultipart(std::shared_ptr<Mul
     if(m_Processing_time_msIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("processing_time_ms")), m_Processing_time_ms));
-    }
-    if(m_Cache_hitIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("cache_hit")), m_Cache_hit));
     }
 }
 
@@ -111,12 +89,6 @@ bool Post_ai_translate_200_response_performance::fromMultiPart(std::shared_ptr<M
         int32_t refVal_setProcessingTimeMs;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("processing_time_ms"))), refVal_setProcessingTimeMs );
         setProcessingTimeMs(refVal_setProcessingTimeMs);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("cache_hit"))))
-    {
-        bool refVal_setCacheHit;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("cache_hit"))), refVal_setCacheHit );
-        setCacheHit(refVal_setCacheHit);
     }
     return ok;
 }
@@ -141,26 +113,6 @@ bool Post_ai_translate_200_response_performance::processingTimeMsIsSet() const
 void Post_ai_translate_200_response_performance::unsetProcessing_time_ms()
 {
     m_Processing_time_msIsSet = false;
-}
-bool Post_ai_translate_200_response_performance::isCacheHit() const
-{
-    return m_Cache_hit;
-}
-
-void Post_ai_translate_200_response_performance::setCacheHit(bool value)
-{
-    m_Cache_hit = value;
-    m_Cache_hitIsSet = true;
-}
-
-bool Post_ai_translate_200_response_performance::cacheHitIsSet() const
-{
-    return m_Cache_hitIsSet;
-}
-
-void Post_ai_translate_200_response_performance::unsetCache_hit()
-{
-    m_Cache_hitIsSet = false;
 }
 
 }

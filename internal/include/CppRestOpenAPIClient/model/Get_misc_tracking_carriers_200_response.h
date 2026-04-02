@@ -21,15 +21,15 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include <cpprest/details/basic_types.h>
-#include "CppRestOpenAPIClient/model/Get_misc_tracking_carriers_200_response_data.h"
+#include "CppRestOpenAPIClient/model/Get_misc_tracking_carriers_200_response_carriers_inner.h"
+#include <vector>
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
-class Get_misc_tracking_carriers_200_response_data;
+class Get_misc_tracking_carriers_200_response_carriers_inner;
 
 
 class  Get_misc_tracking_carriers_200_response
@@ -55,31 +55,29 @@ public:
     /// Get_misc_tracking_carriers_200_response members
 
 
-    utility::string_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(const utility::string_t& value);
+    /// <summary>
+    /// 快递公司列表
+    /// </summary>
+    std::vector<std::shared_ptr<Get_misc_tracking_carriers_200_response_carriers_inner>> getCarriers() const;
+    bool carriersIsSet() const;
+    void unsetCarriers();
+    void setCarriers(const std::vector<std::shared_ptr<Get_misc_tracking_carriers_200_response_carriers_inner>>& value);
 
-    utility::string_t getMessage() const;
-    bool messageIsSet() const;
-    void unsetMessage();
-    void setMessage(const utility::string_t& value);
-
-    std::shared_ptr<Get_misc_tracking_carriers_200_response_data> getData() const;
-    bool dataIsSet() const;
-    void unsetData();
-    void setData(const std::shared_ptr<Get_misc_tracking_carriers_200_response_data>& value);
+    /// <summary>
+    /// 支持的快递公司总数
+    /// </summary>
+    int32_t getTotal() const;
+    bool totalIsSet() const;
+    void unsetTotal();
+    void setTotal(int32_t value);
 
 
 protected:
-    utility::string_t m_Code;
-    bool m_CodeIsSet;
+    std::vector<std::shared_ptr<Get_misc_tracking_carriers_200_response_carriers_inner>> m_Carriers;
+    bool m_CarriersIsSet;
 
-    utility::string_t m_Message;
-    bool m_MessageIsSet;
-
-    std::shared_ptr<Get_misc_tracking_carriers_200_response_data> m_Data;
-    bool m_DataIsSet;
+    int32_t m_Total;
+    bool m_TotalIsSet;
 
 };
 

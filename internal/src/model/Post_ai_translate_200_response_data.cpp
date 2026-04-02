@@ -20,16 +20,8 @@ namespace model {
 
 Post_ai_translate_200_response_data::Post_ai_translate_200_response_data()
 {
-    m_Original_text = utility::conversions::to_string_t("");
-    m_Original_textIsSet = false;
     m_Translated_text = utility::conversions::to_string_t("");
     m_Translated_textIsSet = false;
-    m_Detected_lang = utility::conversions::to_string_t("");
-    m_Detected_langIsSet = false;
-    m_Confidence_score = 0.0;
-    m_Confidence_scoreIsSet = false;
-    m_AlternativesIsSet = false;
-    m_ExplanationIsSet = false;
 }
 
 Post_ai_translate_200_response_data::~Post_ai_translate_200_response_data()
@@ -44,35 +36,10 @@ void Post_ai_translate_200_response_data::validate()
 web::json::value Post_ai_translate_200_response_data::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_Original_textIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("original_text"))] = ModelBase::toJson(m_Original_text);
-    }
     if(m_Translated_textIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("translated_text"))] = ModelBase::toJson(m_Translated_text);
-    }
-    if(m_Detected_langIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("detected_lang"))] = ModelBase::toJson(m_Detected_lang);
-    }
-    if(m_Confidence_scoreIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("confidence_score"))] = ModelBase::toJson(m_Confidence_score);
-    }
-    if(m_AlternativesIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("alternatives"))] = ModelBase::toJson(m_Alternatives);
-    }
-    if(m_ExplanationIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("explanation"))] = ModelBase::toJson(m_Explanation);
     }
 
     return val;
@@ -81,17 +48,6 @@ web::json::value Post_ai_translate_200_response_data::toJson() const
 bool Post_ai_translate_200_response_data::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("original_text"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("original_text")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setOriginalText;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setOriginalText);
-            setOriginalText(refVal_setOriginalText);
-            
-        }
-    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("translated_text"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("translated_text")));
@@ -100,50 +56,6 @@ bool Post_ai_translate_200_response_data::fromJson(const web::json::value& val)
             utility::string_t refVal_setTranslatedText;
             ok &= ModelBase::fromJson(fieldValue, refVal_setTranslatedText);
             setTranslatedText(refVal_setTranslatedText);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("detected_lang"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("detected_lang")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setDetectedLang;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setDetectedLang);
-            setDetectedLang(refVal_setDetectedLang);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("confidence_score"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("confidence_score")));
-        if(!fieldValue.is_null())
-        {
-            double refVal_setConfidenceScore;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setConfidenceScore);
-            setConfidenceScore(refVal_setConfidenceScore);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("alternatives"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("alternatives")));
-        if(!fieldValue.is_null())
-        {
-            std::vector<utility::string_t> refVal_setAlternatives;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setAlternatives);
-            setAlternatives(refVal_setAlternatives);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("explanation"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("explanation")));
-        if(!fieldValue.is_null())
-        {
-            std::shared_ptr<Post_ai_translate_200_response_data_explanation> refVal_setExplanation;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setExplanation);
-            setExplanation(refVal_setExplanation);
             
         }
     }
@@ -157,29 +69,9 @@ void Post_ai_translate_200_response_data::toMultipart(std::shared_ptr<MultipartF
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_Original_textIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("original_text")), m_Original_text));
-    }
     if(m_Translated_textIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("translated_text")), m_Translated_text));
-    }
-    if(m_Detected_langIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("detected_lang")), m_Detected_lang));
-    }
-    if(m_Confidence_scoreIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("confidence_score")), m_Confidence_score));
-    }
-    if(m_AlternativesIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("alternatives")), m_Alternatives));
-    }
-    if(m_ExplanationIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("explanation")), m_Explanation));
     }
 }
 
@@ -192,67 +84,16 @@ bool Post_ai_translate_200_response_data::fromMultiPart(std::shared_ptr<Multipar
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("original_text"))))
-    {
-        utility::string_t refVal_setOriginalText;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("original_text"))), refVal_setOriginalText );
-        setOriginalText(refVal_setOriginalText);
-    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("translated_text"))))
     {
         utility::string_t refVal_setTranslatedText;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("translated_text"))), refVal_setTranslatedText );
         setTranslatedText(refVal_setTranslatedText);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("detected_lang"))))
-    {
-        utility::string_t refVal_setDetectedLang;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("detected_lang"))), refVal_setDetectedLang );
-        setDetectedLang(refVal_setDetectedLang);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("confidence_score"))))
-    {
-        double refVal_setConfidenceScore;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("confidence_score"))), refVal_setConfidenceScore );
-        setConfidenceScore(refVal_setConfidenceScore);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("alternatives"))))
-    {
-        std::vector<utility::string_t> refVal_setAlternatives;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("alternatives"))), refVal_setAlternatives );
-        setAlternatives(refVal_setAlternatives);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("explanation"))))
-    {
-        std::shared_ptr<Post_ai_translate_200_response_data_explanation> refVal_setExplanation;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("explanation"))), refVal_setExplanation );
-        setExplanation(refVal_setExplanation);
-    }
     return ok;
 }
 
 
-utility::string_t Post_ai_translate_200_response_data::getOriginalText() const
-{
-    return m_Original_text;
-}
-
-
-void Post_ai_translate_200_response_data::setOriginalText(const utility::string_t& value)
-{
-    m_Original_text = value;
-    m_Original_textIsSet = true;
-}
-
-bool Post_ai_translate_200_response_data::originalTextIsSet() const
-{
-    return m_Original_textIsSet;
-}
-
-void Post_ai_translate_200_response_data::unsetOriginal_text()
-{
-    m_Original_textIsSet = false;
-}
 utility::string_t Post_ai_translate_200_response_data::getTranslatedText() const
 {
     return m_Translated_text;
@@ -273,89 +114,6 @@ bool Post_ai_translate_200_response_data::translatedTextIsSet() const
 void Post_ai_translate_200_response_data::unsetTranslated_text()
 {
     m_Translated_textIsSet = false;
-}
-utility::string_t Post_ai_translate_200_response_data::getDetectedLang() const
-{
-    return m_Detected_lang;
-}
-
-
-void Post_ai_translate_200_response_data::setDetectedLang(const utility::string_t& value)
-{
-    m_Detected_lang = value;
-    m_Detected_langIsSet = true;
-}
-
-bool Post_ai_translate_200_response_data::detectedLangIsSet() const
-{
-    return m_Detected_langIsSet;
-}
-
-void Post_ai_translate_200_response_data::unsetDetected_lang()
-{
-    m_Detected_langIsSet = false;
-}
-double Post_ai_translate_200_response_data::getConfidenceScore() const
-{
-    return m_Confidence_score;
-}
-
-void Post_ai_translate_200_response_data::setConfidenceScore(double value)
-{
-    m_Confidence_score = value;
-    m_Confidence_scoreIsSet = true;
-}
-
-bool Post_ai_translate_200_response_data::confidenceScoreIsSet() const
-{
-    return m_Confidence_scoreIsSet;
-}
-
-void Post_ai_translate_200_response_data::unsetConfidence_score()
-{
-    m_Confidence_scoreIsSet = false;
-}
-std::vector<utility::string_t> Post_ai_translate_200_response_data::getAlternatives() const
-{
-    return m_Alternatives;
-}
-
-
-void Post_ai_translate_200_response_data::setAlternatives(const std::vector<utility::string_t>& value)
-{
-    m_Alternatives = value;
-    m_AlternativesIsSet = true;
-}
-
-bool Post_ai_translate_200_response_data::alternativesIsSet() const
-{
-    return m_AlternativesIsSet;
-}
-
-void Post_ai_translate_200_response_data::unsetAlternatives()
-{
-    m_AlternativesIsSet = false;
-}
-std::shared_ptr<Post_ai_translate_200_response_data_explanation> Post_ai_translate_200_response_data::getExplanation() const
-{
-    return m_Explanation;
-}
-
-
-void Post_ai_translate_200_response_data::setExplanation(const std::shared_ptr<Post_ai_translate_200_response_data_explanation>& value)
-{
-    m_Explanation = value;
-    m_ExplanationIsSet = true;
-}
-
-bool Post_ai_translate_200_response_data::explanationIsSet() const
-{
-    return m_ExplanationIsSet;
-}
-
-void Post_ai_translate_200_response_data::unsetExplanation()
-{
-    m_ExplanationIsSet = false;
 }
 
 }

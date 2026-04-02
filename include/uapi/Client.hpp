@@ -21,13 +21,35 @@ namespace uapi {
 struct UapiError: public std::runtime_error {
     std::string code;
     int status;
-    UapiError(std::string c, int s, std::string msg): std::runtime_error("["+std::to_string(s)+"] "+c+": "+msg), code(std::move(c)), status(s) {}
+    std::string payload;
+    struct ResponseMeta {
+        std::string requestId;
+        long long retryAfterSeconds = -1;
+        std::string debitStatus;
+        long long creditsRequested = -1;
+        long long creditsCharged = -1;
+        std::string creditsPricing;
+        long long activeQuotaBuckets = -1;
+        bool stopOnEmpty = false;
+        bool hasStopOnEmpty = false;
+        std::string rateLimitPolicyRaw;
+        std::string rateLimitRaw;
+        long long balanceLimitCents = -1;
+        long long balanceRemainingCents = -1;
+        long long quotaLimitCredits = -1;
+        long long quotaRemainingCredits = -1;
+        long long visitorQuotaLimitCredits = -1;
+        long long visitorQuotaRemainingCredits = -1;
+        std::map<std::string, std::string> rawHeaders;
+    } meta;
+    UapiError(std::string c, int s, std::string msg, std::string raw = "", ResponseMeta responseMeta = {}): std::runtime_error("["+std::to_string(s)+"] "+c+": "+msg), code(std::move(c)), status(s), payload(std::move(raw)), meta(std::move(responseMeta)) {}
 };
 struct ApiErrorError: public UapiError { using UapiError::UapiError; };
 struct AvatarNotFoundError: public UapiError { using UapiError::UapiError; };
 struct ConversionFailedError: public UapiError { using UapiError::UapiError; };
 struct FileOpenErrorError: public UapiError { using UapiError::UapiError; };
 struct FileRequiredError: public UapiError { using UapiError::UapiError; };
+struct InsufficientCreditsError: public UapiError { using UapiError::UapiError; };
 struct InternalServerErrorError: public UapiError { using UapiError::UapiError; };
 struct InvalidParameterError: public UapiError { using UapiError::UapiError; };
 struct InvalidParamsError: public UapiError { using UapiError::UapiError; };
@@ -42,10 +64,12 @@ struct TimezoneNotFoundError: public UapiError { using UapiError::UapiError; };
 struct UnauthorizedError: public UapiError { using UapiError::UapiError; };
 struct UnsupportedCarrierError: public UapiError { using UapiError::UapiError; };
 struct UnsupportedFormatError: public UapiError { using UapiError::UapiError; };
+struct VisitorMonthlyQuotaExhaustedError: public UapiError { using UapiError::UapiError; };
 
 class Client {
 public:
     Client(std::string baseUrl = "https://uapis.cn/api/v1", std::string tok = "");
+    const UapiError::ResponseMeta& lastResponseMeta() const { return lastMeta; }
     struct ClipzyZaiXianJianTieBanApi {
         Client* c;
         explicit ClipzyZaiXianJianTieBanApi(Client* cli): c(cli) {}
@@ -718,13 +742,10 @@ public:
             std::map<std::string, std::string> body;
             if (auto it = args.find("target_lang"); it != args.end()) query["target_lang"] = it->second;
             if (auto it = args.find("context"); it != args.end()) body["context"] = it->second;
-            if (auto it = args.find("fast_mode"); it != args.end()) body["fast_mode"] = it->second;
-            if (auto it = args.find("max_concurrency"); it != args.end()) body["max_concurrency"] = it->second;
             if (auto it = args.find("preserve_format"); it != args.end()) body["preserve_format"] = it->second;
             if (auto it = args.find("source_lang"); it != args.end()) body["source_lang"] = it->second;
             if (auto it = args.find("style"); it != args.end()) body["style"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            if (auto it = args.find("texts"); it != args.end()) body["texts"] = it->second;
             return c->request("POST", path, query, body);
         }
         std::string postTranslateStream(const std::map<std::string, std::string>& args = {}) {
@@ -838,6 +859,7 @@ private:
     unsigned short port;
     bool secure;
     std::string token;
+    mutable UapiError::ResponseMeta lastMeta;
 
     std::string request(const std::string& method, std::string path, const std::map<std::string, std::string>& query, const std::map<std::string, std::string>& body = {}) const;
     std::string buildQuery(const std::map<std::string, std::string>& query) const;
@@ -845,9 +867,16 @@ private:
     std::string defaultCode(int status) const;
     void raiseError(int status, const std::string& body) const;
     static std::string extractField(const std::string& body, const std::string& key);
+    void setMetaFromHeaders(const std::map<std::string, std::string>& headers) const;
+    static std::string headerValue(const std::map<std::string, std::string>& headers, const std::string& key);
+    static long long parseLong(const std::string& value);
+    static std::string structuredValue(const std::string& raw, const std::string& name, const std::string& key);
+    static std::string unquote(const std::string& value);
 #ifdef _WIN32
     std::string sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body = "") const;
     static std::wstring widen(const std::string& input);
+    static std::string narrow(const std::wstring& input);
+    static std::string queryHeaderValue(HINTERNET hRequest, const wchar_t* headerName);
 #else
     std::string sendCurl(const std::string& method, const std::string& absoluteUrl, const std::string& body = "") const;
     static std::string shellEscape(const std::string& value);
@@ -938,6 +967,7 @@ inline std::string Client::urlEncode(const std::string& value) {
 
 inline std::string Client::defaultCode(int status) const {
     if (status == 401 || status == 403) return "UNAUTHORIZED";
+    if (status == 402) return "INSUFFICIENT_CREDITS";
     if (status == 404) return "NOT_FOUND";
     if (status == 429) return "SERVICE_BUSY";
     if (status >= 500) return "INTERNAL_SERVER_ERROR";
@@ -960,30 +990,105 @@ inline std::string Client::extractField(const std::string& body, const std::stri
 
 inline void Client::raiseError(int status, const std::string& body) const {
     std::string code = extractField(body, "code");
+    if (code.empty()) code = extractField(body, "error");
     if (code.empty()) code = defaultCode(status);
     std::string message = extractField(body, "message");
     if (message.empty()) message = "HTTP " + std::to_string(status);
     if (false) {}
-    else if (code == "API_ERROR") throw ApiErrorError(code, status, message);
-    else if (code == "AVATAR_NOT_FOUND") throw AvatarNotFoundError(code, status, message);
-    else if (code == "CONVERSION_FAILED") throw ConversionFailedError(code, status, message);
-    else if (code == "FILE_OPEN_ERROR") throw FileOpenErrorError(code, status, message);
-    else if (code == "FILE_REQUIRED") throw FileRequiredError(code, status, message);
-    else if (code == "INTERNAL_SERVER_ERROR") throw InternalServerErrorError(code, status, message);
-    else if (code == "INVALID_PARAMETER") throw InvalidParameterError(code, status, message);
-    else if (code == "INVALID_PARAMS") throw InvalidParamsError(code, status, message);
-    else if (code == "NOT_FOUND") throw NotFoundError(code, status, message);
-    else if (code == "NO_MATCH") throw NoMatchError(code, status, message);
-    else if (code == "NO_TRACKING_DATA") throw NoTrackingDataError(code, status, message);
-    else if (code == "PHONE_INFO_FAILED") throw PhoneInfoFailedError(code, status, message);
-    else if (code == "RECOGNITION_FAILED") throw RecognitionFailedError(code, status, message);
-    else if (code == "REQUEST_ENTITY_TOO_LARGE") throw RequestEntityTooLargeError(code, status, message);
-    else if (code == "SERVICE_BUSY") throw ServiceBusyError(code, status, message);
-    else if (code == "TIMEZONE_NOT_FOUND") throw TimezoneNotFoundError(code, status, message);
-    else if (code == "UNAUTHORIZED") throw UnauthorizedError(code, status, message);
-    else if (code == "UNSUPPORTED_CARRIER") throw UnsupportedCarrierError(code, status, message);
-    else if (code == "UNSUPPORTED_FORMAT") throw UnsupportedFormatError(code, status, message);
-    else throw UapiError(code, status, message);
+    else if (code == "API_ERROR") throw ApiErrorError(code, status, message, body, lastMeta);
+    else if (code == "AVATAR_NOT_FOUND") throw AvatarNotFoundError(code, status, message, body, lastMeta);
+    else if (code == "CONVERSION_FAILED") throw ConversionFailedError(code, status, message, body, lastMeta);
+    else if (code == "FILE_OPEN_ERROR") throw FileOpenErrorError(code, status, message, body, lastMeta);
+    else if (code == "FILE_REQUIRED") throw FileRequiredError(code, status, message, body, lastMeta);
+    else if (code == "INSUFFICIENT_CREDITS") throw InsufficientCreditsError(code, status, message, body, lastMeta);
+    else if (code == "INTERNAL_SERVER_ERROR") throw InternalServerErrorError(code, status, message, body, lastMeta);
+    else if (code == "INVALID_PARAMETER") throw InvalidParameterError(code, status, message, body, lastMeta);
+    else if (code == "INVALID_PARAMS") throw InvalidParamsError(code, status, message, body, lastMeta);
+    else if (code == "NOT_FOUND") throw NotFoundError(code, status, message, body, lastMeta);
+    else if (code == "NO_MATCH") throw NoMatchError(code, status, message, body, lastMeta);
+    else if (code == "NO_TRACKING_DATA") throw NoTrackingDataError(code, status, message, body, lastMeta);
+    else if (code == "PHONE_INFO_FAILED") throw PhoneInfoFailedError(code, status, message, body, lastMeta);
+    else if (code == "RECOGNITION_FAILED") throw RecognitionFailedError(code, status, message, body, lastMeta);
+    else if (code == "REQUEST_ENTITY_TOO_LARGE") throw RequestEntityTooLargeError(code, status, message, body, lastMeta);
+    else if (code == "SERVICE_BUSY") throw ServiceBusyError(code, status, message, body, lastMeta);
+    else if (code == "TIMEZONE_NOT_FOUND") throw TimezoneNotFoundError(code, status, message, body, lastMeta);
+    else if (code == "UNAUTHORIZED") throw UnauthorizedError(code, status, message, body, lastMeta);
+    else if (code == "UNSUPPORTED_CARRIER") throw UnsupportedCarrierError(code, status, message, body, lastMeta);
+    else if (code == "UNSUPPORTED_FORMAT") throw UnsupportedFormatError(code, status, message, body, lastMeta);
+    else if (code == "VISITOR_MONTHLY_QUOTA_EXHAUSTED") throw VisitorMonthlyQuotaExhaustedError(code, status, message, body, lastMeta);
+    else throw UapiError(code, status, message, body, lastMeta);
+}
+
+inline std::string Client::headerValue(const std::map<std::string, std::string>& headers, const std::string& key) {
+    auto it = headers.find(key);
+    return it == headers.end() ? std::string() : it->second;
+}
+
+inline long long Client::parseLong(const std::string& value) {
+    if (value.empty()) return -1;
+    try {
+        return std::stoll(value);
+    } catch (...) {
+        return -1;
+    }
+}
+
+inline std::string Client::unquote(const std::string& value) {
+    auto start = value.find_first_not_of(" \t\r\n");
+    auto end = value.find_last_not_of(" \t\r\n");
+    if (start == std::string::npos || end == std::string::npos) return {};
+    auto trimmed = value.substr(start, end - start + 1);
+    if (trimmed.size() >= 2 && trimmed.front() == '"' && trimmed.back() == '"') {
+        return trimmed.substr(1, trimmed.size() - 2);
+    }
+    return trimmed;
+}
+
+inline std::string Client::structuredValue(const std::string& raw, const std::string& name, const std::string& key) {
+    std::stringstream ss(raw);
+    std::string item;
+    while (std::getline(ss, item, ',')) {
+        std::stringstream itemStream(item);
+        std::string segment;
+        if (!std::getline(itemStream, segment, ';')) continue;
+        segment = unquote(segment);
+        if (segment != name) continue;
+        while (std::getline(itemStream, segment, ';')) {
+            auto eq = segment.find('=');
+            if (eq == std::string::npos) continue;
+            auto k = segment.substr(0, eq);
+            auto v = unquote(segment.substr(eq + 1));
+            while (!k.empty() && std::isspace(static_cast<unsigned char>(k.front()))) k.erase(k.begin());
+            while (!k.empty() && std::isspace(static_cast<unsigned char>(k.back()))) k.pop_back();
+            if (k == key) return v;
+        }
+    }
+    return {};
+}
+
+inline void Client::setMetaFromHeaders(const std::map<std::string, std::string>& headers) const {
+    lastMeta = UapiError::ResponseMeta{};
+    lastMeta.rawHeaders = headers;
+    lastMeta.requestId = headerValue(headers, "x-request-id");
+    lastMeta.retryAfterSeconds = parseLong(headerValue(headers, "retry-after"));
+    lastMeta.debitStatus = headerValue(headers, "uapi-debit-status");
+    lastMeta.creditsRequested = parseLong(headerValue(headers, "uapi-credits-requested"));
+    lastMeta.creditsCharged = parseLong(headerValue(headers, "uapi-credits-charged"));
+    lastMeta.creditsPricing = headerValue(headers, "uapi-credits-pricing");
+    lastMeta.activeQuotaBuckets = parseLong(headerValue(headers, "uapi-quota-active-buckets"));
+    auto stopOnEmpty = headerValue(headers, "uapi-stop-on-empty");
+    if (!stopOnEmpty.empty()) {
+        lastMeta.hasStopOnEmpty = true;
+        lastMeta.stopOnEmpty = stopOnEmpty == "true" || stopOnEmpty == "TRUE";
+    }
+    lastMeta.rateLimitPolicyRaw = headerValue(headers, "ratelimit-policy");
+    lastMeta.rateLimitRaw = headerValue(headers, "ratelimit");
+    lastMeta.balanceLimitCents = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "billing-balance", "q"));
+    lastMeta.balanceRemainingCents = parseLong(structuredValue(lastMeta.rateLimitRaw, "billing-balance", "r"));
+    lastMeta.quotaLimitCredits = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "billing-quota", "q"));
+    lastMeta.quotaRemainingCredits = parseLong(structuredValue(lastMeta.rateLimitRaw, "billing-quota", "r"));
+    lastMeta.visitorQuotaLimitCredits = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "visitor-quota", "q"));
+    lastMeta.visitorQuotaRemainingCredits = parseLong(structuredValue(lastMeta.rateLimitRaw, "visitor-quota", "r"));
 }
 
 #ifdef _WIN32
@@ -993,6 +1098,24 @@ inline std::wstring Client::widen(const std::string& input) {
     std::wstring wide(size_needed, 0);
     MultiByteToWideChar(CP_UTF8, 0, input.data(), static_cast<int>(input.size()), wide.data(), size_needed);
     return wide;
+}
+
+inline std::string Client::narrow(const std::wstring& input) {
+    if (input.empty()) return {};
+    int size_needed = WideCharToMultiByte(CP_UTF8, 0, input.data(), static_cast<int>(input.size()), nullptr, 0, nullptr, nullptr);
+    std::string out(size_needed, '\0');
+    WideCharToMultiByte(CP_UTF8, 0, input.data(), static_cast<int>(input.size()), out.data(), size_needed, nullptr, nullptr);
+    return out;
+}
+
+inline std::string Client::queryHeaderValue(HINTERNET hRequest, const wchar_t* headerName) {
+    DWORD size = 0;
+    WinHttpQueryHeaders(hRequest, WINHTTP_QUERY_CUSTOM, headerName, WINHTTP_NO_OUTPUT_BUFFER, &size, WINHTTP_NO_HEADER_INDEX);
+    if (GetLastError() != ERROR_INSUFFICIENT_BUFFER || size == 0) return {};
+    std::wstring buffer(size / sizeof(wchar_t), L'\0');
+    if (!WinHttpQueryHeaders(hRequest, WINHTTP_QUERY_CUSTOM, headerName, buffer.data(), &size, WINHTTP_NO_HEADER_INDEX)) return {};
+    if (!buffer.empty() && buffer.back() == L'\0') buffer.pop_back();
+    return narrow(buffer);
 }
 
 inline std::string Client::sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body) const {
@@ -1025,6 +1148,21 @@ inline std::string Client::sendWinHttp(const std::string& method, const std::str
     DWORD status = 0;
     DWORD statusLen = sizeof(status);
     WinHttpQueryHeaders(hRequest, WINHTTP_QUERY_STATUS_CODE | WINHTTP_QUERY_FLAG_NUMBER, WINHTTP_HEADER_NAME_BY_INDEX, &status, &statusLen, WINHTTP_NO_HEADER_INDEX);
+    std::map<std::string, std::string> headers;
+    auto storeHeader = [&](const char* key, const wchar_t* headerName) {
+        auto value = queryHeaderValue(hRequest, headerName);
+        if (!value.empty()) headers[key] = value;
+    };
+    storeHeader("x-request-id", L"X-Request-ID");
+    storeHeader("retry-after", L"Retry-After");
+    storeHeader("uapi-debit-status", L"UAPI-Debit-Status");
+    storeHeader("uapi-credits-requested", L"UAPI-Credits-Requested");
+    storeHeader("uapi-credits-charged", L"UAPI-Credits-Charged");
+    storeHeader("uapi-credits-pricing", L"UAPI-Credits-Pricing");
+    storeHeader("uapi-quota-active-buckets", L"UAPI-Quota-Active-Buckets");
+    storeHeader("uapi-stop-on-empty", L"UAPI-Stop-On-Empty");
+    storeHeader("ratelimit-policy", L"RateLimit-Policy");
+    storeHeader("ratelimit", L"RateLimit");
     DWORD available = 0;
     do {
         if (!WinHttpQueryDataAvailable(hRequest, &available)) break;
@@ -1037,6 +1175,7 @@ inline std::string Client::sendWinHttp(const std::string& method, const std::str
     WinHttpCloseHandle(hRequest);
     closeConnect();
     closeSession();
+    setMetaFromHeaders(headers);
     if (status >= 400) {
         raiseError(static_cast<int>(status), result);
     }
@@ -1054,7 +1193,7 @@ inline std::string Client::shellEscape(const std::string& value) {
 }
 
 inline std::string Client::sendCurl(const std::string& method, const std::string& absoluteUrl, const std::string& body) const {
-    std::string cmd = "curl -s -S -w \"\\n%{http_code}\" -X " + method + " " + shellEscape(absoluteUrl) + " -H \"Accept: application/json\"";
+    std::string cmd = "curl -s -S -D - -w \"\\n%{http_code}\" -X " + method + " " + shellEscape(absoluteUrl) + " -H \"Accept: application/json\"";
     if (!token.empty()) cmd += " -H " + shellEscape("Authorization: Bearer " + token);
     if (!body.empty()) {
         cmd += " -H \"Content-Type: application/json\"";
@@ -1071,9 +1210,35 @@ inline std::string Client::sendCurl(const std::string& method, const std::string
     (void)rc;
     auto pos = output.find_last_of('\n');
     if (pos == std::string::npos) throw std::runtime_error("unexpected curl output");
-    std::string respBody = output.substr(0, pos);
+    std::string responseWithHeaders = output.substr(0, pos);
     std::string statusLine = output.substr(pos + 1);
     int status = std::stoi(statusLine);
+    std::map<std::string, std::string> headers;
+    std::string respBody = responseWithHeaders;
+    auto split = responseWithHeaders.find("\r\n\r\n");
+    std::size_t separatorLen = 4;
+    if (split == std::string::npos) {
+        split = responseWithHeaders.find("\n\n");
+        separatorLen = 2;
+    }
+    if (split != std::string::npos) {
+        auto headerBlock = responseWithHeaders.substr(0, split);
+        respBody = responseWithHeaders.substr(split + separatorLen);
+        std::stringstream hs(headerBlock);
+        std::string line;
+        while (std::getline(hs, line)) {
+            if (!line.empty() && line.back() == '\r') line.pop_back();
+            auto colon = line.find(':');
+            if (colon == std::string::npos) continue;
+            auto key = line.substr(0, colon);
+            auto value = line.substr(colon + 1);
+            while (!key.empty() && std::isspace(static_cast<unsigned char>(key.back()))) key.pop_back();
+            while (!value.empty() && std::isspace(static_cast<unsigned char>(value.front()))) value.erase(value.begin());
+            std::transform(key.begin(), key.end(), key.begin(), [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
+            headers[key] = value;
+        }
+    }
+    setMetaFromHeaders(headers);
     if (status >= 400) {
         raiseError(status, respBody);
     }

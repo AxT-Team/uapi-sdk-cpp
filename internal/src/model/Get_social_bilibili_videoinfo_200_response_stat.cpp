@@ -20,6 +20,8 @@ namespace model {
 
 Get_social_bilibili_videoinfo_200_response_stat::Get_social_bilibili_videoinfo_200_response_stat()
 {
+    m_Aid = 0.0;
+    m_AidIsSet = false;
     m_View = 0.0;
     m_ViewIsSet = false;
     m_Danmaku = 0.0;
@@ -34,6 +36,16 @@ Get_social_bilibili_videoinfo_200_response_stat::Get_social_bilibili_videoinfo_2
     m_ShareIsSet = false;
     m_Like = 0.0;
     m_LikeIsSet = false;
+    m_Now_rank = 0.0;
+    m_Now_rankIsSet = false;
+    m_His_rank = 0.0;
+    m_His_rankIsSet = false;
+    m_Dislike = 0.0;
+    m_DislikeIsSet = false;
+    m_Evaluation = utility::conversions::to_string_t("");
+    m_EvaluationIsSet = false;
+    m_Vt = 0.0;
+    m_VtIsSet = false;
 }
 
 Get_social_bilibili_videoinfo_200_response_stat::~Get_social_bilibili_videoinfo_200_response_stat()
@@ -48,6 +60,11 @@ void Get_social_bilibili_videoinfo_200_response_stat::validate()
 web::json::value Get_social_bilibili_videoinfo_200_response_stat::toJson() const
 {
     web::json::value val = web::json::value::object();
+    if(m_AidIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("aid"))] = ModelBase::toJson(m_Aid);
+    }
     if(m_ViewIsSet)
     {   
         
@@ -83,6 +100,31 @@ web::json::value Get_social_bilibili_videoinfo_200_response_stat::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("like"))] = ModelBase::toJson(m_Like);
     }
+    if(m_Now_rankIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("now_rank"))] = ModelBase::toJson(m_Now_rank);
+    }
+    if(m_His_rankIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("his_rank"))] = ModelBase::toJson(m_His_rank);
+    }
+    if(m_DislikeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("dislike"))] = ModelBase::toJson(m_Dislike);
+    }
+    if(m_EvaluationIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("evaluation"))] = ModelBase::toJson(m_Evaluation);
+    }
+    if(m_VtIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("vt"))] = ModelBase::toJson(m_Vt);
+    }
 
     return val;
 }
@@ -90,6 +132,17 @@ web::json::value Get_social_bilibili_videoinfo_200_response_stat::toJson() const
 bool Get_social_bilibili_videoinfo_200_response_stat::fromJson(const web::json::value& val)
 {
     bool ok = true;
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("aid"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("aid")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setAid;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setAid);
+            setAid(refVal_setAid);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("view"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("view")));
@@ -167,6 +220,61 @@ bool Get_social_bilibili_videoinfo_200_response_stat::fromJson(const web::json::
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("now_rank"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("now_rank")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setNowRank;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setNowRank);
+            setNowRank(refVal_setNowRank);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("his_rank"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("his_rank")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setHisRank;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setHisRank);
+            setHisRank(refVal_setHisRank);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("dislike"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("dislike")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setDislike;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDislike);
+            setDislike(refVal_setDislike);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("evaluation"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("evaluation")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setEvaluation;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setEvaluation);
+            setEvaluation(refVal_setEvaluation);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("vt"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("vt")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setVt;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setVt);
+            setVt(refVal_setVt);
+            
+        }
+    }
     return ok;
 }
 
@@ -176,6 +284,10 @@ void Get_social_bilibili_videoinfo_200_response_stat::toMultipart(std::shared_pt
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t(_XPLATSTR(".")))
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
+    }
+    if(m_AidIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("aid")), m_Aid));
     }
     if(m_ViewIsSet)
     {
@@ -205,6 +317,26 @@ void Get_social_bilibili_videoinfo_200_response_stat::toMultipart(std::shared_pt
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("like")), m_Like));
     }
+    if(m_Now_rankIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("now_rank")), m_Now_rank));
+    }
+    if(m_His_rankIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("his_rank")), m_His_rank));
+    }
+    if(m_DislikeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("dislike")), m_Dislike));
+    }
+    if(m_EvaluationIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("evaluation")), m_Evaluation));
+    }
+    if(m_VtIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("vt")), m_Vt));
+    }
 }
 
 bool Get_social_bilibili_videoinfo_200_response_stat::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
@@ -216,6 +348,12 @@ bool Get_social_bilibili_videoinfo_200_response_stat::fromMultiPart(std::shared_
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("aid"))))
+    {
+        double refVal_setAid;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("aid"))), refVal_setAid );
+        setAid(refVal_setAid);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("view"))))
     {
         double refVal_setView;
@@ -258,10 +396,60 @@ bool Get_social_bilibili_videoinfo_200_response_stat::fromMultiPart(std::shared_
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("like"))), refVal_setLike );
         setLike(refVal_setLike);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("now_rank"))))
+    {
+        double refVal_setNowRank;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("now_rank"))), refVal_setNowRank );
+        setNowRank(refVal_setNowRank);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("his_rank"))))
+    {
+        double refVal_setHisRank;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("his_rank"))), refVal_setHisRank );
+        setHisRank(refVal_setHisRank);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("dislike"))))
+    {
+        double refVal_setDislike;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("dislike"))), refVal_setDislike );
+        setDislike(refVal_setDislike);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("evaluation"))))
+    {
+        utility::string_t refVal_setEvaluation;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("evaluation"))), refVal_setEvaluation );
+        setEvaluation(refVal_setEvaluation);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("vt"))))
+    {
+        double refVal_setVt;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("vt"))), refVal_setVt );
+        setVt(refVal_setVt);
+    }
     return ok;
 }
 
 
+double Get_social_bilibili_videoinfo_200_response_stat::getAid() const
+{
+    return m_Aid;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::setAid(double value)
+{
+    m_Aid = value;
+    m_AidIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_stat::aidIsSet() const
+{
+    return m_AidIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::unsetAid()
+{
+    m_AidIsSet = false;
+}
 double Get_social_bilibili_videoinfo_200_response_stat::getView() const
 {
     return m_View;
@@ -401,6 +589,107 @@ bool Get_social_bilibili_videoinfo_200_response_stat::likeIsSet() const
 void Get_social_bilibili_videoinfo_200_response_stat::unsetLike()
 {
     m_LikeIsSet = false;
+}
+double Get_social_bilibili_videoinfo_200_response_stat::getNowRank() const
+{
+    return m_Now_rank;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::setNowRank(double value)
+{
+    m_Now_rank = value;
+    m_Now_rankIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_stat::nowRankIsSet() const
+{
+    return m_Now_rankIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::unsetNow_rank()
+{
+    m_Now_rankIsSet = false;
+}
+double Get_social_bilibili_videoinfo_200_response_stat::getHisRank() const
+{
+    return m_His_rank;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::setHisRank(double value)
+{
+    m_His_rank = value;
+    m_His_rankIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_stat::hisRankIsSet() const
+{
+    return m_His_rankIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::unsetHis_rank()
+{
+    m_His_rankIsSet = false;
+}
+double Get_social_bilibili_videoinfo_200_response_stat::getDislike() const
+{
+    return m_Dislike;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::setDislike(double value)
+{
+    m_Dislike = value;
+    m_DislikeIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_stat::dislikeIsSet() const
+{
+    return m_DislikeIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::unsetDislike()
+{
+    m_DislikeIsSet = false;
+}
+utility::string_t Get_social_bilibili_videoinfo_200_response_stat::getEvaluation() const
+{
+    return m_Evaluation;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response_stat::setEvaluation(const utility::string_t& value)
+{
+    m_Evaluation = value;
+    m_EvaluationIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_stat::evaluationIsSet() const
+{
+    return m_EvaluationIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::unsetEvaluation()
+{
+    m_EvaluationIsSet = false;
+}
+double Get_social_bilibili_videoinfo_200_response_stat::getVt() const
+{
+    return m_Vt;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::setVt(double value)
+{
+    m_Vt = value;
+    m_VtIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_stat::vtIsSet() const
+{
+    return m_VtIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_stat::unsetVt()
+{
+    m_VtIsSet = false;
 }
 
 }

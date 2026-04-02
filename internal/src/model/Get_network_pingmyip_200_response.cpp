@@ -20,18 +20,12 @@ namespace model {
 
 Get_network_pingmyip_200_response::Get_network_pingmyip_200_response()
 {
-    m_Avg = 0.0;
-    m_AvgIsSet = false;
-    m_Host = utility::conversions::to_string_t("");
-    m_HostIsSet = false;
-    m_Ip = utility::conversions::to_string_t("");
-    m_IpIsSet = false;
-    m_Location = utility::conversions::to_string_t("");
-    m_LocationIsSet = false;
-    m_Max = 0.0;
-    m_MaxIsSet = false;
-    m_Min = 0.0;
-    m_MinIsSet = false;
+    m_Client_ip = utility::conversions::to_string_t("");
+    m_Client_ipIsSet = false;
+    m_Ping_successful = false;
+    m_Ping_successfulIsSet = false;
+    m_Message = utility::conversions::to_string_t("");
+    m_MessageIsSet = false;
 }
 
 Get_network_pingmyip_200_response::~Get_network_pingmyip_200_response()
@@ -46,35 +40,20 @@ void Get_network_pingmyip_200_response::validate()
 web::json::value Get_network_pingmyip_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_AvgIsSet)
+    if(m_Client_ipIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("avg"))] = ModelBase::toJson(m_Avg);
+        val[utility::conversions::to_string_t(_XPLATSTR("client_ip"))] = ModelBase::toJson(m_Client_ip);
     }
-    if(m_HostIsSet)
+    if(m_Ping_successfulIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("host"))] = ModelBase::toJson(m_Host);
+        val[utility::conversions::to_string_t(_XPLATSTR("ping_successful"))] = ModelBase::toJson(m_Ping_successful);
     }
-    if(m_IpIsSet)
+    if(m_MessageIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("ip"))] = ModelBase::toJson(m_Ip);
-    }
-    if(m_LocationIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("location"))] = ModelBase::toJson(m_Location);
-    }
-    if(m_MaxIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("max"))] = ModelBase::toJson(m_Max);
-    }
-    if(m_MinIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("min"))] = ModelBase::toJson(m_Min);
+        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
     }
 
     return val;
@@ -83,69 +62,36 @@ web::json::value Get_network_pingmyip_200_response::toJson() const
 bool Get_network_pingmyip_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("avg"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("client_ip"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("avg")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("client_ip")));
         if(!fieldValue.is_null())
         {
-            double refVal_setAvg;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setAvg);
-            setAvg(refVal_setAvg);
+            utility::string_t refVal_setClientIp;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setClientIp);
+            setClientIp(refVal_setClientIp);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("host"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("ping_successful"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("host")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("ping_successful")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setHost;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setHost);
-            setHost(refVal_setHost);
+            bool refVal_setPingSuccessful;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setPingSuccessful);
+            setPingSuccessful(refVal_setPingSuccessful);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("ip"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("ip")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setIp;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setIp);
-            setIp(refVal_setIp);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("location"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("location")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setLocation;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setLocation);
-            setLocation(refVal_setLocation);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("max"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("max")));
-        if(!fieldValue.is_null())
-        {
-            double refVal_setMax;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMax);
-            setMax(refVal_setMax);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("min"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("min")));
-        if(!fieldValue.is_null())
-        {
-            double refVal_setMin;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMin);
-            setMin(refVal_setMin);
+            utility::string_t refVal_setMessage;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
+            setMessage(refVal_setMessage);
             
         }
     }
@@ -159,29 +105,17 @@ void Get_network_pingmyip_200_response::toMultipart(std::shared_ptr<MultipartFor
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_AvgIsSet)
+    if(m_Client_ipIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("avg")), m_Avg));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("client_ip")), m_Client_ip));
     }
-    if(m_HostIsSet)
+    if(m_Ping_successfulIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("host")), m_Host));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("ping_successful")), m_Ping_successful));
     }
-    if(m_IpIsSet)
+    if(m_MessageIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("ip")), m_Ip));
-    }
-    if(m_LocationIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("location")), m_Location));
-    }
-    if(m_MaxIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("max")), m_Max));
-    }
-    if(m_MinIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("min")), m_Min));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
     }
 }
 
@@ -194,168 +128,89 @@ bool Get_network_pingmyip_200_response::fromMultiPart(std::shared_ptr<MultipartF
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("avg"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("client_ip"))))
     {
-        double refVal_setAvg;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("avg"))), refVal_setAvg );
-        setAvg(refVal_setAvg);
+        utility::string_t refVal_setClientIp;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("client_ip"))), refVal_setClientIp );
+        setClientIp(refVal_setClientIp);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("host"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("ping_successful"))))
     {
-        utility::string_t refVal_setHost;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("host"))), refVal_setHost );
-        setHost(refVal_setHost);
+        bool refVal_setPingSuccessful;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("ping_successful"))), refVal_setPingSuccessful );
+        setPingSuccessful(refVal_setPingSuccessful);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("ip"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
     {
-        utility::string_t refVal_setIp;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("ip"))), refVal_setIp );
-        setIp(refVal_setIp);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("location"))))
-    {
-        utility::string_t refVal_setLocation;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("location"))), refVal_setLocation );
-        setLocation(refVal_setLocation);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("max"))))
-    {
-        double refVal_setMax;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("max"))), refVal_setMax );
-        setMax(refVal_setMax);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("min"))))
-    {
-        double refVal_setMin;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("min"))), refVal_setMin );
-        setMin(refVal_setMin);
+        utility::string_t refVal_setMessage;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
+        setMessage(refVal_setMessage);
     }
     return ok;
 }
 
 
-double Get_network_pingmyip_200_response::getAvg() const
+utility::string_t Get_network_pingmyip_200_response::getClientIp() const
 {
-    return m_Avg;
-}
-
-void Get_network_pingmyip_200_response::setAvg(double value)
-{
-    m_Avg = value;
-    m_AvgIsSet = true;
-}
-
-bool Get_network_pingmyip_200_response::avgIsSet() const
-{
-    return m_AvgIsSet;
-}
-
-void Get_network_pingmyip_200_response::unsetAvg()
-{
-    m_AvgIsSet = false;
-}
-utility::string_t Get_network_pingmyip_200_response::getHost() const
-{
-    return m_Host;
+    return m_Client_ip;
 }
 
 
-void Get_network_pingmyip_200_response::setHost(const utility::string_t& value)
+void Get_network_pingmyip_200_response::setClientIp(const utility::string_t& value)
 {
-    m_Host = value;
-    m_HostIsSet = true;
+    m_Client_ip = value;
+    m_Client_ipIsSet = true;
 }
 
-bool Get_network_pingmyip_200_response::hostIsSet() const
+bool Get_network_pingmyip_200_response::clientIpIsSet() const
 {
-    return m_HostIsSet;
+    return m_Client_ipIsSet;
 }
 
-void Get_network_pingmyip_200_response::unsetHost()
+void Get_network_pingmyip_200_response::unsetClient_ip()
 {
-    m_HostIsSet = false;
+    m_Client_ipIsSet = false;
 }
-utility::string_t Get_network_pingmyip_200_response::getIp() const
+bool Get_network_pingmyip_200_response::isPingSuccessful() const
 {
-    return m_Ip;
+    return m_Ping_successful;
+}
+
+void Get_network_pingmyip_200_response::setPingSuccessful(bool value)
+{
+    m_Ping_successful = value;
+    m_Ping_successfulIsSet = true;
+}
+
+bool Get_network_pingmyip_200_response::pingSuccessfulIsSet() const
+{
+    return m_Ping_successfulIsSet;
+}
+
+void Get_network_pingmyip_200_response::unsetPing_successful()
+{
+    m_Ping_successfulIsSet = false;
+}
+utility::string_t Get_network_pingmyip_200_response::getMessage() const
+{
+    return m_Message;
 }
 
 
-void Get_network_pingmyip_200_response::setIp(const utility::string_t& value)
+void Get_network_pingmyip_200_response::setMessage(const utility::string_t& value)
 {
-    m_Ip = value;
-    m_IpIsSet = true;
+    m_Message = value;
+    m_MessageIsSet = true;
 }
 
-bool Get_network_pingmyip_200_response::ipIsSet() const
+bool Get_network_pingmyip_200_response::messageIsSet() const
 {
-    return m_IpIsSet;
+    return m_MessageIsSet;
 }
 
-void Get_network_pingmyip_200_response::unsetIp()
+void Get_network_pingmyip_200_response::unsetMessage()
 {
-    m_IpIsSet = false;
-}
-utility::string_t Get_network_pingmyip_200_response::getLocation() const
-{
-    return m_Location;
-}
-
-
-void Get_network_pingmyip_200_response::setLocation(const utility::string_t& value)
-{
-    m_Location = value;
-    m_LocationIsSet = true;
-}
-
-bool Get_network_pingmyip_200_response::locationIsSet() const
-{
-    return m_LocationIsSet;
-}
-
-void Get_network_pingmyip_200_response::unsetLocation()
-{
-    m_LocationIsSet = false;
-}
-double Get_network_pingmyip_200_response::getMax() const
-{
-    return m_Max;
-}
-
-void Get_network_pingmyip_200_response::setMax(double value)
-{
-    m_Max = value;
-    m_MaxIsSet = true;
-}
-
-bool Get_network_pingmyip_200_response::maxIsSet() const
-{
-    return m_MaxIsSet;
-}
-
-void Get_network_pingmyip_200_response::unsetMax()
-{
-    m_MaxIsSet = false;
-}
-double Get_network_pingmyip_200_response::getMin() const
-{
-    return m_Min;
-}
-
-void Get_network_pingmyip_200_response::setMin(double value)
-{
-    m_Min = value;
-    m_MinIsSet = true;
-}
-
-bool Get_network_pingmyip_200_response::minIsSet() const
-{
-    return m_MinIsSet;
-}
-
-void Get_network_pingmyip_200_response::unsetMin()
-{
-    m_MinIsSet = false;
+    m_MessageIsSet = false;
 }
 
 }

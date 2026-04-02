@@ -18,11 +18,15 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Get_misc_hotboard_200_response_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_Get_misc_hotboard_200_response_H_
 
+#include <variant>
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_list_inner.h"
-#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_results_inner.h"
+#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_oneOf_2.h"
+#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_oneOf_1_results_inner.h"
+#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_oneOf.h"
+#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_oneOf_1.h"
+#include "CppRestOpenAPIClient/model/Get_misc_hotboard_200_response_oneOf_list_inner.h"
 #include <cpprest/details/basic_types.h>
 #include <vector>
 
@@ -31,118 +35,60 @@ namespace openapitools {
 namespace client {
 namespace model {
 
-class Get_misc_hotboard_200_response_list_inner;
-class Get_misc_hotboard_200_response_results_inner;
+class Get_misc_hotboard_200_response_oneOf_list_inner;
+class Get_misc_hotboard_200_response_oneOf_1_results_inner;
 
 
 class  Get_misc_hotboard_200_response
-    : public ModelBase
 {
 public:
-    Get_misc_hotboard_200_response();
-    virtual ~Get_misc_hotboard_200_response();
+    Get_misc_hotboard_200_response() = default;
+    ~Get_misc_hotboard_200_response() = default;
 
     /////////////////////////////////////////////
-    /// ModelBase overrides
 
-    void validate() override;
+    void validate();
 
-    web::json::value toJson() const override;
-    bool fromJson(const web::json::value& json) override;
+    web::json::value toJson() const;
 
-    void toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) const override;
-    bool fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) override;
+    template<typename Target>
+    bool fromJson(const web::json::value& json) {
+        // convert json to Target type
+        Target target;
+        if (!target.fromJson(json)) {
+            return false;
+        }
 
+        m_variantValue = target;
+        return true;
+    }
+
+    void toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) const;
+
+    template<typename Target>
+    bool fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) {
+        // convert multipart to Target type
+        Target target;
+        if (!target.fromMultiPart(multipart, namePrefix)) {
+            return false;
+        }
+
+        m_variantValue = target;
+        return true;
+    }
 
     /////////////////////////////////////////////
     /// Get_misc_hotboard_200_response members
 
+    using VariantType = std::variant<Get_misc_hotboard_200_response_oneOf, Get_misc_hotboard_200_response_oneOf_1, Get_misc_hotboard_200_response_oneOf_2>;
 
-    /// <summary>
-    /// 热榜条目列表。
-    /// </summary>
-    std::vector<std::shared_ptr<Get_misc_hotboard_200_response_list_inner>> getList() const;
-    bool listIsSet() const;
-    void unsetList();
-    void setList(const std::vector<std::shared_ptr<Get_misc_hotboard_200_response_list_inner>>& value);
-
-    utility::string_t getType() const;
-    bool typeIsSet() const;
-    void unsetType();
-    void setType(const utility::string_t& value);
-
-    utility::string_t getUpdateTime() const;
-    bool updateTimeIsSet() const;
-    void unsetUpdate_time();
-    void setUpdateTime(const utility::string_t& value);
-
-    /// <summary>
-    /// 时光机模式返回的快照实际时间戳（毫秒）。
-    /// </summary>
-    int32_t getSnapshotTime() const;
-    bool snapshotTimeIsSet() const;
-    void unsetSnapshot_time();
-    void setSnapshotTime(int32_t value);
-
-    /// <summary>
-    /// 搜索模式返回的搜索关键词。
-    /// </summary>
-    utility::string_t getKeyword() const;
-    bool keywordIsSet() const;
-    void unsetKeyword();
-    void setKeyword(const utility::string_t& value);
-
-    /// <summary>
-    /// 搜索模式返回的结果数量。
-    /// </summary>
-    int32_t getCount() const;
-    bool countIsSet() const;
-    void unsetCount();
-    void setCount(int32_t value);
-
-    /// <summary>
-    /// 搜索模式返回的结果数组。
-    /// </summary>
-    std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>> getResults() const;
-    bool resultsIsSet() const;
-    void unsetResults();
-    void setResults(const std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>>& value);
-
-    /// <summary>
-    /// 数据源列表模式返回的可用历史数据源数组。
-    /// </summary>
-    std::vector<utility::string_t> getSources() const;
-    bool sourcesIsSet() const;
-    void unsetSources();
-    void setSources(const std::vector<utility::string_t>& value);
-
+    const VariantType& getVariant() const;
+    void setVariant(VariantType value);
 
 protected:
-    std::vector<std::shared_ptr<Get_misc_hotboard_200_response_list_inner>> m_List;
-    bool m_ListIsSet;
-
-    utility::string_t m_Type;
-    bool m_TypeIsSet;
-
-    utility::string_t m_Update_time;
-    bool m_Update_timeIsSet;
-
-    int32_t m_Snapshot_time;
-    bool m_Snapshot_timeIsSet;
-
-    utility::string_t m_Keyword;
-    bool m_KeywordIsSet;
-
-    int32_t m_Count;
-    bool m_CountIsSet;
-
-    std::vector<std::shared_ptr<Get_misc_hotboard_200_response_results_inner>> m_Results;
-    bool m_ResultsIsSet;
-
-    std::vector<utility::string_t> m_Sources;
-    bool m_SourcesIsSet;
-
+    VariantType m_variantValue;
 };
+
 
 
 }

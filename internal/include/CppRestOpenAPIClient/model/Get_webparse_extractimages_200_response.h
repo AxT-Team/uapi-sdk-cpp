@@ -54,31 +54,29 @@ public:
     /// Get_webparse_extractimages_200_response members
 
 
-    int32_t getCount() const;
-    bool countIsSet() const;
-    void unsetCount();
-    void setCount(int32_t value);
+    /// <summary>
+    /// 实际解析的网页地址。
+    /// </summary>
+    utility::string_t getPageUrl() const;
+    bool pageUrlIsSet() const;
+    void unsetPage_url();
+    void setPageUrl(const utility::string_t& value);
 
-    std::vector<utility::string_t> getImages() const;
-    bool imagesIsSet() const;
-    void unsetImages();
-    void setImages(const std::vector<utility::string_t>& value);
-
-    utility::string_t getUrl() const;
-    bool urlIsSet() const;
-    void unsetUrl();
-    void setUrl(const utility::string_t& value);
+    /// <summary>
+    /// 页面中提取到的图片链接列表。
+    /// </summary>
+    std::vector<utility::string_t> getImageUrls() const;
+    bool imageUrlsIsSet() const;
+    void unsetImage_urls();
+    void setImageUrls(const std::vector<utility::string_t>& value);
 
 
 protected:
-    int32_t m_Count;
-    bool m_CountIsSet;
+    utility::string_t m_Page_url;
+    bool m_Page_urlIsSet;
 
-    std::vector<utility::string_t> m_Images;
-    bool m_ImagesIsSet;
-
-    utility::string_t m_Url;
-    bool m_UrlIsSet;
+    std::vector<utility::string_t> m_Image_urls;
+    bool m_Image_urlsIsSet;
 
 };
 

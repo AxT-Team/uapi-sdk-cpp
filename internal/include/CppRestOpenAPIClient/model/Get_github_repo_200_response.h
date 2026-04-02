@@ -59,116 +59,185 @@ public:
     /// Get_github_repo_200_response members
 
 
+    /// <summary>
+    /// 仓库完整名称。
+    /// </summary>
     utility::string_t getFullName() const;
     bool fullNameIsSet() const;
     void unsetFull_name();
     void setFullName(const utility::string_t& value);
 
+    /// <summary>
+    /// 仓库简介。
+    /// </summary>
     utility::string_t getDescription() const;
     bool descriptionIsSet() const;
     void unsetDescription();
     void setDescription(const utility::string_t& value);
 
+    /// <summary>
+    /// 仓库主页链接。
+    /// </summary>
     utility::string_t getHomepage() const;
     bool homepageIsSet() const;
     void unsetHomepage();
     void setHomepage(const utility::string_t& value);
 
+    /// <summary>
+    /// 默认分支名称。
+    /// </summary>
     utility::string_t getDefaultBranch() const;
     bool defaultBranchIsSet() const;
     void unsetDefault_branch();
     void setDefaultBranch(const utility::string_t& value);
 
+    /// <summary>
+    /// 主要分支名称（通常与默认分支一致）。
+    /// </summary>
     utility::string_t getPrimaryBranch() const;
     bool primaryBranchIsSet() const;
     void unsetPrimary_branch();
     void setPrimaryBranch(const utility::string_t& value);
 
+    /// <summary>
+    /// 默认分支最新提交的 SHA 哈希。
+    /// </summary>
     utility::string_t getDefaultBranchSha() const;
     bool defaultBranchShaIsSet() const;
     void unsetDefault_branch_sha();
     void setDefaultBranchSha(const utility::string_t& value);
 
+    /// <summary>
+    /// 仓库可见性，常见值为 &#x60;public&#x60; 或 &#x60;private&#x60;。
+    /// </summary>
     utility::string_t getVisibility() const;
     bool visibilityIsSet() const;
     void unsetVisibility();
     void setVisibility(const utility::string_t& value);
 
+    /// <summary>
+    /// 仓库是否已归档。
+    /// </summary>
     bool isArchived() const;
     bool archivedIsSet() const;
     void unsetArchived();
     void setArchived(bool value);
 
+    /// <summary>
+    /// 仓库是否被禁用。
+    /// </summary>
     bool isDisabled() const;
     bool disabledIsSet() const;
     void unsetDisabled();
     void setDisabled(bool value);
 
+    /// <summary>
+    /// 是否为 Fork 仓库。
+    /// </summary>
     bool isFork() const;
     bool forkIsSet() const;
     void unsetFork();
     void setFork(bool value);
 
+    /// <summary>
+    /// 主要语言。
+    /// </summary>
     utility::string_t getLanguage() const;
     bool languageIsSet() const;
     void unsetLanguage();
     void setLanguage(const utility::string_t& value);
 
+    /// <summary>
+    /// 话题标签列表。
+    /// </summary>
     std::vector<utility::string_t> getTopics() const;
     bool topicsIsSet() const;
     void unsetTopics();
     void setTopics(const std::vector<utility::string_t>& value);
 
+    /// <summary>
+    /// 开源许可证名称。
+    /// </summary>
     utility::string_t getLicense() const;
     bool licenseIsSet() const;
     void unsetLicense();
     void setLicense(const utility::string_t& value);
 
+    /// <summary>
+    /// Star 数。
+    /// </summary>
     int32_t getStargazers() const;
     bool stargazersIsSet() const;
     void unsetStargazers();
     void setStargazers(int32_t value);
 
+    /// <summary>
+    /// Fork 数。
+    /// </summary>
     int32_t getForks() const;
     bool forksIsSet() const;
     void unsetForks();
     void setForks(int32_t value);
 
+    /// <summary>
+    /// 开放 Issue 数。
+    /// </summary>
     int32_t getOpenIssues() const;
     bool openIssuesIsSet() const;
     void unsetOpen_issues();
     void setOpenIssues(int32_t value);
 
+    /// <summary>
+    /// 关注者数量（watchers/subscribers）。
+    /// </summary>
     int32_t getWatchers() const;
     bool watchersIsSet() const;
     void unsetWatchers();
     void setWatchers(int32_t value);
 
+    /// <summary>
+    /// 最后推送时间（ISO 8601）。
+    /// </summary>
     utility::datetime getPushedAt() const;
     bool pushedAtIsSet() const;
     void unsetPushed_at();
     void setPushedAt(const utility::datetime& value);
 
+    /// <summary>
+    /// 创建时间（ISO 8601）。
+    /// </summary>
     utility::datetime getCreatedAt() const;
     bool createdAtIsSet() const;
     void unsetCreated_at();
     void setCreatedAt(const utility::datetime& value);
 
+    /// <summary>
+    /// 更新时间（ISO 8601）。
+    /// </summary>
     utility::datetime getUpdatedAt() const;
     bool updatedAtIsSet() const;
     void unsetUpdated_at();
     void setUpdatedAt(const utility::datetime& value);
 
+    /// <summary>
+    /// 语言统计（键为语言名，值为代码字节数）。
+    /// </summary>
     std::map<utility::string_t, int32_t> getLanguages() const;
     bool languagesIsSet() const;
     void unsetLanguages();
     void setLanguages(std::map<utility::string_t, int32_t> value);
 
+    /// <summary>
+    /// 协作者列表。受权限限制时可能为 null 或空数组。
+    /// </summary>
     std::vector<std::shared_ptr<Get_github_repo_200_response_collaborators_inner>> getCollaborators() const;
     bool collaboratorsIsSet() const;
     void unsetCollaborators();
     void setCollaborators(const std::vector<std::shared_ptr<Get_github_repo_200_response_collaborators_inner>>& value);
 
+    /// <summary>
+    /// 维护者列表（根据默认分支近期提交推断）。
+    /// </summary>
     std::vector<std::shared_ptr<Get_github_repo_200_response_collaborators_inner>> getMaintainers() const;
     bool maintainersIsSet() const;
     void unsetMaintainers();

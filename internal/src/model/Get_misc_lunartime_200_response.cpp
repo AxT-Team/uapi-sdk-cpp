@@ -20,11 +20,48 @@ namespace model {
 
 Get_misc_lunartime_200_response::Get_misc_lunartime_200_response()
 {
-    m_Code = 0;
-    m_CodeIsSet = false;
-    m_Message = utility::conversions::to_string_t("");
-    m_MessageIsSet = false;
-    m_DataIsSet = false;
+    m_Query_timestamp = utility::conversions::to_string_t("");
+    m_Query_timestampIsSet = false;
+    m_Query_timezone = utility::conversions::to_string_t("");
+    m_Query_timezoneIsSet = false;
+    m_Timezone = utility::conversions::to_string_t("");
+    m_TimezoneIsSet = false;
+    m_Datetime = utility::conversions::to_string_t("");
+    m_DatetimeIsSet = false;
+    m_Datetime_rfc3339 = utility::conversions::to_string_t("");
+    m_Datetime_rfc3339IsSet = false;
+    m_Timestamp_unix = 0;
+    m_Timestamp_unixIsSet = false;
+    m_Weekday = utility::conversions::to_string_t("");
+    m_WeekdayIsSet = false;
+    m_Weekday_cn = utility::conversions::to_string_t("");
+    m_Weekday_cnIsSet = false;
+    m_Lunar_year = 0;
+    m_Lunar_yearIsSet = false;
+    m_Lunar_month = 0;
+    m_Lunar_monthIsSet = false;
+    m_Lunar_day = 0;
+    m_Lunar_dayIsSet = false;
+    m_Is_leap_month = false;
+    m_Is_leap_monthIsSet = false;
+    m_Lunar_year_cn = utility::conversions::to_string_t("");
+    m_Lunar_year_cnIsSet = false;
+    m_Lunar_month_cn = utility::conversions::to_string_t("");
+    m_Lunar_month_cnIsSet = false;
+    m_Lunar_day_cn = utility::conversions::to_string_t("");
+    m_Lunar_day_cnIsSet = false;
+    m_Ganzhi_year = utility::conversions::to_string_t("");
+    m_Ganzhi_yearIsSet = false;
+    m_Ganzhi_month = utility::conversions::to_string_t("");
+    m_Ganzhi_monthIsSet = false;
+    m_Ganzhi_day = utility::conversions::to_string_t("");
+    m_Ganzhi_dayIsSet = false;
+    m_Zodiac = utility::conversions::to_string_t("");
+    m_ZodiacIsSet = false;
+    m_Solar_term = utility::conversions::to_string_t("");
+    m_Solar_termIsSet = false;
+    m_Lunar_festivalsIsSet = false;
+    m_Solar_festivalsIsSet = false;
 }
 
 Get_misc_lunartime_200_response::~Get_misc_lunartime_200_response()
@@ -39,20 +76,115 @@ void Get_misc_lunartime_200_response::validate()
 web::json::value Get_misc_lunartime_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
+    if(m_Query_timestampIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
+        val[utility::conversions::to_string_t(_XPLATSTR("query_timestamp"))] = ModelBase::toJson(m_Query_timestamp);
     }
-    if(m_MessageIsSet)
+    if(m_Query_timezoneIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
+        val[utility::conversions::to_string_t(_XPLATSTR("query_timezone"))] = ModelBase::toJson(m_Query_timezone);
     }
-    if(m_DataIsSet)
+    if(m_TimezoneIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("data"))] = ModelBase::toJson(m_Data);
+        val[utility::conversions::to_string_t(_XPLATSTR("timezone"))] = ModelBase::toJson(m_Timezone);
+    }
+    if(m_DatetimeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("datetime"))] = ModelBase::toJson(m_Datetime);
+    }
+    if(m_Datetime_rfc3339IsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("datetime_rfc3339"))] = ModelBase::toJson(m_Datetime_rfc3339);
+    }
+    if(m_Timestamp_unixIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("timestamp_unix"))] = ModelBase::toJson(m_Timestamp_unix);
+    }
+    if(m_WeekdayIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("weekday"))] = ModelBase::toJson(m_Weekday);
+    }
+    if(m_Weekday_cnIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("weekday_cn"))] = ModelBase::toJson(m_Weekday_cn);
+    }
+    if(m_Lunar_yearIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("lunar_year"))] = ModelBase::toJson(m_Lunar_year);
+    }
+    if(m_Lunar_monthIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("lunar_month"))] = ModelBase::toJson(m_Lunar_month);
+    }
+    if(m_Lunar_dayIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("lunar_day"))] = ModelBase::toJson(m_Lunar_day);
+    }
+    if(m_Is_leap_monthIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("is_leap_month"))] = ModelBase::toJson(m_Is_leap_month);
+    }
+    if(m_Lunar_year_cnIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("lunar_year_cn"))] = ModelBase::toJson(m_Lunar_year_cn);
+    }
+    if(m_Lunar_month_cnIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("lunar_month_cn"))] = ModelBase::toJson(m_Lunar_month_cn);
+    }
+    if(m_Lunar_day_cnIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("lunar_day_cn"))] = ModelBase::toJson(m_Lunar_day_cn);
+    }
+    if(m_Ganzhi_yearIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("ganzhi_year"))] = ModelBase::toJson(m_Ganzhi_year);
+    }
+    if(m_Ganzhi_monthIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("ganzhi_month"))] = ModelBase::toJson(m_Ganzhi_month);
+    }
+    if(m_Ganzhi_dayIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("ganzhi_day"))] = ModelBase::toJson(m_Ganzhi_day);
+    }
+    if(m_ZodiacIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("zodiac"))] = ModelBase::toJson(m_Zodiac);
+    }
+    if(m_Solar_termIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("solar_term"))] = ModelBase::toJson(m_Solar_term);
+    }
+    if(m_Lunar_festivalsIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("lunar_festivals"))] = ModelBase::toJson(m_Lunar_festivals);
+    }
+    if(m_Solar_festivalsIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("solar_festivals"))] = ModelBase::toJson(m_Solar_festivals);
     }
 
     return val;
@@ -61,36 +193,245 @@ web::json::value Get_misc_lunartime_200_response::toJson() const
 bool Get_misc_lunartime_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("query_timestamp"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("query_timestamp")));
         if(!fieldValue.is_null())
         {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
+            utility::string_t refVal_setQueryTimestamp;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setQueryTimestamp);
+            setQueryTimestamp(refVal_setQueryTimestamp);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("query_timezone"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("query_timezone")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setMessage;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
-            setMessage(refVal_setMessage);
+            utility::string_t refVal_setQueryTimezone;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setQueryTimezone);
+            setQueryTimezone(refVal_setQueryTimezone);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("timezone"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("data")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("timezone")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Get_misc_lunartime_200_response_data> refVal_setData;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setData);
-            setData(refVal_setData);
+            utility::string_t refVal_setTimezone;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTimezone);
+            setTimezone(refVal_setTimezone);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("datetime"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("datetime")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setDatetime;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDatetime);
+            setDatetime(refVal_setDatetime);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("datetime_rfc3339"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("datetime_rfc3339")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setDatetimeRfc3339;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDatetimeRfc3339);
+            setDatetimeRfc3339(refVal_setDatetimeRfc3339);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("timestamp_unix"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("timestamp_unix")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setTimestampUnix;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTimestampUnix);
+            setTimestampUnix(refVal_setTimestampUnix);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("weekday"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("weekday")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setWeekday;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setWeekday);
+            setWeekday(refVal_setWeekday);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("weekday_cn"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("weekday_cn")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setWeekdayCn;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setWeekdayCn);
+            setWeekdayCn(refVal_setWeekdayCn);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("lunar_year"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("lunar_year")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setLunarYear;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLunarYear);
+            setLunarYear(refVal_setLunarYear);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("lunar_month"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("lunar_month")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setLunarMonth;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLunarMonth);
+            setLunarMonth(refVal_setLunarMonth);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("lunar_day"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("lunar_day")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setLunarDay;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLunarDay);
+            setLunarDay(refVal_setLunarDay);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("is_leap_month"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("is_leap_month")));
+        if(!fieldValue.is_null())
+        {
+            bool refVal_setIsLeapMonth;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setIsLeapMonth);
+            setIsLeapMonth(refVal_setIsLeapMonth);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("lunar_year_cn"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("lunar_year_cn")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setLunarYearCn;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLunarYearCn);
+            setLunarYearCn(refVal_setLunarYearCn);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("lunar_month_cn"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("lunar_month_cn")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setLunarMonthCn;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLunarMonthCn);
+            setLunarMonthCn(refVal_setLunarMonthCn);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("lunar_day_cn"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("lunar_day_cn")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setLunarDayCn;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLunarDayCn);
+            setLunarDayCn(refVal_setLunarDayCn);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("ganzhi_year"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("ganzhi_year")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setGanzhiYear;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setGanzhiYear);
+            setGanzhiYear(refVal_setGanzhiYear);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("ganzhi_month"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("ganzhi_month")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setGanzhiMonth;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setGanzhiMonth);
+            setGanzhiMonth(refVal_setGanzhiMonth);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("ganzhi_day"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("ganzhi_day")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setGanzhiDay;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setGanzhiDay);
+            setGanzhiDay(refVal_setGanzhiDay);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("zodiac"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("zodiac")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setZodiac;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setZodiac);
+            setZodiac(refVal_setZodiac);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("solar_term"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("solar_term")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setSolarTerm;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSolarTerm);
+            setSolarTerm(refVal_setSolarTerm);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("lunar_festivals"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("lunar_festivals")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<utility::string_t> refVal_setLunarFestivals;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLunarFestivals);
+            setLunarFestivals(refVal_setLunarFestivals);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("solar_festivals"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("solar_festivals")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<utility::string_t> refVal_setSolarFestivals;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSolarFestivals);
+            setSolarFestivals(refVal_setSolarFestivals);
             
         }
     }
@@ -104,17 +445,93 @@ void Get_misc_lunartime_200_response::toMultipart(std::shared_ptr<MultipartFormD
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
+    if(m_Query_timestampIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("query_timestamp")), m_Query_timestamp));
     }
-    if(m_MessageIsSet)
+    if(m_Query_timezoneIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("query_timezone")), m_Query_timezone));
     }
-    if(m_DataIsSet)
+    if(m_TimezoneIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("data")), m_Data));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("timezone")), m_Timezone));
+    }
+    if(m_DatetimeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("datetime")), m_Datetime));
+    }
+    if(m_Datetime_rfc3339IsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("datetime_rfc3339")), m_Datetime_rfc3339));
+    }
+    if(m_Timestamp_unixIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("timestamp_unix")), m_Timestamp_unix));
+    }
+    if(m_WeekdayIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("weekday")), m_Weekday));
+    }
+    if(m_Weekday_cnIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("weekday_cn")), m_Weekday_cn));
+    }
+    if(m_Lunar_yearIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("lunar_year")), m_Lunar_year));
+    }
+    if(m_Lunar_monthIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("lunar_month")), m_Lunar_month));
+    }
+    if(m_Lunar_dayIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("lunar_day")), m_Lunar_day));
+    }
+    if(m_Is_leap_monthIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("is_leap_month")), m_Is_leap_month));
+    }
+    if(m_Lunar_year_cnIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("lunar_year_cn")), m_Lunar_year_cn));
+    }
+    if(m_Lunar_month_cnIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("lunar_month_cn")), m_Lunar_month_cn));
+    }
+    if(m_Lunar_day_cnIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("lunar_day_cn")), m_Lunar_day_cn));
+    }
+    if(m_Ganzhi_yearIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("ganzhi_year")), m_Ganzhi_year));
+    }
+    if(m_Ganzhi_monthIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("ganzhi_month")), m_Ganzhi_month));
+    }
+    if(m_Ganzhi_dayIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("ganzhi_day")), m_Ganzhi_day));
+    }
+    if(m_ZodiacIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("zodiac")), m_Zodiac));
+    }
+    if(m_Solar_termIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("solar_term")), m_Solar_term));
+    }
+    if(m_Lunar_festivalsIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("lunar_festivals")), m_Lunar_festivals));
+    }
+    if(m_Solar_festivalsIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("solar_festivals")), m_Solar_festivals));
     }
 }
 
@@ -127,89 +544,598 @@ bool Get_misc_lunartime_200_response::fromMultiPart(std::shared_ptr<MultipartFor
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("query_timestamp"))))
     {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
+        utility::string_t refVal_setQueryTimestamp;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("query_timestamp"))), refVal_setQueryTimestamp );
+        setQueryTimestamp(refVal_setQueryTimestamp);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("query_timezone"))))
     {
-        utility::string_t refVal_setMessage;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
-        setMessage(refVal_setMessage);
+        utility::string_t refVal_setQueryTimezone;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("query_timezone"))), refVal_setQueryTimezone );
+        setQueryTimezone(refVal_setQueryTimezone);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("timezone"))))
     {
-        std::shared_ptr<Get_misc_lunartime_200_response_data> refVal_setData;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("data"))), refVal_setData );
-        setData(refVal_setData);
+        utility::string_t refVal_setTimezone;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("timezone"))), refVal_setTimezone );
+        setTimezone(refVal_setTimezone);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("datetime"))))
+    {
+        utility::string_t refVal_setDatetime;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("datetime"))), refVal_setDatetime );
+        setDatetime(refVal_setDatetime);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("datetime_rfc3339"))))
+    {
+        utility::string_t refVal_setDatetimeRfc3339;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("datetime_rfc3339"))), refVal_setDatetimeRfc3339 );
+        setDatetimeRfc3339(refVal_setDatetimeRfc3339);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("timestamp_unix"))))
+    {
+        int32_t refVal_setTimestampUnix;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("timestamp_unix"))), refVal_setTimestampUnix );
+        setTimestampUnix(refVal_setTimestampUnix);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("weekday"))))
+    {
+        utility::string_t refVal_setWeekday;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("weekday"))), refVal_setWeekday );
+        setWeekday(refVal_setWeekday);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("weekday_cn"))))
+    {
+        utility::string_t refVal_setWeekdayCn;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("weekday_cn"))), refVal_setWeekdayCn );
+        setWeekdayCn(refVal_setWeekdayCn);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("lunar_year"))))
+    {
+        int32_t refVal_setLunarYear;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("lunar_year"))), refVal_setLunarYear );
+        setLunarYear(refVal_setLunarYear);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("lunar_month"))))
+    {
+        int32_t refVal_setLunarMonth;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("lunar_month"))), refVal_setLunarMonth );
+        setLunarMonth(refVal_setLunarMonth);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("lunar_day"))))
+    {
+        int32_t refVal_setLunarDay;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("lunar_day"))), refVal_setLunarDay );
+        setLunarDay(refVal_setLunarDay);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("is_leap_month"))))
+    {
+        bool refVal_setIsLeapMonth;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("is_leap_month"))), refVal_setIsLeapMonth );
+        setIsLeapMonth(refVal_setIsLeapMonth);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("lunar_year_cn"))))
+    {
+        utility::string_t refVal_setLunarYearCn;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("lunar_year_cn"))), refVal_setLunarYearCn );
+        setLunarYearCn(refVal_setLunarYearCn);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("lunar_month_cn"))))
+    {
+        utility::string_t refVal_setLunarMonthCn;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("lunar_month_cn"))), refVal_setLunarMonthCn );
+        setLunarMonthCn(refVal_setLunarMonthCn);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("lunar_day_cn"))))
+    {
+        utility::string_t refVal_setLunarDayCn;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("lunar_day_cn"))), refVal_setLunarDayCn );
+        setLunarDayCn(refVal_setLunarDayCn);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("ganzhi_year"))))
+    {
+        utility::string_t refVal_setGanzhiYear;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("ganzhi_year"))), refVal_setGanzhiYear );
+        setGanzhiYear(refVal_setGanzhiYear);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("ganzhi_month"))))
+    {
+        utility::string_t refVal_setGanzhiMonth;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("ganzhi_month"))), refVal_setGanzhiMonth );
+        setGanzhiMonth(refVal_setGanzhiMonth);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("ganzhi_day"))))
+    {
+        utility::string_t refVal_setGanzhiDay;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("ganzhi_day"))), refVal_setGanzhiDay );
+        setGanzhiDay(refVal_setGanzhiDay);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("zodiac"))))
+    {
+        utility::string_t refVal_setZodiac;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("zodiac"))), refVal_setZodiac );
+        setZodiac(refVal_setZodiac);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("solar_term"))))
+    {
+        utility::string_t refVal_setSolarTerm;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("solar_term"))), refVal_setSolarTerm );
+        setSolarTerm(refVal_setSolarTerm);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("lunar_festivals"))))
+    {
+        std::vector<utility::string_t> refVal_setLunarFestivals;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("lunar_festivals"))), refVal_setLunarFestivals );
+        setLunarFestivals(refVal_setLunarFestivals);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("solar_festivals"))))
+    {
+        std::vector<utility::string_t> refVal_setSolarFestivals;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("solar_festivals"))), refVal_setSolarFestivals );
+        setSolarFestivals(refVal_setSolarFestivals);
     }
     return ok;
 }
 
 
-int32_t Get_misc_lunartime_200_response::getCode() const
+utility::string_t Get_misc_lunartime_200_response::getQueryTimestamp() const
 {
-    return m_Code;
-}
-
-void Get_misc_lunartime_200_response::setCode(int32_t value)
-{
-    m_Code = value;
-    m_CodeIsSet = true;
-}
-
-bool Get_misc_lunartime_200_response::codeIsSet() const
-{
-    return m_CodeIsSet;
-}
-
-void Get_misc_lunartime_200_response::unsetCode()
-{
-    m_CodeIsSet = false;
-}
-utility::string_t Get_misc_lunartime_200_response::getMessage() const
-{
-    return m_Message;
+    return m_Query_timestamp;
 }
 
 
-void Get_misc_lunartime_200_response::setMessage(const utility::string_t& value)
+void Get_misc_lunartime_200_response::setQueryTimestamp(const utility::string_t& value)
 {
-    m_Message = value;
-    m_MessageIsSet = true;
+    m_Query_timestamp = value;
+    m_Query_timestampIsSet = true;
 }
 
-bool Get_misc_lunartime_200_response::messageIsSet() const
+bool Get_misc_lunartime_200_response::queryTimestampIsSet() const
 {
-    return m_MessageIsSet;
+    return m_Query_timestampIsSet;
 }
 
-void Get_misc_lunartime_200_response::unsetMessage()
+void Get_misc_lunartime_200_response::unsetQuery_timestamp()
 {
-    m_MessageIsSet = false;
+    m_Query_timestampIsSet = false;
 }
-std::shared_ptr<Get_misc_lunartime_200_response_data> Get_misc_lunartime_200_response::getData() const
+utility::string_t Get_misc_lunartime_200_response::getQueryTimezone() const
 {
-    return m_Data;
+    return m_Query_timezone;
+}
+
+
+void Get_misc_lunartime_200_response::setQueryTimezone(const utility::string_t& value)
+{
+    m_Query_timezone = value;
+    m_Query_timezoneIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::queryTimezoneIsSet() const
+{
+    return m_Query_timezoneIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetQuery_timezone()
+{
+    m_Query_timezoneIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getTimezone() const
+{
+    return m_Timezone;
 }
 
 
-void Get_misc_lunartime_200_response::setData(const std::shared_ptr<Get_misc_lunartime_200_response_data>& value)
+void Get_misc_lunartime_200_response::setTimezone(const utility::string_t& value)
 {
-    m_Data = value;
-    m_DataIsSet = true;
+    m_Timezone = value;
+    m_TimezoneIsSet = true;
 }
 
-bool Get_misc_lunartime_200_response::dataIsSet() const
+bool Get_misc_lunartime_200_response::timezoneIsSet() const
 {
-    return m_DataIsSet;
+    return m_TimezoneIsSet;
 }
 
-void Get_misc_lunartime_200_response::unsetData()
+void Get_misc_lunartime_200_response::unsetTimezone()
 {
-    m_DataIsSet = false;
+    m_TimezoneIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getDatetime() const
+{
+    return m_Datetime;
+}
+
+
+void Get_misc_lunartime_200_response::setDatetime(const utility::string_t& value)
+{
+    m_Datetime = value;
+    m_DatetimeIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::datetimeIsSet() const
+{
+    return m_DatetimeIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetDatetime()
+{
+    m_DatetimeIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getDatetimeRfc3339() const
+{
+    return m_Datetime_rfc3339;
+}
+
+
+void Get_misc_lunartime_200_response::setDatetimeRfc3339(const utility::string_t& value)
+{
+    m_Datetime_rfc3339 = value;
+    m_Datetime_rfc3339IsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::datetimeRfc3339IsSet() const
+{
+    return m_Datetime_rfc3339IsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetDatetime_rfc3339()
+{
+    m_Datetime_rfc3339IsSet = false;
+}
+int32_t Get_misc_lunartime_200_response::getTimestampUnix() const
+{
+    return m_Timestamp_unix;
+}
+
+void Get_misc_lunartime_200_response::setTimestampUnix(int32_t value)
+{
+    m_Timestamp_unix = value;
+    m_Timestamp_unixIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::timestampUnixIsSet() const
+{
+    return m_Timestamp_unixIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetTimestamp_unix()
+{
+    m_Timestamp_unixIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getWeekday() const
+{
+    return m_Weekday;
+}
+
+
+void Get_misc_lunartime_200_response::setWeekday(const utility::string_t& value)
+{
+    m_Weekday = value;
+    m_WeekdayIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::weekdayIsSet() const
+{
+    return m_WeekdayIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetWeekday()
+{
+    m_WeekdayIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getWeekdayCn() const
+{
+    return m_Weekday_cn;
+}
+
+
+void Get_misc_lunartime_200_response::setWeekdayCn(const utility::string_t& value)
+{
+    m_Weekday_cn = value;
+    m_Weekday_cnIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::weekdayCnIsSet() const
+{
+    return m_Weekday_cnIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetWeekday_cn()
+{
+    m_Weekday_cnIsSet = false;
+}
+int32_t Get_misc_lunartime_200_response::getLunarYear() const
+{
+    return m_Lunar_year;
+}
+
+void Get_misc_lunartime_200_response::setLunarYear(int32_t value)
+{
+    m_Lunar_year = value;
+    m_Lunar_yearIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::lunarYearIsSet() const
+{
+    return m_Lunar_yearIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetLunar_year()
+{
+    m_Lunar_yearIsSet = false;
+}
+int32_t Get_misc_lunartime_200_response::getLunarMonth() const
+{
+    return m_Lunar_month;
+}
+
+void Get_misc_lunartime_200_response::setLunarMonth(int32_t value)
+{
+    m_Lunar_month = value;
+    m_Lunar_monthIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::lunarMonthIsSet() const
+{
+    return m_Lunar_monthIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetLunar_month()
+{
+    m_Lunar_monthIsSet = false;
+}
+int32_t Get_misc_lunartime_200_response::getLunarDay() const
+{
+    return m_Lunar_day;
+}
+
+void Get_misc_lunartime_200_response::setLunarDay(int32_t value)
+{
+    m_Lunar_day = value;
+    m_Lunar_dayIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::lunarDayIsSet() const
+{
+    return m_Lunar_dayIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetLunar_day()
+{
+    m_Lunar_dayIsSet = false;
+}
+bool Get_misc_lunartime_200_response::isIsLeapMonth() const
+{
+    return m_Is_leap_month;
+}
+
+void Get_misc_lunartime_200_response::setIsLeapMonth(bool value)
+{
+    m_Is_leap_month = value;
+    m_Is_leap_monthIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::isLeapMonthIsSet() const
+{
+    return m_Is_leap_monthIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetIs_leap_month()
+{
+    m_Is_leap_monthIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getLunarYearCn() const
+{
+    return m_Lunar_year_cn;
+}
+
+
+void Get_misc_lunartime_200_response::setLunarYearCn(const utility::string_t& value)
+{
+    m_Lunar_year_cn = value;
+    m_Lunar_year_cnIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::lunarYearCnIsSet() const
+{
+    return m_Lunar_year_cnIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetLunar_year_cn()
+{
+    m_Lunar_year_cnIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getLunarMonthCn() const
+{
+    return m_Lunar_month_cn;
+}
+
+
+void Get_misc_lunartime_200_response::setLunarMonthCn(const utility::string_t& value)
+{
+    m_Lunar_month_cn = value;
+    m_Lunar_month_cnIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::lunarMonthCnIsSet() const
+{
+    return m_Lunar_month_cnIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetLunar_month_cn()
+{
+    m_Lunar_month_cnIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getLunarDayCn() const
+{
+    return m_Lunar_day_cn;
+}
+
+
+void Get_misc_lunartime_200_response::setLunarDayCn(const utility::string_t& value)
+{
+    m_Lunar_day_cn = value;
+    m_Lunar_day_cnIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::lunarDayCnIsSet() const
+{
+    return m_Lunar_day_cnIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetLunar_day_cn()
+{
+    m_Lunar_day_cnIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getGanzhiYear() const
+{
+    return m_Ganzhi_year;
+}
+
+
+void Get_misc_lunartime_200_response::setGanzhiYear(const utility::string_t& value)
+{
+    m_Ganzhi_year = value;
+    m_Ganzhi_yearIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::ganzhiYearIsSet() const
+{
+    return m_Ganzhi_yearIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetGanzhi_year()
+{
+    m_Ganzhi_yearIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getGanzhiMonth() const
+{
+    return m_Ganzhi_month;
+}
+
+
+void Get_misc_lunartime_200_response::setGanzhiMonth(const utility::string_t& value)
+{
+    m_Ganzhi_month = value;
+    m_Ganzhi_monthIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::ganzhiMonthIsSet() const
+{
+    return m_Ganzhi_monthIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetGanzhi_month()
+{
+    m_Ganzhi_monthIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getGanzhiDay() const
+{
+    return m_Ganzhi_day;
+}
+
+
+void Get_misc_lunartime_200_response::setGanzhiDay(const utility::string_t& value)
+{
+    m_Ganzhi_day = value;
+    m_Ganzhi_dayIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::ganzhiDayIsSet() const
+{
+    return m_Ganzhi_dayIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetGanzhi_day()
+{
+    m_Ganzhi_dayIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getZodiac() const
+{
+    return m_Zodiac;
+}
+
+
+void Get_misc_lunartime_200_response::setZodiac(const utility::string_t& value)
+{
+    m_Zodiac = value;
+    m_ZodiacIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::zodiacIsSet() const
+{
+    return m_ZodiacIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetZodiac()
+{
+    m_ZodiacIsSet = false;
+}
+utility::string_t Get_misc_lunartime_200_response::getSolarTerm() const
+{
+    return m_Solar_term;
+}
+
+
+void Get_misc_lunartime_200_response::setSolarTerm(const utility::string_t& value)
+{
+    m_Solar_term = value;
+    m_Solar_termIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::solarTermIsSet() const
+{
+    return m_Solar_termIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetSolar_term()
+{
+    m_Solar_termIsSet = false;
+}
+std::vector<utility::string_t> Get_misc_lunartime_200_response::getLunarFestivals() const
+{
+    return m_Lunar_festivals;
+}
+
+
+void Get_misc_lunartime_200_response::setLunarFestivals(const std::vector<utility::string_t>& value)
+{
+    m_Lunar_festivals = value;
+    m_Lunar_festivalsIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::lunarFestivalsIsSet() const
+{
+    return m_Lunar_festivalsIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetLunar_festivals()
+{
+    m_Lunar_festivalsIsSet = false;
+}
+std::vector<utility::string_t> Get_misc_lunartime_200_response::getSolarFestivals() const
+{
+    return m_Solar_festivals;
+}
+
+
+void Get_misc_lunartime_200_response::setSolarFestivals(const std::vector<utility::string_t>& value)
+{
+    m_Solar_festivals = value;
+    m_Solar_festivalsIsSet = true;
+}
+
+bool Get_misc_lunartime_200_response::solarFestivalsIsSet() const
+{
+    return m_Solar_festivalsIsSet;
+}
+
+void Get_misc_lunartime_200_response::unsetSolar_festivals()
+{
+    m_Solar_festivalsIsSet = false;
 }
 
 }

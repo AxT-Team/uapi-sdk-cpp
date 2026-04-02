@@ -125,14 +125,6 @@ public:
     void unsetEndip();
     void setEndip(const utility::string_t& value);
 
-    /// <summary>
-    /// 行政区（商业查询）
-    /// </summary>
-    utility::string_t getDistrict() const;
-    bool districtIsSet() const;
-    void unsetDistrict();
-    void setDistrict(const utility::string_t& value);
-
 
 protected:
     utility::string_t m_Ip;
@@ -161,9 +153,6 @@ protected:
 
     utility::string_t m_Endip;
     bool m_EndipIsSet;
-
-    utility::string_t m_District;
-    bool m_DistrictIsSet;
 
 };
 

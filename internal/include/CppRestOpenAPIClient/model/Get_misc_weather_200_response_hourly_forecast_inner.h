@@ -166,7 +166,7 @@ public:
     void setPop(double value);
 
     /// <summary>
-    /// 紫外线指数（可选）
+    /// 紫外线指数（可选，国内城市通常不返回）
     /// </summary>
     double getUvIndex() const;
     bool uvIndexIsSet() const;

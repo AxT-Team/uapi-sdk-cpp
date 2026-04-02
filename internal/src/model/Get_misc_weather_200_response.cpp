@@ -24,10 +24,13 @@ Get_misc_weather_200_response::Get_misc_weather_200_response()
     m_ProvinceIsSet = false;
     m_City = utility::conversions::to_string_t("");
     m_CityIsSet = false;
+    m_District = utility::conversions::to_string_t("");
+    m_DistrictIsSet = false;
     m_Adcode = utility::conversions::to_string_t("");
     m_AdcodeIsSet = false;
     m_Weather = utility::conversions::to_string_t("");
     m_WeatherIsSet = false;
+    m_Weather_iconIsSet = false;
     m_Temperature = 0.0;
     m_TemperatureIsSet = false;
     m_Wind_direction = utility::conversions::to_string_t("");
@@ -91,6 +94,11 @@ web::json::value Get_misc_weather_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("city"))] = ModelBase::toJson(m_City);
     }
+    if(m_DistrictIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("district"))] = ModelBase::toJson(m_District);
+    }
     if(m_AdcodeIsSet)
     {   
         
@@ -100,6 +108,13 @@ web::json::value Get_misc_weather_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("weather"))] = ModelBase::toJson(m_Weather);
+    }
+    if(m_Weather_iconIsSet)
+    {   
+        
+        utility::string_t refVal = fromWeather_iconEnum(m_Weather_icon);
+        val[utility::conversions::to_string_t(_XPLATSTR("weather_icon"))] = ModelBase::toJson(refVal);
+        
     }
     if(m_TemperatureIsSet)
     {   
@@ -240,6 +255,17 @@ bool Get_misc_weather_200_response::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("district"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("district")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setDistrict;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDistrict);
+            setDistrict(refVal_setDistrict);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("adcode"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("adcode")));
@@ -259,6 +285,18 @@ bool Get_misc_weather_200_response::fromJson(const web::json::value& val)
             utility::string_t refVal_setWeather;
             ok &= ModelBase::fromJson(fieldValue, refVal_setWeather);
             setWeather(refVal_setWeather);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("weather_icon"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("weather_icon")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setWeatherIcon;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setWeatherIcon);
+            
+            setWeatherIcon(toWeather_iconEnum(refVal_setWeatherIcon));
             
         }
     }
@@ -522,6 +560,10 @@ void Get_misc_weather_200_response::toMultipart(std::shared_ptr<MultipartFormDat
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("city")), m_City));
     }
+    if(m_DistrictIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("district")), m_District));
+    }
     if(m_AdcodeIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("adcode")), m_Adcode));
@@ -529,6 +571,10 @@ void Get_misc_weather_200_response::toMultipart(std::shared_ptr<MultipartFormDat
     if(m_WeatherIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("weather")), m_Weather));
+    }
+    if(m_Weather_iconIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("weather_icon")), fromWeather_iconEnum(m_Weather_icon)));
     }
     if(m_TemperatureIsSet)
     {
@@ -641,6 +687,12 @@ bool Get_misc_weather_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("city"))), refVal_setCity );
         setCity(refVal_setCity);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("district"))))
+    {
+        utility::string_t refVal_setDistrict;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("district"))), refVal_setDistrict );
+        setDistrict(refVal_setDistrict);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("adcode"))))
     {
         utility::string_t refVal_setAdcode;
@@ -652,6 +704,12 @@ bool Get_misc_weather_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
         utility::string_t refVal_setWeather;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("weather"))), refVal_setWeather );
         setWeather(refVal_setWeather);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("weather_icon"))))
+    {
+        utility::string_t refVal_setWeatherIcon;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("weather_icon"))), refVal_setWeatherIcon );
+        setWeatherIcon(toWeather_iconEnum(refVal_setWeatherIcon));
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("temperature"))))
     {
@@ -788,6 +846,2679 @@ bool Get_misc_weather_200_response::fromMultiPart(std::shared_ptr<MultipartFormD
     return ok;
 }
 
+Get_misc_weather_200_response::Weather_iconEnum Get_misc_weather_200_response::toWeather_iconEnum(const utility::string_t& value) const
+{
+    
+    if (value == utility::conversions::to_string_t("100")) {
+        return Weather_iconEnum::_100;
+    }
+    
+    if (value == utility::conversions::to_string_t("101")) {
+        return Weather_iconEnum::_101;
+    }
+    
+    if (value == utility::conversions::to_string_t("102")) {
+        return Weather_iconEnum::_102;
+    }
+    
+    if (value == utility::conversions::to_string_t("103")) {
+        return Weather_iconEnum::_103;
+    }
+    
+    if (value == utility::conversions::to_string_t("104")) {
+        return Weather_iconEnum::_104;
+    }
+    
+    if (value == utility::conversions::to_string_t("150")) {
+        return Weather_iconEnum::_150;
+    }
+    
+    if (value == utility::conversions::to_string_t("151")) {
+        return Weather_iconEnum::_151;
+    }
+    
+    if (value == utility::conversions::to_string_t("152")) {
+        return Weather_iconEnum::_152;
+    }
+    
+    if (value == utility::conversions::to_string_t("153")) {
+        return Weather_iconEnum::_153;
+    }
+    
+    if (value == utility::conversions::to_string_t("300")) {
+        return Weather_iconEnum::_300;
+    }
+    
+    if (value == utility::conversions::to_string_t("301")) {
+        return Weather_iconEnum::_301;
+    }
+    
+    if (value == utility::conversions::to_string_t("302")) {
+        return Weather_iconEnum::_302;
+    }
+    
+    if (value == utility::conversions::to_string_t("303")) {
+        return Weather_iconEnum::_303;
+    }
+    
+    if (value == utility::conversions::to_string_t("304")) {
+        return Weather_iconEnum::_304;
+    }
+    
+    if (value == utility::conversions::to_string_t("305")) {
+        return Weather_iconEnum::_305;
+    }
+    
+    if (value == utility::conversions::to_string_t("306")) {
+        return Weather_iconEnum::_306;
+    }
+    
+    if (value == utility::conversions::to_string_t("307")) {
+        return Weather_iconEnum::_307;
+    }
+    
+    if (value == utility::conversions::to_string_t("308")) {
+        return Weather_iconEnum::_308;
+    }
+    
+    if (value == utility::conversions::to_string_t("309")) {
+        return Weather_iconEnum::_309;
+    }
+    
+    if (value == utility::conversions::to_string_t("310")) {
+        return Weather_iconEnum::_310;
+    }
+    
+    if (value == utility::conversions::to_string_t("311")) {
+        return Weather_iconEnum::_311;
+    }
+    
+    if (value == utility::conversions::to_string_t("312")) {
+        return Weather_iconEnum::_312;
+    }
+    
+    if (value == utility::conversions::to_string_t("313")) {
+        return Weather_iconEnum::_313;
+    }
+    
+    if (value == utility::conversions::to_string_t("314")) {
+        return Weather_iconEnum::_314;
+    }
+    
+    if (value == utility::conversions::to_string_t("315")) {
+        return Weather_iconEnum::_315;
+    }
+    
+    if (value == utility::conversions::to_string_t("316")) {
+        return Weather_iconEnum::_316;
+    }
+    
+    if (value == utility::conversions::to_string_t("317")) {
+        return Weather_iconEnum::_317;
+    }
+    
+    if (value == utility::conversions::to_string_t("318")) {
+        return Weather_iconEnum::_318;
+    }
+    
+    if (value == utility::conversions::to_string_t("350")) {
+        return Weather_iconEnum::_350;
+    }
+    
+    if (value == utility::conversions::to_string_t("351")) {
+        return Weather_iconEnum::_351;
+    }
+    
+    if (value == utility::conversions::to_string_t("399")) {
+        return Weather_iconEnum::_399;
+    }
+    
+    if (value == utility::conversions::to_string_t("400")) {
+        return Weather_iconEnum::_400;
+    }
+    
+    if (value == utility::conversions::to_string_t("401")) {
+        return Weather_iconEnum::_401;
+    }
+    
+    if (value == utility::conversions::to_string_t("402")) {
+        return Weather_iconEnum::_402;
+    }
+    
+    if (value == utility::conversions::to_string_t("403")) {
+        return Weather_iconEnum::_403;
+    }
+    
+    if (value == utility::conversions::to_string_t("404")) {
+        return Weather_iconEnum::_404;
+    }
+    
+    if (value == utility::conversions::to_string_t("405")) {
+        return Weather_iconEnum::_405;
+    }
+    
+    if (value == utility::conversions::to_string_t("406")) {
+        return Weather_iconEnum::_406;
+    }
+    
+    if (value == utility::conversions::to_string_t("407")) {
+        return Weather_iconEnum::_407;
+    }
+    
+    if (value == utility::conversions::to_string_t("408")) {
+        return Weather_iconEnum::_408;
+    }
+    
+    if (value == utility::conversions::to_string_t("409")) {
+        return Weather_iconEnum::_409;
+    }
+    
+    if (value == utility::conversions::to_string_t("410")) {
+        return Weather_iconEnum::_410;
+    }
+    
+    if (value == utility::conversions::to_string_t("456")) {
+        return Weather_iconEnum::_456;
+    }
+    
+    if (value == utility::conversions::to_string_t("457")) {
+        return Weather_iconEnum::_457;
+    }
+    
+    if (value == utility::conversions::to_string_t("499")) {
+        return Weather_iconEnum::_499;
+    }
+    
+    if (value == utility::conversions::to_string_t("500")) {
+        return Weather_iconEnum::_500;
+    }
+    
+    if (value == utility::conversions::to_string_t("501")) {
+        return Weather_iconEnum::_501;
+    }
+    
+    if (value == utility::conversions::to_string_t("502")) {
+        return Weather_iconEnum::_502;
+    }
+    
+    if (value == utility::conversions::to_string_t("503")) {
+        return Weather_iconEnum::_503;
+    }
+    
+    if (value == utility::conversions::to_string_t("504")) {
+        return Weather_iconEnum::_504;
+    }
+    
+    if (value == utility::conversions::to_string_t("507")) {
+        return Weather_iconEnum::_507;
+    }
+    
+    if (value == utility::conversions::to_string_t("508")) {
+        return Weather_iconEnum::_508;
+    }
+    
+    if (value == utility::conversions::to_string_t("509")) {
+        return Weather_iconEnum::_509;
+    }
+    
+    if (value == utility::conversions::to_string_t("510")) {
+        return Weather_iconEnum::_510;
+    }
+    
+    if (value == utility::conversions::to_string_t("511")) {
+        return Weather_iconEnum::_511;
+    }
+    
+    if (value == utility::conversions::to_string_t("512")) {
+        return Weather_iconEnum::_512;
+    }
+    
+    if (value == utility::conversions::to_string_t("513")) {
+        return Weather_iconEnum::_513;
+    }
+    
+    if (value == utility::conversions::to_string_t("514")) {
+        return Weather_iconEnum::_514;
+    }
+    
+    if (value == utility::conversions::to_string_t("515")) {
+        return Weather_iconEnum::_515;
+    }
+    
+    if (value == utility::conversions::to_string_t("800")) {
+        return Weather_iconEnum::_800;
+    }
+    
+    if (value == utility::conversions::to_string_t("801")) {
+        return Weather_iconEnum::_801;
+    }
+    
+    if (value == utility::conversions::to_string_t("802")) {
+        return Weather_iconEnum::_802;
+    }
+    
+    if (value == utility::conversions::to_string_t("803")) {
+        return Weather_iconEnum::_803;
+    }
+    
+    if (value == utility::conversions::to_string_t("804")) {
+        return Weather_iconEnum::_804;
+    }
+    
+    if (value == utility::conversions::to_string_t("805")) {
+        return Weather_iconEnum::_805;
+    }
+    
+    if (value == utility::conversions::to_string_t("806")) {
+        return Weather_iconEnum::_806;
+    }
+    
+    if (value == utility::conversions::to_string_t("807")) {
+        return Weather_iconEnum::_807;
+    }
+    
+    if (value == utility::conversions::to_string_t("900")) {
+        return Weather_iconEnum::_900;
+    }
+    
+    if (value == utility::conversions::to_string_t("901")) {
+        return Weather_iconEnum::_901;
+    }
+    
+    if (value == utility::conversions::to_string_t("999")) {
+        return Weather_iconEnum::_999;
+    }
+    
+    if (value == utility::conversions::to_string_t("1001")) {
+        return Weather_iconEnum::_1001;
+    }
+    
+    if (value == utility::conversions::to_string_t("1002")) {
+        return Weather_iconEnum::_1002;
+    }
+    
+    if (value == utility::conversions::to_string_t("1003")) {
+        return Weather_iconEnum::_1003;
+    }
+    
+    if (value == utility::conversions::to_string_t("1004")) {
+        return Weather_iconEnum::_1004;
+    }
+    
+    if (value == utility::conversions::to_string_t("1005")) {
+        return Weather_iconEnum::_1005;
+    }
+    
+    if (value == utility::conversions::to_string_t("1006")) {
+        return Weather_iconEnum::_1006;
+    }
+    
+    if (value == utility::conversions::to_string_t("1007")) {
+        return Weather_iconEnum::_1007;
+    }
+    
+    if (value == utility::conversions::to_string_t("1008")) {
+        return Weather_iconEnum::_1008;
+    }
+    
+    if (value == utility::conversions::to_string_t("1009")) {
+        return Weather_iconEnum::_1009;
+    }
+    
+    if (value == utility::conversions::to_string_t("1010")) {
+        return Weather_iconEnum::_1010;
+    }
+    
+    if (value == utility::conversions::to_string_t("1011")) {
+        return Weather_iconEnum::_1011;
+    }
+    
+    if (value == utility::conversions::to_string_t("1012")) {
+        return Weather_iconEnum::_1012;
+    }
+    
+    if (value == utility::conversions::to_string_t("1013")) {
+        return Weather_iconEnum::_1013;
+    }
+    
+    if (value == utility::conversions::to_string_t("1014")) {
+        return Weather_iconEnum::_1014;
+    }
+    
+    if (value == utility::conversions::to_string_t("1015")) {
+        return Weather_iconEnum::_1015;
+    }
+    
+    if (value == utility::conversions::to_string_t("1016")) {
+        return Weather_iconEnum::_1016;
+    }
+    
+    if (value == utility::conversions::to_string_t("1017")) {
+        return Weather_iconEnum::_1017;
+    }
+    
+    if (value == utility::conversions::to_string_t("1018")) {
+        return Weather_iconEnum::_1018;
+    }
+    
+    if (value == utility::conversions::to_string_t("1019")) {
+        return Weather_iconEnum::_1019;
+    }
+    
+    if (value == utility::conversions::to_string_t("1020")) {
+        return Weather_iconEnum::_1020;
+    }
+    
+    if (value == utility::conversions::to_string_t("1021")) {
+        return Weather_iconEnum::_1021;
+    }
+    
+    if (value == utility::conversions::to_string_t("1022")) {
+        return Weather_iconEnum::_1022;
+    }
+    
+    if (value == utility::conversions::to_string_t("1023")) {
+        return Weather_iconEnum::_1023;
+    }
+    
+    if (value == utility::conversions::to_string_t("1024")) {
+        return Weather_iconEnum::_1024;
+    }
+    
+    if (value == utility::conversions::to_string_t("1025")) {
+        return Weather_iconEnum::_1025;
+    }
+    
+    if (value == utility::conversions::to_string_t("1026")) {
+        return Weather_iconEnum::_1026;
+    }
+    
+    if (value == utility::conversions::to_string_t("1027")) {
+        return Weather_iconEnum::_1027;
+    }
+    
+    if (value == utility::conversions::to_string_t("1028")) {
+        return Weather_iconEnum::_1028;
+    }
+    
+    if (value == utility::conversions::to_string_t("1029")) {
+        return Weather_iconEnum::_1029;
+    }
+    
+    if (value == utility::conversions::to_string_t("1030")) {
+        return Weather_iconEnum::_1030;
+    }
+    
+    if (value == utility::conversions::to_string_t("1031")) {
+        return Weather_iconEnum::_1031;
+    }
+    
+    if (value == utility::conversions::to_string_t("1032")) {
+        return Weather_iconEnum::_1032;
+    }
+    
+    if (value == utility::conversions::to_string_t("1033")) {
+        return Weather_iconEnum::_1033;
+    }
+    
+    if (value == utility::conversions::to_string_t("1034")) {
+        return Weather_iconEnum::_1034;
+    }
+    
+    if (value == utility::conversions::to_string_t("1035")) {
+        return Weather_iconEnum::_1035;
+    }
+    
+    if (value == utility::conversions::to_string_t("1036")) {
+        return Weather_iconEnum::_1036;
+    }
+    
+    if (value == utility::conversions::to_string_t("1037")) {
+        return Weather_iconEnum::_1037;
+    }
+    
+    if (value == utility::conversions::to_string_t("1038")) {
+        return Weather_iconEnum::_1038;
+    }
+    
+    if (value == utility::conversions::to_string_t("1039")) {
+        return Weather_iconEnum::_1039;
+    }
+    
+    if (value == utility::conversions::to_string_t("1040")) {
+        return Weather_iconEnum::_1040;
+    }
+    
+    if (value == utility::conversions::to_string_t("1041")) {
+        return Weather_iconEnum::_1041;
+    }
+    
+    if (value == utility::conversions::to_string_t("1042")) {
+        return Weather_iconEnum::_1042;
+    }
+    
+    if (value == utility::conversions::to_string_t("1043")) {
+        return Weather_iconEnum::_1043;
+    }
+    
+    if (value == utility::conversions::to_string_t("1044")) {
+        return Weather_iconEnum::_1044;
+    }
+    
+    if (value == utility::conversions::to_string_t("1045")) {
+        return Weather_iconEnum::_1045;
+    }
+    
+    if (value == utility::conversions::to_string_t("1046")) {
+        return Weather_iconEnum::_1046;
+    }
+    
+    if (value == utility::conversions::to_string_t("1047")) {
+        return Weather_iconEnum::_1047;
+    }
+    
+    if (value == utility::conversions::to_string_t("1048")) {
+        return Weather_iconEnum::_1048;
+    }
+    
+    if (value == utility::conversions::to_string_t("1049")) {
+        return Weather_iconEnum::_1049;
+    }
+    
+    if (value == utility::conversions::to_string_t("1050")) {
+        return Weather_iconEnum::_1050;
+    }
+    
+    if (value == utility::conversions::to_string_t("1051")) {
+        return Weather_iconEnum::_1051;
+    }
+    
+    if (value == utility::conversions::to_string_t("1052")) {
+        return Weather_iconEnum::_1052;
+    }
+    
+    if (value == utility::conversions::to_string_t("1053")) {
+        return Weather_iconEnum::_1053;
+    }
+    
+    if (value == utility::conversions::to_string_t("1054")) {
+        return Weather_iconEnum::_1054;
+    }
+    
+    if (value == utility::conversions::to_string_t("1055")) {
+        return Weather_iconEnum::_1055;
+    }
+    
+    if (value == utility::conversions::to_string_t("1056")) {
+        return Weather_iconEnum::_1056;
+    }
+    
+    if (value == utility::conversions::to_string_t("1057")) {
+        return Weather_iconEnum::_1057;
+    }
+    
+    if (value == utility::conversions::to_string_t("1058")) {
+        return Weather_iconEnum::_1058;
+    }
+    
+    if (value == utility::conversions::to_string_t("1059")) {
+        return Weather_iconEnum::_1059;
+    }
+    
+    if (value == utility::conversions::to_string_t("1060")) {
+        return Weather_iconEnum::_1060;
+    }
+    
+    if (value == utility::conversions::to_string_t("1061")) {
+        return Weather_iconEnum::_1061;
+    }
+    
+    if (value == utility::conversions::to_string_t("1062")) {
+        return Weather_iconEnum::_1062;
+    }
+    
+    if (value == utility::conversions::to_string_t("1063")) {
+        return Weather_iconEnum::_1063;
+    }
+    
+    if (value == utility::conversions::to_string_t("1064")) {
+        return Weather_iconEnum::_1064;
+    }
+    
+    if (value == utility::conversions::to_string_t("1065")) {
+        return Weather_iconEnum::_1065;
+    }
+    
+    if (value == utility::conversions::to_string_t("1066")) {
+        return Weather_iconEnum::_1066;
+    }
+    
+    if (value == utility::conversions::to_string_t("1067")) {
+        return Weather_iconEnum::_1067;
+    }
+    
+    if (value == utility::conversions::to_string_t("1068")) {
+        return Weather_iconEnum::_1068;
+    }
+    
+    if (value == utility::conversions::to_string_t("1069")) {
+        return Weather_iconEnum::_1069;
+    }
+    
+    if (value == utility::conversions::to_string_t("1071")) {
+        return Weather_iconEnum::_1071;
+    }
+    
+    if (value == utility::conversions::to_string_t("1072")) {
+        return Weather_iconEnum::_1072;
+    }
+    
+    if (value == utility::conversions::to_string_t("1073")) {
+        return Weather_iconEnum::_1073;
+    }
+    
+    if (value == utility::conversions::to_string_t("1074")) {
+        return Weather_iconEnum::_1074;
+    }
+    
+    if (value == utility::conversions::to_string_t("1075")) {
+        return Weather_iconEnum::_1075;
+    }
+    
+    if (value == utility::conversions::to_string_t("1076")) {
+        return Weather_iconEnum::_1076;
+    }
+    
+    if (value == utility::conversions::to_string_t("1077")) {
+        return Weather_iconEnum::_1077;
+    }
+    
+    if (value == utility::conversions::to_string_t("1078")) {
+        return Weather_iconEnum::_1078;
+    }
+    
+    if (value == utility::conversions::to_string_t("1079")) {
+        return Weather_iconEnum::_1079;
+    }
+    
+    if (value == utility::conversions::to_string_t("1080")) {
+        return Weather_iconEnum::_1080;
+    }
+    
+    if (value == utility::conversions::to_string_t("1081")) {
+        return Weather_iconEnum::_1081;
+    }
+    
+    if (value == utility::conversions::to_string_t("1082")) {
+        return Weather_iconEnum::_1082;
+    }
+    
+    if (value == utility::conversions::to_string_t("1084")) {
+        return Weather_iconEnum::_1084;
+    }
+    
+    if (value == utility::conversions::to_string_t("1085")) {
+        return Weather_iconEnum::_1085;
+    }
+    
+    if (value == utility::conversions::to_string_t("1086")) {
+        return Weather_iconEnum::_1086;
+    }
+    
+    if (value == utility::conversions::to_string_t("1087")) {
+        return Weather_iconEnum::_1087;
+    }
+    
+    if (value == utility::conversions::to_string_t("1088")) {
+        return Weather_iconEnum::_1088;
+    }
+    
+    if (value == utility::conversions::to_string_t("1089")) {
+        return Weather_iconEnum::_1089;
+    }
+    
+    if (value == utility::conversions::to_string_t("1201")) {
+        return Weather_iconEnum::_1201;
+    }
+    
+    if (value == utility::conversions::to_string_t("1202")) {
+        return Weather_iconEnum::_1202;
+    }
+    
+    if (value == utility::conversions::to_string_t("1203")) {
+        return Weather_iconEnum::_1203;
+    }
+    
+    if (value == utility::conversions::to_string_t("1204")) {
+        return Weather_iconEnum::_1204;
+    }
+    
+    if (value == utility::conversions::to_string_t("1205")) {
+        return Weather_iconEnum::_1205;
+    }
+    
+    if (value == utility::conversions::to_string_t("1206")) {
+        return Weather_iconEnum::_1206;
+    }
+    
+    if (value == utility::conversions::to_string_t("1207")) {
+        return Weather_iconEnum::_1207;
+    }
+    
+    if (value == utility::conversions::to_string_t("1208")) {
+        return Weather_iconEnum::_1208;
+    }
+    
+    if (value == utility::conversions::to_string_t("1209")) {
+        return Weather_iconEnum::_1209;
+    }
+    
+    if (value == utility::conversions::to_string_t("1210")) {
+        return Weather_iconEnum::_1210;
+    }
+    
+    if (value == utility::conversions::to_string_t("1211")) {
+        return Weather_iconEnum::_1211;
+    }
+    
+    if (value == utility::conversions::to_string_t("1212")) {
+        return Weather_iconEnum::_1212;
+    }
+    
+    if (value == utility::conversions::to_string_t("1213")) {
+        return Weather_iconEnum::_1213;
+    }
+    
+    if (value == utility::conversions::to_string_t("1214")) {
+        return Weather_iconEnum::_1214;
+    }
+    
+    if (value == utility::conversions::to_string_t("1215")) {
+        return Weather_iconEnum::_1215;
+    }
+    
+    if (value == utility::conversions::to_string_t("1216")) {
+        return Weather_iconEnum::_1216;
+    }
+    
+    if (value == utility::conversions::to_string_t("1217")) {
+        return Weather_iconEnum::_1217;
+    }
+    
+    if (value == utility::conversions::to_string_t("1218")) {
+        return Weather_iconEnum::_1218;
+    }
+    
+    if (value == utility::conversions::to_string_t("1219")) {
+        return Weather_iconEnum::_1219;
+    }
+    
+    if (value == utility::conversions::to_string_t("1221")) {
+        return Weather_iconEnum::_1221;
+    }
+    
+    if (value == utility::conversions::to_string_t("1241")) {
+        return Weather_iconEnum::_1241;
+    }
+    
+    if (value == utility::conversions::to_string_t("1242")) {
+        return Weather_iconEnum::_1242;
+    }
+    
+    if (value == utility::conversions::to_string_t("1243")) {
+        return Weather_iconEnum::_1243;
+    }
+    
+    if (value == utility::conversions::to_string_t("1244")) {
+        return Weather_iconEnum::_1244;
+    }
+    
+    if (value == utility::conversions::to_string_t("1245")) {
+        return Weather_iconEnum::_1245;
+    }
+    
+    if (value == utility::conversions::to_string_t("1246")) {
+        return Weather_iconEnum::_1246;
+    }
+    
+    if (value == utility::conversions::to_string_t("1247")) {
+        return Weather_iconEnum::_1247;
+    }
+    
+    if (value == utility::conversions::to_string_t("1248")) {
+        return Weather_iconEnum::_1248;
+    }
+    
+    if (value == utility::conversions::to_string_t("1249")) {
+        return Weather_iconEnum::_1249;
+    }
+    
+    if (value == utility::conversions::to_string_t("1250")) {
+        return Weather_iconEnum::_1250;
+    }
+    
+    if (value == utility::conversions::to_string_t("1251")) {
+        return Weather_iconEnum::_1251;
+    }
+    
+    if (value == utility::conversions::to_string_t("1271")) {
+        return Weather_iconEnum::_1271;
+    }
+    
+    if (value == utility::conversions::to_string_t("1272")) {
+        return Weather_iconEnum::_1272;
+    }
+    
+    if (value == utility::conversions::to_string_t("1273")) {
+        return Weather_iconEnum::_1273;
+    }
+    
+    if (value == utility::conversions::to_string_t("1274")) {
+        return Weather_iconEnum::_1274;
+    }
+    
+    if (value == utility::conversions::to_string_t("1601")) {
+        return Weather_iconEnum::_1601;
+    }
+    
+    if (value == utility::conversions::to_string_t("1602")) {
+        return Weather_iconEnum::_1602;
+    }
+    
+    if (value == utility::conversions::to_string_t("1603")) {
+        return Weather_iconEnum::_1603;
+    }
+    
+    if (value == utility::conversions::to_string_t("1604")) {
+        return Weather_iconEnum::_1604;
+    }
+    
+    if (value == utility::conversions::to_string_t("1605")) {
+        return Weather_iconEnum::_1605;
+    }
+    
+    if (value == utility::conversions::to_string_t("1606")) {
+        return Weather_iconEnum::_1606;
+    }
+    
+    if (value == utility::conversions::to_string_t("1607")) {
+        return Weather_iconEnum::_1607;
+    }
+    
+    if (value == utility::conversions::to_string_t("1608")) {
+        return Weather_iconEnum::_1608;
+    }
+    
+    if (value == utility::conversions::to_string_t("1609")) {
+        return Weather_iconEnum::_1609;
+    }
+    
+    if (value == utility::conversions::to_string_t("1610")) {
+        return Weather_iconEnum::_1610;
+    }
+    
+    if (value == utility::conversions::to_string_t("1701")) {
+        return Weather_iconEnum::_1701;
+    }
+    
+    if (value == utility::conversions::to_string_t("1702")) {
+        return Weather_iconEnum::_1702;
+    }
+    
+    if (value == utility::conversions::to_string_t("1703")) {
+        return Weather_iconEnum::_1703;
+    }
+    
+    if (value == utility::conversions::to_string_t("1704")) {
+        return Weather_iconEnum::_1704;
+    }
+    
+    if (value == utility::conversions::to_string_t("1705")) {
+        return Weather_iconEnum::_1705;
+    }
+    
+    if (value == utility::conversions::to_string_t("1706")) {
+        return Weather_iconEnum::_1706;
+    }
+    
+    if (value == utility::conversions::to_string_t("1707")) {
+        return Weather_iconEnum::_1707;
+    }
+    
+    if (value == utility::conversions::to_string_t("1708")) {
+        return Weather_iconEnum::_1708;
+    }
+    
+    if (value == utility::conversions::to_string_t("1709")) {
+        return Weather_iconEnum::_1709;
+    }
+    
+    if (value == utility::conversions::to_string_t("1710")) {
+        return Weather_iconEnum::_1710;
+    }
+    
+    if (value == utility::conversions::to_string_t("1801")) {
+        return Weather_iconEnum::_1801;
+    }
+    
+    if (value == utility::conversions::to_string_t("1802")) {
+        return Weather_iconEnum::_1802;
+    }
+    
+    if (value == utility::conversions::to_string_t("1803")) {
+        return Weather_iconEnum::_1803;
+    }
+    
+    if (value == utility::conversions::to_string_t("1804")) {
+        return Weather_iconEnum::_1804;
+    }
+    
+    if (value == utility::conversions::to_string_t("1805")) {
+        return Weather_iconEnum::_1805;
+    }
+    
+    if (value == utility::conversions::to_string_t("2001")) {
+        return Weather_iconEnum::_2001;
+    }
+    
+    if (value == utility::conversions::to_string_t("2002")) {
+        return Weather_iconEnum::_2002;
+    }
+    
+    if (value == utility::conversions::to_string_t("2003")) {
+        return Weather_iconEnum::_2003;
+    }
+    
+    if (value == utility::conversions::to_string_t("2004")) {
+        return Weather_iconEnum::_2004;
+    }
+    
+    if (value == utility::conversions::to_string_t("2005")) {
+        return Weather_iconEnum::_2005;
+    }
+    
+    if (value == utility::conversions::to_string_t("2006")) {
+        return Weather_iconEnum::_2006;
+    }
+    
+    if (value == utility::conversions::to_string_t("2007")) {
+        return Weather_iconEnum::_2007;
+    }
+    
+    if (value == utility::conversions::to_string_t("2029")) {
+        return Weather_iconEnum::_2029;
+    }
+    
+    if (value == utility::conversions::to_string_t("2030")) {
+        return Weather_iconEnum::_2030;
+    }
+    
+    if (value == utility::conversions::to_string_t("2031")) {
+        return Weather_iconEnum::_2031;
+    }
+    
+    if (value == utility::conversions::to_string_t("2032")) {
+        return Weather_iconEnum::_2032;
+    }
+    
+    if (value == utility::conversions::to_string_t("2033")) {
+        return Weather_iconEnum::_2033;
+    }
+    
+    if (value == utility::conversions::to_string_t("2050")) {
+        return Weather_iconEnum::_2050;
+    }
+    
+    if (value == utility::conversions::to_string_t("2051")) {
+        return Weather_iconEnum::_2051;
+    }
+    
+    if (value == utility::conversions::to_string_t("2052")) {
+        return Weather_iconEnum::_2052;
+    }
+    
+    if (value == utility::conversions::to_string_t("2053")) {
+        return Weather_iconEnum::_2053;
+    }
+    
+    if (value == utility::conversions::to_string_t("2054")) {
+        return Weather_iconEnum::_2054;
+    }
+    
+    if (value == utility::conversions::to_string_t("2070")) {
+        return Weather_iconEnum::_2070;
+    }
+    
+    if (value == utility::conversions::to_string_t("2071")) {
+        return Weather_iconEnum::_2071;
+    }
+    
+    if (value == utility::conversions::to_string_t("2072")) {
+        return Weather_iconEnum::_2072;
+    }
+    
+    if (value == utility::conversions::to_string_t("2073")) {
+        return Weather_iconEnum::_2073;
+    }
+    
+    if (value == utility::conversions::to_string_t("2074")) {
+        return Weather_iconEnum::_2074;
+    }
+    
+    if (value == utility::conversions::to_string_t("2075")) {
+        return Weather_iconEnum::_2075;
+    }
+    
+    if (value == utility::conversions::to_string_t("2076")) {
+        return Weather_iconEnum::_2076;
+    }
+    
+    if (value == utility::conversions::to_string_t("2077")) {
+        return Weather_iconEnum::_2077;
+    }
+    
+    if (value == utility::conversions::to_string_t("2078")) {
+        return Weather_iconEnum::_2078;
+    }
+    
+    if (value == utility::conversions::to_string_t("2079")) {
+        return Weather_iconEnum::_2079;
+    }
+    
+    if (value == utility::conversions::to_string_t("2080")) {
+        return Weather_iconEnum::_2080;
+    }
+    
+    if (value == utility::conversions::to_string_t("2081")) {
+        return Weather_iconEnum::_2081;
+    }
+    
+    if (value == utility::conversions::to_string_t("2082")) {
+        return Weather_iconEnum::_2082;
+    }
+    
+    if (value == utility::conversions::to_string_t("2083")) {
+        return Weather_iconEnum::_2083;
+    }
+    
+    if (value == utility::conversions::to_string_t("2084")) {
+        return Weather_iconEnum::_2084;
+    }
+    
+    if (value == utility::conversions::to_string_t("2085")) {
+        return Weather_iconEnum::_2085;
+    }
+    
+    if (value == utility::conversions::to_string_t("2100")) {
+        return Weather_iconEnum::_2100;
+    }
+    
+    if (value == utility::conversions::to_string_t("2101")) {
+        return Weather_iconEnum::_2101;
+    }
+    
+    if (value == utility::conversions::to_string_t("2102")) {
+        return Weather_iconEnum::_2102;
+    }
+    
+    if (value == utility::conversions::to_string_t("2103")) {
+        return Weather_iconEnum::_2103;
+    }
+    
+    if (value == utility::conversions::to_string_t("2104")) {
+        return Weather_iconEnum::_2104;
+    }
+    
+    if (value == utility::conversions::to_string_t("2105")) {
+        return Weather_iconEnum::_2105;
+    }
+    
+    if (value == utility::conversions::to_string_t("2106")) {
+        return Weather_iconEnum::_2106;
+    }
+    
+    if (value == utility::conversions::to_string_t("2107")) {
+        return Weather_iconEnum::_2107;
+    }
+    
+    if (value == utility::conversions::to_string_t("2108")) {
+        return Weather_iconEnum::_2108;
+    }
+    
+    if (value == utility::conversions::to_string_t("2109")) {
+        return Weather_iconEnum::_2109;
+    }
+    
+    if (value == utility::conversions::to_string_t("2111")) {
+        return Weather_iconEnum::_2111;
+    }
+    
+    if (value == utility::conversions::to_string_t("2120")) {
+        return Weather_iconEnum::_2120;
+    }
+    
+    if (value == utility::conversions::to_string_t("2121")) {
+        return Weather_iconEnum::_2121;
+    }
+    
+    if (value == utility::conversions::to_string_t("2122")) {
+        return Weather_iconEnum::_2122;
+    }
+    
+    if (value == utility::conversions::to_string_t("2123")) {
+        return Weather_iconEnum::_2123;
+    }
+    
+    if (value == utility::conversions::to_string_t("2124")) {
+        return Weather_iconEnum::_2124;
+    }
+    
+    if (value == utility::conversions::to_string_t("2125")) {
+        return Weather_iconEnum::_2125;
+    }
+    
+    if (value == utility::conversions::to_string_t("2126")) {
+        return Weather_iconEnum::_2126;
+    }
+    
+    if (value == utility::conversions::to_string_t("2127")) {
+        return Weather_iconEnum::_2127;
+    }
+    
+    if (value == utility::conversions::to_string_t("2128")) {
+        return Weather_iconEnum::_2128;
+    }
+    
+    if (value == utility::conversions::to_string_t("2129")) {
+        return Weather_iconEnum::_2129;
+    }
+    
+    if (value == utility::conversions::to_string_t("2130")) {
+        return Weather_iconEnum::_2130;
+    }
+    
+    if (value == utility::conversions::to_string_t("2131")) {
+        return Weather_iconEnum::_2131;
+    }
+    
+    if (value == utility::conversions::to_string_t("2132")) {
+        return Weather_iconEnum::_2132;
+    }
+    
+    if (value == utility::conversions::to_string_t("2133")) {
+        return Weather_iconEnum::_2133;
+    }
+    
+    if (value == utility::conversions::to_string_t("2134")) {
+        return Weather_iconEnum::_2134;
+    }
+    
+    if (value == utility::conversions::to_string_t("2135")) {
+        return Weather_iconEnum::_2135;
+    }
+    
+    if (value == utility::conversions::to_string_t("2150")) {
+        return Weather_iconEnum::_2150;
+    }
+    
+    if (value == utility::conversions::to_string_t("2151")) {
+        return Weather_iconEnum::_2151;
+    }
+    
+    if (value == utility::conversions::to_string_t("2152")) {
+        return Weather_iconEnum::_2152;
+    }
+    
+    if (value == utility::conversions::to_string_t("2153")) {
+        return Weather_iconEnum::_2153;
+    }
+    
+    if (value == utility::conversions::to_string_t("2154")) {
+        return Weather_iconEnum::_2154;
+    }
+    
+    if (value == utility::conversions::to_string_t("2155")) {
+        return Weather_iconEnum::_2155;
+    }
+    
+    if (value == utility::conversions::to_string_t("2156")) {
+        return Weather_iconEnum::_2156;
+    }
+    
+    if (value == utility::conversions::to_string_t("2157")) {
+        return Weather_iconEnum::_2157;
+    }
+    
+    if (value == utility::conversions::to_string_t("2158")) {
+        return Weather_iconEnum::_2158;
+    }
+    
+    if (value == utility::conversions::to_string_t("2159")) {
+        return Weather_iconEnum::_2159;
+    }
+    
+    if (value == utility::conversions::to_string_t("2160")) {
+        return Weather_iconEnum::_2160;
+    }
+    
+    if (value == utility::conversions::to_string_t("2161")) {
+        return Weather_iconEnum::_2161;
+    }
+    
+    if (value == utility::conversions::to_string_t("2162")) {
+        return Weather_iconEnum::_2162;
+    }
+    
+    if (value == utility::conversions::to_string_t("2163")) {
+        return Weather_iconEnum::_2163;
+    }
+    
+    if (value == utility::conversions::to_string_t("2164")) {
+        return Weather_iconEnum::_2164;
+    }
+    
+    if (value == utility::conversions::to_string_t("2165")) {
+        return Weather_iconEnum::_2165;
+    }
+    
+    if (value == utility::conversions::to_string_t("2166")) {
+        return Weather_iconEnum::_2166;
+    }
+    
+    if (value == utility::conversions::to_string_t("2167")) {
+        return Weather_iconEnum::_2167;
+    }
+    
+    if (value == utility::conversions::to_string_t("2190")) {
+        return Weather_iconEnum::_2190;
+    }
+    
+    if (value == utility::conversions::to_string_t("2191")) {
+        return Weather_iconEnum::_2191;
+    }
+    
+    if (value == utility::conversions::to_string_t("2192")) {
+        return Weather_iconEnum::_2192;
+    }
+    
+    if (value == utility::conversions::to_string_t("2193")) {
+        return Weather_iconEnum::_2193;
+    }
+    
+    if (value == utility::conversions::to_string_t("2200")) {
+        return Weather_iconEnum::_2200;
+    }
+    
+    if (value == utility::conversions::to_string_t("2201")) {
+        return Weather_iconEnum::_2201;
+    }
+    
+    if (value == utility::conversions::to_string_t("2202")) {
+        return Weather_iconEnum::_2202;
+    }
+    
+    if (value == utility::conversions::to_string_t("2203")) {
+        return Weather_iconEnum::_2203;
+    }
+    
+    if (value == utility::conversions::to_string_t("2204")) {
+        return Weather_iconEnum::_2204;
+    }
+    
+    if (value == utility::conversions::to_string_t("2205")) {
+        return Weather_iconEnum::_2205;
+    }
+    
+    if (value == utility::conversions::to_string_t("2207")) {
+        return Weather_iconEnum::_2207;
+    }
+    
+    if (value == utility::conversions::to_string_t("2208")) {
+        return Weather_iconEnum::_2208;
+    }
+    
+    if (value == utility::conversions::to_string_t("2209")) {
+        return Weather_iconEnum::_2209;
+    }
+    
+    if (value == utility::conversions::to_string_t("2210")) {
+        return Weather_iconEnum::_2210;
+    }
+    
+    if (value == utility::conversions::to_string_t("2211")) {
+        return Weather_iconEnum::_2211;
+    }
+    
+    if (value == utility::conversions::to_string_t("2212")) {
+        return Weather_iconEnum::_2212;
+    }
+    
+    if (value == utility::conversions::to_string_t("2213")) {
+        return Weather_iconEnum::_2213;
+    }
+    
+    if (value == utility::conversions::to_string_t("2214")) {
+        return Weather_iconEnum::_2214;
+    }
+    
+    if (value == utility::conversions::to_string_t("2215")) {
+        return Weather_iconEnum::_2215;
+    }
+    
+    if (value == utility::conversions::to_string_t("2216")) {
+        return Weather_iconEnum::_2216;
+    }
+    
+    if (value == utility::conversions::to_string_t("2217")) {
+        return Weather_iconEnum::_2217;
+    }
+    
+    if (value == utility::conversions::to_string_t("2218")) {
+        return Weather_iconEnum::_2218;
+    }
+    
+    if (value == utility::conversions::to_string_t("2300")) {
+        return Weather_iconEnum::_2300;
+    }
+    
+    if (value == utility::conversions::to_string_t("2301")) {
+        return Weather_iconEnum::_2301;
+    }
+    
+    if (value == utility::conversions::to_string_t("2302")) {
+        return Weather_iconEnum::_2302;
+    }
+    
+    if (value == utility::conversions::to_string_t("2303")) {
+        return Weather_iconEnum::_2303;
+    }
+    
+    if (value == utility::conversions::to_string_t("2304")) {
+        return Weather_iconEnum::_2304;
+    }
+    
+    if (value == utility::conversions::to_string_t("2305")) {
+        return Weather_iconEnum::_2305;
+    }
+    
+    if (value == utility::conversions::to_string_t("2306")) {
+        return Weather_iconEnum::_2306;
+    }
+    
+    if (value == utility::conversions::to_string_t("2307")) {
+        return Weather_iconEnum::_2307;
+    }
+    
+    if (value == utility::conversions::to_string_t("2308")) {
+        return Weather_iconEnum::_2308;
+    }
+    
+    if (value == utility::conversions::to_string_t("2309")) {
+        return Weather_iconEnum::_2309;
+    }
+    
+    if (value == utility::conversions::to_string_t("2311")) {
+        return Weather_iconEnum::_2311;
+    }
+    
+    if (value == utility::conversions::to_string_t("2312")) {
+        return Weather_iconEnum::_2312;
+    }
+    
+    if (value == utility::conversions::to_string_t("2313")) {
+        return Weather_iconEnum::_2313;
+    }
+    
+    if (value == utility::conversions::to_string_t("2314")) {
+        return Weather_iconEnum::_2314;
+    }
+    
+    if (value == utility::conversions::to_string_t("2315")) {
+        return Weather_iconEnum::_2315;
+    }
+    
+    if (value == utility::conversions::to_string_t("2316")) {
+        return Weather_iconEnum::_2316;
+    }
+    
+    if (value == utility::conversions::to_string_t("2317")) {
+        return Weather_iconEnum::_2317;
+    }
+    
+    if (value == utility::conversions::to_string_t("2318")) {
+        return Weather_iconEnum::_2318;
+    }
+    
+    if (value == utility::conversions::to_string_t("2319")) {
+        return Weather_iconEnum::_2319;
+    }
+    
+    if (value == utility::conversions::to_string_t("2320")) {
+        return Weather_iconEnum::_2320;
+    }
+    
+    if (value == utility::conversions::to_string_t("2321")) {
+        return Weather_iconEnum::_2321;
+    }
+    
+    if (value == utility::conversions::to_string_t("2322")) {
+        return Weather_iconEnum::_2322;
+    }
+    
+    if (value == utility::conversions::to_string_t("2323")) {
+        return Weather_iconEnum::_2323;
+    }
+    
+    if (value == utility::conversions::to_string_t("2324")) {
+        return Weather_iconEnum::_2324;
+    }
+    
+    if (value == utility::conversions::to_string_t("2325")) {
+        return Weather_iconEnum::_2325;
+    }
+    
+    if (value == utility::conversions::to_string_t("2326")) {
+        return Weather_iconEnum::_2326;
+    }
+    
+    if (value == utility::conversions::to_string_t("2327")) {
+        return Weather_iconEnum::_2327;
+    }
+    
+    if (value == utility::conversions::to_string_t("2328")) {
+        return Weather_iconEnum::_2328;
+    }
+    
+    if (value == utility::conversions::to_string_t("2330")) {
+        return Weather_iconEnum::_2330;
+    }
+    
+    if (value == utility::conversions::to_string_t("2331")) {
+        return Weather_iconEnum::_2331;
+    }
+    
+    if (value == utility::conversions::to_string_t("2332")) {
+        return Weather_iconEnum::_2332;
+    }
+    
+    if (value == utility::conversions::to_string_t("2333")) {
+        return Weather_iconEnum::_2333;
+    }
+    
+    if (value == utility::conversions::to_string_t("2341")) {
+        return Weather_iconEnum::_2341;
+    }
+    
+    if (value == utility::conversions::to_string_t("2343")) {
+        return Weather_iconEnum::_2343;
+    }
+    
+    if (value == utility::conversions::to_string_t("2345")) {
+        return Weather_iconEnum::_2345;
+    }
+    
+    if (value == utility::conversions::to_string_t("2346")) {
+        return Weather_iconEnum::_2346;
+    }
+    
+    if (value == utility::conversions::to_string_t("2348")) {
+        return Weather_iconEnum::_2348;
+    }
+    
+    if (value == utility::conversions::to_string_t("2349")) {
+        return Weather_iconEnum::_2349;
+    }
+    
+    if (value == utility::conversions::to_string_t("2350")) {
+        return Weather_iconEnum::_2350;
+    }
+    
+    if (value == utility::conversions::to_string_t("2351")) {
+        return Weather_iconEnum::_2351;
+    }
+    
+    if (value == utility::conversions::to_string_t("2352")) {
+        return Weather_iconEnum::_2352;
+    }
+    
+    if (value == utility::conversions::to_string_t("2353")) {
+        return Weather_iconEnum::_2353;
+    }
+    
+    if (value == utility::conversions::to_string_t("2354")) {
+        return Weather_iconEnum::_2354;
+    }
+    
+    if (value == utility::conversions::to_string_t("2355")) {
+        return Weather_iconEnum::_2355;
+    }
+    
+    if (value == utility::conversions::to_string_t("2356")) {
+        return Weather_iconEnum::_2356;
+    }
+    
+    if (value == utility::conversions::to_string_t("2357")) {
+        return Weather_iconEnum::_2357;
+    }
+    
+    if (value == utility::conversions::to_string_t("2358")) {
+        return Weather_iconEnum::_2358;
+    }
+    
+    if (value == utility::conversions::to_string_t("2359")) {
+        return Weather_iconEnum::_2359;
+    }
+    
+    if (value == utility::conversions::to_string_t("2360")) {
+        return Weather_iconEnum::_2360;
+    }
+    
+    if (value == utility::conversions::to_string_t("2361")) {
+        return Weather_iconEnum::_2361;
+    }
+    
+    if (value == utility::conversions::to_string_t("2362")) {
+        return Weather_iconEnum::_2362;
+    }
+    
+    if (value == utility::conversions::to_string_t("2363")) {
+        return Weather_iconEnum::_2363;
+    }
+    
+    if (value == utility::conversions::to_string_t("2364")) {
+        return Weather_iconEnum::_2364;
+    }
+    
+    if (value == utility::conversions::to_string_t("2365")) {
+        return Weather_iconEnum::_2365;
+    }
+    
+    if (value == utility::conversions::to_string_t("2366")) {
+        return Weather_iconEnum::_2366;
+    }
+    
+    if (value == utility::conversions::to_string_t("2367")) {
+        return Weather_iconEnum::_2367;
+    }
+    
+    if (value == utility::conversions::to_string_t("2368")) {
+        return Weather_iconEnum::_2368;
+    }
+    
+    if (value == utility::conversions::to_string_t("2369")) {
+        return Weather_iconEnum::_2369;
+    }
+    
+    if (value == utility::conversions::to_string_t("2370")) {
+        return Weather_iconEnum::_2370;
+    }
+    
+    if (value == utility::conversions::to_string_t("2371")) {
+        return Weather_iconEnum::_2371;
+    }
+    
+    if (value == utility::conversions::to_string_t("2372")) {
+        return Weather_iconEnum::_2372;
+    }
+    
+    if (value == utility::conversions::to_string_t("2373")) {
+        return Weather_iconEnum::_2373;
+    }
+    
+    if (value == utility::conversions::to_string_t("2374")) {
+        return Weather_iconEnum::_2374;
+    }
+    
+    if (value == utility::conversions::to_string_t("2375")) {
+        return Weather_iconEnum::_2375;
+    }
+    
+    if (value == utility::conversions::to_string_t("2376")) {
+        return Weather_iconEnum::_2376;
+    }
+    
+    if (value == utility::conversions::to_string_t("2377")) {
+        return Weather_iconEnum::_2377;
+    }
+    
+    if (value == utility::conversions::to_string_t("2378")) {
+        return Weather_iconEnum::_2378;
+    }
+    
+    if (value == utility::conversions::to_string_t("2379")) {
+        return Weather_iconEnum::_2379;
+    }
+    
+    if (value == utility::conversions::to_string_t("2380")) {
+        return Weather_iconEnum::_2380;
+    }
+    
+    if (value == utility::conversions::to_string_t("2381")) {
+        return Weather_iconEnum::_2381;
+    }
+    
+    if (value == utility::conversions::to_string_t("2382")) {
+        return Weather_iconEnum::_2382;
+    }
+    
+    if (value == utility::conversions::to_string_t("2383")) {
+        return Weather_iconEnum::_2383;
+    }
+    
+    if (value == utility::conversions::to_string_t("2384")) {
+        return Weather_iconEnum::_2384;
+    }
+    
+    if (value == utility::conversions::to_string_t("2385")) {
+        return Weather_iconEnum::_2385;
+    }
+    
+    if (value == utility::conversions::to_string_t("2386")) {
+        return Weather_iconEnum::_2386;
+    }
+    
+    if (value == utility::conversions::to_string_t("2387")) {
+        return Weather_iconEnum::_2387;
+    }
+    
+    if (value == utility::conversions::to_string_t("2388")) {
+        return Weather_iconEnum::_2388;
+    }
+    
+    if (value == utility::conversions::to_string_t("2389")) {
+        return Weather_iconEnum::_2389;
+    }
+    
+    if (value == utility::conversions::to_string_t("2390")) {
+        return Weather_iconEnum::_2390;
+    }
+    
+    if (value == utility::conversions::to_string_t("2391")) {
+        return Weather_iconEnum::_2391;
+    }
+    
+    if (value == utility::conversions::to_string_t("2392")) {
+        return Weather_iconEnum::_2392;
+    }
+    
+    if (value == utility::conversions::to_string_t("2393")) {
+        return Weather_iconEnum::_2393;
+    }
+    
+    if (value == utility::conversions::to_string_t("2394")) {
+        return Weather_iconEnum::_2394;
+    }
+    
+    if (value == utility::conversions::to_string_t("2395")) {
+        return Weather_iconEnum::_2395;
+    }
+    
+    if (value == utility::conversions::to_string_t("2396")) {
+        return Weather_iconEnum::_2396;
+    }
+    
+    if (value == utility::conversions::to_string_t("2397")) {
+        return Weather_iconEnum::_2397;
+    }
+    
+    if (value == utility::conversions::to_string_t("2398")) {
+        return Weather_iconEnum::_2398;
+    }
+    
+    if (value == utility::conversions::to_string_t("2399")) {
+        return Weather_iconEnum::_2399;
+    }
+    
+    if (value == utility::conversions::to_string_t("2400")) {
+        return Weather_iconEnum::_2400;
+    }
+    
+    if (value == utility::conversions::to_string_t("2409")) {
+        return Weather_iconEnum::_2409;
+    }
+    
+    if (value == utility::conversions::to_string_t("2411")) {
+        return Weather_iconEnum::_2411;
+    }
+    
+    if (value == utility::conversions::to_string_t("2412")) {
+        return Weather_iconEnum::_2412;
+    }
+    
+    if (value == utility::conversions::to_string_t("2413")) {
+        return Weather_iconEnum::_2413;
+    }
+    
+    if (value == utility::conversions::to_string_t("2414")) {
+        return Weather_iconEnum::_2414;
+    }
+    
+    if (value == utility::conversions::to_string_t("2415")) {
+        return Weather_iconEnum::_2415;
+    }
+    
+    if (value == utility::conversions::to_string_t("2416")) {
+        return Weather_iconEnum::_2416;
+    }
+    
+    if (value == utility::conversions::to_string_t("2417")) {
+        return Weather_iconEnum::_2417;
+    }
+    
+    if (value == utility::conversions::to_string_t("2418")) {
+        return Weather_iconEnum::_2418;
+    }
+    
+    if (value == utility::conversions::to_string_t("2419")) {
+        return Weather_iconEnum::_2419;
+    }
+    
+    if (value == utility::conversions::to_string_t("2420")) {
+        return Weather_iconEnum::_2420;
+    }
+    
+    if (value == utility::conversions::to_string_t("2421")) {
+        return Weather_iconEnum::_2421;
+    }
+    
+    if (value == utility::conversions::to_string_t("2422")) {
+        return Weather_iconEnum::_2422;
+    }
+    
+    if (value == utility::conversions::to_string_t("2423")) {
+        return Weather_iconEnum::_2423;
+    }
+    
+    if (value == utility::conversions::to_string_t("2424")) {
+        return Weather_iconEnum::_2424;
+    }
+    
+    if (value == utility::conversions::to_string_t("2425")) {
+        return Weather_iconEnum::_2425;
+    }
+    
+    if (value == utility::conversions::to_string_t("2426")) {
+        return Weather_iconEnum::_2426;
+    }
+    
+    if (value == utility::conversions::to_string_t("2501")) {
+        return Weather_iconEnum::_2501;
+    }
+    
+    if (value == utility::conversions::to_string_t("2502")) {
+        return Weather_iconEnum::_2502;
+    }
+    
+    if (value == utility::conversions::to_string_t("2521")) {
+        return Weather_iconEnum::_2521;
+    }
+    
+    if (value == utility::conversions::to_string_t("2522")) {
+        return Weather_iconEnum::_2522;
+    }
+    
+    if (value == utility::conversions::to_string_t("2523")) {
+        return Weather_iconEnum::_2523;
+    }
+    
+    if (value == utility::conversions::to_string_t("2524")) {
+        return Weather_iconEnum::_2524;
+    }
+    
+    if (value == utility::conversions::to_string_t("2525")) {
+        return Weather_iconEnum::_2525;
+    }
+    
+    if (value == utility::conversions::to_string_t("2526")) {
+        return Weather_iconEnum::_2526;
+    }
+    
+    if (value == utility::conversions::to_string_t("2527")) {
+        return Weather_iconEnum::_2527;
+    }
+    
+    if (value == utility::conversions::to_string_t("2528")) {
+        return Weather_iconEnum::_2528;
+    }
+    
+    if (value == utility::conversions::to_string_t("2529")) {
+        return Weather_iconEnum::_2529;
+    }
+    
+    if (value == utility::conversions::to_string_t("2530")) {
+        return Weather_iconEnum::_2530;
+    }
+    
+    if (value == utility::conversions::to_string_t("2531")) {
+        return Weather_iconEnum::_2531;
+    }
+    
+    if (value == utility::conversions::to_string_t("2532")) {
+        return Weather_iconEnum::_2532;
+    }
+    
+    if (value == utility::conversions::to_string_t("2550")) {
+        return Weather_iconEnum::_2550;
+    }
+    
+    if (value == utility::conversions::to_string_t("2551")) {
+        return Weather_iconEnum::_2551;
+    }
+    
+    if (value == utility::conversions::to_string_t("2552")) {
+        return Weather_iconEnum::_2552;
+    }
+    
+    if (value == utility::conversions::to_string_t("2553")) {
+        return Weather_iconEnum::_2553;
+    }
+    
+    if (value == utility::conversions::to_string_t("2554")) {
+        return Weather_iconEnum::_2554;
+    }
+    
+    if (value == utility::conversions::to_string_t("9999")) {
+        return Weather_iconEnum::_9999;
+    }
+    
+    throw std::invalid_argument("Invalid value for conversion to Weather_iconEnum");
+}
+
+
+const utility::string_t Get_misc_weather_200_response::fromWeather_iconEnum(const Weather_iconEnum value) const
+{
+    switch(value)
+    {
+        
+        case Weather_iconEnum::_100: return utility::conversions::to_string_t("100");
+        
+        case Weather_iconEnum::_101: return utility::conversions::to_string_t("101");
+        
+        case Weather_iconEnum::_102: return utility::conversions::to_string_t("102");
+        
+        case Weather_iconEnum::_103: return utility::conversions::to_string_t("103");
+        
+        case Weather_iconEnum::_104: return utility::conversions::to_string_t("104");
+        
+        case Weather_iconEnum::_150: return utility::conversions::to_string_t("150");
+        
+        case Weather_iconEnum::_151: return utility::conversions::to_string_t("151");
+        
+        case Weather_iconEnum::_152: return utility::conversions::to_string_t("152");
+        
+        case Weather_iconEnum::_153: return utility::conversions::to_string_t("153");
+        
+        case Weather_iconEnum::_300: return utility::conversions::to_string_t("300");
+        
+        case Weather_iconEnum::_301: return utility::conversions::to_string_t("301");
+        
+        case Weather_iconEnum::_302: return utility::conversions::to_string_t("302");
+        
+        case Weather_iconEnum::_303: return utility::conversions::to_string_t("303");
+        
+        case Weather_iconEnum::_304: return utility::conversions::to_string_t("304");
+        
+        case Weather_iconEnum::_305: return utility::conversions::to_string_t("305");
+        
+        case Weather_iconEnum::_306: return utility::conversions::to_string_t("306");
+        
+        case Weather_iconEnum::_307: return utility::conversions::to_string_t("307");
+        
+        case Weather_iconEnum::_308: return utility::conversions::to_string_t("308");
+        
+        case Weather_iconEnum::_309: return utility::conversions::to_string_t("309");
+        
+        case Weather_iconEnum::_310: return utility::conversions::to_string_t("310");
+        
+        case Weather_iconEnum::_311: return utility::conversions::to_string_t("311");
+        
+        case Weather_iconEnum::_312: return utility::conversions::to_string_t("312");
+        
+        case Weather_iconEnum::_313: return utility::conversions::to_string_t("313");
+        
+        case Weather_iconEnum::_314: return utility::conversions::to_string_t("314");
+        
+        case Weather_iconEnum::_315: return utility::conversions::to_string_t("315");
+        
+        case Weather_iconEnum::_316: return utility::conversions::to_string_t("316");
+        
+        case Weather_iconEnum::_317: return utility::conversions::to_string_t("317");
+        
+        case Weather_iconEnum::_318: return utility::conversions::to_string_t("318");
+        
+        case Weather_iconEnum::_350: return utility::conversions::to_string_t("350");
+        
+        case Weather_iconEnum::_351: return utility::conversions::to_string_t("351");
+        
+        case Weather_iconEnum::_399: return utility::conversions::to_string_t("399");
+        
+        case Weather_iconEnum::_400: return utility::conversions::to_string_t("400");
+        
+        case Weather_iconEnum::_401: return utility::conversions::to_string_t("401");
+        
+        case Weather_iconEnum::_402: return utility::conversions::to_string_t("402");
+        
+        case Weather_iconEnum::_403: return utility::conversions::to_string_t("403");
+        
+        case Weather_iconEnum::_404: return utility::conversions::to_string_t("404");
+        
+        case Weather_iconEnum::_405: return utility::conversions::to_string_t("405");
+        
+        case Weather_iconEnum::_406: return utility::conversions::to_string_t("406");
+        
+        case Weather_iconEnum::_407: return utility::conversions::to_string_t("407");
+        
+        case Weather_iconEnum::_408: return utility::conversions::to_string_t("408");
+        
+        case Weather_iconEnum::_409: return utility::conversions::to_string_t("409");
+        
+        case Weather_iconEnum::_410: return utility::conversions::to_string_t("410");
+        
+        case Weather_iconEnum::_456: return utility::conversions::to_string_t("456");
+        
+        case Weather_iconEnum::_457: return utility::conversions::to_string_t("457");
+        
+        case Weather_iconEnum::_499: return utility::conversions::to_string_t("499");
+        
+        case Weather_iconEnum::_500: return utility::conversions::to_string_t("500");
+        
+        case Weather_iconEnum::_501: return utility::conversions::to_string_t("501");
+        
+        case Weather_iconEnum::_502: return utility::conversions::to_string_t("502");
+        
+        case Weather_iconEnum::_503: return utility::conversions::to_string_t("503");
+        
+        case Weather_iconEnum::_504: return utility::conversions::to_string_t("504");
+        
+        case Weather_iconEnum::_507: return utility::conversions::to_string_t("507");
+        
+        case Weather_iconEnum::_508: return utility::conversions::to_string_t("508");
+        
+        case Weather_iconEnum::_509: return utility::conversions::to_string_t("509");
+        
+        case Weather_iconEnum::_510: return utility::conversions::to_string_t("510");
+        
+        case Weather_iconEnum::_511: return utility::conversions::to_string_t("511");
+        
+        case Weather_iconEnum::_512: return utility::conversions::to_string_t("512");
+        
+        case Weather_iconEnum::_513: return utility::conversions::to_string_t("513");
+        
+        case Weather_iconEnum::_514: return utility::conversions::to_string_t("514");
+        
+        case Weather_iconEnum::_515: return utility::conversions::to_string_t("515");
+        
+        case Weather_iconEnum::_800: return utility::conversions::to_string_t("800");
+        
+        case Weather_iconEnum::_801: return utility::conversions::to_string_t("801");
+        
+        case Weather_iconEnum::_802: return utility::conversions::to_string_t("802");
+        
+        case Weather_iconEnum::_803: return utility::conversions::to_string_t("803");
+        
+        case Weather_iconEnum::_804: return utility::conversions::to_string_t("804");
+        
+        case Weather_iconEnum::_805: return utility::conversions::to_string_t("805");
+        
+        case Weather_iconEnum::_806: return utility::conversions::to_string_t("806");
+        
+        case Weather_iconEnum::_807: return utility::conversions::to_string_t("807");
+        
+        case Weather_iconEnum::_900: return utility::conversions::to_string_t("900");
+        
+        case Weather_iconEnum::_901: return utility::conversions::to_string_t("901");
+        
+        case Weather_iconEnum::_999: return utility::conversions::to_string_t("999");
+        
+        case Weather_iconEnum::_1001: return utility::conversions::to_string_t("1001");
+        
+        case Weather_iconEnum::_1002: return utility::conversions::to_string_t("1002");
+        
+        case Weather_iconEnum::_1003: return utility::conversions::to_string_t("1003");
+        
+        case Weather_iconEnum::_1004: return utility::conversions::to_string_t("1004");
+        
+        case Weather_iconEnum::_1005: return utility::conversions::to_string_t("1005");
+        
+        case Weather_iconEnum::_1006: return utility::conversions::to_string_t("1006");
+        
+        case Weather_iconEnum::_1007: return utility::conversions::to_string_t("1007");
+        
+        case Weather_iconEnum::_1008: return utility::conversions::to_string_t("1008");
+        
+        case Weather_iconEnum::_1009: return utility::conversions::to_string_t("1009");
+        
+        case Weather_iconEnum::_1010: return utility::conversions::to_string_t("1010");
+        
+        case Weather_iconEnum::_1011: return utility::conversions::to_string_t("1011");
+        
+        case Weather_iconEnum::_1012: return utility::conversions::to_string_t("1012");
+        
+        case Weather_iconEnum::_1013: return utility::conversions::to_string_t("1013");
+        
+        case Weather_iconEnum::_1014: return utility::conversions::to_string_t("1014");
+        
+        case Weather_iconEnum::_1015: return utility::conversions::to_string_t("1015");
+        
+        case Weather_iconEnum::_1016: return utility::conversions::to_string_t("1016");
+        
+        case Weather_iconEnum::_1017: return utility::conversions::to_string_t("1017");
+        
+        case Weather_iconEnum::_1018: return utility::conversions::to_string_t("1018");
+        
+        case Weather_iconEnum::_1019: return utility::conversions::to_string_t("1019");
+        
+        case Weather_iconEnum::_1020: return utility::conversions::to_string_t("1020");
+        
+        case Weather_iconEnum::_1021: return utility::conversions::to_string_t("1021");
+        
+        case Weather_iconEnum::_1022: return utility::conversions::to_string_t("1022");
+        
+        case Weather_iconEnum::_1023: return utility::conversions::to_string_t("1023");
+        
+        case Weather_iconEnum::_1024: return utility::conversions::to_string_t("1024");
+        
+        case Weather_iconEnum::_1025: return utility::conversions::to_string_t("1025");
+        
+        case Weather_iconEnum::_1026: return utility::conversions::to_string_t("1026");
+        
+        case Weather_iconEnum::_1027: return utility::conversions::to_string_t("1027");
+        
+        case Weather_iconEnum::_1028: return utility::conversions::to_string_t("1028");
+        
+        case Weather_iconEnum::_1029: return utility::conversions::to_string_t("1029");
+        
+        case Weather_iconEnum::_1030: return utility::conversions::to_string_t("1030");
+        
+        case Weather_iconEnum::_1031: return utility::conversions::to_string_t("1031");
+        
+        case Weather_iconEnum::_1032: return utility::conversions::to_string_t("1032");
+        
+        case Weather_iconEnum::_1033: return utility::conversions::to_string_t("1033");
+        
+        case Weather_iconEnum::_1034: return utility::conversions::to_string_t("1034");
+        
+        case Weather_iconEnum::_1035: return utility::conversions::to_string_t("1035");
+        
+        case Weather_iconEnum::_1036: return utility::conversions::to_string_t("1036");
+        
+        case Weather_iconEnum::_1037: return utility::conversions::to_string_t("1037");
+        
+        case Weather_iconEnum::_1038: return utility::conversions::to_string_t("1038");
+        
+        case Weather_iconEnum::_1039: return utility::conversions::to_string_t("1039");
+        
+        case Weather_iconEnum::_1040: return utility::conversions::to_string_t("1040");
+        
+        case Weather_iconEnum::_1041: return utility::conversions::to_string_t("1041");
+        
+        case Weather_iconEnum::_1042: return utility::conversions::to_string_t("1042");
+        
+        case Weather_iconEnum::_1043: return utility::conversions::to_string_t("1043");
+        
+        case Weather_iconEnum::_1044: return utility::conversions::to_string_t("1044");
+        
+        case Weather_iconEnum::_1045: return utility::conversions::to_string_t("1045");
+        
+        case Weather_iconEnum::_1046: return utility::conversions::to_string_t("1046");
+        
+        case Weather_iconEnum::_1047: return utility::conversions::to_string_t("1047");
+        
+        case Weather_iconEnum::_1048: return utility::conversions::to_string_t("1048");
+        
+        case Weather_iconEnum::_1049: return utility::conversions::to_string_t("1049");
+        
+        case Weather_iconEnum::_1050: return utility::conversions::to_string_t("1050");
+        
+        case Weather_iconEnum::_1051: return utility::conversions::to_string_t("1051");
+        
+        case Weather_iconEnum::_1052: return utility::conversions::to_string_t("1052");
+        
+        case Weather_iconEnum::_1053: return utility::conversions::to_string_t("1053");
+        
+        case Weather_iconEnum::_1054: return utility::conversions::to_string_t("1054");
+        
+        case Weather_iconEnum::_1055: return utility::conversions::to_string_t("1055");
+        
+        case Weather_iconEnum::_1056: return utility::conversions::to_string_t("1056");
+        
+        case Weather_iconEnum::_1057: return utility::conversions::to_string_t("1057");
+        
+        case Weather_iconEnum::_1058: return utility::conversions::to_string_t("1058");
+        
+        case Weather_iconEnum::_1059: return utility::conversions::to_string_t("1059");
+        
+        case Weather_iconEnum::_1060: return utility::conversions::to_string_t("1060");
+        
+        case Weather_iconEnum::_1061: return utility::conversions::to_string_t("1061");
+        
+        case Weather_iconEnum::_1062: return utility::conversions::to_string_t("1062");
+        
+        case Weather_iconEnum::_1063: return utility::conversions::to_string_t("1063");
+        
+        case Weather_iconEnum::_1064: return utility::conversions::to_string_t("1064");
+        
+        case Weather_iconEnum::_1065: return utility::conversions::to_string_t("1065");
+        
+        case Weather_iconEnum::_1066: return utility::conversions::to_string_t("1066");
+        
+        case Weather_iconEnum::_1067: return utility::conversions::to_string_t("1067");
+        
+        case Weather_iconEnum::_1068: return utility::conversions::to_string_t("1068");
+        
+        case Weather_iconEnum::_1069: return utility::conversions::to_string_t("1069");
+        
+        case Weather_iconEnum::_1071: return utility::conversions::to_string_t("1071");
+        
+        case Weather_iconEnum::_1072: return utility::conversions::to_string_t("1072");
+        
+        case Weather_iconEnum::_1073: return utility::conversions::to_string_t("1073");
+        
+        case Weather_iconEnum::_1074: return utility::conversions::to_string_t("1074");
+        
+        case Weather_iconEnum::_1075: return utility::conversions::to_string_t("1075");
+        
+        case Weather_iconEnum::_1076: return utility::conversions::to_string_t("1076");
+        
+        case Weather_iconEnum::_1077: return utility::conversions::to_string_t("1077");
+        
+        case Weather_iconEnum::_1078: return utility::conversions::to_string_t("1078");
+        
+        case Weather_iconEnum::_1079: return utility::conversions::to_string_t("1079");
+        
+        case Weather_iconEnum::_1080: return utility::conversions::to_string_t("1080");
+        
+        case Weather_iconEnum::_1081: return utility::conversions::to_string_t("1081");
+        
+        case Weather_iconEnum::_1082: return utility::conversions::to_string_t("1082");
+        
+        case Weather_iconEnum::_1084: return utility::conversions::to_string_t("1084");
+        
+        case Weather_iconEnum::_1085: return utility::conversions::to_string_t("1085");
+        
+        case Weather_iconEnum::_1086: return utility::conversions::to_string_t("1086");
+        
+        case Weather_iconEnum::_1087: return utility::conversions::to_string_t("1087");
+        
+        case Weather_iconEnum::_1088: return utility::conversions::to_string_t("1088");
+        
+        case Weather_iconEnum::_1089: return utility::conversions::to_string_t("1089");
+        
+        case Weather_iconEnum::_1201: return utility::conversions::to_string_t("1201");
+        
+        case Weather_iconEnum::_1202: return utility::conversions::to_string_t("1202");
+        
+        case Weather_iconEnum::_1203: return utility::conversions::to_string_t("1203");
+        
+        case Weather_iconEnum::_1204: return utility::conversions::to_string_t("1204");
+        
+        case Weather_iconEnum::_1205: return utility::conversions::to_string_t("1205");
+        
+        case Weather_iconEnum::_1206: return utility::conversions::to_string_t("1206");
+        
+        case Weather_iconEnum::_1207: return utility::conversions::to_string_t("1207");
+        
+        case Weather_iconEnum::_1208: return utility::conversions::to_string_t("1208");
+        
+        case Weather_iconEnum::_1209: return utility::conversions::to_string_t("1209");
+        
+        case Weather_iconEnum::_1210: return utility::conversions::to_string_t("1210");
+        
+        case Weather_iconEnum::_1211: return utility::conversions::to_string_t("1211");
+        
+        case Weather_iconEnum::_1212: return utility::conversions::to_string_t("1212");
+        
+        case Weather_iconEnum::_1213: return utility::conversions::to_string_t("1213");
+        
+        case Weather_iconEnum::_1214: return utility::conversions::to_string_t("1214");
+        
+        case Weather_iconEnum::_1215: return utility::conversions::to_string_t("1215");
+        
+        case Weather_iconEnum::_1216: return utility::conversions::to_string_t("1216");
+        
+        case Weather_iconEnum::_1217: return utility::conversions::to_string_t("1217");
+        
+        case Weather_iconEnum::_1218: return utility::conversions::to_string_t("1218");
+        
+        case Weather_iconEnum::_1219: return utility::conversions::to_string_t("1219");
+        
+        case Weather_iconEnum::_1221: return utility::conversions::to_string_t("1221");
+        
+        case Weather_iconEnum::_1241: return utility::conversions::to_string_t("1241");
+        
+        case Weather_iconEnum::_1242: return utility::conversions::to_string_t("1242");
+        
+        case Weather_iconEnum::_1243: return utility::conversions::to_string_t("1243");
+        
+        case Weather_iconEnum::_1244: return utility::conversions::to_string_t("1244");
+        
+        case Weather_iconEnum::_1245: return utility::conversions::to_string_t("1245");
+        
+        case Weather_iconEnum::_1246: return utility::conversions::to_string_t("1246");
+        
+        case Weather_iconEnum::_1247: return utility::conversions::to_string_t("1247");
+        
+        case Weather_iconEnum::_1248: return utility::conversions::to_string_t("1248");
+        
+        case Weather_iconEnum::_1249: return utility::conversions::to_string_t("1249");
+        
+        case Weather_iconEnum::_1250: return utility::conversions::to_string_t("1250");
+        
+        case Weather_iconEnum::_1251: return utility::conversions::to_string_t("1251");
+        
+        case Weather_iconEnum::_1271: return utility::conversions::to_string_t("1271");
+        
+        case Weather_iconEnum::_1272: return utility::conversions::to_string_t("1272");
+        
+        case Weather_iconEnum::_1273: return utility::conversions::to_string_t("1273");
+        
+        case Weather_iconEnum::_1274: return utility::conversions::to_string_t("1274");
+        
+        case Weather_iconEnum::_1601: return utility::conversions::to_string_t("1601");
+        
+        case Weather_iconEnum::_1602: return utility::conversions::to_string_t("1602");
+        
+        case Weather_iconEnum::_1603: return utility::conversions::to_string_t("1603");
+        
+        case Weather_iconEnum::_1604: return utility::conversions::to_string_t("1604");
+        
+        case Weather_iconEnum::_1605: return utility::conversions::to_string_t("1605");
+        
+        case Weather_iconEnum::_1606: return utility::conversions::to_string_t("1606");
+        
+        case Weather_iconEnum::_1607: return utility::conversions::to_string_t("1607");
+        
+        case Weather_iconEnum::_1608: return utility::conversions::to_string_t("1608");
+        
+        case Weather_iconEnum::_1609: return utility::conversions::to_string_t("1609");
+        
+        case Weather_iconEnum::_1610: return utility::conversions::to_string_t("1610");
+        
+        case Weather_iconEnum::_1701: return utility::conversions::to_string_t("1701");
+        
+        case Weather_iconEnum::_1702: return utility::conversions::to_string_t("1702");
+        
+        case Weather_iconEnum::_1703: return utility::conversions::to_string_t("1703");
+        
+        case Weather_iconEnum::_1704: return utility::conversions::to_string_t("1704");
+        
+        case Weather_iconEnum::_1705: return utility::conversions::to_string_t("1705");
+        
+        case Weather_iconEnum::_1706: return utility::conversions::to_string_t("1706");
+        
+        case Weather_iconEnum::_1707: return utility::conversions::to_string_t("1707");
+        
+        case Weather_iconEnum::_1708: return utility::conversions::to_string_t("1708");
+        
+        case Weather_iconEnum::_1709: return utility::conversions::to_string_t("1709");
+        
+        case Weather_iconEnum::_1710: return utility::conversions::to_string_t("1710");
+        
+        case Weather_iconEnum::_1801: return utility::conversions::to_string_t("1801");
+        
+        case Weather_iconEnum::_1802: return utility::conversions::to_string_t("1802");
+        
+        case Weather_iconEnum::_1803: return utility::conversions::to_string_t("1803");
+        
+        case Weather_iconEnum::_1804: return utility::conversions::to_string_t("1804");
+        
+        case Weather_iconEnum::_1805: return utility::conversions::to_string_t("1805");
+        
+        case Weather_iconEnum::_2001: return utility::conversions::to_string_t("2001");
+        
+        case Weather_iconEnum::_2002: return utility::conversions::to_string_t("2002");
+        
+        case Weather_iconEnum::_2003: return utility::conversions::to_string_t("2003");
+        
+        case Weather_iconEnum::_2004: return utility::conversions::to_string_t("2004");
+        
+        case Weather_iconEnum::_2005: return utility::conversions::to_string_t("2005");
+        
+        case Weather_iconEnum::_2006: return utility::conversions::to_string_t("2006");
+        
+        case Weather_iconEnum::_2007: return utility::conversions::to_string_t("2007");
+        
+        case Weather_iconEnum::_2029: return utility::conversions::to_string_t("2029");
+        
+        case Weather_iconEnum::_2030: return utility::conversions::to_string_t("2030");
+        
+        case Weather_iconEnum::_2031: return utility::conversions::to_string_t("2031");
+        
+        case Weather_iconEnum::_2032: return utility::conversions::to_string_t("2032");
+        
+        case Weather_iconEnum::_2033: return utility::conversions::to_string_t("2033");
+        
+        case Weather_iconEnum::_2050: return utility::conversions::to_string_t("2050");
+        
+        case Weather_iconEnum::_2051: return utility::conversions::to_string_t("2051");
+        
+        case Weather_iconEnum::_2052: return utility::conversions::to_string_t("2052");
+        
+        case Weather_iconEnum::_2053: return utility::conversions::to_string_t("2053");
+        
+        case Weather_iconEnum::_2054: return utility::conversions::to_string_t("2054");
+        
+        case Weather_iconEnum::_2070: return utility::conversions::to_string_t("2070");
+        
+        case Weather_iconEnum::_2071: return utility::conversions::to_string_t("2071");
+        
+        case Weather_iconEnum::_2072: return utility::conversions::to_string_t("2072");
+        
+        case Weather_iconEnum::_2073: return utility::conversions::to_string_t("2073");
+        
+        case Weather_iconEnum::_2074: return utility::conversions::to_string_t("2074");
+        
+        case Weather_iconEnum::_2075: return utility::conversions::to_string_t("2075");
+        
+        case Weather_iconEnum::_2076: return utility::conversions::to_string_t("2076");
+        
+        case Weather_iconEnum::_2077: return utility::conversions::to_string_t("2077");
+        
+        case Weather_iconEnum::_2078: return utility::conversions::to_string_t("2078");
+        
+        case Weather_iconEnum::_2079: return utility::conversions::to_string_t("2079");
+        
+        case Weather_iconEnum::_2080: return utility::conversions::to_string_t("2080");
+        
+        case Weather_iconEnum::_2081: return utility::conversions::to_string_t("2081");
+        
+        case Weather_iconEnum::_2082: return utility::conversions::to_string_t("2082");
+        
+        case Weather_iconEnum::_2083: return utility::conversions::to_string_t("2083");
+        
+        case Weather_iconEnum::_2084: return utility::conversions::to_string_t("2084");
+        
+        case Weather_iconEnum::_2085: return utility::conversions::to_string_t("2085");
+        
+        case Weather_iconEnum::_2100: return utility::conversions::to_string_t("2100");
+        
+        case Weather_iconEnum::_2101: return utility::conversions::to_string_t("2101");
+        
+        case Weather_iconEnum::_2102: return utility::conversions::to_string_t("2102");
+        
+        case Weather_iconEnum::_2103: return utility::conversions::to_string_t("2103");
+        
+        case Weather_iconEnum::_2104: return utility::conversions::to_string_t("2104");
+        
+        case Weather_iconEnum::_2105: return utility::conversions::to_string_t("2105");
+        
+        case Weather_iconEnum::_2106: return utility::conversions::to_string_t("2106");
+        
+        case Weather_iconEnum::_2107: return utility::conversions::to_string_t("2107");
+        
+        case Weather_iconEnum::_2108: return utility::conversions::to_string_t("2108");
+        
+        case Weather_iconEnum::_2109: return utility::conversions::to_string_t("2109");
+        
+        case Weather_iconEnum::_2111: return utility::conversions::to_string_t("2111");
+        
+        case Weather_iconEnum::_2120: return utility::conversions::to_string_t("2120");
+        
+        case Weather_iconEnum::_2121: return utility::conversions::to_string_t("2121");
+        
+        case Weather_iconEnum::_2122: return utility::conversions::to_string_t("2122");
+        
+        case Weather_iconEnum::_2123: return utility::conversions::to_string_t("2123");
+        
+        case Weather_iconEnum::_2124: return utility::conversions::to_string_t("2124");
+        
+        case Weather_iconEnum::_2125: return utility::conversions::to_string_t("2125");
+        
+        case Weather_iconEnum::_2126: return utility::conversions::to_string_t("2126");
+        
+        case Weather_iconEnum::_2127: return utility::conversions::to_string_t("2127");
+        
+        case Weather_iconEnum::_2128: return utility::conversions::to_string_t("2128");
+        
+        case Weather_iconEnum::_2129: return utility::conversions::to_string_t("2129");
+        
+        case Weather_iconEnum::_2130: return utility::conversions::to_string_t("2130");
+        
+        case Weather_iconEnum::_2131: return utility::conversions::to_string_t("2131");
+        
+        case Weather_iconEnum::_2132: return utility::conversions::to_string_t("2132");
+        
+        case Weather_iconEnum::_2133: return utility::conversions::to_string_t("2133");
+        
+        case Weather_iconEnum::_2134: return utility::conversions::to_string_t("2134");
+        
+        case Weather_iconEnum::_2135: return utility::conversions::to_string_t("2135");
+        
+        case Weather_iconEnum::_2150: return utility::conversions::to_string_t("2150");
+        
+        case Weather_iconEnum::_2151: return utility::conversions::to_string_t("2151");
+        
+        case Weather_iconEnum::_2152: return utility::conversions::to_string_t("2152");
+        
+        case Weather_iconEnum::_2153: return utility::conversions::to_string_t("2153");
+        
+        case Weather_iconEnum::_2154: return utility::conversions::to_string_t("2154");
+        
+        case Weather_iconEnum::_2155: return utility::conversions::to_string_t("2155");
+        
+        case Weather_iconEnum::_2156: return utility::conversions::to_string_t("2156");
+        
+        case Weather_iconEnum::_2157: return utility::conversions::to_string_t("2157");
+        
+        case Weather_iconEnum::_2158: return utility::conversions::to_string_t("2158");
+        
+        case Weather_iconEnum::_2159: return utility::conversions::to_string_t("2159");
+        
+        case Weather_iconEnum::_2160: return utility::conversions::to_string_t("2160");
+        
+        case Weather_iconEnum::_2161: return utility::conversions::to_string_t("2161");
+        
+        case Weather_iconEnum::_2162: return utility::conversions::to_string_t("2162");
+        
+        case Weather_iconEnum::_2163: return utility::conversions::to_string_t("2163");
+        
+        case Weather_iconEnum::_2164: return utility::conversions::to_string_t("2164");
+        
+        case Weather_iconEnum::_2165: return utility::conversions::to_string_t("2165");
+        
+        case Weather_iconEnum::_2166: return utility::conversions::to_string_t("2166");
+        
+        case Weather_iconEnum::_2167: return utility::conversions::to_string_t("2167");
+        
+        case Weather_iconEnum::_2190: return utility::conversions::to_string_t("2190");
+        
+        case Weather_iconEnum::_2191: return utility::conversions::to_string_t("2191");
+        
+        case Weather_iconEnum::_2192: return utility::conversions::to_string_t("2192");
+        
+        case Weather_iconEnum::_2193: return utility::conversions::to_string_t("2193");
+        
+        case Weather_iconEnum::_2200: return utility::conversions::to_string_t("2200");
+        
+        case Weather_iconEnum::_2201: return utility::conversions::to_string_t("2201");
+        
+        case Weather_iconEnum::_2202: return utility::conversions::to_string_t("2202");
+        
+        case Weather_iconEnum::_2203: return utility::conversions::to_string_t("2203");
+        
+        case Weather_iconEnum::_2204: return utility::conversions::to_string_t("2204");
+        
+        case Weather_iconEnum::_2205: return utility::conversions::to_string_t("2205");
+        
+        case Weather_iconEnum::_2207: return utility::conversions::to_string_t("2207");
+        
+        case Weather_iconEnum::_2208: return utility::conversions::to_string_t("2208");
+        
+        case Weather_iconEnum::_2209: return utility::conversions::to_string_t("2209");
+        
+        case Weather_iconEnum::_2210: return utility::conversions::to_string_t("2210");
+        
+        case Weather_iconEnum::_2211: return utility::conversions::to_string_t("2211");
+        
+        case Weather_iconEnum::_2212: return utility::conversions::to_string_t("2212");
+        
+        case Weather_iconEnum::_2213: return utility::conversions::to_string_t("2213");
+        
+        case Weather_iconEnum::_2214: return utility::conversions::to_string_t("2214");
+        
+        case Weather_iconEnum::_2215: return utility::conversions::to_string_t("2215");
+        
+        case Weather_iconEnum::_2216: return utility::conversions::to_string_t("2216");
+        
+        case Weather_iconEnum::_2217: return utility::conversions::to_string_t("2217");
+        
+        case Weather_iconEnum::_2218: return utility::conversions::to_string_t("2218");
+        
+        case Weather_iconEnum::_2300: return utility::conversions::to_string_t("2300");
+        
+        case Weather_iconEnum::_2301: return utility::conversions::to_string_t("2301");
+        
+        case Weather_iconEnum::_2302: return utility::conversions::to_string_t("2302");
+        
+        case Weather_iconEnum::_2303: return utility::conversions::to_string_t("2303");
+        
+        case Weather_iconEnum::_2304: return utility::conversions::to_string_t("2304");
+        
+        case Weather_iconEnum::_2305: return utility::conversions::to_string_t("2305");
+        
+        case Weather_iconEnum::_2306: return utility::conversions::to_string_t("2306");
+        
+        case Weather_iconEnum::_2307: return utility::conversions::to_string_t("2307");
+        
+        case Weather_iconEnum::_2308: return utility::conversions::to_string_t("2308");
+        
+        case Weather_iconEnum::_2309: return utility::conversions::to_string_t("2309");
+        
+        case Weather_iconEnum::_2311: return utility::conversions::to_string_t("2311");
+        
+        case Weather_iconEnum::_2312: return utility::conversions::to_string_t("2312");
+        
+        case Weather_iconEnum::_2313: return utility::conversions::to_string_t("2313");
+        
+        case Weather_iconEnum::_2314: return utility::conversions::to_string_t("2314");
+        
+        case Weather_iconEnum::_2315: return utility::conversions::to_string_t("2315");
+        
+        case Weather_iconEnum::_2316: return utility::conversions::to_string_t("2316");
+        
+        case Weather_iconEnum::_2317: return utility::conversions::to_string_t("2317");
+        
+        case Weather_iconEnum::_2318: return utility::conversions::to_string_t("2318");
+        
+        case Weather_iconEnum::_2319: return utility::conversions::to_string_t("2319");
+        
+        case Weather_iconEnum::_2320: return utility::conversions::to_string_t("2320");
+        
+        case Weather_iconEnum::_2321: return utility::conversions::to_string_t("2321");
+        
+        case Weather_iconEnum::_2322: return utility::conversions::to_string_t("2322");
+        
+        case Weather_iconEnum::_2323: return utility::conversions::to_string_t("2323");
+        
+        case Weather_iconEnum::_2324: return utility::conversions::to_string_t("2324");
+        
+        case Weather_iconEnum::_2325: return utility::conversions::to_string_t("2325");
+        
+        case Weather_iconEnum::_2326: return utility::conversions::to_string_t("2326");
+        
+        case Weather_iconEnum::_2327: return utility::conversions::to_string_t("2327");
+        
+        case Weather_iconEnum::_2328: return utility::conversions::to_string_t("2328");
+        
+        case Weather_iconEnum::_2330: return utility::conversions::to_string_t("2330");
+        
+        case Weather_iconEnum::_2331: return utility::conversions::to_string_t("2331");
+        
+        case Weather_iconEnum::_2332: return utility::conversions::to_string_t("2332");
+        
+        case Weather_iconEnum::_2333: return utility::conversions::to_string_t("2333");
+        
+        case Weather_iconEnum::_2341: return utility::conversions::to_string_t("2341");
+        
+        case Weather_iconEnum::_2343: return utility::conversions::to_string_t("2343");
+        
+        case Weather_iconEnum::_2345: return utility::conversions::to_string_t("2345");
+        
+        case Weather_iconEnum::_2346: return utility::conversions::to_string_t("2346");
+        
+        case Weather_iconEnum::_2348: return utility::conversions::to_string_t("2348");
+        
+        case Weather_iconEnum::_2349: return utility::conversions::to_string_t("2349");
+        
+        case Weather_iconEnum::_2350: return utility::conversions::to_string_t("2350");
+        
+        case Weather_iconEnum::_2351: return utility::conversions::to_string_t("2351");
+        
+        case Weather_iconEnum::_2352: return utility::conversions::to_string_t("2352");
+        
+        case Weather_iconEnum::_2353: return utility::conversions::to_string_t("2353");
+        
+        case Weather_iconEnum::_2354: return utility::conversions::to_string_t("2354");
+        
+        case Weather_iconEnum::_2355: return utility::conversions::to_string_t("2355");
+        
+        case Weather_iconEnum::_2356: return utility::conversions::to_string_t("2356");
+        
+        case Weather_iconEnum::_2357: return utility::conversions::to_string_t("2357");
+        
+        case Weather_iconEnum::_2358: return utility::conversions::to_string_t("2358");
+        
+        case Weather_iconEnum::_2359: return utility::conversions::to_string_t("2359");
+        
+        case Weather_iconEnum::_2360: return utility::conversions::to_string_t("2360");
+        
+        case Weather_iconEnum::_2361: return utility::conversions::to_string_t("2361");
+        
+        case Weather_iconEnum::_2362: return utility::conversions::to_string_t("2362");
+        
+        case Weather_iconEnum::_2363: return utility::conversions::to_string_t("2363");
+        
+        case Weather_iconEnum::_2364: return utility::conversions::to_string_t("2364");
+        
+        case Weather_iconEnum::_2365: return utility::conversions::to_string_t("2365");
+        
+        case Weather_iconEnum::_2366: return utility::conversions::to_string_t("2366");
+        
+        case Weather_iconEnum::_2367: return utility::conversions::to_string_t("2367");
+        
+        case Weather_iconEnum::_2368: return utility::conversions::to_string_t("2368");
+        
+        case Weather_iconEnum::_2369: return utility::conversions::to_string_t("2369");
+        
+        case Weather_iconEnum::_2370: return utility::conversions::to_string_t("2370");
+        
+        case Weather_iconEnum::_2371: return utility::conversions::to_string_t("2371");
+        
+        case Weather_iconEnum::_2372: return utility::conversions::to_string_t("2372");
+        
+        case Weather_iconEnum::_2373: return utility::conversions::to_string_t("2373");
+        
+        case Weather_iconEnum::_2374: return utility::conversions::to_string_t("2374");
+        
+        case Weather_iconEnum::_2375: return utility::conversions::to_string_t("2375");
+        
+        case Weather_iconEnum::_2376: return utility::conversions::to_string_t("2376");
+        
+        case Weather_iconEnum::_2377: return utility::conversions::to_string_t("2377");
+        
+        case Weather_iconEnum::_2378: return utility::conversions::to_string_t("2378");
+        
+        case Weather_iconEnum::_2379: return utility::conversions::to_string_t("2379");
+        
+        case Weather_iconEnum::_2380: return utility::conversions::to_string_t("2380");
+        
+        case Weather_iconEnum::_2381: return utility::conversions::to_string_t("2381");
+        
+        case Weather_iconEnum::_2382: return utility::conversions::to_string_t("2382");
+        
+        case Weather_iconEnum::_2383: return utility::conversions::to_string_t("2383");
+        
+        case Weather_iconEnum::_2384: return utility::conversions::to_string_t("2384");
+        
+        case Weather_iconEnum::_2385: return utility::conversions::to_string_t("2385");
+        
+        case Weather_iconEnum::_2386: return utility::conversions::to_string_t("2386");
+        
+        case Weather_iconEnum::_2387: return utility::conversions::to_string_t("2387");
+        
+        case Weather_iconEnum::_2388: return utility::conversions::to_string_t("2388");
+        
+        case Weather_iconEnum::_2389: return utility::conversions::to_string_t("2389");
+        
+        case Weather_iconEnum::_2390: return utility::conversions::to_string_t("2390");
+        
+        case Weather_iconEnum::_2391: return utility::conversions::to_string_t("2391");
+        
+        case Weather_iconEnum::_2392: return utility::conversions::to_string_t("2392");
+        
+        case Weather_iconEnum::_2393: return utility::conversions::to_string_t("2393");
+        
+        case Weather_iconEnum::_2394: return utility::conversions::to_string_t("2394");
+        
+        case Weather_iconEnum::_2395: return utility::conversions::to_string_t("2395");
+        
+        case Weather_iconEnum::_2396: return utility::conversions::to_string_t("2396");
+        
+        case Weather_iconEnum::_2397: return utility::conversions::to_string_t("2397");
+        
+        case Weather_iconEnum::_2398: return utility::conversions::to_string_t("2398");
+        
+        case Weather_iconEnum::_2399: return utility::conversions::to_string_t("2399");
+        
+        case Weather_iconEnum::_2400: return utility::conversions::to_string_t("2400");
+        
+        case Weather_iconEnum::_2409: return utility::conversions::to_string_t("2409");
+        
+        case Weather_iconEnum::_2411: return utility::conversions::to_string_t("2411");
+        
+        case Weather_iconEnum::_2412: return utility::conversions::to_string_t("2412");
+        
+        case Weather_iconEnum::_2413: return utility::conversions::to_string_t("2413");
+        
+        case Weather_iconEnum::_2414: return utility::conversions::to_string_t("2414");
+        
+        case Weather_iconEnum::_2415: return utility::conversions::to_string_t("2415");
+        
+        case Weather_iconEnum::_2416: return utility::conversions::to_string_t("2416");
+        
+        case Weather_iconEnum::_2417: return utility::conversions::to_string_t("2417");
+        
+        case Weather_iconEnum::_2418: return utility::conversions::to_string_t("2418");
+        
+        case Weather_iconEnum::_2419: return utility::conversions::to_string_t("2419");
+        
+        case Weather_iconEnum::_2420: return utility::conversions::to_string_t("2420");
+        
+        case Weather_iconEnum::_2421: return utility::conversions::to_string_t("2421");
+        
+        case Weather_iconEnum::_2422: return utility::conversions::to_string_t("2422");
+        
+        case Weather_iconEnum::_2423: return utility::conversions::to_string_t("2423");
+        
+        case Weather_iconEnum::_2424: return utility::conversions::to_string_t("2424");
+        
+        case Weather_iconEnum::_2425: return utility::conversions::to_string_t("2425");
+        
+        case Weather_iconEnum::_2426: return utility::conversions::to_string_t("2426");
+        
+        case Weather_iconEnum::_2501: return utility::conversions::to_string_t("2501");
+        
+        case Weather_iconEnum::_2502: return utility::conversions::to_string_t("2502");
+        
+        case Weather_iconEnum::_2521: return utility::conversions::to_string_t("2521");
+        
+        case Weather_iconEnum::_2522: return utility::conversions::to_string_t("2522");
+        
+        case Weather_iconEnum::_2523: return utility::conversions::to_string_t("2523");
+        
+        case Weather_iconEnum::_2524: return utility::conversions::to_string_t("2524");
+        
+        case Weather_iconEnum::_2525: return utility::conversions::to_string_t("2525");
+        
+        case Weather_iconEnum::_2526: return utility::conversions::to_string_t("2526");
+        
+        case Weather_iconEnum::_2527: return utility::conversions::to_string_t("2527");
+        
+        case Weather_iconEnum::_2528: return utility::conversions::to_string_t("2528");
+        
+        case Weather_iconEnum::_2529: return utility::conversions::to_string_t("2529");
+        
+        case Weather_iconEnum::_2530: return utility::conversions::to_string_t("2530");
+        
+        case Weather_iconEnum::_2531: return utility::conversions::to_string_t("2531");
+        
+        case Weather_iconEnum::_2532: return utility::conversions::to_string_t("2532");
+        
+        case Weather_iconEnum::_2550: return utility::conversions::to_string_t("2550");
+        
+        case Weather_iconEnum::_2551: return utility::conversions::to_string_t("2551");
+        
+        case Weather_iconEnum::_2552: return utility::conversions::to_string_t("2552");
+        
+        case Weather_iconEnum::_2553: return utility::conversions::to_string_t("2553");
+        
+        case Weather_iconEnum::_2554: return utility::conversions::to_string_t("2554");
+        
+        case Weather_iconEnum::_9999: return utility::conversions::to_string_t("9999");
+        
+    }
+}
+
 
 utility::string_t Get_misc_weather_200_response::getProvince() const
 {
@@ -831,6 +3562,27 @@ void Get_misc_weather_200_response::unsetCity()
 {
     m_CityIsSet = false;
 }
+utility::string_t Get_misc_weather_200_response::getDistrict() const
+{
+    return m_District;
+}
+
+
+void Get_misc_weather_200_response::setDistrict(const utility::string_t& value)
+{
+    m_District = value;
+    m_DistrictIsSet = true;
+}
+
+bool Get_misc_weather_200_response::districtIsSet() const
+{
+    return m_DistrictIsSet;
+}
+
+void Get_misc_weather_200_response::unsetDistrict()
+{
+    m_DistrictIsSet = false;
+}
 utility::string_t Get_misc_weather_200_response::getAdcode() const
 {
     return m_Adcode;
@@ -872,6 +3624,27 @@ bool Get_misc_weather_200_response::weatherIsSet() const
 void Get_misc_weather_200_response::unsetWeather()
 {
     m_WeatherIsSet = false;
+}
+Get_misc_weather_200_response::Weather_iconEnum Get_misc_weather_200_response::getWeatherIcon() const
+{
+    return m_Weather_icon;
+}
+
+
+void Get_misc_weather_200_response::setWeatherIcon(const Weather_iconEnum value)
+{
+    m_Weather_icon = value;
+    m_Weather_iconIsSet = true;
+}
+
+bool Get_misc_weather_200_response::weatherIconIsSet() const
+{
+    return m_Weather_iconIsSet;
+}
+
+void Get_misc_weather_200_response::unsetWeather_icon()
+{
+    m_Weather_iconIsSet = false;
 }
 double Get_misc_weather_200_response::getTemperature() const
 {

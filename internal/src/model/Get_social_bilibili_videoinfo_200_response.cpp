@@ -26,6 +26,8 @@ Get_social_bilibili_videoinfo_200_response::Get_social_bilibili_videoinfo_200_re
     m_AidIsSet = false;
     m_Videos = 0.0;
     m_VideosIsSet = false;
+    m_Tid = 0.0;
+    m_TidIsSet = false;
     m_Tname = utility::conversions::to_string_t("");
     m_TnameIsSet = false;
     m_Copyright = 0.0;
@@ -40,11 +42,30 @@ Get_social_bilibili_videoinfo_200_response::Get_social_bilibili_videoinfo_200_re
     m_CtimeIsSet = false;
     m_Desc = utility::conversions::to_string_t("");
     m_DescIsSet = false;
+    m_Desc_v2IsSet = false;
+    m_State = 0.0;
+    m_StateIsSet = false;
     m_Duration = 0.0;
     m_DurationIsSet = false;
+    m_RightsIsSet = false;
     m_OwnerIsSet = false;
     m_StatIsSet = false;
+    m_Dynamic = utility::conversions::to_string_t("");
+    m_DynamicIsSet = false;
+    m_Cid = 0.0;
+    m_CidIsSet = false;
+    m_DimensionIsSet = false;
+    m_No_cache = false;
+    m_No_cacheIsSet = false;
     m_PagesIsSet = false;
+    m_SubtitleIsSet = false;
+    m_StaffIsSet = false;
+    m_Ugc_seasonIsSet = false;
+    m_Is_chargeable_season = false;
+    m_Is_chargeable_seasonIsSet = false;
+    m_Is_story = false;
+    m_Is_storyIsSet = false;
+    m_Honor_replyIsSet = false;
 }
 
 Get_social_bilibili_videoinfo_200_response::~Get_social_bilibili_videoinfo_200_response()
@@ -73,6 +94,11 @@ web::json::value Get_social_bilibili_videoinfo_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("videos"))] = ModelBase::toJson(m_Videos);
+    }
+    if(m_TidIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("tid"))] = ModelBase::toJson(m_Tid);
     }
     if(m_TnameIsSet)
     {   
@@ -109,10 +135,25 @@ web::json::value Get_social_bilibili_videoinfo_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("desc"))] = ModelBase::toJson(m_Desc);
     }
+    if(m_Desc_v2IsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("desc_v2"))] = ModelBase::toJson(m_Desc_v2);
+    }
+    if(m_StateIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("state"))] = ModelBase::toJson(m_State);
+    }
     if(m_DurationIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("duration"))] = ModelBase::toJson(m_Duration);
+    }
+    if(m_RightsIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("rights"))] = ModelBase::toJson(m_Rights);
     }
     if(m_OwnerIsSet)
     {   
@@ -124,10 +165,60 @@ web::json::value Get_social_bilibili_videoinfo_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("stat"))] = ModelBase::toJson(m_Stat);
     }
+    if(m_DynamicIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("dynamic"))] = ModelBase::toJson(m_Dynamic);
+    }
+    if(m_CidIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("cid"))] = ModelBase::toJson(m_Cid);
+    }
+    if(m_DimensionIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("dimension"))] = ModelBase::toJson(m_Dimension);
+    }
+    if(m_No_cacheIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("no_cache"))] = ModelBase::toJson(m_No_cache);
+    }
     if(m_PagesIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("pages"))] = ModelBase::toJson(m_Pages);
+    }
+    if(m_SubtitleIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("subtitle"))] = ModelBase::toJson(m_Subtitle);
+    }
+    if(m_StaffIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("staff"))] = ModelBase::toJson(m_Staff);
+    }
+    if(m_Ugc_seasonIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("ugc_season"))] = ModelBase::toJson(m_Ugc_season);
+    }
+    if(m_Is_chargeable_seasonIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("is_chargeable_season"))] = ModelBase::toJson(m_Is_chargeable_season);
+    }
+    if(m_Is_storyIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("is_story"))] = ModelBase::toJson(m_Is_story);
+    }
+    if(m_Honor_replyIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("honor_reply"))] = ModelBase::toJson(m_Honor_reply);
     }
 
     return val;
@@ -166,6 +257,17 @@ bool Get_social_bilibili_videoinfo_200_response::fromJson(const web::json::value
             double refVal_setVideos;
             ok &= ModelBase::fromJson(fieldValue, refVal_setVideos);
             setVideos(refVal_setVideos);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("tid"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("tid")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setTid;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTid);
+            setTid(refVal_setTid);
             
         }
     }
@@ -246,6 +348,28 @@ bool Get_social_bilibili_videoinfo_200_response::fromJson(const web::json::value
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("desc_v2"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("desc_v2")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_desc_v2_inner>> refVal_setDescV2;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDescV2);
+            setDescV2(refVal_setDescV2);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("state"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("state")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setState;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setState);
+            setState(refVal_setState);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("duration"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("duration")));
@@ -254,6 +378,17 @@ bool Get_social_bilibili_videoinfo_200_response::fromJson(const web::json::value
             double refVal_setDuration;
             ok &= ModelBase::fromJson(fieldValue, refVal_setDuration);
             setDuration(refVal_setDuration);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("rights"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("rights")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_social_bilibili_videoinfo_200_response_rights> refVal_setRights;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setRights);
+            setRights(refVal_setRights);
             
         }
     }
@@ -279,6 +414,50 @@ bool Get_social_bilibili_videoinfo_200_response::fromJson(const web::json::value
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("dynamic"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("dynamic")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setDynamic;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDynamic);
+            setDynamic(refVal_setDynamic);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("cid"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("cid")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setCid;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCid);
+            setCid(refVal_setCid);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("dimension"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("dimension")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_social_bilibili_videoinfo_200_response_dimension> refVal_setDimension;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDimension);
+            setDimension(refVal_setDimension);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("no_cache"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("no_cache")));
+        if(!fieldValue.is_null())
+        {
+            bool refVal_setNoCache;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setNoCache);
+            setNoCache(refVal_setNoCache);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("pages"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("pages")));
@@ -287,6 +466,72 @@ bool Get_social_bilibili_videoinfo_200_response::fromJson(const web::json::value
             std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner>> refVal_setPages;
             ok &= ModelBase::fromJson(fieldValue, refVal_setPages);
             setPages(refVal_setPages);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("subtitle"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("subtitle")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_social_bilibili_videoinfo_200_response_subtitle> refVal_setSubtitle;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSubtitle);
+            setSubtitle(refVal_setSubtitle);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("staff"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("staff")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_staff_inner>> refVal_setStaff;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setStaff);
+            setStaff(refVal_setStaff);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("ugc_season"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("ugc_season")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_social_bilibili_videoinfo_200_response_ugc_season> refVal_setUgcSeason;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setUgcSeason);
+            setUgcSeason(refVal_setUgcSeason);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("is_chargeable_season"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("is_chargeable_season")));
+        if(!fieldValue.is_null())
+        {
+            bool refVal_setIsChargeableSeason;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setIsChargeableSeason);
+            setIsChargeableSeason(refVal_setIsChargeableSeason);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("is_story"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("is_story")));
+        if(!fieldValue.is_null())
+        {
+            bool refVal_setIsStory;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setIsStory);
+            setIsStory(refVal_setIsStory);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("honor_reply"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("honor_reply")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_social_bilibili_videoinfo_200_response_honor_reply> refVal_setHonorReply;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setHonorReply);
+            setHonorReply(refVal_setHonorReply);
             
         }
     }
@@ -311,6 +556,10 @@ void Get_social_bilibili_videoinfo_200_response::toMultipart(std::shared_ptr<Mul
     if(m_VideosIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("videos")), m_Videos));
+    }
+    if(m_TidIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("tid")), m_Tid));
     }
     if(m_TnameIsSet)
     {
@@ -340,9 +589,21 @@ void Get_social_bilibili_videoinfo_200_response::toMultipart(std::shared_ptr<Mul
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("desc")), m_Desc));
     }
+    if(m_Desc_v2IsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("desc_v2")), m_Desc_v2));
+    }
+    if(m_StateIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("state")), m_State));
+    }
     if(m_DurationIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("duration")), m_Duration));
+    }
+    if(m_RightsIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("rights")), m_Rights));
     }
     if(m_OwnerIsSet)
     {
@@ -352,9 +613,49 @@ void Get_social_bilibili_videoinfo_200_response::toMultipart(std::shared_ptr<Mul
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("stat")), m_Stat));
     }
+    if(m_DynamicIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("dynamic")), m_Dynamic));
+    }
+    if(m_CidIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("cid")), m_Cid));
+    }
+    if(m_DimensionIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("dimension")), m_Dimension));
+    }
+    if(m_No_cacheIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("no_cache")), m_No_cache));
+    }
     if(m_PagesIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("pages")), m_Pages));
+    }
+    if(m_SubtitleIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("subtitle")), m_Subtitle));
+    }
+    if(m_StaffIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("staff")), m_Staff));
+    }
+    if(m_Ugc_seasonIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("ugc_season")), m_Ugc_season));
+    }
+    if(m_Is_chargeable_seasonIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("is_chargeable_season")), m_Is_chargeable_season));
+    }
+    if(m_Is_storyIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("is_story")), m_Is_story));
+    }
+    if(m_Honor_replyIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("honor_reply")), m_Honor_reply));
     }
 }
 
@@ -384,6 +685,12 @@ bool Get_social_bilibili_videoinfo_200_response::fromMultiPart(std::shared_ptr<M
         double refVal_setVideos;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("videos"))), refVal_setVideos );
         setVideos(refVal_setVideos);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("tid"))))
+    {
+        double refVal_setTid;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("tid"))), refVal_setTid );
+        setTid(refVal_setTid);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("tname"))))
     {
@@ -427,11 +734,29 @@ bool Get_social_bilibili_videoinfo_200_response::fromMultiPart(std::shared_ptr<M
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("desc"))), refVal_setDesc );
         setDesc(refVal_setDesc);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("desc_v2"))))
+    {
+        std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_desc_v2_inner>> refVal_setDescV2;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("desc_v2"))), refVal_setDescV2 );
+        setDescV2(refVal_setDescV2);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("state"))))
+    {
+        double refVal_setState;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("state"))), refVal_setState );
+        setState(refVal_setState);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("duration"))))
     {
         double refVal_setDuration;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("duration"))), refVal_setDuration );
         setDuration(refVal_setDuration);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("rights"))))
+    {
+        std::shared_ptr<Get_social_bilibili_videoinfo_200_response_rights> refVal_setRights;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("rights"))), refVal_setRights );
+        setRights(refVal_setRights);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("owner"))))
     {
@@ -445,11 +770,71 @@ bool Get_social_bilibili_videoinfo_200_response::fromMultiPart(std::shared_ptr<M
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("stat"))), refVal_setStat );
         setStat(refVal_setStat);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("dynamic"))))
+    {
+        utility::string_t refVal_setDynamic;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("dynamic"))), refVal_setDynamic );
+        setDynamic(refVal_setDynamic);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("cid"))))
+    {
+        double refVal_setCid;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("cid"))), refVal_setCid );
+        setCid(refVal_setCid);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("dimension"))))
+    {
+        std::shared_ptr<Get_social_bilibili_videoinfo_200_response_dimension> refVal_setDimension;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("dimension"))), refVal_setDimension );
+        setDimension(refVal_setDimension);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("no_cache"))))
+    {
+        bool refVal_setNoCache;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("no_cache"))), refVal_setNoCache );
+        setNoCache(refVal_setNoCache);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("pages"))))
     {
         std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner>> refVal_setPages;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("pages"))), refVal_setPages );
         setPages(refVal_setPages);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("subtitle"))))
+    {
+        std::shared_ptr<Get_social_bilibili_videoinfo_200_response_subtitle> refVal_setSubtitle;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("subtitle"))), refVal_setSubtitle );
+        setSubtitle(refVal_setSubtitle);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("staff"))))
+    {
+        std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_staff_inner>> refVal_setStaff;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("staff"))), refVal_setStaff );
+        setStaff(refVal_setStaff);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("ugc_season"))))
+    {
+        std::shared_ptr<Get_social_bilibili_videoinfo_200_response_ugc_season> refVal_setUgcSeason;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("ugc_season"))), refVal_setUgcSeason );
+        setUgcSeason(refVal_setUgcSeason);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("is_chargeable_season"))))
+    {
+        bool refVal_setIsChargeableSeason;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("is_chargeable_season"))), refVal_setIsChargeableSeason );
+        setIsChargeableSeason(refVal_setIsChargeableSeason);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("is_story"))))
+    {
+        bool refVal_setIsStory;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("is_story"))), refVal_setIsStory );
+        setIsStory(refVal_setIsStory);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("honor_reply"))))
+    {
+        std::shared_ptr<Get_social_bilibili_videoinfo_200_response_honor_reply> refVal_setHonorReply;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("honor_reply"))), refVal_setHonorReply );
+        setHonorReply(refVal_setHonorReply);
     }
     return ok;
 }
@@ -515,6 +900,26 @@ bool Get_social_bilibili_videoinfo_200_response::videosIsSet() const
 void Get_social_bilibili_videoinfo_200_response::unsetVideos()
 {
     m_VideosIsSet = false;
+}
+double Get_social_bilibili_videoinfo_200_response::getTid() const
+{
+    return m_Tid;
+}
+
+void Get_social_bilibili_videoinfo_200_response::setTid(double value)
+{
+    m_Tid = value;
+    m_TidIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::tidIsSet() const
+{
+    return m_TidIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetTid()
+{
+    m_TidIsSet = false;
 }
 utility::string_t Get_social_bilibili_videoinfo_200_response::getTname() const
 {
@@ -660,6 +1065,47 @@ void Get_social_bilibili_videoinfo_200_response::unsetDesc()
 {
     m_DescIsSet = false;
 }
+std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_desc_v2_inner>> Get_social_bilibili_videoinfo_200_response::getDescV2() const
+{
+    return m_Desc_v2;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setDescV2(const std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_desc_v2_inner>>& value)
+{
+    m_Desc_v2 = value;
+    m_Desc_v2IsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::descV2IsSet() const
+{
+    return m_Desc_v2IsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetDesc_v2()
+{
+    m_Desc_v2IsSet = false;
+}
+double Get_social_bilibili_videoinfo_200_response::getState() const
+{
+    return m_State;
+}
+
+void Get_social_bilibili_videoinfo_200_response::setState(double value)
+{
+    m_State = value;
+    m_StateIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::stateIsSet() const
+{
+    return m_StateIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetState()
+{
+    m_StateIsSet = false;
+}
 double Get_social_bilibili_videoinfo_200_response::getDuration() const
 {
     return m_Duration;
@@ -679,6 +1125,27 @@ bool Get_social_bilibili_videoinfo_200_response::durationIsSet() const
 void Get_social_bilibili_videoinfo_200_response::unsetDuration()
 {
     m_DurationIsSet = false;
+}
+std::shared_ptr<Get_social_bilibili_videoinfo_200_response_rights> Get_social_bilibili_videoinfo_200_response::getRights() const
+{
+    return m_Rights;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setRights(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_rights>& value)
+{
+    m_Rights = value;
+    m_RightsIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::rightsIsSet() const
+{
+    return m_RightsIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetRights()
+{
+    m_RightsIsSet = false;
 }
 std::shared_ptr<Get_social_bilibili_videoinfo_200_response_owner> Get_social_bilibili_videoinfo_200_response::getOwner() const
 {
@@ -722,6 +1189,88 @@ void Get_social_bilibili_videoinfo_200_response::unsetStat()
 {
     m_StatIsSet = false;
 }
+utility::string_t Get_social_bilibili_videoinfo_200_response::getDynamic() const
+{
+    return m_Dynamic;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setDynamic(const utility::string_t& value)
+{
+    m_Dynamic = value;
+    m_DynamicIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::dynamicIsSet() const
+{
+    return m_DynamicIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetDynamic()
+{
+    m_DynamicIsSet = false;
+}
+double Get_social_bilibili_videoinfo_200_response::getCid() const
+{
+    return m_Cid;
+}
+
+void Get_social_bilibili_videoinfo_200_response::setCid(double value)
+{
+    m_Cid = value;
+    m_CidIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::cidIsSet() const
+{
+    return m_CidIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetCid()
+{
+    m_CidIsSet = false;
+}
+std::shared_ptr<Get_social_bilibili_videoinfo_200_response_dimension> Get_social_bilibili_videoinfo_200_response::getDimension() const
+{
+    return m_Dimension;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setDimension(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_dimension>& value)
+{
+    m_Dimension = value;
+    m_DimensionIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::dimensionIsSet() const
+{
+    return m_DimensionIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetDimension()
+{
+    m_DimensionIsSet = false;
+}
+bool Get_social_bilibili_videoinfo_200_response::isNoCache() const
+{
+    return m_No_cache;
+}
+
+void Get_social_bilibili_videoinfo_200_response::setNoCache(bool value)
+{
+    m_No_cache = value;
+    m_No_cacheIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::noCacheIsSet() const
+{
+    return m_No_cacheIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetNo_cache()
+{
+    m_No_cacheIsSet = false;
+}
 std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner>> Get_social_bilibili_videoinfo_200_response::getPages() const
 {
     return m_Pages;
@@ -742,6 +1291,130 @@ bool Get_social_bilibili_videoinfo_200_response::pagesIsSet() const
 void Get_social_bilibili_videoinfo_200_response::unsetPages()
 {
     m_PagesIsSet = false;
+}
+std::shared_ptr<Get_social_bilibili_videoinfo_200_response_subtitle> Get_social_bilibili_videoinfo_200_response::getSubtitle() const
+{
+    return m_Subtitle;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setSubtitle(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_subtitle>& value)
+{
+    m_Subtitle = value;
+    m_SubtitleIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::subtitleIsSet() const
+{
+    return m_SubtitleIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetSubtitle()
+{
+    m_SubtitleIsSet = false;
+}
+std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_staff_inner>> Get_social_bilibili_videoinfo_200_response::getStaff() const
+{
+    return m_Staff;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setStaff(const std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_staff_inner>>& value)
+{
+    m_Staff = value;
+    m_StaffIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::staffIsSet() const
+{
+    return m_StaffIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetStaff()
+{
+    m_StaffIsSet = false;
+}
+std::shared_ptr<Get_social_bilibili_videoinfo_200_response_ugc_season> Get_social_bilibili_videoinfo_200_response::getUgcSeason() const
+{
+    return m_Ugc_season;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setUgcSeason(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_ugc_season>& value)
+{
+    m_Ugc_season = value;
+    m_Ugc_seasonIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::ugcSeasonIsSet() const
+{
+    return m_Ugc_seasonIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetUgc_season()
+{
+    m_Ugc_seasonIsSet = false;
+}
+bool Get_social_bilibili_videoinfo_200_response::isIsChargeableSeason() const
+{
+    return m_Is_chargeable_season;
+}
+
+void Get_social_bilibili_videoinfo_200_response::setIsChargeableSeason(bool value)
+{
+    m_Is_chargeable_season = value;
+    m_Is_chargeable_seasonIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::isChargeableSeasonIsSet() const
+{
+    return m_Is_chargeable_seasonIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetIs_chargeable_season()
+{
+    m_Is_chargeable_seasonIsSet = false;
+}
+bool Get_social_bilibili_videoinfo_200_response::isIsStory() const
+{
+    return m_Is_story;
+}
+
+void Get_social_bilibili_videoinfo_200_response::setIsStory(bool value)
+{
+    m_Is_story = value;
+    m_Is_storyIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::isStoryIsSet() const
+{
+    return m_Is_storyIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetIs_story()
+{
+    m_Is_storyIsSet = false;
+}
+std::shared_ptr<Get_social_bilibili_videoinfo_200_response_honor_reply> Get_social_bilibili_videoinfo_200_response::getHonorReply() const
+{
+    return m_Honor_reply;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response::setHonorReply(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_honor_reply>& value)
+{
+    m_Honor_reply = value;
+    m_Honor_replyIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response::honorReplyIsSet() const
+{
+    return m_Honor_replyIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response::unsetHonor_reply()
+{
+    m_Honor_replyIsSet = false;
 }
 
 }

@@ -53,21 +53,33 @@ public:
     /// Get_github_repo_200_response_collaborators_inner members
 
 
+    /// <summary>
+    /// GitHub 登录名。
+    /// </summary>
     utility::string_t getLogin() const;
     bool loginIsSet() const;
     void unsetLogin();
     void setLogin(const utility::string_t& value);
 
+    /// <summary>
+    /// 显示名称。
+    /// </summary>
     utility::string_t getName() const;
     bool nameIsSet() const;
     void unsetName();
     void setName(const utility::string_t& value);
 
+    /// <summary>
+    /// 公开邮箱。
+    /// </summary>
     utility::string_t getEmail() const;
     bool emailIsSet() const;
     void unsetEmail();
     void setEmail(const utility::string_t& value);
 
+    /// <summary>
+    /// GitHub 主页链接。
+    /// </summary>
     utility::string_t getUrl() const;
     bool urlIsSet() const;
     void unsetUrl();

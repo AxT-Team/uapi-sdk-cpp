@@ -20,11 +20,9 @@ namespace model {
 
 Get_webparse_extractimages_200_response::Get_webparse_extractimages_200_response()
 {
-    m_Count = 0;
-    m_CountIsSet = false;
-    m_ImagesIsSet = false;
-    m_Url = utility::conversions::to_string_t("");
-    m_UrlIsSet = false;
+    m_Page_url = utility::conversions::to_string_t("");
+    m_Page_urlIsSet = false;
+    m_Image_urlsIsSet = false;
 }
 
 Get_webparse_extractimages_200_response::~Get_webparse_extractimages_200_response()
@@ -39,20 +37,15 @@ void Get_webparse_extractimages_200_response::validate()
 web::json::value Get_webparse_extractimages_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CountIsSet)
+    if(m_Page_urlIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("count"))] = ModelBase::toJson(m_Count);
+        val[utility::conversions::to_string_t(_XPLATSTR("page_url"))] = ModelBase::toJson(m_Page_url);
     }
-    if(m_ImagesIsSet)
+    if(m_Image_urlsIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("images"))] = ModelBase::toJson(m_Images);
-    }
-    if(m_UrlIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("url"))] = ModelBase::toJson(m_Url);
+        val[utility::conversions::to_string_t(_XPLATSTR("image_urls"))] = ModelBase::toJson(m_Image_urls);
     }
 
     return val;
@@ -61,36 +54,25 @@ web::json::value Get_webparse_extractimages_200_response::toJson() const
 bool Get_webparse_extractimages_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("count"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("page_url"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("count")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("page_url")));
         if(!fieldValue.is_null())
         {
-            int32_t refVal_setCount;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCount);
-            setCount(refVal_setCount);
+            utility::string_t refVal_setPageUrl;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setPageUrl);
+            setPageUrl(refVal_setPageUrl);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("images"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("image_urls"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("images")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("image_urls")));
         if(!fieldValue.is_null())
         {
-            std::vector<utility::string_t> refVal_setImages;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setImages);
-            setImages(refVal_setImages);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("url"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("url")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setUrl;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setUrl);
-            setUrl(refVal_setUrl);
+            std::vector<utility::string_t> refVal_setImageUrls;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setImageUrls);
+            setImageUrls(refVal_setImageUrls);
             
         }
     }
@@ -104,17 +86,13 @@ void Get_webparse_extractimages_200_response::toMultipart(std::shared_ptr<Multip
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CountIsSet)
+    if(m_Page_urlIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("count")), m_Count));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("page_url")), m_Page_url));
     }
-    if(m_ImagesIsSet)
+    if(m_Image_urlsIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("images")), m_Images));
-    }
-    if(m_UrlIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("url")), m_Url));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("image_urls")), m_Image_urls));
     }
 }
 
@@ -127,89 +105,63 @@ bool Get_webparse_extractimages_200_response::fromMultiPart(std::shared_ptr<Mult
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("count"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("page_url"))))
     {
-        int32_t refVal_setCount;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("count"))), refVal_setCount );
-        setCount(refVal_setCount);
+        utility::string_t refVal_setPageUrl;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("page_url"))), refVal_setPageUrl );
+        setPageUrl(refVal_setPageUrl);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("images"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("image_urls"))))
     {
-        std::vector<utility::string_t> refVal_setImages;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("images"))), refVal_setImages );
-        setImages(refVal_setImages);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("url"))))
-    {
-        utility::string_t refVal_setUrl;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("url"))), refVal_setUrl );
-        setUrl(refVal_setUrl);
+        std::vector<utility::string_t> refVal_setImageUrls;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("image_urls"))), refVal_setImageUrls );
+        setImageUrls(refVal_setImageUrls);
     }
     return ok;
 }
 
 
-int32_t Get_webparse_extractimages_200_response::getCount() const
+utility::string_t Get_webparse_extractimages_200_response::getPageUrl() const
 {
-    return m_Count;
-}
-
-void Get_webparse_extractimages_200_response::setCount(int32_t value)
-{
-    m_Count = value;
-    m_CountIsSet = true;
-}
-
-bool Get_webparse_extractimages_200_response::countIsSet() const
-{
-    return m_CountIsSet;
-}
-
-void Get_webparse_extractimages_200_response::unsetCount()
-{
-    m_CountIsSet = false;
-}
-std::vector<utility::string_t> Get_webparse_extractimages_200_response::getImages() const
-{
-    return m_Images;
+    return m_Page_url;
 }
 
 
-void Get_webparse_extractimages_200_response::setImages(const std::vector<utility::string_t>& value)
+void Get_webparse_extractimages_200_response::setPageUrl(const utility::string_t& value)
 {
-    m_Images = value;
-    m_ImagesIsSet = true;
+    m_Page_url = value;
+    m_Page_urlIsSet = true;
 }
 
-bool Get_webparse_extractimages_200_response::imagesIsSet() const
+bool Get_webparse_extractimages_200_response::pageUrlIsSet() const
 {
-    return m_ImagesIsSet;
+    return m_Page_urlIsSet;
 }
 
-void Get_webparse_extractimages_200_response::unsetImages()
+void Get_webparse_extractimages_200_response::unsetPage_url()
 {
-    m_ImagesIsSet = false;
+    m_Page_urlIsSet = false;
 }
-utility::string_t Get_webparse_extractimages_200_response::getUrl() const
+std::vector<utility::string_t> Get_webparse_extractimages_200_response::getImageUrls() const
 {
-    return m_Url;
-}
-
-
-void Get_webparse_extractimages_200_response::setUrl(const utility::string_t& value)
-{
-    m_Url = value;
-    m_UrlIsSet = true;
+    return m_Image_urls;
 }
 
-bool Get_webparse_extractimages_200_response::urlIsSet() const
+
+void Get_webparse_extractimages_200_response::setImageUrls(const std::vector<utility::string_t>& value)
 {
-    return m_UrlIsSet;
+    m_Image_urls = value;
+    m_Image_urlsIsSet = true;
 }
 
-void Get_webparse_extractimages_200_response::unsetUrl()
+bool Get_webparse_extractimages_200_response::imageUrlsIsSet() const
 {
-    m_UrlIsSet = false;
+    return m_Image_urlsIsSet;
+}
+
+void Get_webparse_extractimages_200_response::unsetImage_urls()
+{
+    m_Image_urlsIsSet = false;
 }
 
 }

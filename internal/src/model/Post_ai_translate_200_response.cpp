@@ -22,13 +22,10 @@ Post_ai_translate_200_response::Post_ai_translate_200_response()
 {
     m_Message = utility::conversions::to_string_t("");
     m_MessageIsSet = false;
+    m_DataIsSet = false;
+    m_PerformanceIsSet = false;
     m_Is_batch = false;
     m_Is_batchIsSet = false;
-    m_DataIsSet = false;
-    m_Batch_dataIsSet = false;
-    m_Batch_summaryIsSet = false;
-    m_PerformanceIsSet = false;
-    m_Quality_metricsIsSet = false;
 }
 
 Post_ai_translate_200_response::~Post_ai_translate_200_response()
@@ -48,35 +45,20 @@ web::json::value Post_ai_translate_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
     }
-    if(m_Is_batchIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("is_batch"))] = ModelBase::toJson(m_Is_batch);
-    }
     if(m_DataIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("data"))] = ModelBase::toJson(m_Data);
-    }
-    if(m_Batch_dataIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("batch_data"))] = ModelBase::toJson(m_Batch_data);
-    }
-    if(m_Batch_summaryIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("batch_summary"))] = ModelBase::toJson(m_Batch_summary);
     }
     if(m_PerformanceIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("performance"))] = ModelBase::toJson(m_Performance);
     }
-    if(m_Quality_metricsIsSet)
+    if(m_Is_batchIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("quality_metrics"))] = ModelBase::toJson(m_Quality_metrics);
+        val[utility::conversions::to_string_t(_XPLATSTR("is_batch"))] = ModelBase::toJson(m_Is_batch);
     }
 
     return val;
@@ -96,17 +78,6 @@ bool Post_ai_translate_200_response::fromJson(const web::json::value& val)
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("is_batch"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("is_batch")));
-        if(!fieldValue.is_null())
-        {
-            bool refVal_setIsBatch;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setIsBatch);
-            setIsBatch(refVal_setIsBatch);
-            
-        }
-    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("data"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("data")));
@@ -115,28 +86,6 @@ bool Post_ai_translate_200_response::fromJson(const web::json::value& val)
             std::shared_ptr<Post_ai_translate_200_response_data> refVal_setData;
             ok &= ModelBase::fromJson(fieldValue, refVal_setData);
             setData(refVal_setData);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("batch_data"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("batch_data")));
-        if(!fieldValue.is_null())
-        {
-            std::vector<std::shared_ptr<Post_ai_translate_200_response_batch_data_inner>> refVal_setBatchData;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setBatchData);
-            setBatchData(refVal_setBatchData);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("batch_summary"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("batch_summary")));
-        if(!fieldValue.is_null())
-        {
-            std::shared_ptr<Post_ai_translate_200_response_batch_summary> refVal_setBatchSummary;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setBatchSummary);
-            setBatchSummary(refVal_setBatchSummary);
             
         }
     }
@@ -151,14 +100,14 @@ bool Post_ai_translate_200_response::fromJson(const web::json::value& val)
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("quality_metrics"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("is_batch"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("quality_metrics")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("is_batch")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Post_ai_translate_200_response_quality_metrics> refVal_setQualityMetrics;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setQualityMetrics);
-            setQualityMetrics(refVal_setQualityMetrics);
+            bool refVal_setIsBatch;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setIsBatch);
+            setIsBatch(refVal_setIsBatch);
             
         }
     }
@@ -176,29 +125,17 @@ void Post_ai_translate_200_response::toMultipart(std::shared_ptr<MultipartFormDa
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
     }
-    if(m_Is_batchIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("is_batch")), m_Is_batch));
-    }
     if(m_DataIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("data")), m_Data));
-    }
-    if(m_Batch_dataIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("batch_data")), m_Batch_data));
-    }
-    if(m_Batch_summaryIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("batch_summary")), m_Batch_summary));
     }
     if(m_PerformanceIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("performance")), m_Performance));
     }
-    if(m_Quality_metricsIsSet)
+    if(m_Is_batchIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("quality_metrics")), m_Quality_metrics));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("is_batch")), m_Is_batch));
     }
 }
 
@@ -217,29 +154,11 @@ bool Post_ai_translate_200_response::fromMultiPart(std::shared_ptr<MultipartForm
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
         setMessage(refVal_setMessage);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("is_batch"))))
-    {
-        bool refVal_setIsBatch;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("is_batch"))), refVal_setIsBatch );
-        setIsBatch(refVal_setIsBatch);
-    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("data"))))
     {
         std::shared_ptr<Post_ai_translate_200_response_data> refVal_setData;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("data"))), refVal_setData );
         setData(refVal_setData);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("batch_data"))))
-    {
-        std::vector<std::shared_ptr<Post_ai_translate_200_response_batch_data_inner>> refVal_setBatchData;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("batch_data"))), refVal_setBatchData );
-        setBatchData(refVal_setBatchData);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("batch_summary"))))
-    {
-        std::shared_ptr<Post_ai_translate_200_response_batch_summary> refVal_setBatchSummary;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("batch_summary"))), refVal_setBatchSummary );
-        setBatchSummary(refVal_setBatchSummary);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("performance"))))
     {
@@ -247,11 +166,11 @@ bool Post_ai_translate_200_response::fromMultiPart(std::shared_ptr<MultipartForm
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("performance"))), refVal_setPerformance );
         setPerformance(refVal_setPerformance);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("quality_metrics"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("is_batch"))))
     {
-        std::shared_ptr<Post_ai_translate_200_response_quality_metrics> refVal_setQualityMetrics;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("quality_metrics"))), refVal_setQualityMetrics );
-        setQualityMetrics(refVal_setQualityMetrics);
+        bool refVal_setIsBatch;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("is_batch"))), refVal_setIsBatch );
+        setIsBatch(refVal_setIsBatch);
     }
     return ok;
 }
@@ -278,26 +197,6 @@ void Post_ai_translate_200_response::unsetMessage()
 {
     m_MessageIsSet = false;
 }
-bool Post_ai_translate_200_response::isIsBatch() const
-{
-    return m_Is_batch;
-}
-
-void Post_ai_translate_200_response::setIsBatch(bool value)
-{
-    m_Is_batch = value;
-    m_Is_batchIsSet = true;
-}
-
-bool Post_ai_translate_200_response::isBatchIsSet() const
-{
-    return m_Is_batchIsSet;
-}
-
-void Post_ai_translate_200_response::unsetIs_batch()
-{
-    m_Is_batchIsSet = false;
-}
 std::shared_ptr<Post_ai_translate_200_response_data> Post_ai_translate_200_response::getData() const
 {
     return m_Data;
@@ -318,48 +217,6 @@ bool Post_ai_translate_200_response::dataIsSet() const
 void Post_ai_translate_200_response::unsetData()
 {
     m_DataIsSet = false;
-}
-std::vector<std::shared_ptr<Post_ai_translate_200_response_batch_data_inner>> Post_ai_translate_200_response::getBatchData() const
-{
-    return m_Batch_data;
-}
-
-
-void Post_ai_translate_200_response::setBatchData(const std::vector<std::shared_ptr<Post_ai_translate_200_response_batch_data_inner>>& value)
-{
-    m_Batch_data = value;
-    m_Batch_dataIsSet = true;
-}
-
-bool Post_ai_translate_200_response::batchDataIsSet() const
-{
-    return m_Batch_dataIsSet;
-}
-
-void Post_ai_translate_200_response::unsetBatch_data()
-{
-    m_Batch_dataIsSet = false;
-}
-std::shared_ptr<Post_ai_translate_200_response_batch_summary> Post_ai_translate_200_response::getBatchSummary() const
-{
-    return m_Batch_summary;
-}
-
-
-void Post_ai_translate_200_response::setBatchSummary(const std::shared_ptr<Post_ai_translate_200_response_batch_summary>& value)
-{
-    m_Batch_summary = value;
-    m_Batch_summaryIsSet = true;
-}
-
-bool Post_ai_translate_200_response::batchSummaryIsSet() const
-{
-    return m_Batch_summaryIsSet;
-}
-
-void Post_ai_translate_200_response::unsetBatch_summary()
-{
-    m_Batch_summaryIsSet = false;
 }
 std::shared_ptr<Post_ai_translate_200_response_performance> Post_ai_translate_200_response::getPerformance() const
 {
@@ -382,26 +239,25 @@ void Post_ai_translate_200_response::unsetPerformance()
 {
     m_PerformanceIsSet = false;
 }
-std::shared_ptr<Post_ai_translate_200_response_quality_metrics> Post_ai_translate_200_response::getQualityMetrics() const
+bool Post_ai_translate_200_response::isIsBatch() const
 {
-    return m_Quality_metrics;
+    return m_Is_batch;
 }
 
-
-void Post_ai_translate_200_response::setQualityMetrics(const std::shared_ptr<Post_ai_translate_200_response_quality_metrics>& value)
+void Post_ai_translate_200_response::setIsBatch(bool value)
 {
-    m_Quality_metrics = value;
-    m_Quality_metricsIsSet = true;
+    m_Is_batch = value;
+    m_Is_batchIsSet = true;
 }
 
-bool Post_ai_translate_200_response::qualityMetricsIsSet() const
+bool Post_ai_translate_200_response::isBatchIsSet() const
 {
-    return m_Quality_metricsIsSet;
+    return m_Is_batchIsSet;
 }
 
-void Post_ai_translate_200_response::unsetQuality_metrics()
+void Post_ai_translate_200_response::unsetIs_batch()
 {
-    m_Quality_metricsIsSet = false;
+    m_Is_batchIsSet = false;
 }
 
 }

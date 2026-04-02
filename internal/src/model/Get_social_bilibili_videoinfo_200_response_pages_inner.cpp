@@ -26,8 +26,15 @@ Get_social_bilibili_videoinfo_200_response_pages_inner::Get_social_bilibili_vide
     m_PageIsSet = false;
     m_Part = utility::conversions::to_string_t("");
     m_PartIsSet = false;
+    m_From = utility::conversions::to_string_t("");
+    m_FromIsSet = false;
     m_Duration = 0.0;
     m_DurationIsSet = false;
+    m_Vid = utility::conversions::to_string_t("");
+    m_VidIsSet = false;
+    m_Weblink = utility::conversions::to_string_t("");
+    m_WeblinkIsSet = false;
+    m_DimensionIsSet = false;
 }
 
 Get_social_bilibili_videoinfo_200_response_pages_inner::~Get_social_bilibili_videoinfo_200_response_pages_inner()
@@ -57,10 +64,30 @@ web::json::value Get_social_bilibili_videoinfo_200_response_pages_inner::toJson(
         
         val[utility::conversions::to_string_t(_XPLATSTR("part"))] = ModelBase::toJson(m_Part);
     }
+    if(m_FromIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("from"))] = ModelBase::toJson(m_From);
+    }
     if(m_DurationIsSet)
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("duration"))] = ModelBase::toJson(m_Duration);
+    }
+    if(m_VidIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("vid"))] = ModelBase::toJson(m_Vid);
+    }
+    if(m_WeblinkIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("weblink"))] = ModelBase::toJson(m_Weblink);
+    }
+    if(m_DimensionIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("dimension"))] = ModelBase::toJson(m_Dimension);
     }
 
     return val;
@@ -102,6 +129,17 @@ bool Get_social_bilibili_videoinfo_200_response_pages_inner::fromJson(const web:
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("from"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("from")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setFrom;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setFrom);
+            setFrom(refVal_setFrom);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("duration"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("duration")));
@@ -110,6 +148,39 @@ bool Get_social_bilibili_videoinfo_200_response_pages_inner::fromJson(const web:
             double refVal_setDuration;
             ok &= ModelBase::fromJson(fieldValue, refVal_setDuration);
             setDuration(refVal_setDuration);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("vid"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("vid")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setVid;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setVid);
+            setVid(refVal_setVid);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("weblink"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("weblink")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setWeblink;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setWeblink);
+            setWeblink(refVal_setWeblink);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("dimension"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("dimension")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner_dimension> refVal_setDimension;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDimension);
+            setDimension(refVal_setDimension);
             
         }
     }
@@ -135,9 +206,25 @@ void Get_social_bilibili_videoinfo_200_response_pages_inner::toMultipart(std::sh
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("part")), m_Part));
     }
+    if(m_FromIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("from")), m_From));
+    }
     if(m_DurationIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("duration")), m_Duration));
+    }
+    if(m_VidIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("vid")), m_Vid));
+    }
+    if(m_WeblinkIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("weblink")), m_Weblink));
+    }
+    if(m_DimensionIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("dimension")), m_Dimension));
     }
 }
 
@@ -168,11 +255,35 @@ bool Get_social_bilibili_videoinfo_200_response_pages_inner::fromMultiPart(std::
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("part"))), refVal_setPart );
         setPart(refVal_setPart);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("from"))))
+    {
+        utility::string_t refVal_setFrom;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("from"))), refVal_setFrom );
+        setFrom(refVal_setFrom);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("duration"))))
     {
         double refVal_setDuration;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("duration"))), refVal_setDuration );
         setDuration(refVal_setDuration);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("vid"))))
+    {
+        utility::string_t refVal_setVid;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("vid"))), refVal_setVid );
+        setVid(refVal_setVid);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("weblink"))))
+    {
+        utility::string_t refVal_setWeblink;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("weblink"))), refVal_setWeblink );
+        setWeblink(refVal_setWeblink);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("dimension"))))
+    {
+        std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner_dimension> refVal_setDimension;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("dimension"))), refVal_setDimension );
+        setDimension(refVal_setDimension);
     }
     return ok;
 }
@@ -239,6 +350,27 @@ void Get_social_bilibili_videoinfo_200_response_pages_inner::unsetPart()
 {
     m_PartIsSet = false;
 }
+utility::string_t Get_social_bilibili_videoinfo_200_response_pages_inner::getFrom() const
+{
+    return m_From;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::setFrom(const utility::string_t& value)
+{
+    m_From = value;
+    m_FromIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_pages_inner::fromIsSet() const
+{
+    return m_FromIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::unsetFrom()
+{
+    m_FromIsSet = false;
+}
 double Get_social_bilibili_videoinfo_200_response_pages_inner::getDuration() const
 {
     return m_Duration;
@@ -258,6 +390,69 @@ bool Get_social_bilibili_videoinfo_200_response_pages_inner::durationIsSet() con
 void Get_social_bilibili_videoinfo_200_response_pages_inner::unsetDuration()
 {
     m_DurationIsSet = false;
+}
+utility::string_t Get_social_bilibili_videoinfo_200_response_pages_inner::getVid() const
+{
+    return m_Vid;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::setVid(const utility::string_t& value)
+{
+    m_Vid = value;
+    m_VidIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_pages_inner::vidIsSet() const
+{
+    return m_VidIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::unsetVid()
+{
+    m_VidIsSet = false;
+}
+utility::string_t Get_social_bilibili_videoinfo_200_response_pages_inner::getWeblink() const
+{
+    return m_Weblink;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::setWeblink(const utility::string_t& value)
+{
+    m_Weblink = value;
+    m_WeblinkIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_pages_inner::weblinkIsSet() const
+{
+    return m_WeblinkIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::unsetWeblink()
+{
+    m_WeblinkIsSet = false;
+}
+std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner_dimension> Get_social_bilibili_videoinfo_200_response_pages_inner::getDimension() const
+{
+    return m_Dimension;
+}
+
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::setDimension(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner_dimension>& value)
+{
+    m_Dimension = value;
+    m_DimensionIsSet = true;
+}
+
+bool Get_social_bilibili_videoinfo_200_response_pages_inner::dimensionIsSet() const
+{
+    return m_DimensionIsSet;
+}
+
+void Get_social_bilibili_videoinfo_200_response_pages_inner::unsetDimension()
+{
+    m_DimensionIsSet = false;
 }
 
 }

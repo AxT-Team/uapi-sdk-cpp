@@ -126,12 +126,20 @@ public:
     void setEndip(const utility::string_t& value);
 
     /// <summary>
-    /// 行政区（商业查询）
+    /// 行政区。仅 &#x60;source&#x3D;commercial&#x60; 时可能返回。
     /// </summary>
     utility::string_t getDistrict() const;
     bool districtIsSet() const;
     void unsetDistrict();
     void setDistrict(const utility::string_t& value);
+
+    /// <summary>
+    /// 时区名称。仅 &#x60;source&#x3D;commercial&#x60; 时可能返回。
+    /// </summary>
+    utility::string_t getTimeZone() const;
+    bool timeZoneIsSet() const;
+    void unsetTime_zone();
+    void setTimeZone(const utility::string_t& value);
 
 
 protected:
@@ -164,6 +172,9 @@ protected:
 
     utility::string_t m_District;
     bool m_DistrictIsSet;
+
+    utility::string_t m_Time_zone;
+    bool m_Time_zoneIsSet;
 
 };
 

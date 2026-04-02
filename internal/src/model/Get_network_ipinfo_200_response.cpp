@@ -38,8 +38,6 @@ Get_network_ipinfo_200_response::Get_network_ipinfo_200_response()
     m_BeginipIsSet = false;
     m_Endip = utility::conversions::to_string_t("");
     m_EndipIsSet = false;
-    m_District = utility::conversions::to_string_t("");
-    m_DistrictIsSet = false;
 }
 
 Get_network_ipinfo_200_response::~Get_network_ipinfo_200_response()
@@ -98,11 +96,6 @@ web::json::value Get_network_ipinfo_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("endip"))] = ModelBase::toJson(m_Endip);
-    }
-    if(m_DistrictIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("district"))] = ModelBase::toJson(m_District);
     }
 
     return val;
@@ -210,17 +203,6 @@ bool Get_network_ipinfo_200_response::fromJson(const web::json::value& val)
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("district"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("district")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setDistrict;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setDistrict);
-            setDistrict(refVal_setDistrict);
-            
-        }
-    }
     return ok;
 }
 
@@ -266,10 +248,6 @@ void Get_network_ipinfo_200_response::toMultipart(std::shared_ptr<MultipartFormD
     if(m_EndipIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("endip")), m_Endip));
-    }
-    if(m_DistrictIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("district")), m_District));
     }
 }
 
@@ -335,12 +313,6 @@ bool Get_network_ipinfo_200_response::fromMultiPart(std::shared_ptr<MultipartFor
         utility::string_t refVal_setEndip;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("endip"))), refVal_setEndip );
         setEndip(refVal_setEndip);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("district"))))
-    {
-        utility::string_t refVal_setDistrict;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("district"))), refVal_setDistrict );
-        setDistrict(refVal_setDistrict);
     }
     return ok;
 }
@@ -532,27 +504,6 @@ bool Get_network_ipinfo_200_response::endipIsSet() const
 void Get_network_ipinfo_200_response::unsetEndip()
 {
     m_EndipIsSet = false;
-}
-utility::string_t Get_network_ipinfo_200_response::getDistrict() const
-{
-    return m_District;
-}
-
-
-void Get_network_ipinfo_200_response::setDistrict(const utility::string_t& value)
-{
-    m_District = value;
-    m_DistrictIsSet = true;
-}
-
-bool Get_network_ipinfo_200_response::districtIsSet() const
-{
-    return m_DistrictIsSet;
-}
-
-void Get_network_ipinfo_200_response::unsetDistrict()
-{
-    m_DistrictIsSet = false;
 }
 
 }

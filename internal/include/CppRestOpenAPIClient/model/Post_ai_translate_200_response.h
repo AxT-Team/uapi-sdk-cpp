@@ -21,13 +21,9 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Post_ai_translate_200_response_batch_summary.h"
 #include "CppRestOpenAPIClient/model/Post_ai_translate_200_response_performance.h"
-#include "CppRestOpenAPIClient/model/Post_ai_translate_200_response_batch_data_inner.h"
 #include "CppRestOpenAPIClient/model/Post_ai_translate_200_response_data.h"
 #include <cpprest/details/basic_types.h>
-#include "CppRestOpenAPIClient/model/Post_ai_translate_200_response_quality_metrics.h"
-#include <vector>
 
 namespace org {
 namespace openapitools {
@@ -35,10 +31,7 @@ namespace client {
 namespace model {
 
 class Post_ai_translate_200_response_data;
-class Post_ai_translate_200_response_batch_data_inner;
-class Post_ai_translate_200_response_batch_summary;
 class Post_ai_translate_200_response_performance;
-class Post_ai_translate_200_response_quality_metrics;
 
 
 class  Post_ai_translate_200_response
@@ -69,64 +62,37 @@ public:
     void unsetMessage();
     void setMessage(const utility::string_t& value);
 
-    /// <summary>
-    /// 标识是否为批量翻译请求。
-    /// </summary>
-    bool isIsBatch() const;
-    bool isBatchIsSet() const;
-    void unsetIs_batch();
-    void setIsBatch(bool value);
-
     std::shared_ptr<Post_ai_translate_200_response_data> getData() const;
     bool dataIsSet() const;
     void unsetData();
     void setData(const std::shared_ptr<Post_ai_translate_200_response_data>& value);
-
-    /// <summary>
-    /// 批量翻译结果列表，仅在批量翻译时返回。
-    /// </summary>
-    std::vector<std::shared_ptr<Post_ai_translate_200_response_batch_data_inner>> getBatchData() const;
-    bool batchDataIsSet() const;
-    void unsetBatch_data();
-    void setBatchData(const std::vector<std::shared_ptr<Post_ai_translate_200_response_batch_data_inner>>& value);
-
-    std::shared_ptr<Post_ai_translate_200_response_batch_summary> getBatchSummary() const;
-    bool batchSummaryIsSet() const;
-    void unsetBatch_summary();
-    void setBatchSummary(const std::shared_ptr<Post_ai_translate_200_response_batch_summary>& value);
 
     std::shared_ptr<Post_ai_translate_200_response_performance> getPerformance() const;
     bool performanceIsSet() const;
     void unsetPerformance();
     void setPerformance(const std::shared_ptr<Post_ai_translate_200_response_performance>& value);
 
-    std::shared_ptr<Post_ai_translate_200_response_quality_metrics> getQualityMetrics() const;
-    bool qualityMetricsIsSet() const;
-    void unsetQuality_metrics();
-    void setQualityMetrics(const std::shared_ptr<Post_ai_translate_200_response_quality_metrics>& value);
+    /// <summary>
+    /// 是否为批量翻译请求。
+    /// </summary>
+    bool isIsBatch() const;
+    bool isBatchIsSet() const;
+    void unsetIs_batch();
+    void setIsBatch(bool value);
 
 
 protected:
     utility::string_t m_Message;
     bool m_MessageIsSet;
 
-    bool m_Is_batch;
-    bool m_Is_batchIsSet;
-
     std::shared_ptr<Post_ai_translate_200_response_data> m_Data;
     bool m_DataIsSet;
-
-    std::vector<std::shared_ptr<Post_ai_translate_200_response_batch_data_inner>> m_Batch_data;
-    bool m_Batch_dataIsSet;
-
-    std::shared_ptr<Post_ai_translate_200_response_batch_summary> m_Batch_summary;
-    bool m_Batch_summaryIsSet;
 
     std::shared_ptr<Post_ai_translate_200_response_performance> m_Performance;
     bool m_PerformanceIsSet;
 
-    std::shared_ptr<Post_ai_translate_200_response_quality_metrics> m_Quality_metrics;
-    bool m_Quality_metricsIsSet;
+    bool m_Is_batch;
+    bool m_Is_batchIsSet;
 
 };
 

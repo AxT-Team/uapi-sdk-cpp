@@ -21,9 +21,16 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_staff_inner.h"
 #include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_pages_inner.h"
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_honor_reply.h"
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_rights.h"
 #include <cpprest/details/basic_types.h>
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_subtitle.h"
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_ugc_season.h"
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_desc_v2_inner.h"
 #include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_stat.h"
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_dimension.h"
 #include <vector>
 #include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_owner.h"
 
@@ -32,9 +39,16 @@ namespace openapitools {
 namespace client {
 namespace model {
 
+class Get_social_bilibili_videoinfo_200_response_desc_v2_inner;
+class Get_social_bilibili_videoinfo_200_response_rights;
 class Get_social_bilibili_videoinfo_200_response_owner;
 class Get_social_bilibili_videoinfo_200_response_stat;
+class Get_social_bilibili_videoinfo_200_response_dimension;
 class Get_social_bilibili_videoinfo_200_response_pages_inner;
+class Get_social_bilibili_videoinfo_200_response_subtitle;
+class Get_social_bilibili_videoinfo_200_response_staff_inner;
+class Get_social_bilibili_videoinfo_200_response_ugc_season;
+class Get_social_bilibili_videoinfo_200_response_honor_reply;
 
 
 class  Get_social_bilibili_videoinfo_200_response
@@ -83,6 +97,14 @@ public:
     bool videosIsSet() const;
     void unsetVideos();
     void setVideos(double value);
+
+    /// <summary>
+    /// 视频所属的子分区 ID。
+    /// </summary>
+    double getTid() const;
+    bool tidIsSet() const;
+    void unsetTid();
+    void setTid(double value);
 
     /// <summary>
     /// 视频所属的子分区名称。
@@ -141,12 +163,33 @@ public:
     void setDesc(const utility::string_t& value);
 
     /// <summary>
+    /// 结构化简介片段。
+    /// </summary>
+    std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_desc_v2_inner>> getDescV2() const;
+    bool descV2IsSet() const;
+    void unsetDesc_v2();
+    void setDescV2(const std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_desc_v2_inner>>& value);
+
+    /// <summary>
+    /// 视频状态码。
+    /// </summary>
+    double getState() const;
+    bool stateIsSet() const;
+    void unsetState();
+    void setState(double value);
+
+    /// <summary>
     /// 稿件总时长（所有分P累加），单位为秒。
     /// </summary>
     double getDuration() const;
     bool durationIsSet() const;
     void unsetDuration();
     void setDuration(double value);
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_rights> getRights() const;
+    bool rightsIsSet() const;
+    void unsetRights();
+    void setRights(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_rights>& value);
 
     std::shared_ptr<Get_social_bilibili_videoinfo_200_response_owner> getOwner() const;
     bool ownerIsSet() const;
@@ -159,12 +202,80 @@ public:
     void setStat(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_stat>& value);
 
     /// <summary>
+    /// 投稿时附带的动态文字。
+    /// </summary>
+    utility::string_t getDynamic() const;
+    bool dynamicIsSet() const;
+    void unsetDynamic();
+    void setDynamic(const utility::string_t& value);
+
+    /// <summary>
+    /// 主分P的 CID（弹幕 ID）。
+    /// </summary>
+    double getCid() const;
+    bool cidIsSet() const;
+    void unsetCid();
+    void setCid(double value);
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_dimension> getDimension() const;
+    bool dimensionIsSet() const;
+    void unsetDimension();
+    void setDimension(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_dimension>& value);
+
+    /// <summary>
+    /// 不缓存标记。
+    /// </summary>
+    bool isNoCache() const;
+    bool noCacheIsSet() const;
+    void unsetNo_cache();
+    void setNoCache(bool value);
+
+    /// <summary>
     /// 视频分P列表。即使是单P视频，该数组也包含一个元素。
     /// </summary>
     std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner>> getPages() const;
     bool pagesIsSet() const;
     void unsetPages();
     void setPages(const std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner>>& value);
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_subtitle> getSubtitle() const;
+    bool subtitleIsSet() const;
+    void unsetSubtitle();
+    void setSubtitle(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_subtitle>& value);
+
+    /// <summary>
+    /// 联合投稿成员列表。
+    /// </summary>
+    std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_staff_inner>> getStaff() const;
+    bool staffIsSet() const;
+    void unsetStaff();
+    void setStaff(const std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_staff_inner>>& value);
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_ugc_season> getUgcSeason() const;
+    bool ugcSeasonIsSet() const;
+    void unsetUgc_season();
+    void setUgcSeason(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_ugc_season>& value);
+
+    /// <summary>
+    /// 是否为付费合集。
+    /// </summary>
+    bool isIsChargeableSeason() const;
+    bool isChargeableSeasonIsSet() const;
+    void unsetIs_chargeable_season();
+    void setIsChargeableSeason(bool value);
+
+    /// <summary>
+    /// 是否为剧情类视频。
+    /// </summary>
+    bool isIsStory() const;
+    bool isStoryIsSet() const;
+    void unsetIs_story();
+    void setIsStory(bool value);
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_honor_reply> getHonorReply() const;
+    bool honorReplyIsSet() const;
+    void unsetHonor_reply();
+    void setHonorReply(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_honor_reply>& value);
 
 
 protected:
@@ -176,6 +287,9 @@ protected:
 
     double m_Videos;
     bool m_VideosIsSet;
+
+    double m_Tid;
+    bool m_TidIsSet;
 
     utility::string_t m_Tname;
     bool m_TnameIsSet;
@@ -198,8 +312,17 @@ protected:
     utility::string_t m_Desc;
     bool m_DescIsSet;
 
+    std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_desc_v2_inner>> m_Desc_v2;
+    bool m_Desc_v2IsSet;
+
+    double m_State;
+    bool m_StateIsSet;
+
     double m_Duration;
     bool m_DurationIsSet;
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_rights> m_Rights;
+    bool m_RightsIsSet;
 
     std::shared_ptr<Get_social_bilibili_videoinfo_200_response_owner> m_Owner;
     bool m_OwnerIsSet;
@@ -207,8 +330,38 @@ protected:
     std::shared_ptr<Get_social_bilibili_videoinfo_200_response_stat> m_Stat;
     bool m_StatIsSet;
 
+    utility::string_t m_Dynamic;
+    bool m_DynamicIsSet;
+
+    double m_Cid;
+    bool m_CidIsSet;
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_dimension> m_Dimension;
+    bool m_DimensionIsSet;
+
+    bool m_No_cache;
+    bool m_No_cacheIsSet;
+
     std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner>> m_Pages;
     bool m_PagesIsSet;
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_subtitle> m_Subtitle;
+    bool m_SubtitleIsSet;
+
+    std::vector<std::shared_ptr<Get_social_bilibili_videoinfo_200_response_staff_inner>> m_Staff;
+    bool m_StaffIsSet;
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_ugc_season> m_Ugc_season;
+    bool m_Ugc_seasonIsSet;
+
+    bool m_Is_chargeable_season;
+    bool m_Is_chargeable_seasonIsSet;
+
+    bool m_Is_story;
+    bool m_Is_storyIsSet;
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_honor_reply> m_Honor_reply;
+    bool m_Honor_replyIsSet;
 
 };
 

@@ -21,6 +21,7 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include <cpprest/details/basic_types.h>
 #include "CppRestOpenAPIClient/model/Get_game_epic_free_200_response_data_inner.h"
 #include <vector>
 
@@ -56,6 +57,14 @@ public:
 
 
     /// <summary>
+    /// 操作结果描述。
+    /// </summary>
+    utility::string_t getMessage() const;
+    bool messageIsSet() const;
+    void unsetMessage();
+    void setMessage(const utility::string_t& value);
+
+    /// <summary>
     /// 免费游戏列表数组。
     /// </summary>
     std::vector<std::shared_ptr<Get_game_epic_free_200_response_data_inner>> getData() const;
@@ -65,6 +74,9 @@ public:
 
 
 protected:
+    utility::string_t m_Message;
+    bool m_MessageIsSet;
+
     std::vector<std::shared_ptr<Get_game_epic_free_200_response_data_inner>> m_Data;
     bool m_DataIsSet;
 

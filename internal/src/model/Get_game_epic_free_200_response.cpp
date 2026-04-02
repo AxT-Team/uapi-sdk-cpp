@@ -20,6 +20,8 @@ namespace model {
 
 Get_game_epic_free_200_response::Get_game_epic_free_200_response()
 {
+    m_Message = utility::conversions::to_string_t("");
+    m_MessageIsSet = false;
     m_DataIsSet = false;
 }
 
@@ -35,6 +37,11 @@ void Get_game_epic_free_200_response::validate()
 web::json::value Get_game_epic_free_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
+    if(m_MessageIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
+    }
     if(m_DataIsSet)
     {   
         
@@ -47,6 +54,17 @@ web::json::value Get_game_epic_free_200_response::toJson() const
 bool Get_game_epic_free_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setMessage;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
+            setMessage(refVal_setMessage);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("data"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("data")));
@@ -68,6 +86,10 @@ void Get_game_epic_free_200_response::toMultipart(std::shared_ptr<MultipartFormD
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
+    if(m_MessageIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
+    }
     if(m_DataIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("data")), m_Data));
@@ -83,6 +105,12 @@ bool Get_game_epic_free_200_response::fromMultiPart(std::shared_ptr<MultipartFor
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    {
+        utility::string_t refVal_setMessage;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
+        setMessage(refVal_setMessage);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("data"))))
     {
         std::vector<std::shared_ptr<Get_game_epic_free_200_response_data_inner>> refVal_setData;
@@ -93,6 +121,27 @@ bool Get_game_epic_free_200_response::fromMultiPart(std::shared_ptr<MultipartFor
 }
 
 
+utility::string_t Get_game_epic_free_200_response::getMessage() const
+{
+    return m_Message;
+}
+
+
+void Get_game_epic_free_200_response::setMessage(const utility::string_t& value)
+{
+    m_Message = value;
+    m_MessageIsSet = true;
+}
+
+bool Get_game_epic_free_200_response::messageIsSet() const
+{
+    return m_MessageIsSet;
+}
+
+void Get_game_epic_free_200_response::unsetMessage()
+{
+    m_MessageIsSet = false;
+}
 std::vector<std::shared_ptr<Get_game_epic_free_200_response_data_inner>> Get_game_epic_free_200_response::getData() const
 {
     return m_Data;

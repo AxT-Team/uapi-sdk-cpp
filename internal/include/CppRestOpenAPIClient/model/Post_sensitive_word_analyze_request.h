@@ -55,7 +55,7 @@ public:
 
 
     /// <summary>
-    /// 要分析的关键词列表，单次最多100个，每个关键词最长50字符。
+    /// 要分析的关键词列表，单次最多100个。单条关键词最多1,000字符，总字符数最多20,000。
     /// </summary>
     std::vector<utility::string_t> getKeywords() const;
     bool keywordsIsSet() const;

@@ -22,7 +22,9 @@ Post_translate_stream_request::Post_translate_stream_request()
 {
     m_Query = utility::conversions::to_string_t("");
     m_QueryIsSet = false;
+    m_To_lang = utility::conversions::to_string_t("");
     m_To_langIsSet = false;
+    m_From_lang = utility::conversions::to_string_t("");
     m_From_langIsSet = false;
     m_Tone = utility::conversions::to_string_t("");
     m_ToneIsSet = false;
@@ -48,16 +50,12 @@ web::json::value Post_translate_stream_request::toJson() const
     if(m_To_langIsSet)
     {   
         
-        utility::string_t refVal = fromTo_langEnum(m_To_lang);
-        val[utility::conversions::to_string_t(_XPLATSTR("to_lang"))] = ModelBase::toJson(refVal);
-        
+        val[utility::conversions::to_string_t(_XPLATSTR("to_lang"))] = ModelBase::toJson(m_To_lang);
     }
     if(m_From_langIsSet)
     {   
         
-        utility::string_t refVal = fromFrom_langEnum(m_From_lang);
-        val[utility::conversions::to_string_t(_XPLATSTR("from_lang"))] = ModelBase::toJson(refVal);
-        
+        val[utility::conversions::to_string_t(_XPLATSTR("from_lang"))] = ModelBase::toJson(m_From_lang);
     }
     if(m_ToneIsSet)
     {   
@@ -89,8 +87,7 @@ bool Post_translate_stream_request::fromJson(const web::json::value& val)
         {
             utility::string_t refVal_setToLang;
             ok &= ModelBase::fromJson(fieldValue, refVal_setToLang);
-            
-            setToLang(toTo_langEnum(refVal_setToLang));
+            setToLang(refVal_setToLang);
             
         }
     }
@@ -101,8 +98,7 @@ bool Post_translate_stream_request::fromJson(const web::json::value& val)
         {
             utility::string_t refVal_setFromLang;
             ok &= ModelBase::fromJson(fieldValue, refVal_setFromLang);
-            
-            setFromLang(toFrom_langEnum(refVal_setFromLang));
+            setFromLang(refVal_setFromLang);
             
         }
     }
@@ -133,11 +129,11 @@ void Post_translate_stream_request::toMultipart(std::shared_ptr<MultipartFormDat
     }
     if(m_To_langIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("to_lang")), fromTo_langEnum(m_To_lang)));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("to_lang")), m_To_lang));
     }
     if(m_From_langIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("from_lang")), fromFrom_langEnum(m_From_lang)));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("from_lang")), m_From_lang));
     }
     if(m_ToneIsSet)
     {
@@ -164,13 +160,13 @@ bool Post_translate_stream_request::fromMultiPart(std::shared_ptr<MultipartFormD
     {
         utility::string_t refVal_setToLang;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("to_lang"))), refVal_setToLang );
-        setToLang(toTo_langEnum(refVal_setToLang));
+        setToLang(refVal_setToLang);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("from_lang"))))
     {
         utility::string_t refVal_setFromLang;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("from_lang"))), refVal_setFromLang );
-        setFromLang(toFrom_langEnum(refVal_setFromLang));
+        setFromLang(refVal_setFromLang);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("tone"))))
     {
@@ -179,66 +175,6 @@ bool Post_translate_stream_request::fromMultiPart(std::shared_ptr<MultipartFormD
         setTone(refVal_setTone);
     }
     return ok;
-}
-
-Post_translate_stream_request::To_langEnum Post_translate_stream_request::toTo_langEnum(const utility::string_t& value) const
-{
-    
-    if (value == utility::conversions::to_string_t("中文")) {
-        return To_langEnum::_;
-    }
-    
-    if (value == utility::conversions::to_string_t("英文")) {
-        return To_langEnum::_2;
-    }
-    
-    throw std::invalid_argument("Invalid value for conversion to To_langEnum");
-}
-
-
-const utility::string_t Post_translate_stream_request::fromTo_langEnum(const To_langEnum value) const
-{
-    switch(value)
-    {
-        
-        case To_langEnum::_: return utility::conversions::to_string_t("中文");
-        
-        case To_langEnum::_2: return utility::conversions::to_string_t("英文");
-        
-    }
-}
-
-Post_translate_stream_request::From_langEnum Post_translate_stream_request::toFrom_langEnum(const utility::string_t& value) const
-{
-    
-    if (value == utility::conversions::to_string_t("中文")) {
-        return From_langEnum::_;
-    }
-    
-    if (value == utility::conversions::to_string_t("英文")) {
-        return From_langEnum::_2;
-    }
-    
-    if (value == utility::conversions::to_string_t("auto")) {
-        return From_langEnum::AUTO;
-    }
-    
-    throw std::invalid_argument("Invalid value for conversion to From_langEnum");
-}
-
-
-const utility::string_t Post_translate_stream_request::fromFrom_langEnum(const From_langEnum value) const
-{
-    switch(value)
-    {
-        
-        case From_langEnum::_: return utility::conversions::to_string_t("中文");
-        
-        case From_langEnum::_2: return utility::conversions::to_string_t("英文");
-        
-        case From_langEnum::AUTO: return utility::conversions::to_string_t("auto");
-        
-    }
 }
 
 
@@ -263,13 +199,13 @@ void Post_translate_stream_request::unsetQuery()
 {
     m_QueryIsSet = false;
 }
-Post_translate_stream_request::To_langEnum Post_translate_stream_request::getToLang() const
+utility::string_t Post_translate_stream_request::getToLang() const
 {
     return m_To_lang;
 }
 
 
-void Post_translate_stream_request::setToLang(const To_langEnum value)
+void Post_translate_stream_request::setToLang(const utility::string_t& value)
 {
     m_To_lang = value;
     m_To_langIsSet = true;
@@ -284,13 +220,13 @@ void Post_translate_stream_request::unsetTo_lang()
 {
     m_To_langIsSet = false;
 }
-Post_translate_stream_request::From_langEnum Post_translate_stream_request::getFromLang() const
+utility::string_t Post_translate_stream_request::getFromLang() const
 {
     return m_From_lang;
 }
 
 
-void Post_translate_stream_request::setFromLang(const From_langEnum value)
+void Post_translate_stream_request::setFromLang(const utility::string_t& value)
 {
     m_From_lang = value;
     m_From_langIsSet = true;

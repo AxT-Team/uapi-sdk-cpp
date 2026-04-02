@@ -21,8 +21,17 @@ namespace model {
 Get_social_bilibili_replies_200_response::Get_social_bilibili_replies_200_response()
 {
     m_PageIsSet = false;
+    m_ConfigIsSet = false;
     m_HotsIsSet = false;
     m_RepliesIsSet = false;
+    m_UpperIsSet = false;
+    m_TopIsSet = false;
+    m_NoticeIsSet = false;
+    m_Vote = 0.0;
+    m_VoteIsSet = false;
+    m_FolderIsSet = false;
+    m_ControlIsSet = false;
+    m_CursorIsSet = false;
 }
 
 Get_social_bilibili_replies_200_response::~Get_social_bilibili_replies_200_response()
@@ -42,6 +51,11 @@ web::json::value Get_social_bilibili_replies_200_response::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("page"))] = ModelBase::toJson(m_Page);
     }
+    if(m_ConfigIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("config"))] = ModelBase::toJson(m_Config);
+    }
     if(m_HotsIsSet)
     {   
         
@@ -51,6 +65,41 @@ web::json::value Get_social_bilibili_replies_200_response::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("replies"))] = ModelBase::toJson(m_Replies);
+    }
+    if(m_UpperIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("upper"))] = ModelBase::toJson(m_Upper);
+    }
+    if(m_TopIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("top"))] = ModelBase::toJson(m_Top);
+    }
+    if(m_NoticeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("notice"))] = ModelBase::toJson(m_Notice);
+    }
+    if(m_VoteIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("vote"))] = ModelBase::toJson(m_Vote);
+    }
+    if(m_FolderIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("folder"))] = ModelBase::toJson(m_Folder);
+    }
+    if(m_ControlIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("control"))] = ModelBase::toJson(m_Control);
+    }
+    if(m_CursorIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("cursor"))] = ModelBase::toJson(m_Cursor);
     }
 
     return val;
@@ -67,6 +116,17 @@ bool Get_social_bilibili_replies_200_response::fromJson(const web::json::value& 
             std::shared_ptr<Get_social_bilibili_replies_200_response_page> refVal_setPage;
             ok &= ModelBase::fromJson(fieldValue, refVal_setPage);
             setPage(refVal_setPage);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("config"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("config")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Object> refVal_setConfig;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setConfig);
+            setConfig(refVal_setConfig);
             
         }
     }
@@ -92,6 +152,83 @@ bool Get_social_bilibili_replies_200_response::fromJson(const web::json::value& 
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("upper"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("upper")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Object> refVal_setUpper;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setUpper);
+            setUpper(refVal_setUpper);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("top"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("top")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Object> refVal_setTop;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTop);
+            setTop(refVal_setTop);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("notice"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("notice")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Object> refVal_setNotice;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setNotice);
+            setNotice(refVal_setNotice);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("vote"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("vote")));
+        if(!fieldValue.is_null())
+        {
+            double refVal_setVote;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setVote);
+            setVote(refVal_setVote);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("folder"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("folder")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Object> refVal_setFolder;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setFolder);
+            setFolder(refVal_setFolder);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("control"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("control")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Object> refVal_setControl;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setControl);
+            setControl(refVal_setControl);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("cursor"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("cursor")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<Object> refVal_setCursor;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCursor);
+            setCursor(refVal_setCursor);
+            
+        }
+    }
     return ok;
 }
 
@@ -106,6 +243,10 @@ void Get_social_bilibili_replies_200_response::toMultipart(std::shared_ptr<Multi
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("page")), m_Page));
     }
+    if(m_ConfigIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("config")), m_Config));
+    }
     if(m_HotsIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("hots")), m_Hots));
@@ -113,6 +254,34 @@ void Get_social_bilibili_replies_200_response::toMultipart(std::shared_ptr<Multi
     if(m_RepliesIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("replies")), m_Replies));
+    }
+    if(m_UpperIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("upper")), m_Upper));
+    }
+    if(m_TopIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("top")), m_Top));
+    }
+    if(m_NoticeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("notice")), m_Notice));
+    }
+    if(m_VoteIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("vote")), m_Vote));
+    }
+    if(m_FolderIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("folder")), m_Folder));
+    }
+    if(m_ControlIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("control")), m_Control));
+    }
+    if(m_CursorIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("cursor")), m_Cursor));
     }
 }
 
@@ -131,6 +300,12 @@ bool Get_social_bilibili_replies_200_response::fromMultiPart(std::shared_ptr<Mul
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("page"))), refVal_setPage );
         setPage(refVal_setPage);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("config"))))
+    {
+        std::shared_ptr<Object> refVal_setConfig;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("config"))), refVal_setConfig );
+        setConfig(refVal_setConfig);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("hots"))))
     {
         std::vector<std::shared_ptr<Object>> refVal_setHots;
@@ -142,6 +317,48 @@ bool Get_social_bilibili_replies_200_response::fromMultiPart(std::shared_ptr<Mul
         std::vector<std::shared_ptr<Get_social_bilibili_replies_200_response_replies_inner>> refVal_setReplies;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("replies"))), refVal_setReplies );
         setReplies(refVal_setReplies);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("upper"))))
+    {
+        std::shared_ptr<Object> refVal_setUpper;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("upper"))), refVal_setUpper );
+        setUpper(refVal_setUpper);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("top"))))
+    {
+        std::shared_ptr<Object> refVal_setTop;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("top"))), refVal_setTop );
+        setTop(refVal_setTop);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("notice"))))
+    {
+        std::shared_ptr<Object> refVal_setNotice;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("notice"))), refVal_setNotice );
+        setNotice(refVal_setNotice);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("vote"))))
+    {
+        double refVal_setVote;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("vote"))), refVal_setVote );
+        setVote(refVal_setVote);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("folder"))))
+    {
+        std::shared_ptr<Object> refVal_setFolder;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("folder"))), refVal_setFolder );
+        setFolder(refVal_setFolder);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("control"))))
+    {
+        std::shared_ptr<Object> refVal_setControl;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("control"))), refVal_setControl );
+        setControl(refVal_setControl);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("cursor"))))
+    {
+        std::shared_ptr<Object> refVal_setCursor;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("cursor"))), refVal_setCursor );
+        setCursor(refVal_setCursor);
     }
     return ok;
 }
@@ -167,6 +384,27 @@ bool Get_social_bilibili_replies_200_response::pageIsSet() const
 void Get_social_bilibili_replies_200_response::unsetPage()
 {
     m_PageIsSet = false;
+}
+std::shared_ptr<Object> Get_social_bilibili_replies_200_response::getConfig() const
+{
+    return m_Config;
+}
+
+
+void Get_social_bilibili_replies_200_response::setConfig(const std::shared_ptr<Object>& value)
+{
+    m_Config = value;
+    m_ConfigIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::configIsSet() const
+{
+    return m_ConfigIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetConfig()
+{
+    m_ConfigIsSet = false;
 }
 std::vector<std::shared_ptr<Object>> Get_social_bilibili_replies_200_response::getHots() const
 {
@@ -209,6 +447,152 @@ bool Get_social_bilibili_replies_200_response::repliesIsSet() const
 void Get_social_bilibili_replies_200_response::unsetReplies()
 {
     m_RepliesIsSet = false;
+}
+std::shared_ptr<Object> Get_social_bilibili_replies_200_response::getUpper() const
+{
+    return m_Upper;
+}
+
+
+void Get_social_bilibili_replies_200_response::setUpper(const std::shared_ptr<Object>& value)
+{
+    m_Upper = value;
+    m_UpperIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::upperIsSet() const
+{
+    return m_UpperIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetUpper()
+{
+    m_UpperIsSet = false;
+}
+std::shared_ptr<Object> Get_social_bilibili_replies_200_response::getTop() const
+{
+    return m_Top;
+}
+
+
+void Get_social_bilibili_replies_200_response::setTop(const std::shared_ptr<Object>& value)
+{
+    m_Top = value;
+    m_TopIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::topIsSet() const
+{
+    return m_TopIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetTop()
+{
+    m_TopIsSet = false;
+}
+std::shared_ptr<Object> Get_social_bilibili_replies_200_response::getNotice() const
+{
+    return m_Notice;
+}
+
+
+void Get_social_bilibili_replies_200_response::setNotice(const std::shared_ptr<Object>& value)
+{
+    m_Notice = value;
+    m_NoticeIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::noticeIsSet() const
+{
+    return m_NoticeIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetNotice()
+{
+    m_NoticeIsSet = false;
+}
+double Get_social_bilibili_replies_200_response::getVote() const
+{
+    return m_Vote;
+}
+
+void Get_social_bilibili_replies_200_response::setVote(double value)
+{
+    m_Vote = value;
+    m_VoteIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::voteIsSet() const
+{
+    return m_VoteIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetVote()
+{
+    m_VoteIsSet = false;
+}
+std::shared_ptr<Object> Get_social_bilibili_replies_200_response::getFolder() const
+{
+    return m_Folder;
+}
+
+
+void Get_social_bilibili_replies_200_response::setFolder(const std::shared_ptr<Object>& value)
+{
+    m_Folder = value;
+    m_FolderIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::folderIsSet() const
+{
+    return m_FolderIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetFolder()
+{
+    m_FolderIsSet = false;
+}
+std::shared_ptr<Object> Get_social_bilibili_replies_200_response::getControl() const
+{
+    return m_Control;
+}
+
+
+void Get_social_bilibili_replies_200_response::setControl(const std::shared_ptr<Object>& value)
+{
+    m_Control = value;
+    m_ControlIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::controlIsSet() const
+{
+    return m_ControlIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetControl()
+{
+    m_ControlIsSet = false;
+}
+std::shared_ptr<Object> Get_social_bilibili_replies_200_response::getCursor() const
+{
+    return m_Cursor;
+}
+
+
+void Get_social_bilibili_replies_200_response::setCursor(const std::shared_ptr<Object>& value)
+{
+    m_Cursor = value;
+    m_CursorIsSet = true;
+}
+
+bool Get_social_bilibili_replies_200_response::cursorIsSet() const
+{
+    return m_CursorIsSet;
+}
+
+void Get_social_bilibili_replies_200_response::unsetCursor()
+{
+    m_CursorIsSet = false;
 }
 
 }

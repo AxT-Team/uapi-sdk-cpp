@@ -20,11 +20,9 @@ namespace model {
 
 Get_misc_tracking_carriers_200_response::Get_misc_tracking_carriers_200_response()
 {
-    m_Code = utility::conversions::to_string_t("");
-    m_CodeIsSet = false;
-    m_Message = utility::conversions::to_string_t("");
-    m_MessageIsSet = false;
-    m_DataIsSet = false;
+    m_CarriersIsSet = false;
+    m_Total = 0;
+    m_TotalIsSet = false;
 }
 
 Get_misc_tracking_carriers_200_response::~Get_misc_tracking_carriers_200_response()
@@ -39,20 +37,15 @@ void Get_misc_tracking_carriers_200_response::validate()
 web::json::value Get_misc_tracking_carriers_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
+    if(m_CarriersIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
+        val[utility::conversions::to_string_t(_XPLATSTR("carriers"))] = ModelBase::toJson(m_Carriers);
     }
-    if(m_MessageIsSet)
+    if(m_TotalIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
-    }
-    if(m_DataIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("data"))] = ModelBase::toJson(m_Data);
+        val[utility::conversions::to_string_t(_XPLATSTR("total"))] = ModelBase::toJson(m_Total);
     }
 
     return val;
@@ -61,36 +54,25 @@ web::json::value Get_misc_tracking_carriers_200_response::toJson() const
 bool Get_misc_tracking_carriers_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("carriers"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("carriers")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
+            std::vector<std::shared_ptr<Get_misc_tracking_carriers_200_response_carriers_inner>> refVal_setCarriers;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCarriers);
+            setCarriers(refVal_setCarriers);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("total"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("total")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setMessage;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
-            setMessage(refVal_setMessage);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("data"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("data")));
-        if(!fieldValue.is_null())
-        {
-            std::shared_ptr<Get_misc_tracking_carriers_200_response_data> refVal_setData;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setData);
-            setData(refVal_setData);
+            int32_t refVal_setTotal;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTotal);
+            setTotal(refVal_setTotal);
             
         }
     }
@@ -104,17 +86,13 @@ void Get_misc_tracking_carriers_200_response::toMultipart(std::shared_ptr<Multip
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
+    if(m_CarriersIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("carriers")), m_Carriers));
     }
-    if(m_MessageIsSet)
+    if(m_TotalIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
-    }
-    if(m_DataIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("data")), m_Data));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("total")), m_Total));
     }
 }
 
@@ -127,90 +105,62 @@ bool Get_misc_tracking_carriers_200_response::fromMultiPart(std::shared_ptr<Mult
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("carriers"))))
     {
-        utility::string_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
+        std::vector<std::shared_ptr<Get_misc_tracking_carriers_200_response_carriers_inner>> refVal_setCarriers;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("carriers"))), refVal_setCarriers );
+        setCarriers(refVal_setCarriers);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("total"))))
     {
-        utility::string_t refVal_setMessage;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
-        setMessage(refVal_setMessage);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("data"))))
-    {
-        std::shared_ptr<Get_misc_tracking_carriers_200_response_data> refVal_setData;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("data"))), refVal_setData );
-        setData(refVal_setData);
+        int32_t refVal_setTotal;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("total"))), refVal_setTotal );
+        setTotal(refVal_setTotal);
     }
     return ok;
 }
 
 
-utility::string_t Get_misc_tracking_carriers_200_response::getCode() const
+std::vector<std::shared_ptr<Get_misc_tracking_carriers_200_response_carriers_inner>> Get_misc_tracking_carriers_200_response::getCarriers() const
 {
-    return m_Code;
+    return m_Carriers;
 }
 
 
-void Get_misc_tracking_carriers_200_response::setCode(const utility::string_t& value)
+void Get_misc_tracking_carriers_200_response::setCarriers(const std::vector<std::shared_ptr<Get_misc_tracking_carriers_200_response_carriers_inner>>& value)
 {
-    m_Code = value;
-    m_CodeIsSet = true;
+    m_Carriers = value;
+    m_CarriersIsSet = true;
 }
 
-bool Get_misc_tracking_carriers_200_response::codeIsSet() const
+bool Get_misc_tracking_carriers_200_response::carriersIsSet() const
 {
-    return m_CodeIsSet;
+    return m_CarriersIsSet;
 }
 
-void Get_misc_tracking_carriers_200_response::unsetCode()
+void Get_misc_tracking_carriers_200_response::unsetCarriers()
 {
-    m_CodeIsSet = false;
+    m_CarriersIsSet = false;
 }
-utility::string_t Get_misc_tracking_carriers_200_response::getMessage() const
+int32_t Get_misc_tracking_carriers_200_response::getTotal() const
 {
-    return m_Message;
-}
-
-
-void Get_misc_tracking_carriers_200_response::setMessage(const utility::string_t& value)
-{
-    m_Message = value;
-    m_MessageIsSet = true;
+    return m_Total;
 }
 
-bool Get_misc_tracking_carriers_200_response::messageIsSet() const
+void Get_misc_tracking_carriers_200_response::setTotal(int32_t value)
 {
-    return m_MessageIsSet;
+    m_Total = value;
+    m_TotalIsSet = true;
 }
 
-void Get_misc_tracking_carriers_200_response::unsetMessage()
+bool Get_misc_tracking_carriers_200_response::totalIsSet() const
 {
-    m_MessageIsSet = false;
-}
-std::shared_ptr<Get_misc_tracking_carriers_200_response_data> Get_misc_tracking_carriers_200_response::getData() const
-{
-    return m_Data;
+    return m_TotalIsSet;
 }
 
-
-void Get_misc_tracking_carriers_200_response::setData(const std::shared_ptr<Get_misc_tracking_carriers_200_response_data>& value)
+void Get_misc_tracking_carriers_200_response::unsetTotal()
 {
-    m_Data = value;
-    m_DataIsSet = true;
-}
-
-bool Get_misc_tracking_carriers_200_response::dataIsSet() const
-{
-    return m_DataIsSet;
-}
-
-void Get_misc_tracking_carriers_200_response::unsetData()
-{
-    m_DataIsSet = false;
+    m_TotalIsSet = false;
 }
 
 }

@@ -21,15 +21,24 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Get_misc_holiday_calendar_200_response_data.h"
+#include "CppRestOpenAPIClient/model/Get_misc_holiday_calendar_200_response_holidays_inner.h"
+#include "CppRestOpenAPIClient/model/Get_misc_holiday_calendar_200_response_query.h"
 #include <cpprest/details/basic_types.h>
+#include "CppRestOpenAPIClient/model/Get_misc_holiday_calendar_200_response_days_inner.h"
+#include <vector>
+#include "CppRestOpenAPIClient/model/Get_misc_holiday_calendar_200_response_nearby.h"
+#include "CppRestOpenAPIClient/model/Get_misc_holiday_calendar_200_response_summary.h"
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
-class Get_misc_holiday_calendar_200_response_data;
+class Get_misc_holiday_calendar_200_response_query;
+class Get_misc_holiday_calendar_200_response_summary;
+class Get_misc_holiday_calendar_200_response_days_inner;
+class Get_misc_holiday_calendar_200_response_holidays_inner;
+class Get_misc_holiday_calendar_200_response_nearby;
 
 
 class  Get_misc_holiday_calendar_200_response
@@ -55,31 +64,64 @@ public:
     /// Get_misc_holiday_calendar_200_response members
 
 
-    int32_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(int32_t value);
+    /// <summary>
+    /// 查询模式：day、month、year。
+    /// </summary>
+    utility::string_t getMode() const;
+    bool modeIsSet() const;
+    void unsetMode();
+    void setMode(const utility::string_t& value);
 
-    utility::string_t getMessage() const;
-    bool messageIsSet() const;
-    void unsetMessage();
-    void setMessage(const utility::string_t& value);
+    std::shared_ptr<Get_misc_holiday_calendar_200_response_query> getQuery() const;
+    bool queryIsSet() const;
+    void unsetQuery();
+    void setQuery(const std::shared_ptr<Get_misc_holiday_calendar_200_response_query>& value);
 
-    std::shared_ptr<Get_misc_holiday_calendar_200_response_data> getData() const;
-    bool dataIsSet() const;
-    void unsetData();
-    void setData(const std::shared_ptr<Get_misc_holiday_calendar_200_response_data>& value);
+    std::shared_ptr<Get_misc_holiday_calendar_200_response_summary> getSummary() const;
+    bool summaryIsSet() const;
+    void unsetSummary();
+    void setSummary(const std::shared_ptr<Get_misc_holiday_calendar_200_response_summary>& value);
+
+    /// <summary>
+    /// 日期明细列表。
+    /// </summary>
+    std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_days_inner>> getDays() const;
+    bool daysIsSet() const;
+    void unsetDays();
+    void setDays(const std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_days_inner>>& value);
+
+    /// <summary>
+    /// 节日事件列表。
+    /// </summary>
+    std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_holidays_inner>> getHolidays() const;
+    bool holidaysIsSet() const;
+    void unsetHolidays();
+    void setHolidays(const std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_holidays_inner>>& value);
+
+    std::shared_ptr<Get_misc_holiday_calendar_200_response_nearby> getNearby() const;
+    bool nearbyIsSet() const;
+    void unsetNearby();
+    void setNearby(const std::shared_ptr<Get_misc_holiday_calendar_200_response_nearby>& value);
 
 
 protected:
-    int32_t m_Code;
-    bool m_CodeIsSet;
+    utility::string_t m_Mode;
+    bool m_ModeIsSet;
 
-    utility::string_t m_Message;
-    bool m_MessageIsSet;
+    std::shared_ptr<Get_misc_holiday_calendar_200_response_query> m_Query;
+    bool m_QueryIsSet;
 
-    std::shared_ptr<Get_misc_holiday_calendar_200_response_data> m_Data;
-    bool m_DataIsSet;
+    std::shared_ptr<Get_misc_holiday_calendar_200_response_summary> m_Summary;
+    bool m_SummaryIsSet;
+
+    std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_days_inner>> m_Days;
+    bool m_DaysIsSet;
+
+    std::vector<std::shared_ptr<Get_misc_holiday_calendar_200_response_holidays_inner>> m_Holidays;
+    bool m_HolidaysIsSet;
+
+    std::shared_ptr<Get_misc_holiday_calendar_200_response_nearby> m_Nearby;
+    bool m_NearbyIsSet;
 
 };
 

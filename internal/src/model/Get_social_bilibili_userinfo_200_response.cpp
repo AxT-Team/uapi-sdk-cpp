@@ -20,11 +20,32 @@ namespace model {
 
 Get_social_bilibili_userinfo_200_response::Get_social_bilibili_userinfo_200_response()
 {
-    m_Code = 0;
-    m_CodeIsSet = false;
-    m_DataIsSet = false;
-    m_Message = utility::conversions::to_string_t("");
-    m_MessageIsSet = false;
+    m_Mid = 0;
+    m_MidIsSet = false;
+    m_Name = utility::conversions::to_string_t("");
+    m_NameIsSet = false;
+    m_Sex = utility::conversions::to_string_t("");
+    m_SexIsSet = false;
+    m_Face = utility::conversions::to_string_t("");
+    m_FaceIsSet = false;
+    m_Sign = utility::conversions::to_string_t("");
+    m_SignIsSet = false;
+    m_Level = 0;
+    m_LevelIsSet = false;
+    m_Birthday = utility::conversions::to_string_t("");
+    m_BirthdayIsSet = false;
+    m_Vip_type = 0;
+    m_Vip_typeIsSet = false;
+    m_Vip_status = 0;
+    m_Vip_statusIsSet = false;
+    m_Following = 0;
+    m_FollowingIsSet = false;
+    m_Follower = 0;
+    m_FollowerIsSet = false;
+    m_Archive_count = 0;
+    m_Archive_countIsSet = false;
+    m_Article_count = 0;
+    m_Article_countIsSet = false;
 }
 
 Get_social_bilibili_userinfo_200_response::~Get_social_bilibili_userinfo_200_response()
@@ -39,20 +60,70 @@ void Get_social_bilibili_userinfo_200_response::validate()
 web::json::value Get_social_bilibili_userinfo_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
+    if(m_MidIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
+        val[utility::conversions::to_string_t(_XPLATSTR("mid"))] = ModelBase::toJson(m_Mid);
     }
-    if(m_DataIsSet)
+    if(m_NameIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("data"))] = ModelBase::toJson(m_Data);
+        val[utility::conversions::to_string_t(_XPLATSTR("name"))] = ModelBase::toJson(m_Name);
     }
-    if(m_MessageIsSet)
+    if(m_SexIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
+        val[utility::conversions::to_string_t(_XPLATSTR("sex"))] = ModelBase::toJson(m_Sex);
+    }
+    if(m_FaceIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("face"))] = ModelBase::toJson(m_Face);
+    }
+    if(m_SignIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("sign"))] = ModelBase::toJson(m_Sign);
+    }
+    if(m_LevelIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("level"))] = ModelBase::toJson(m_Level);
+    }
+    if(m_BirthdayIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("birthday"))] = ModelBase::toJson(m_Birthday);
+    }
+    if(m_Vip_typeIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("vip_type"))] = ModelBase::toJson(m_Vip_type);
+    }
+    if(m_Vip_statusIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("vip_status"))] = ModelBase::toJson(m_Vip_status);
+    }
+    if(m_FollowingIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("following"))] = ModelBase::toJson(m_Following);
+    }
+    if(m_FollowerIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("follower"))] = ModelBase::toJson(m_Follower);
+    }
+    if(m_Archive_countIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("archive_count"))] = ModelBase::toJson(m_Archive_count);
+    }
+    if(m_Article_countIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("article_count"))] = ModelBase::toJson(m_Article_count);
     }
 
     return val;
@@ -61,36 +132,146 @@ web::json::value Get_social_bilibili_userinfo_200_response::toJson() const
 bool Get_social_bilibili_userinfo_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("mid"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("mid")));
         if(!fieldValue.is_null())
         {
-            int32_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
+            int32_t refVal_setMid;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setMid);
+            setMid(refVal_setMid);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("name"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("data")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("name")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Get_social_bilibili_userinfo_200_response_data> refVal_setData;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setData);
-            setData(refVal_setData);
+            utility::string_t refVal_setName;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setName);
+            setName(refVal_setName);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("sex"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("sex")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setMessage;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
-            setMessage(refVal_setMessage);
+            utility::string_t refVal_setSex;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSex);
+            setSex(refVal_setSex);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("face"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("face")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setFace;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setFace);
+            setFace(refVal_setFace);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("sign"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("sign")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setSign;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setSign);
+            setSign(refVal_setSign);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("level"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("level")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setLevel;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setLevel);
+            setLevel(refVal_setLevel);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("birthday"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("birthday")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setBirthday;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setBirthday);
+            setBirthday(refVal_setBirthday);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("vip_type"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("vip_type")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setVipType;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setVipType);
+            setVipType(refVal_setVipType);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("vip_status"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("vip_status")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setVipStatus;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setVipStatus);
+            setVipStatus(refVal_setVipStatus);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("following"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("following")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setFollowing;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setFollowing);
+            setFollowing(refVal_setFollowing);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("follower"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("follower")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setFollower;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setFollower);
+            setFollower(refVal_setFollower);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("archive_count"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("archive_count")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setArchiveCount;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setArchiveCount);
+            setArchiveCount(refVal_setArchiveCount);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("article_count"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("article_count")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setArticleCount;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setArticleCount);
+            setArticleCount(refVal_setArticleCount);
             
         }
     }
@@ -104,17 +285,57 @@ void Get_social_bilibili_userinfo_200_response::toMultipart(std::shared_ptr<Mult
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
+    if(m_MidIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("mid")), m_Mid));
     }
-    if(m_DataIsSet)
+    if(m_NameIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("data")), m_Data));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("name")), m_Name));
     }
-    if(m_MessageIsSet)
+    if(m_SexIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("sex")), m_Sex));
+    }
+    if(m_FaceIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("face")), m_Face));
+    }
+    if(m_SignIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("sign")), m_Sign));
+    }
+    if(m_LevelIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("level")), m_Level));
+    }
+    if(m_BirthdayIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("birthday")), m_Birthday));
+    }
+    if(m_Vip_typeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("vip_type")), m_Vip_type));
+    }
+    if(m_Vip_statusIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("vip_status")), m_Vip_status));
+    }
+    if(m_FollowingIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("following")), m_Following));
+    }
+    if(m_FollowerIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("follower")), m_Follower));
+    }
+    if(m_Archive_countIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("archive_count")), m_Archive_count));
+    }
+    if(m_Article_countIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("article_count")), m_Article_count));
     }
 }
 
@@ -127,89 +348,352 @@ bool Get_social_bilibili_userinfo_200_response::fromMultiPart(std::shared_ptr<Mu
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("mid"))))
     {
-        int32_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
+        int32_t refVal_setMid;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("mid"))), refVal_setMid );
+        setMid(refVal_setMid);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("name"))))
     {
-        std::shared_ptr<Get_social_bilibili_userinfo_200_response_data> refVal_setData;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("data"))), refVal_setData );
-        setData(refVal_setData);
+        utility::string_t refVal_setName;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("name"))), refVal_setName );
+        setName(refVal_setName);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("sex"))))
     {
-        utility::string_t refVal_setMessage;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
-        setMessage(refVal_setMessage);
+        utility::string_t refVal_setSex;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("sex"))), refVal_setSex );
+        setSex(refVal_setSex);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("face"))))
+    {
+        utility::string_t refVal_setFace;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("face"))), refVal_setFace );
+        setFace(refVal_setFace);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("sign"))))
+    {
+        utility::string_t refVal_setSign;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("sign"))), refVal_setSign );
+        setSign(refVal_setSign);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("level"))))
+    {
+        int32_t refVal_setLevel;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("level"))), refVal_setLevel );
+        setLevel(refVal_setLevel);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("birthday"))))
+    {
+        utility::string_t refVal_setBirthday;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("birthday"))), refVal_setBirthday );
+        setBirthday(refVal_setBirthday);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("vip_type"))))
+    {
+        int32_t refVal_setVipType;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("vip_type"))), refVal_setVipType );
+        setVipType(refVal_setVipType);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("vip_status"))))
+    {
+        int32_t refVal_setVipStatus;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("vip_status"))), refVal_setVipStatus );
+        setVipStatus(refVal_setVipStatus);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("following"))))
+    {
+        int32_t refVal_setFollowing;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("following"))), refVal_setFollowing );
+        setFollowing(refVal_setFollowing);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("follower"))))
+    {
+        int32_t refVal_setFollower;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("follower"))), refVal_setFollower );
+        setFollower(refVal_setFollower);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("archive_count"))))
+    {
+        int32_t refVal_setArchiveCount;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("archive_count"))), refVal_setArchiveCount );
+        setArchiveCount(refVal_setArchiveCount);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("article_count"))))
+    {
+        int32_t refVal_setArticleCount;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("article_count"))), refVal_setArticleCount );
+        setArticleCount(refVal_setArticleCount);
     }
     return ok;
 }
 
 
-int32_t Get_social_bilibili_userinfo_200_response::getCode() const
+int32_t Get_social_bilibili_userinfo_200_response::getMid() const
 {
-    return m_Code;
+    return m_Mid;
 }
 
-void Get_social_bilibili_userinfo_200_response::setCode(int32_t value)
+void Get_social_bilibili_userinfo_200_response::setMid(int32_t value)
 {
-    m_Code = value;
-    m_CodeIsSet = true;
+    m_Mid = value;
+    m_MidIsSet = true;
 }
 
-bool Get_social_bilibili_userinfo_200_response::codeIsSet() const
+bool Get_social_bilibili_userinfo_200_response::midIsSet() const
 {
-    return m_CodeIsSet;
+    return m_MidIsSet;
 }
 
-void Get_social_bilibili_userinfo_200_response::unsetCode()
+void Get_social_bilibili_userinfo_200_response::unsetMid()
 {
-    m_CodeIsSet = false;
+    m_MidIsSet = false;
 }
-std::shared_ptr<Get_social_bilibili_userinfo_200_response_data> Get_social_bilibili_userinfo_200_response::getData() const
+utility::string_t Get_social_bilibili_userinfo_200_response::getName() const
 {
-    return m_Data;
-}
-
-
-void Get_social_bilibili_userinfo_200_response::setData(const std::shared_ptr<Get_social_bilibili_userinfo_200_response_data>& value)
-{
-    m_Data = value;
-    m_DataIsSet = true;
-}
-
-bool Get_social_bilibili_userinfo_200_response::dataIsSet() const
-{
-    return m_DataIsSet;
-}
-
-void Get_social_bilibili_userinfo_200_response::unsetData()
-{
-    m_DataIsSet = false;
-}
-utility::string_t Get_social_bilibili_userinfo_200_response::getMessage() const
-{
-    return m_Message;
+    return m_Name;
 }
 
 
-void Get_social_bilibili_userinfo_200_response::setMessage(const utility::string_t& value)
+void Get_social_bilibili_userinfo_200_response::setName(const utility::string_t& value)
 {
-    m_Message = value;
-    m_MessageIsSet = true;
+    m_Name = value;
+    m_NameIsSet = true;
 }
 
-bool Get_social_bilibili_userinfo_200_response::messageIsSet() const
+bool Get_social_bilibili_userinfo_200_response::nameIsSet() const
 {
-    return m_MessageIsSet;
+    return m_NameIsSet;
 }
 
-void Get_social_bilibili_userinfo_200_response::unsetMessage()
+void Get_social_bilibili_userinfo_200_response::unsetName()
 {
-    m_MessageIsSet = false;
+    m_NameIsSet = false;
+}
+utility::string_t Get_social_bilibili_userinfo_200_response::getSex() const
+{
+    return m_Sex;
+}
+
+
+void Get_social_bilibili_userinfo_200_response::setSex(const utility::string_t& value)
+{
+    m_Sex = value;
+    m_SexIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::sexIsSet() const
+{
+    return m_SexIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetSex()
+{
+    m_SexIsSet = false;
+}
+utility::string_t Get_social_bilibili_userinfo_200_response::getFace() const
+{
+    return m_Face;
+}
+
+
+void Get_social_bilibili_userinfo_200_response::setFace(const utility::string_t& value)
+{
+    m_Face = value;
+    m_FaceIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::faceIsSet() const
+{
+    return m_FaceIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetFace()
+{
+    m_FaceIsSet = false;
+}
+utility::string_t Get_social_bilibili_userinfo_200_response::getSign() const
+{
+    return m_Sign;
+}
+
+
+void Get_social_bilibili_userinfo_200_response::setSign(const utility::string_t& value)
+{
+    m_Sign = value;
+    m_SignIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::signIsSet() const
+{
+    return m_SignIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetSign()
+{
+    m_SignIsSet = false;
+}
+int32_t Get_social_bilibili_userinfo_200_response::getLevel() const
+{
+    return m_Level;
+}
+
+void Get_social_bilibili_userinfo_200_response::setLevel(int32_t value)
+{
+    m_Level = value;
+    m_LevelIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::levelIsSet() const
+{
+    return m_LevelIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetLevel()
+{
+    m_LevelIsSet = false;
+}
+utility::string_t Get_social_bilibili_userinfo_200_response::getBirthday() const
+{
+    return m_Birthday;
+}
+
+
+void Get_social_bilibili_userinfo_200_response::setBirthday(const utility::string_t& value)
+{
+    m_Birthday = value;
+    m_BirthdayIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::birthdayIsSet() const
+{
+    return m_BirthdayIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetBirthday()
+{
+    m_BirthdayIsSet = false;
+}
+int32_t Get_social_bilibili_userinfo_200_response::getVipType() const
+{
+    return m_Vip_type;
+}
+
+void Get_social_bilibili_userinfo_200_response::setVipType(int32_t value)
+{
+    m_Vip_type = value;
+    m_Vip_typeIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::vipTypeIsSet() const
+{
+    return m_Vip_typeIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetVip_type()
+{
+    m_Vip_typeIsSet = false;
+}
+int32_t Get_social_bilibili_userinfo_200_response::getVipStatus() const
+{
+    return m_Vip_status;
+}
+
+void Get_social_bilibili_userinfo_200_response::setVipStatus(int32_t value)
+{
+    m_Vip_status = value;
+    m_Vip_statusIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::vipStatusIsSet() const
+{
+    return m_Vip_statusIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetVip_status()
+{
+    m_Vip_statusIsSet = false;
+}
+int32_t Get_social_bilibili_userinfo_200_response::getFollowing() const
+{
+    return m_Following;
+}
+
+void Get_social_bilibili_userinfo_200_response::setFollowing(int32_t value)
+{
+    m_Following = value;
+    m_FollowingIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::followingIsSet() const
+{
+    return m_FollowingIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetFollowing()
+{
+    m_FollowingIsSet = false;
+}
+int32_t Get_social_bilibili_userinfo_200_response::getFollower() const
+{
+    return m_Follower;
+}
+
+void Get_social_bilibili_userinfo_200_response::setFollower(int32_t value)
+{
+    m_Follower = value;
+    m_FollowerIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::followerIsSet() const
+{
+    return m_FollowerIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetFollower()
+{
+    m_FollowerIsSet = false;
+}
+int32_t Get_social_bilibili_userinfo_200_response::getArchiveCount() const
+{
+    return m_Archive_count;
+}
+
+void Get_social_bilibili_userinfo_200_response::setArchiveCount(int32_t value)
+{
+    m_Archive_count = value;
+    m_Archive_countIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::archiveCountIsSet() const
+{
+    return m_Archive_countIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetArchive_count()
+{
+    m_Archive_countIsSet = false;
+}
+int32_t Get_social_bilibili_userinfo_200_response::getArticleCount() const
+{
+    return m_Article_count;
+}
+
+void Get_social_bilibili_userinfo_200_response::setArticleCount(int32_t value)
+{
+    m_Article_count = value;
+    m_Article_countIsSet = true;
+}
+
+bool Get_social_bilibili_userinfo_200_response::articleCountIsSet() const
+{
+    return m_Article_countIsSet;
+}
+
+void Get_social_bilibili_userinfo_200_response::unsetArticle_count()
+{
+    m_Article_countIsSet = false;
 }
 
 }

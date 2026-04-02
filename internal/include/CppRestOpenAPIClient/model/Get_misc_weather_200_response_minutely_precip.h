@@ -12,7 +12,7 @@
 /*
  * Get_misc_weather_200_response_minutely_precip.h
  *
- * 分钟级降水预报（minutely&#x3D;true 时返回，仅国内城市可用）
+ * 分钟级降水预报（minutely&#x3D;true 时返回，仅国内城市可用，精确到2分钟）
  */
 
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Get_misc_weather_200_response_minutely_precip_H_
@@ -34,7 +34,7 @@ class Get_misc_weather_200_response_minutely_precip_data_inner;
 
 
 /// <summary>
-/// 分钟级降水预报（minutely&#x3D;true 时返回，仅国内城市可用）
+/// 分钟级降水预报（minutely&#x3D;true 时返回，仅国内城市可用，精确到2分钟）
 /// </summary>
 class  Get_misc_weather_200_response_minutely_precip
     : public ModelBase
@@ -76,7 +76,7 @@ public:
     void setUpdateTime(const utility::string_t& value);
 
     /// <summary>
-    /// 每5分钟一个数据点，共24个
+    /// 精确到2分钟的数据点
     /// </summary>
     std::vector<std::shared_ptr<Get_misc_weather_200_response_minutely_precip_data_inner>> getData() const;
     bool dataIsSet() const;

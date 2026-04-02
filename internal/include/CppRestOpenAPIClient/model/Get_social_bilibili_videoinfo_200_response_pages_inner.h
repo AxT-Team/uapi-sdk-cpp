@@ -22,12 +22,14 @@
 #include "CppRestOpenAPIClient/ModelBase.h"
 
 #include <cpprest/details/basic_types.h>
+#include "CppRestOpenAPIClient/model/Get_social_bilibili_videoinfo_200_response_pages_inner_dimension.h"
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
+class Get_social_bilibili_videoinfo_200_response_pages_inner_dimension;
 
 
 class  Get_social_bilibili_videoinfo_200_response_pages_inner
@@ -78,12 +80,41 @@ public:
     void setPart(const utility::string_t& value);
 
     /// <summary>
+    /// 视频来源。
+    /// </summary>
+    utility::string_t getFrom() const;
+    bool fromIsSet() const;
+    void unsetFrom();
+    void setFrom(const utility::string_t& value);
+
+    /// <summary>
     /// 该分P的持续时间，单位为秒。
     /// </summary>
     double getDuration() const;
     bool durationIsSet() const;
     void unsetDuration();
     void setDuration(double value);
+
+    /// <summary>
+    /// 外部视频源 ID，通常为空。
+    /// </summary>
+    utility::string_t getVid() const;
+    bool vidIsSet() const;
+    void unsetVid();
+    void setVid(const utility::string_t& value);
+
+    /// <summary>
+    /// 外链地址，通常为空。
+    /// </summary>
+    utility::string_t getWeblink() const;
+    bool weblinkIsSet() const;
+    void unsetWeblink();
+    void setWeblink(const utility::string_t& value);
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner_dimension> getDimension() const;
+    bool dimensionIsSet() const;
+    void unsetDimension();
+    void setDimension(const std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner_dimension>& value);
 
 
 protected:
@@ -96,8 +127,20 @@ protected:
     utility::string_t m_Part;
     bool m_PartIsSet;
 
+    utility::string_t m_From;
+    bool m_FromIsSet;
+
     double m_Duration;
     bool m_DurationIsSet;
+
+    utility::string_t m_Vid;
+    bool m_VidIsSet;
+
+    utility::string_t m_Weblink;
+    bool m_WeblinkIsSet;
+
+    std::shared_ptr<Get_social_bilibili_videoinfo_200_response_pages_inner_dimension> m_Dimension;
+    bool m_DimensionIsSet;
 
 };
 

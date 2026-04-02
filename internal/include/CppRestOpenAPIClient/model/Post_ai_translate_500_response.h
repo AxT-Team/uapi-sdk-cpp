@@ -68,11 +68,6 @@ public:
     void unsetError();
     void setError(const utility::string_t& value);
 
-    bool isIsBatch() const;
-    bool isBatchIsSet() const;
-    void unsetIs_batch();
-    void setIsBatch(bool value);
-
 
 protected:
     int32_t m_Code;
@@ -83,9 +78,6 @@ protected:
 
     utility::string_t m_Error;
     bool m_ErrorIsSet;
-
-    bool m_Is_batch;
-    bool m_Is_batchIsSet;
 
 };
 

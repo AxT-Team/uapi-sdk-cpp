@@ -21,6 +21,7 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include <cpprest/details/basic_types.h>
 
 namespace org {
 namespace openapitools {
@@ -54,6 +55,14 @@ public:
     /////////////////////////////////////////////
     /// Get_social_bilibili_videoinfo_200_response_stat members
 
+
+    /// <summary>
+    /// AV 号。
+    /// </summary>
+    double getAid() const;
+    bool aidIsSet() const;
+    void unsetAid();
+    void setAid(double value);
 
     /// <summary>
     /// 播放数。
@@ -111,8 +120,51 @@ public:
     void unsetLike();
     void setLike(double value);
 
+    /// <summary>
+    /// 当前全站/分区排名。
+    /// </summary>
+    double getNowRank() const;
+    bool nowRankIsSet() const;
+    void unsetNow_rank();
+    void setNowRank(double value);
+
+    /// <summary>
+    /// 历史排名。
+    /// </summary>
+    double getHisRank() const;
+    bool hisRankIsSet() const;
+    void unsetHis_rank();
+    void setHisRank(double value);
+
+    /// <summary>
+    /// 点踩量（通常为 0）。
+    /// </summary>
+    double getDislike() const;
+    bool dislikeIsSet() const;
+    void unsetDislike();
+    void setDislike(double value);
+
+    /// <summary>
+    /// 评分/评估文案，通常为空。
+    /// </summary>
+    utility::string_t getEvaluation() const;
+    bool evaluationIsSet() const;
+    void unsetEvaluation();
+    void setEvaluation(const utility::string_t& value);
+
+    /// <summary>
+    /// 视频类型相关历史字段。
+    /// </summary>
+    double getVt() const;
+    bool vtIsSet() const;
+    void unsetVt();
+    void setVt(double value);
+
 
 protected:
+    double m_Aid;
+    bool m_AidIsSet;
+
     double m_View;
     bool m_ViewIsSet;
 
@@ -133,6 +185,21 @@ protected:
 
     double m_Like;
     bool m_LikeIsSet;
+
+    double m_Now_rank;
+    bool m_Now_rankIsSet;
+
+    double m_His_rank;
+    bool m_His_rankIsSet;
+
+    double m_Dislike;
+    bool m_DislikeIsSet;
+
+    utility::string_t m_Evaluation;
+    bool m_EvaluationIsSet;
+
+    double m_Vt;
+    bool m_VtIsSet;
 
 };
 

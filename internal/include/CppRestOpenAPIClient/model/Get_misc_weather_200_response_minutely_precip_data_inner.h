@@ -62,7 +62,7 @@ public:
     void setTime(const utility::string_t& value);
 
     /// <summary>
-    /// 5分钟累计降水量 mm
+    /// 该时间点的降水量 mm
     /// </summary>
     double getPrecip() const;
     bool precipIsSet() const;

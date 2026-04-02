@@ -68,10 +68,10 @@ public:
     /// AI智能翻译
     /// </summary>
     /// <remarks>
-    /// 这是一个商业级的AI智能翻译服务，采用最新的神经网络翻译技术和大语言模型，提供远超传统机器翻译的质量。  &gt; [!VIP] &gt; 本API目前处于**限时免费**阶段，我们鼓励开发者深度集成和测试。未来，它将转为付费API，为用户提供更稳定、更智能的翻译服务。  ## 功能概述  - **智能双模式**: 支持单个文本翻译和批量文本翻译的统一接口设计，自动识别请求类型并提供相应的翻译服务。系统会根据输入自动判断是处理单条文本还是批量文本，无需使用不同的接口。 - **多风格适配**: 提供随意口语化、专业商务、学术正式、文学艺术四种翻译风格，能够根据不同场景需求调整翻译的语言风格和表达方式。 - **上下文感知**: 支持通用、商务、技术、医疗、法律、市场营销、娱乐、教育、新闻等九种专业领域的上下文翻译，确保术语准确性和表达地道性。 - **高质量保证**: 内置质量评估系统，对每次翻译结果进行流畅度、准确度、完整性评分，并提供置信度分数和替代翻译建议。 - **智能解释**: 提供关键词组翻译注释、文化背景说明和语法结构分析，帮助用户理解翻译逻辑和文化差异。 - **高效批量**: 批量翻译支持最多50条文本，总计10万字符，配备智能并发控制（1-10并发）和失败重试机制。 - **快速模式**: 提供快速模式选项，在保证95%+准确率的前提下，响应时间缩短至800ms内，适合实时翻译和聊天应用。 - **格式保留**: 智能识别并保持原文的格式结构，包括换行、缩进、特殊符号等，确保翻译后的文本保持良好的可读性。
+    /// 这是一个商业级的AI智能翻译服务，采用最新的神经网络翻译技术和大语言模型，提供远超传统机器翻译的质量。  ## 功能概述  - **单文本翻译**: 专注处理单条文本翻译，适合需要高质量译文的业务场景。 - **多风格适配**: 提供随意口语化、专业商务、学术正式、文学艺术四种翻译风格，能够根据不同场景需求调整翻译的语言风格和表达方式。 - **上下文感知**: 支持通用、商务、技术、医疗、法律、市场营销、娱乐、教育、新闻等九种专业领域的上下文翻译，确保术语准确性和表达地道性。 - **格式保留**: 智能识别并保持原文的格式结构，包括换行、缩进、特殊符号等，确保翻译后的文本保持良好的可读性。  ## 支持的语言  我们支持超过100种语言的互译，详见下方参数列表。
     /// </remarks>
-    /// <param name="targetLang">目标语言代码。请从支持的语言列表中选择一个语言代码。</param>
-    /// <param name="postAiTranslateRequest">包含翻译参数的JSON对象，支持单个文本或批量文本翻译</param>
+    /// <param name="targetLang">目标语言代码。请从[支持的语言列表](#enum-list)中选择一个语言代码。</param>
+    /// <param name="postAiTranslateRequest"></param>
     pplx::task<std::shared_ptr<Post_ai_translate_200_response>> postAiTranslate(
         utility::string_t targetLang,
         std::shared_ptr<Post_ai_translate_request> postAiTranslateRequest
@@ -82,7 +82,7 @@ public:
     /// <remarks>
     /// 想让翻译结果像打字机一样逐字显示出来？这个流式翻译接口能实现这种效果。  ## 功能概述 不同于传统翻译API一次性返回完整结果，这个接口会实时地、一个字一个字地把翻译内容推给你（就像ChatGPT回复消息那样），非常适合用在聊天应用、直播字幕等需要即时反馈的场景。  ## 它能做什么 - **中英互译**：支持中文和英文之间的双向翻译 - **自动识别**：不确定源语言？设置为 &#x60;auto&#x60; 让我们自动检测 - **逐字返回**：翻译结果会像打字机一样逐字流式返回，用户体验更流畅 - **音频朗读**：部分翻译结果会附带音频链接，方便朗读  ## 支持的语言 目前专注于中英互译，支持以下选项： - &#x60;中文&#x60;（简体/繁体） - &#x60;英文&#x60; - &#x60;auto&#x60;（自动检测）
     /// </remarks>
-    /// <param name="postTranslateStreamRequest">包含翻译参数的JSON对象</param>
+    /// <param name="postTranslateStreamRequest"></param>
     pplx::task<utility::string_t> postTranslateStream(
         std::shared_ptr<Post_translate_stream_request> postTranslateStreamRequest
     ) const;
@@ -92,8 +92,8 @@ public:
     /// <remarks>
     /// 需要跨越语言的鸿沟进行交流？这个翻译接口是你可靠的&#39;同声传译&#39;。  ## 功能概述 你可以将一段源语言文本（我们能自动检测源语言）翻译成你指定的任何目标语言。无论是中译英、日译法，都不在话下。  ## 支持的语言 我们支持超过100种语言的互译，包括但不限于：中文（简体/繁体）、英语、日语、韩语、法语、德语、西班牙语、俄语、阿拉伯语等主流语言，以及各种小语种。详见下方参数列表。
     /// </remarks>
-    /// <param name="toLang">目标语言代码。请从支持的语言列表中选择一个语言代码。</param>
-    /// <param name="postTranslateTextRequest">包含待翻译文本的JSON对象</param>
+    /// <param name="toLang">目标语言代码。请从[支持的语言列表](#enum-list)中选择一个语言代码。</param>
+    /// <param name="postTranslateTextRequest"></param>
     pplx::task<std::shared_ptr<Post_translate_text_200_response>> postTranslateText(
         utility::string_t toLang,
         std::shared_ptr<Post_translate_text_request> postTranslateTextRequest

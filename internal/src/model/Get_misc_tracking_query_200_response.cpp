@@ -20,11 +20,15 @@ namespace model {
 
 Get_misc_tracking_query_200_response::Get_misc_tracking_query_200_response()
 {
-    m_Code = utility::conversions::to_string_t("");
-    m_CodeIsSet = false;
-    m_Message = utility::conversions::to_string_t("");
-    m_MessageIsSet = false;
-    m_DataIsSet = false;
+    m_Tracking_number = utility::conversions::to_string_t("");
+    m_Tracking_numberIsSet = false;
+    m_Carrier_code = utility::conversions::to_string_t("");
+    m_Carrier_codeIsSet = false;
+    m_Carrier_name = utility::conversions::to_string_t("");
+    m_Carrier_nameIsSet = false;
+    m_Track_count = 0;
+    m_Track_countIsSet = false;
+    m_TracksIsSet = false;
 }
 
 Get_misc_tracking_query_200_response::~Get_misc_tracking_query_200_response()
@@ -39,20 +43,30 @@ void Get_misc_tracking_query_200_response::validate()
 web::json::value Get_misc_tracking_query_200_response::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_CodeIsSet)
+    if(m_Tracking_numberIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("code"))] = ModelBase::toJson(m_Code);
+        val[utility::conversions::to_string_t(_XPLATSTR("tracking_number"))] = ModelBase::toJson(m_Tracking_number);
     }
-    if(m_MessageIsSet)
+    if(m_Carrier_codeIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("message"))] = ModelBase::toJson(m_Message);
+        val[utility::conversions::to_string_t(_XPLATSTR("carrier_code"))] = ModelBase::toJson(m_Carrier_code);
     }
-    if(m_DataIsSet)
+    if(m_Carrier_nameIsSet)
     {   
         
-        val[utility::conversions::to_string_t(_XPLATSTR("data"))] = ModelBase::toJson(m_Data);
+        val[utility::conversions::to_string_t(_XPLATSTR("carrier_name"))] = ModelBase::toJson(m_Carrier_name);
+    }
+    if(m_Track_countIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("track_count"))] = ModelBase::toJson(m_Track_count);
+    }
+    if(m_TracksIsSet)
+    {   
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("tracks"))] = ModelBase::toJson(m_Tracks);
     }
 
     return val;
@@ -61,36 +75,58 @@ web::json::value Get_misc_tracking_query_200_response::toJson() const
 bool Get_misc_tracking_query_200_response::fromJson(const web::json::value& val)
 {
     bool ok = true;
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("tracking_number"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("code")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("tracking_number")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setCode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setCode);
-            setCode(refVal_setCode);
+            utility::string_t refVal_setTrackingNumber;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTrackingNumber);
+            setTrackingNumber(refVal_setTrackingNumber);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("carrier_code"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("message")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("carrier_code")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setMessage;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMessage);
-            setMessage(refVal_setMessage);
+            utility::string_t refVal_setCarrierCode;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCarrierCode);
+            setCarrierCode(refVal_setCarrierCode);
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("carrier_name"))))
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("data")));
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("carrier_name")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<Get_misc_tracking_query_200_response_data> refVal_setData;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setData);
-            setData(refVal_setData);
+            utility::string_t refVal_setCarrierName;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCarrierName);
+            setCarrierName(refVal_setCarrierName);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("track_count"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("track_count")));
+        if(!fieldValue.is_null())
+        {
+            int32_t refVal_setTrackCount;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTrackCount);
+            setTrackCount(refVal_setTrackCount);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("tracks"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("tracks")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<Get_misc_tracking_query_200_response_tracks_inner>> refVal_setTracks;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setTracks);
+            setTracks(refVal_setTracks);
             
         }
     }
@@ -104,17 +140,25 @@ void Get_misc_tracking_query_200_response::toMultipart(std::shared_ptr<Multipart
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_CodeIsSet)
+    if(m_Tracking_numberIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("code")), m_Code));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("tracking_number")), m_Tracking_number));
     }
-    if(m_MessageIsSet)
+    if(m_Carrier_codeIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("message")), m_Message));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("carrier_code")), m_Carrier_code));
     }
-    if(m_DataIsSet)
+    if(m_Carrier_nameIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("data")), m_Data));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("carrier_name")), m_Carrier_name));
+    }
+    if(m_Track_countIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("track_count")), m_Track_count));
+    }
+    if(m_TracksIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("tracks")), m_Tracks));
     }
 }
 
@@ -127,90 +171,143 @@ bool Get_misc_tracking_query_200_response::fromMultiPart(std::shared_ptr<Multipa
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("code"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("tracking_number"))))
     {
-        utility::string_t refVal_setCode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("code"))), refVal_setCode );
-        setCode(refVal_setCode);
+        utility::string_t refVal_setTrackingNumber;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("tracking_number"))), refVal_setTrackingNumber );
+        setTrackingNumber(refVal_setTrackingNumber);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("message"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("carrier_code"))))
     {
-        utility::string_t refVal_setMessage;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("message"))), refVal_setMessage );
-        setMessage(refVal_setMessage);
+        utility::string_t refVal_setCarrierCode;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("carrier_code"))), refVal_setCarrierCode );
+        setCarrierCode(refVal_setCarrierCode);
     }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("data"))))
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("carrier_name"))))
     {
-        std::shared_ptr<Get_misc_tracking_query_200_response_data> refVal_setData;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("data"))), refVal_setData );
-        setData(refVal_setData);
+        utility::string_t refVal_setCarrierName;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("carrier_name"))), refVal_setCarrierName );
+        setCarrierName(refVal_setCarrierName);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("track_count"))))
+    {
+        int32_t refVal_setTrackCount;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("track_count"))), refVal_setTrackCount );
+        setTrackCount(refVal_setTrackCount);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("tracks"))))
+    {
+        std::vector<std::shared_ptr<Get_misc_tracking_query_200_response_tracks_inner>> refVal_setTracks;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("tracks"))), refVal_setTracks );
+        setTracks(refVal_setTracks);
     }
     return ok;
 }
 
 
-utility::string_t Get_misc_tracking_query_200_response::getCode() const
+utility::string_t Get_misc_tracking_query_200_response::getTrackingNumber() const
 {
-    return m_Code;
+    return m_Tracking_number;
 }
 
 
-void Get_misc_tracking_query_200_response::setCode(const utility::string_t& value)
+void Get_misc_tracking_query_200_response::setTrackingNumber(const utility::string_t& value)
 {
-    m_Code = value;
-    m_CodeIsSet = true;
+    m_Tracking_number = value;
+    m_Tracking_numberIsSet = true;
 }
 
-bool Get_misc_tracking_query_200_response::codeIsSet() const
+bool Get_misc_tracking_query_200_response::trackingNumberIsSet() const
 {
-    return m_CodeIsSet;
+    return m_Tracking_numberIsSet;
 }
 
-void Get_misc_tracking_query_200_response::unsetCode()
+void Get_misc_tracking_query_200_response::unsetTracking_number()
 {
-    m_CodeIsSet = false;
+    m_Tracking_numberIsSet = false;
 }
-utility::string_t Get_misc_tracking_query_200_response::getMessage() const
+utility::string_t Get_misc_tracking_query_200_response::getCarrierCode() const
 {
-    return m_Message;
-}
-
-
-void Get_misc_tracking_query_200_response::setMessage(const utility::string_t& value)
-{
-    m_Message = value;
-    m_MessageIsSet = true;
-}
-
-bool Get_misc_tracking_query_200_response::messageIsSet() const
-{
-    return m_MessageIsSet;
-}
-
-void Get_misc_tracking_query_200_response::unsetMessage()
-{
-    m_MessageIsSet = false;
-}
-std::shared_ptr<Get_misc_tracking_query_200_response_data> Get_misc_tracking_query_200_response::getData() const
-{
-    return m_Data;
+    return m_Carrier_code;
 }
 
 
-void Get_misc_tracking_query_200_response::setData(const std::shared_ptr<Get_misc_tracking_query_200_response_data>& value)
+void Get_misc_tracking_query_200_response::setCarrierCode(const utility::string_t& value)
 {
-    m_Data = value;
-    m_DataIsSet = true;
+    m_Carrier_code = value;
+    m_Carrier_codeIsSet = true;
 }
 
-bool Get_misc_tracking_query_200_response::dataIsSet() const
+bool Get_misc_tracking_query_200_response::carrierCodeIsSet() const
 {
-    return m_DataIsSet;
+    return m_Carrier_codeIsSet;
 }
 
-void Get_misc_tracking_query_200_response::unsetData()
+void Get_misc_tracking_query_200_response::unsetCarrier_code()
 {
-    m_DataIsSet = false;
+    m_Carrier_codeIsSet = false;
+}
+utility::string_t Get_misc_tracking_query_200_response::getCarrierName() const
+{
+    return m_Carrier_name;
+}
+
+
+void Get_misc_tracking_query_200_response::setCarrierName(const utility::string_t& value)
+{
+    m_Carrier_name = value;
+    m_Carrier_nameIsSet = true;
+}
+
+bool Get_misc_tracking_query_200_response::carrierNameIsSet() const
+{
+    return m_Carrier_nameIsSet;
+}
+
+void Get_misc_tracking_query_200_response::unsetCarrier_name()
+{
+    m_Carrier_nameIsSet = false;
+}
+int32_t Get_misc_tracking_query_200_response::getTrackCount() const
+{
+    return m_Track_count;
+}
+
+void Get_misc_tracking_query_200_response::setTrackCount(int32_t value)
+{
+    m_Track_count = value;
+    m_Track_countIsSet = true;
+}
+
+bool Get_misc_tracking_query_200_response::trackCountIsSet() const
+{
+    return m_Track_countIsSet;
+}
+
+void Get_misc_tracking_query_200_response::unsetTrack_count()
+{
+    m_Track_countIsSet = false;
+}
+std::vector<std::shared_ptr<Get_misc_tracking_query_200_response_tracks_inner>> Get_misc_tracking_query_200_response::getTracks() const
+{
+    return m_Tracks;
+}
+
+
+void Get_misc_tracking_query_200_response::setTracks(const std::vector<std::shared_ptr<Get_misc_tracking_query_200_response_tracks_inner>>& value)
+{
+    m_Tracks = value;
+    m_TracksIsSet = true;
+}
+
+bool Get_misc_tracking_query_200_response::tracksIsSet() const
+{
+    return m_TracksIsSet;
+}
+
+void Get_misc_tracking_query_200_response::unsetTracks()
+{
+    m_TracksIsSet = false;
 }
 
 }

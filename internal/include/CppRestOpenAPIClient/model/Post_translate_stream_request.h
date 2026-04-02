@@ -18,7 +18,6 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Post_translate_stream_request_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_Post_translate_stream_request_H_
 
-#include <stdexcept>
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
@@ -53,31 +52,6 @@ public:
     /////////////////////////////////////////////
     /// Post_translate_stream_request members
 
-    enum class To_langEnum
-    {
-        _,
-        _2,
-    };
-    /// <summary>
-    /// 目标语言，支持：中文、英文
-    /// </summary>
-    enum class From_langEnum
-    {
-        _,
-        _2,
-        AUTO,
-    };
-    /// <summary>
-    /// 源语言，支持：中文、英文、auto（自动检测）。默认为auto
-    /// </summary>
-
-    To_langEnum toTo_langEnum(const utility::string_t& value) const;
-    const utility::string_t fromTo_langEnum(const To_langEnum value) const;
-
-
-    From_langEnum toFrom_langEnum(const utility::string_t& value) const;
-    const utility::string_t fromFrom_langEnum(const From_langEnum value) const;
-
 
     /// <summary>
     /// 待翻译的文本内容
@@ -90,18 +64,18 @@ public:
     /// <summary>
     /// 目标语言，支持：中文、英文
     /// </summary>
-    To_langEnum getToLang() const;
+    utility::string_t getToLang() const;
     bool toLangIsSet() const;
     void unsetTo_lang();
-    void setToLang(const To_langEnum value);
+    void setToLang(const utility::string_t& value);
 
     /// <summary>
     /// 源语言，支持：中文、英文、auto（自动检测）。默认为auto
     /// </summary>
-    From_langEnum getFromLang() const;
+    utility::string_t getFromLang() const;
     bool fromLangIsSet() const;
     void unsetFrom_lang();
-    void setFromLang(const From_langEnum value);
+    void setFromLang(const utility::string_t& value);
 
     /// <summary>
     /// 语气参数，可选
@@ -116,10 +90,10 @@ protected:
     utility::string_t m_Query;
     bool m_QueryIsSet;
 
-    To_langEnum m_To_lang;
+    utility::string_t m_To_lang;
     bool m_To_langIsSet;
 
-    From_langEnum m_From_lang;
+    utility::string_t m_From_lang;
     bool m_From_langIsSet;
 
     utility::string_t m_Tone;

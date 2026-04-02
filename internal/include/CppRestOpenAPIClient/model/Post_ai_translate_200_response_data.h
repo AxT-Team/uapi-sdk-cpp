@@ -12,7 +12,7 @@
 /*
  * Post_ai_translate_200_response_data.h
  *
- * 单个翻译的详细结果，仅在单个翻译时返回。
+ * 翻译结果的详细信息。
  */
 
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_Post_ai_translate_200_response_data_H_
@@ -21,20 +21,17 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
-#include "CppRestOpenAPIClient/model/Post_ai_translate_200_response_data_explanation.h"
 #include <cpprest/details/basic_types.h>
-#include <vector>
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
-class Post_ai_translate_200_response_data_explanation;
 
 
 /// <summary>
-/// 单个翻译的详细结果，仅在单个翻译时返回。
+/// 翻译结果的详细信息。
 /// </summary>
 class  Post_ai_translate_200_response_data
     : public ModelBase
@@ -59,55 +56,15 @@ public:
     /// Post_ai_translate_200_response_data members
 
 
-    utility::string_t getOriginalText() const;
-    bool originalTextIsSet() const;
-    void unsetOriginal_text();
-    void setOriginalText(const utility::string_t& value);
-
     utility::string_t getTranslatedText() const;
     bool translatedTextIsSet() const;
     void unsetTranslated_text();
     void setTranslatedText(const utility::string_t& value);
 
-    utility::string_t getDetectedLang() const;
-    bool detectedLangIsSet() const;
-    void unsetDetected_lang();
-    void setDetectedLang(const utility::string_t& value);
-
-    double getConfidenceScore() const;
-    bool confidenceScoreIsSet() const;
-    void unsetConfidence_score();
-    void setConfidenceScore(double value);
-
-    std::vector<utility::string_t> getAlternatives() const;
-    bool alternativesIsSet() const;
-    void unsetAlternatives();
-    void setAlternatives(const std::vector<utility::string_t>& value);
-
-    std::shared_ptr<Post_ai_translate_200_response_data_explanation> getExplanation() const;
-    bool explanationIsSet() const;
-    void unsetExplanation();
-    void setExplanation(const std::shared_ptr<Post_ai_translate_200_response_data_explanation>& value);
-
 
 protected:
-    utility::string_t m_Original_text;
-    bool m_Original_textIsSet;
-
     utility::string_t m_Translated_text;
     bool m_Translated_textIsSet;
-
-    utility::string_t m_Detected_lang;
-    bool m_Detected_langIsSet;
-
-    double m_Confidence_score;
-    bool m_Confidence_scoreIsSet;
-
-    std::vector<utility::string_t> m_Alternatives;
-    bool m_AlternativesIsSet;
-
-    std::shared_ptr<Post_ai_translate_200_response_data_explanation> m_Explanation;
-    bool m_ExplanationIsSet;
 
 };
 

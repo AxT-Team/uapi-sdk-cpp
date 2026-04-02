@@ -22,17 +22,12 @@ Post_ai_translate_request::Post_ai_translate_request()
 {
     m_Text = utility::conversions::to_string_t("");
     m_TextIsSet = false;
-    m_TextsIsSet = false;
     m_Source_lang = utility::conversions::to_string_t("");
     m_Source_langIsSet = false;
     m_StyleIsSet = false;
     m_ContextIsSet = false;
     m_Preserve_format = false;
     m_Preserve_formatIsSet = false;
-    m_Fast_mode = false;
-    m_Fast_modeIsSet = false;
-    m_Max_concurrency = 0;
-    m_Max_concurrencyIsSet = false;
 }
 
 Post_ai_translate_request::~Post_ai_translate_request()
@@ -51,11 +46,6 @@ web::json::value Post_ai_translate_request::toJson() const
     {   
         
         val[utility::conversions::to_string_t(_XPLATSTR("text"))] = ModelBase::toJson(m_Text);
-    }
-    if(m_TextsIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("texts"))] = ModelBase::toJson(m_Texts);
     }
     if(m_Source_langIsSet)
     {   
@@ -81,16 +71,6 @@ web::json::value Post_ai_translate_request::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("preserve_format"))] = ModelBase::toJson(m_Preserve_format);
     }
-    if(m_Fast_modeIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("fast_mode"))] = ModelBase::toJson(m_Fast_mode);
-    }
-    if(m_Max_concurrencyIsSet)
-    {   
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("max_concurrency"))] = ModelBase::toJson(m_Max_concurrency);
-    }
 
     return val;
 }
@@ -106,17 +86,6 @@ bool Post_ai_translate_request::fromJson(const web::json::value& val)
             utility::string_t refVal_setText;
             ok &= ModelBase::fromJson(fieldValue, refVal_setText);
             setText(refVal_setText);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("texts"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("texts")));
-        if(!fieldValue.is_null())
-        {
-            std::vector<utility::string_t> refVal_setTexts;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setTexts);
-            setTexts(refVal_setTexts);
             
         }
     }
@@ -166,28 +135,6 @@ bool Post_ai_translate_request::fromJson(const web::json::value& val)
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("fast_mode"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("fast_mode")));
-        if(!fieldValue.is_null())
-        {
-            bool refVal_setFastMode;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setFastMode);
-            setFastMode(refVal_setFastMode);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("max_concurrency"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("max_concurrency")));
-        if(!fieldValue.is_null())
-        {
-            int32_t refVal_setMaxConcurrency;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setMaxConcurrency);
-            setMaxConcurrency(refVal_setMaxConcurrency);
-            
-        }
-    }
     return ok;
 }
 
@@ -201,10 +148,6 @@ void Post_ai_translate_request::toMultipart(std::shared_ptr<MultipartFormData> m
     if(m_TextIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("text")), m_Text));
-    }
-    if(m_TextsIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("texts")), m_Texts));
     }
     if(m_Source_langIsSet)
     {
@@ -222,14 +165,6 @@ void Post_ai_translate_request::toMultipart(std::shared_ptr<MultipartFormData> m
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("preserve_format")), m_Preserve_format));
     }
-    if(m_Fast_modeIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("fast_mode")), m_Fast_mode));
-    }
-    if(m_Max_concurrencyIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("max_concurrency")), m_Max_concurrency));
-    }
 }
 
 bool Post_ai_translate_request::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
@@ -246,12 +181,6 @@ bool Post_ai_translate_request::fromMultiPart(std::shared_ptr<MultipartFormData>
         utility::string_t refVal_setText;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("text"))), refVal_setText );
         setText(refVal_setText);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("texts"))))
-    {
-        std::vector<utility::string_t> refVal_setTexts;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("texts"))), refVal_setTexts );
-        setTexts(refVal_setTexts);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("source_lang"))))
     {
@@ -276,18 +205,6 @@ bool Post_ai_translate_request::fromMultiPart(std::shared_ptr<MultipartFormData>
         bool refVal_setPreserveFormat;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("preserve_format"))), refVal_setPreserveFormat );
         setPreserveFormat(refVal_setPreserveFormat);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("fast_mode"))))
-    {
-        bool refVal_setFastMode;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("fast_mode"))), refVal_setFastMode );
-        setFastMode(refVal_setFastMode);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("max_concurrency"))))
-    {
-        int32_t refVal_setMaxConcurrency;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("max_concurrency"))), refVal_setMaxConcurrency );
-        setMaxConcurrency(refVal_setMaxConcurrency);
     }
     return ok;
 }
@@ -422,27 +339,6 @@ void Post_ai_translate_request::unsetText()
 {
     m_TextIsSet = false;
 }
-std::vector<utility::string_t> Post_ai_translate_request::getTexts() const
-{
-    return m_Texts;
-}
-
-
-void Post_ai_translate_request::setTexts(const std::vector<utility::string_t>& value)
-{
-    m_Texts = value;
-    m_TextsIsSet = true;
-}
-
-bool Post_ai_translate_request::textsIsSet() const
-{
-    return m_TextsIsSet;
-}
-
-void Post_ai_translate_request::unsetTexts()
-{
-    m_TextsIsSet = false;
-}
 utility::string_t Post_ai_translate_request::getSourceLang() const
 {
     return m_Source_lang;
@@ -525,46 +421,6 @@ bool Post_ai_translate_request::preserveFormatIsSet() const
 void Post_ai_translate_request::unsetPreserve_format()
 {
     m_Preserve_formatIsSet = false;
-}
-bool Post_ai_translate_request::isFastMode() const
-{
-    return m_Fast_mode;
-}
-
-void Post_ai_translate_request::setFastMode(bool value)
-{
-    m_Fast_mode = value;
-    m_Fast_modeIsSet = true;
-}
-
-bool Post_ai_translate_request::fastModeIsSet() const
-{
-    return m_Fast_modeIsSet;
-}
-
-void Post_ai_translate_request::unsetFast_mode()
-{
-    m_Fast_modeIsSet = false;
-}
-int32_t Post_ai_translate_request::getMaxConcurrency() const
-{
-    return m_Max_concurrency;
-}
-
-void Post_ai_translate_request::setMaxConcurrency(int32_t value)
-{
-    m_Max_concurrency = value;
-    m_Max_concurrencyIsSet = true;
-}
-
-bool Post_ai_translate_request::maxConcurrencyIsSet() const
-{
-    return m_Max_concurrencyIsSet;
-}
-
-void Post_ai_translate_request::unsetMax_concurrency()
-{
-    m_Max_concurrencyIsSet = false;
 }
 
 }

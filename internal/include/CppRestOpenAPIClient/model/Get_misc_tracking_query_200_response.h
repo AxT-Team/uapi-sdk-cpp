@@ -21,15 +21,16 @@
 
 #include "CppRestOpenAPIClient/ModelBase.h"
 
+#include "CppRestOpenAPIClient/model/Get_misc_tracking_query_200_response_tracks_inner.h"
 #include <cpprest/details/basic_types.h>
-#include "CppRestOpenAPIClient/model/Get_misc_tracking_query_200_response_data.h"
+#include <vector>
 
 namespace org {
 namespace openapitools {
 namespace client {
 namespace model {
 
-class Get_misc_tracking_query_200_response_data;
+class Get_misc_tracking_query_200_response_tracks_inner;
 
 
 class  Get_misc_tracking_query_200_response
@@ -55,31 +56,62 @@ public:
     /// Get_misc_tracking_query_200_response members
 
 
-    utility::string_t getCode() const;
-    bool codeIsSet() const;
-    void unsetCode();
-    void setCode(const utility::string_t& value);
+    /// <summary>
+    /// 快递单号
+    /// </summary>
+    utility::string_t getTrackingNumber() const;
+    bool trackingNumberIsSet() const;
+    void unsetTracking_number();
+    void setTrackingNumber(const utility::string_t& value);
 
-    utility::string_t getMessage() const;
-    bool messageIsSet() const;
-    void unsetMessage();
-    void setMessage(const utility::string_t& value);
+    /// <summary>
+    /// 快递公司编码
+    /// </summary>
+    utility::string_t getCarrierCode() const;
+    bool carrierCodeIsSet() const;
+    void unsetCarrier_code();
+    void setCarrierCode(const utility::string_t& value);
 
-    std::shared_ptr<Get_misc_tracking_query_200_response_data> getData() const;
-    bool dataIsSet() const;
-    void unsetData();
-    void setData(const std::shared_ptr<Get_misc_tracking_query_200_response_data>& value);
+    /// <summary>
+    /// 快递公司名称
+    /// </summary>
+    utility::string_t getCarrierName() const;
+    bool carrierNameIsSet() const;
+    void unsetCarrier_name();
+    void setCarrierName(const utility::string_t& value);
+
+    /// <summary>
+    /// 物流轨迹数量
+    /// </summary>
+    int32_t getTrackCount() const;
+    bool trackCountIsSet() const;
+    void unsetTrack_count();
+    void setTrackCount(int32_t value);
+
+    /// <summary>
+    /// 物流轨迹列表，按时间倒序排列
+    /// </summary>
+    std::vector<std::shared_ptr<Get_misc_tracking_query_200_response_tracks_inner>> getTracks() const;
+    bool tracksIsSet() const;
+    void unsetTracks();
+    void setTracks(const std::vector<std::shared_ptr<Get_misc_tracking_query_200_response_tracks_inner>>& value);
 
 
 protected:
-    utility::string_t m_Code;
-    bool m_CodeIsSet;
+    utility::string_t m_Tracking_number;
+    bool m_Tracking_numberIsSet;
 
-    utility::string_t m_Message;
-    bool m_MessageIsSet;
+    utility::string_t m_Carrier_code;
+    bool m_Carrier_codeIsSet;
 
-    std::shared_ptr<Get_misc_tracking_query_200_response_data> m_Data;
-    bool m_DataIsSet;
+    utility::string_t m_Carrier_name;
+    bool m_Carrier_nameIsSet;
+
+    int32_t m_Track_count;
+    bool m_Track_countIsSet;
+
+    std::vector<std::shared_ptr<Get_misc_tracking_query_200_response_tracks_inner>> m_Tracks;
+    bool m_TracksIsSet;
 
 };
 
