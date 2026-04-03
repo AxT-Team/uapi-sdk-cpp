@@ -21,13 +21,14 @@ git submodule add https://github.com/AxT-Team/uapi-sdk-cpp deps/uapi-cpp
 
 int main() {
     uapi::Client client("https://uapis.cn", "YOUR_API_KEY");
-    std::map<std::string, std::string> args;
-    args["qq"] = "10001";
-    auto result = client.social().getSocialQqUserinfo(args);
+    std::map<std::string, std::string> args{{"type", "weibo"}};
+    auto result = client.misc().getMiscHotboard(args);
     std::cout << result << std::endl;
     return 0;
 }
 ```
+
+这个接口默认只要传 `type` 就可以拿当前热榜。`time`、`keyword`、`time_start`、`time_end`、`limit`、`sources` 都是按场景再传的可选参数。
 
 ## 特性
 
