@@ -20,7 +20,7 @@ git submodule add https://github.com/AxT-Team/uapi-sdk-cpp deps/uapi-cpp
 #include <map>
 
 int main() {
-    uapi::Client client("https://uapis.cn/api/v1", "");
+    uapi::Client client("https://uapis.cn", "YOUR_API_KEY");
     std::map<std::string, std::string> args;
     args["qq"] = "10001";
     auto result = client.social().getSocialQqUserinfo(args);
@@ -35,7 +35,7 @@ int main() {
 
 只需在 IDE 中键入 `client.`，所有核心模块——如 `Social()`、`Game()`、`Image()`——即刻同步展现。进一步输入即可直接定位到 `getSocialQqUserinfo` 这样的具体方法，其名称与文档的 `operationId` 严格保持一致，确保了开发过程的直观与高效。
 
-所有方法签名只接受真实且必需的参数。当你在构建请求时，IDE 会即时提示 `qq`、`username` 等键名，这彻底杜绝了在 `std::unordered_map<std::string, std::string>` 中因键名拼写错误而导致的运行时错误。
+所有方法签名只接受真实且必需的参数。当你在构建请求时，IDE 会即时提示 `qq`、`username` 等键名，这彻底杜绝了在 `std::map<std::string, std::string>` 中因键名拼写错误而导致的运行时错误。
 
 针对 401、404、429 等标准 HTTP 响应，SDK 已将其统一映射为具名的错误类型。这些错误均附带 `code`、`status`、`details` 等关键上下文信息，确保你在日志中能第一时间准确、快速地诊断问题。
 
@@ -55,7 +55,7 @@ int main() {
 #include <map>
 
 int main() {
-    uapi::Client client("https://uapis.cn/api/v1", "");
+    uapi::Client client("https://uapis.cn", "YOUR_API_KEY");
     std::map<std::string, std::string> args{{"qq", "10001"}};
 
     // 成功路径

@@ -42,7 +42,8 @@ struct UapiError: public std::runtime_error {
         long long visitorQuotaRemainingCredits = -1;
         std::map<std::string, std::string> rawHeaders;
     } meta;
-    UapiError(std::string c, int s, std::string msg, std::string raw = "", ResponseMeta responseMeta = {}): std::runtime_error("["+std::to_string(s)+"] "+c+": "+msg), code(std::move(c)), status(s), payload(std::move(raw)), meta(std::move(responseMeta)) {}
+    UapiError(std::string c, int s, std::string msg, std::string raw = ""): UapiError(std::move(c), s, std::move(msg), std::move(raw), ResponseMeta{}) {}
+    UapiError(std::string c, int s, std::string msg, std::string raw, ResponseMeta responseMeta): std::runtime_error("["+std::to_string(s)+"] "+c+": "+msg), code(std::move(c)), status(s), payload(std::move(raw)), meta(std::move(responseMeta)) {}
 };
 struct ApiErrorError: public UapiError { using UapiError::UapiError; };
 struct AvatarNotFoundError: public UapiError { using UapiError::UapiError; };
@@ -68,7 +69,7 @@ struct VisitorMonthlyQuotaExhaustedError: public UapiError { using UapiError::Ua
 
 class Client {
 public:
-    Client(std::string baseUrl = "https://uapis.cn/api/v1", std::string tok = "");
+    Client(std::string baseUrl = "https://uapis.cn", std::string tok = "");
     const UapiError::ResponseMeta& lastResponseMeta() const { return lastMeta; }
     struct ClipzyZaiXianJianTieBanApi {
         Client* c;
@@ -884,7 +885,7 @@ private:
 };
 
 inline Client::Client(std::string baseUrl, std::string tok): host(), basePath("/"), port(443), secure(true), token(std::move(tok)) {
-    if (baseUrl.empty()) baseUrl = "https://uapis.cn/api/v1";
+    if (baseUrl.empty()) baseUrl = "https://uapis.cn";
     auto schemePos = baseUrl.find("://");
     std::string scheme = schemePos == std::string::npos ? "https" : baseUrl.substr(0, schemePos);
     secure = (scheme == "https");
@@ -892,6 +893,11 @@ inline Client::Client(std::string baseUrl, std::string tok): host(), basePath("/
     auto slashPos = rest.find('/');
     host = slashPos == std::string::npos ? rest : rest.substr(0, slashPos);
     basePath = slashPos == std::string::npos ? "/" : rest.substr(slashPos);
+    while (basePath.size() > 1 && basePath.back() == '/') basePath.pop_back();
+    const std::string apiPrefix = "/api/v1";
+    if (basePath.size() >= apiPrefix.size() && basePath.compare(basePath.size() - apiPrefix.size(), apiPrefix.size(), apiPrefix) == 0) {
+        basePath.erase(basePath.size() - apiPrefix.size());
+    }
     if (basePath.empty()) basePath = "/";
     if (basePath.back() != '/') basePath.push_back('/');
     auto colonPos = host.find(':');
@@ -1130,14 +1136,14 @@ inline std::string Client::sendWinHttp(const std::string& method, const std::str
     HINTERNET hRequest = WinHttpOpenRequest(hConnect, widen(method).c_str(), widen(pathAndQuery).c_str(), nullptr, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, flags);
     if (!hRequest) { closeConnect(); closeSession(); throw std::runtime_error("WinHttpOpenRequest failed"); }
 
-    std::wstring headers = L"Accept: application/json\r\n";
-    if (!token.empty()) headers += L"Authorization: Bearer " + widen(token) + L"\r\n";
-    if (!body.empty()) headers += L"Content-Type: application/json\r\n";
+    std::wstring requestHeaders = L"Accept: application/json\r\n";
+    if (!token.empty()) requestHeaders += L"Authorization: Bearer " + widen(token) + L"\r\n";
+    if (!body.empty()) requestHeaders += L"Content-Type: application/json\r\n";
     
     LPVOID bodyData = body.empty() ? WINHTTP_NO_REQUEST_DATA : (LPVOID)body.c_str();
     DWORD bodyLen = body.empty() ? 0 : static_cast<DWORD>(body.length());
     
-    if (!WinHttpSendRequest(hRequest, headers.c_str(), static_cast<DWORD>(headers.length()), bodyData, bodyLen, bodyLen, 0)) {
+    if (!WinHttpSendRequest(hRequest, requestHeaders.c_str(), static_cast<DWORD>(requestHeaders.length()), bodyData, bodyLen, bodyLen, 0)) {
         WinHttpCloseHandle(hRequest); closeConnect(); closeSession();
         throw std::runtime_error("WinHttpSendRequest failed");
     }
@@ -1148,10 +1154,10 @@ inline std::string Client::sendWinHttp(const std::string& method, const std::str
     DWORD status = 0;
     DWORD statusLen = sizeof(status);
     WinHttpQueryHeaders(hRequest, WINHTTP_QUERY_STATUS_CODE | WINHTTP_QUERY_FLAG_NUMBER, WINHTTP_HEADER_NAME_BY_INDEX, &status, &statusLen, WINHTTP_NO_HEADER_INDEX);
-    std::map<std::string, std::string> headers;
+    std::map<std::string, std::string> responseHeaders;
     auto storeHeader = [&](const char* key, const wchar_t* headerName) {
         auto value = queryHeaderValue(hRequest, headerName);
-        if (!value.empty()) headers[key] = value;
+        if (!value.empty()) responseHeaders[key] = value;
     };
     storeHeader("x-request-id", L"X-Request-ID");
     storeHeader("retry-after", L"Retry-After");
@@ -1175,7 +1181,7 @@ inline std::string Client::sendWinHttp(const std::string& method, const std::str
     WinHttpCloseHandle(hRequest);
     closeConnect();
     closeSession();
-    setMetaFromHeaders(headers);
+    setMetaFromHeaders(responseHeaders);
     if (status >= 400) {
         raiseError(static_cast<int>(status), result);
     }
