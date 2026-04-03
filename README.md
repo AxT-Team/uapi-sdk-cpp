@@ -17,11 +17,11 @@ git submodule add https://github.com/AxT-Team/uapi-sdk-cpp deps/uapi-cpp
 ```cpp
 #include <uapi/Client.hpp>
 #include <iostream>
-#include <unordered_map>
+#include <map>
 
 int main() {
     uapi::Client client("https://uapis.cn/api/v1", "");
-    std::unordered_map<std::string, std::string> args;
+    std::map<std::string, std::string> args;
     args["qq"] = "10001";
     auto result = client.social().getSocialQqUserinfo(args);
     std::cout << result << std::endl;
@@ -42,6 +42,58 @@ int main() {
 基础域名、请求超时和 `User-Agent` 已预设为合理的默认值。但你完全拥有控制权，可以通过 `uapi::Client(baseUrl, token)` 及其可插拔 HTTP 实现灵活覆盖 Token、BaseURL 等配置。
 
 如果你需要查看字段细节或内部逻辑，仓库中的 `./internal` 目录同步保留了由 `openapi-generator` 生成的完整结构体，随时可供参考。
+
+## 响应元信息
+
+每次请求完成后，SDK 会自动把响应 Header 解析成结构化的 `ResponseMeta`，你不用自己拆原始字符串。
+
+成功时可以通过 `client.lastResponseMeta()` 读取，失败时可以通过 `e.meta` 读取，两条路径拿到的是同一套字段。
+
+```cpp
+#include <uapi/Client.hpp>
+#include <iostream>
+#include <map>
+
+int main() {
+    uapi::Client client("https://uapis.cn/api/v1", "");
+    std::map<std::string, std::string> args{{"qq", "10001"}};
+
+    // 成功路径
+    auto result = client.social().getSocialQqUserinfo(args);
+    const auto& meta = client.lastResponseMeta();
+    if (meta.balanceRemainingCents >= 0) {
+        std::cout << "余额剩余: " << meta.balanceRemainingCents << " 分\n";
+    }
+    if (meta.quotaRemainingCredits >= 0) {
+        std::cout << "资源包剩余: " << meta.quotaRemainingCredits << " 积分\n";
+    }
+    std::cout << "Request ID: " << meta.requestId << '\n';
+
+    // 失败路径
+    try {
+        client.social().getSocialQqUserinfo(args);
+    } catch (const uapi::UapiError& e) {
+        if (e.meta.retryAfterSeconds >= 0) {
+            std::cout << "限流，" << e.meta.retryAfterSeconds << "s 后重试\n";
+        }
+        std::cout << "Request ID: " << e.meta.requestId << '\n';
+    }
+
+    return 0;
+}
+```
+
+常用字段一览：
+
+| 字段 | 说明 |
+|------|------|
+| `balanceRemainingCents` | 账户余额剩余（分） |
+| `quotaRemainingCredits` | 资源包剩余积分 |
+| `visitorQuotaRemainingCredits` | 访客配额剩余积分 |
+| `retryAfterSeconds` | 触发限流后的建议等待时长 |
+| `requestId` | 请求唯一 ID，排障时使用 |
+| `debitStatus` | 本次计费状态 |
+| `rateLimitPolicyRaw` / `rateLimitRaw` | 原始的结构化限流策略字符串 |
 
 ## 错误模型概览
 
