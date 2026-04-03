@@ -60,13 +60,32 @@ int main() {
     std::map<std::string, std::string> args{{"qq", "10001"}};
 
     // 成功路径
-    auto result = client.social().getSocialQqUserinfo(args);
+    client.social().getSocialQqUserinfo(args);
     const auto& meta = client.lastResponseMeta();
+    if (meta.creditsRequested >= 0) {
+        std::cout << "这次请求原价: " << meta.creditsRequested << " 积分\n";
+    }
+    if (meta.creditsCharged >= 0) {
+        std::cout << "这次实际扣费: " << meta.creditsCharged << " 积分\n";
+    }
+    if (!meta.creditsPricing.empty()) {
+        std::cout << "特殊计价: " << meta.creditsPricing << '\n';
+    }
     if (meta.balanceRemainingCents >= 0) {
         std::cout << "余额剩余: " << meta.balanceRemainingCents << " 分\n";
     }
     if (meta.quotaRemainingCredits >= 0) {
         std::cout << "资源包剩余: " << meta.quotaRemainingCredits << " 积分\n";
+    }
+    if (meta.activeQuotaBuckets >= 0) {
+        std::cout << "当前有效额度桶: " << meta.activeQuotaBuckets << '\n';
+    }
+    if (meta.hasStopOnEmpty) {
+        std::cout << "额度用空即停: " << (meta.stopOnEmpty ? "true" : "false") << '\n';
+    }
+    if (meta.billingKeyRateLimit >= 0) {
+        std::cout << "Key QPS: " << meta.billingKeyRateRemaining << " / " << meta.billingKeyRateLimit
+                  << ' ' << (meta.billingKeyRateUnit.empty() ? "req" : meta.billingKeyRateUnit) << '\n';
     }
     std::cout << "Request ID: " << meta.requestId << '\n';
 
@@ -74,9 +93,9 @@ int main() {
     try {
         client.social().getSocialQqUserinfo(args);
     } catch (const uapi::UapiError& e) {
-        if (e.meta.retryAfterSeconds >= 0) {
-            std::cout << "限流，" << e.meta.retryAfterSeconds << "s 后重试\n";
-        }
+        std::cout << "Retry-After 秒数: " << e.meta.retryAfterSeconds << '\n';
+        std::cout << "Retry-After 原始值: " << e.meta.retryAfterRaw << '\n';
+        std::cout << "访客 QPS: " << e.meta.visitorRateRemaining << " / " << e.meta.visitorRateLimit << '\n';
         std::cout << "Request ID: " << e.meta.requestId << '\n';
     }
 
@@ -88,13 +107,19 @@ int main() {
 
 | 字段 | 说明 |
 |------|------|
+| `creditsRequested` | 这次请求原本要扣多少积分，也就是请求价 |
+| `creditsCharged` | 这次请求实际扣了多少积分 |
+| `creditsPricing` | 特殊计价原因，例如缓存半价 `cache-hit-half-price` |
 | `balanceRemainingCents` | 账户余额剩余（分） |
 | `quotaRemainingCredits` | 资源包剩余积分 |
-| `visitorQuotaRemainingCredits` | 访客配额剩余积分 |
-| `retryAfterSeconds` | 触发限流后的建议等待时长 |
+| `activeQuotaBuckets` | 当前还有多少个有效额度桶参与计费 |
+| `stopOnEmpty` | 额度耗尽后是否直接停止服务 |
+| `retryAfterSeconds` / `retryAfterRaw` | 限流后的等待时长；当服务端返回 HTTP 时间字符串时看 `retryAfterRaw` |
 | `requestId` | 请求唯一 ID，排障时使用 |
-| `debitStatus` | 本次计费状态 |
-| `rateLimitPolicyRaw` / `rateLimitRaw` | 原始的结构化限流策略字符串 |
+| `billingKeyRateLimit` / `billingKeyRateRemaining` | Billing Key 当前 QPS 规则的上限与剩余 |
+| `billingIpRateLimit` / `billingIpRateRemaining` | Billing Key 单 IP 当前 QPS 规则的上限与剩余 |
+| `visitorRateLimit` / `visitorRateRemaining` | 访客当前 QPS 规则的上限与剩余 |
+| `rateLimitPolicies` / `rateLimits` | 完整结构化限流策略数据 |
 
 ## 错误模型概览
 

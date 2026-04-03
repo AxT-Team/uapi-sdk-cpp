@@ -23,7 +23,20 @@ struct UapiError: public std::runtime_error {
     int status;
     std::string payload;
     struct ResponseMeta {
+        struct RateLimitPolicyEntry {
+            std::string name;
+            long long quota = -1;
+            std::string unit;
+            long long windowSeconds = -1;
+        };
+        struct RateLimitStateEntry {
+            std::string name;
+            long long remaining = -1;
+            std::string unit;
+            long long resetAfterSeconds = -1;
+        };
         std::string requestId;
+        std::string retryAfterRaw;
         long long retryAfterSeconds = -1;
         std::string debitStatus;
         long long creditsRequested = -1;
@@ -34,12 +47,29 @@ struct UapiError: public std::runtime_error {
         bool hasStopOnEmpty = false;
         std::string rateLimitPolicyRaw;
         std::string rateLimitRaw;
+        std::map<std::string, RateLimitPolicyEntry> rateLimitPolicies;
+        std::map<std::string, RateLimitStateEntry> rateLimits;
         long long balanceLimitCents = -1;
         long long balanceRemainingCents = -1;
         long long quotaLimitCredits = -1;
         long long quotaRemainingCredits = -1;
         long long visitorQuotaLimitCredits = -1;
         long long visitorQuotaRemainingCredits = -1;
+        long long billingKeyRateLimit = -1;
+        long long billingKeyRateRemaining = -1;
+        std::string billingKeyRateUnit;
+        long long billingKeyRateWindowSeconds = -1;
+        long long billingKeyRateResetAfterSeconds = -1;
+        long long billingIpRateLimit = -1;
+        long long billingIpRateRemaining = -1;
+        std::string billingIpRateUnit;
+        long long billingIpRateWindowSeconds = -1;
+        long long billingIpRateResetAfterSeconds = -1;
+        long long visitorRateLimit = -1;
+        long long visitorRateRemaining = -1;
+        std::string visitorRateUnit;
+        long long visitorRateWindowSeconds = -1;
+        long long visitorRateResetAfterSeconds = -1;
         std::map<std::string, std::string> rawHeaders;
     } meta;
     UapiError(std::string c, int s, std::string msg, std::string raw = ""): UapiError(std::move(c), s, std::move(msg), std::move(raw), ResponseMeta{}) {}
@@ -873,6 +903,11 @@ private:
     static long long parseLong(const std::string& value);
     static std::string structuredValue(const std::string& raw, const std::string& name, const std::string& key);
     static std::string unquote(const std::string& value);
+    struct StructuredItem {
+        std::string name;
+        std::map<std::string, std::string> params;
+    };
+    static std::vector<StructuredItem> parseStructuredItems(const std::string& raw);
 #ifdef _WIN32
     std::string sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body = "") const;
     static std::wstring widen(const std::string& input);
@@ -1072,11 +1107,38 @@ inline std::string Client::structuredValue(const std::string& raw, const std::st
     return {};
 }
 
+inline std::vector<Client::StructuredItem> Client::parseStructuredItems(const std::string& raw) {
+    std::vector<StructuredItem> items;
+    std::stringstream ss(raw);
+    std::string item;
+    while (std::getline(ss, item, ',')) {
+        std::stringstream itemStream(item);
+        std::string segment;
+        if (!std::getline(itemStream, segment, ';')) continue;
+        StructuredItem parsed;
+        parsed.name = unquote(segment);
+        if (parsed.name.empty()) continue;
+        while (std::getline(itemStream, segment, ';')) {
+            auto eq = segment.find('=');
+            if (eq == std::string::npos) continue;
+            auto key = segment.substr(0, eq);
+            auto value = unquote(segment.substr(eq + 1));
+            while (!key.empty() && std::isspace(static_cast<unsigned char>(key.front()))) key.erase(key.begin());
+            while (!key.empty() && std::isspace(static_cast<unsigned char>(key.back()))) key.pop_back();
+            if (key.empty()) continue;
+            parsed.params[key] = value;
+        }
+        items.push_back(std::move(parsed));
+    }
+    return items;
+}
+
 inline void Client::setMetaFromHeaders(const std::map<std::string, std::string>& headers) const {
     lastMeta = UapiError::ResponseMeta{};
     lastMeta.rawHeaders = headers;
     lastMeta.requestId = headerValue(headers, "x-request-id");
-    lastMeta.retryAfterSeconds = parseLong(headerValue(headers, "retry-after"));
+    lastMeta.retryAfterRaw = headerValue(headers, "retry-after");
+    lastMeta.retryAfterSeconds = parseLong(lastMeta.retryAfterRaw);
     lastMeta.debitStatus = headerValue(headers, "uapi-debit-status");
     lastMeta.creditsRequested = parseLong(headerValue(headers, "uapi-credits-requested"));
     lastMeta.creditsCharged = parseLong(headerValue(headers, "uapi-credits-charged"));
@@ -1089,12 +1151,70 @@ inline void Client::setMetaFromHeaders(const std::map<std::string, std::string>&
     }
     lastMeta.rateLimitPolicyRaw = headerValue(headers, "ratelimit-policy");
     lastMeta.rateLimitRaw = headerValue(headers, "ratelimit");
-    lastMeta.balanceLimitCents = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "billing-balance", "q"));
-    lastMeta.balanceRemainingCents = parseLong(structuredValue(lastMeta.rateLimitRaw, "billing-balance", "r"));
-    lastMeta.quotaLimitCredits = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "billing-quota", "q"));
-    lastMeta.quotaRemainingCredits = parseLong(structuredValue(lastMeta.rateLimitRaw, "billing-quota", "r"));
-    lastMeta.visitorQuotaLimitCredits = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "visitor-quota", "q"));
-    lastMeta.visitorQuotaRemainingCredits = parseLong(structuredValue(lastMeta.rateLimitRaw, "visitor-quota", "r"));
+    for (const auto& item : parseStructuredItems(lastMeta.rateLimitPolicyRaw)) {
+        UapiError::ResponseMeta::RateLimitPolicyEntry entry;
+        entry.name = item.name;
+        if (auto it = item.params.find("q"); it != item.params.end()) entry.quota = parseLong(it->second);
+        if (auto it = item.params.find("uapi-unit"); it != item.params.end()) entry.unit = it->second;
+        if (auto it = item.params.find("w"); it != item.params.end()) entry.windowSeconds = parseLong(it->second);
+        lastMeta.rateLimitPolicies[item.name] = entry;
+    }
+    for (const auto& item : parseStructuredItems(lastMeta.rateLimitRaw)) {
+        UapiError::ResponseMeta::RateLimitStateEntry entry;
+        entry.name = item.name;
+        if (auto it = item.params.find("r"); it != item.params.end()) entry.remaining = parseLong(it->second);
+        if (auto it = item.params.find("uapi-unit"); it != item.params.end()) entry.unit = it->second;
+        if (auto it = item.params.find("t"); it != item.params.end()) entry.resetAfterSeconds = parseLong(it->second);
+        lastMeta.rateLimits[item.name] = entry;
+    }
+    if (auto it = lastMeta.rateLimitPolicies.find("billing-balance"); it != lastMeta.rateLimitPolicies.end()) {
+        lastMeta.balanceLimitCents = it->second.quota;
+    }
+    if (auto it = lastMeta.rateLimits.find("billing-balance"); it != lastMeta.rateLimits.end()) {
+        lastMeta.balanceRemainingCents = it->second.remaining;
+    }
+    if (auto it = lastMeta.rateLimitPolicies.find("billing-quota"); it != lastMeta.rateLimitPolicies.end()) {
+        lastMeta.quotaLimitCredits = it->second.quota;
+    }
+    if (auto it = lastMeta.rateLimits.find("billing-quota"); it != lastMeta.rateLimits.end()) {
+        lastMeta.quotaRemainingCredits = it->second.remaining;
+    }
+    if (auto it = lastMeta.rateLimitPolicies.find("visitor-quota"); it != lastMeta.rateLimitPolicies.end()) {
+        lastMeta.visitorQuotaLimitCredits = it->second.quota;
+    }
+    if (auto it = lastMeta.rateLimits.find("visitor-quota"); it != lastMeta.rateLimits.end()) {
+        lastMeta.visitorQuotaRemainingCredits = it->second.remaining;
+    }
+    if (auto it = lastMeta.rateLimitPolicies.find("billing-key-rate"); it != lastMeta.rateLimitPolicies.end()) {
+        lastMeta.billingKeyRateLimit = it->second.quota;
+        lastMeta.billingKeyRateUnit = it->second.unit;
+        lastMeta.billingKeyRateWindowSeconds = it->second.windowSeconds;
+    }
+    if (auto it = lastMeta.rateLimits.find("billing-key-rate"); it != lastMeta.rateLimits.end()) {
+        lastMeta.billingKeyRateRemaining = it->second.remaining;
+        if (lastMeta.billingKeyRateUnit.empty()) lastMeta.billingKeyRateUnit = it->second.unit;
+        lastMeta.billingKeyRateResetAfterSeconds = it->second.resetAfterSeconds;
+    }
+    if (auto it = lastMeta.rateLimitPolicies.find("billing-ip-rate"); it != lastMeta.rateLimitPolicies.end()) {
+        lastMeta.billingIpRateLimit = it->second.quota;
+        lastMeta.billingIpRateUnit = it->second.unit;
+        lastMeta.billingIpRateWindowSeconds = it->second.windowSeconds;
+    }
+    if (auto it = lastMeta.rateLimits.find("billing-ip-rate"); it != lastMeta.rateLimits.end()) {
+        lastMeta.billingIpRateRemaining = it->second.remaining;
+        if (lastMeta.billingIpRateUnit.empty()) lastMeta.billingIpRateUnit = it->second.unit;
+        lastMeta.billingIpRateResetAfterSeconds = it->second.resetAfterSeconds;
+    }
+    if (auto it = lastMeta.rateLimitPolicies.find("visitor-rate"); it != lastMeta.rateLimitPolicies.end()) {
+        lastMeta.visitorRateLimit = it->second.quota;
+        lastMeta.visitorRateUnit = it->second.unit;
+        lastMeta.visitorRateWindowSeconds = it->second.windowSeconds;
+    }
+    if (auto it = lastMeta.rateLimits.find("visitor-rate"); it != lastMeta.rateLimits.end()) {
+        lastMeta.visitorRateRemaining = it->second.remaining;
+        if (lastMeta.visitorRateUnit.empty()) lastMeta.visitorRateUnit = it->second.unit;
+        lastMeta.visitorRateResetAfterSeconds = it->second.resetAfterSeconds;
+    }
 }
 
 #ifdef _WIN32
