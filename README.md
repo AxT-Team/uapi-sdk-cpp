@@ -30,6 +30,14 @@ int main() {
 
 这个接口默认只要传 `type` 就可以拿当前热榜。`time`、`keyword`、`time_start`、`time_end`、`limit`、`sources` 都是按场景再传的可选参数。
 
+如果你在 Windows + MinGW 下直接编译这个最小示例，记得把 `winhttp` 一起链接进去。例如：
+
+```bash
+g++ -std=c++17 -I deps/uapi-cpp/include main.cpp -lwinhttp -o demo.exe
+```
+
+如果你用的是 MSVC，请把 `Winhttp.lib` 加进链接器输入。
+
 ## 特性
 
 现在你不再需要反反复复的查阅文档了。
