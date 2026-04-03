@@ -1125,7 +1125,7 @@ inline std::string Client::queryHeaderValue(HINTERNET hRequest, const wchar_t* h
 }
 
 inline std::string Client::sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body) const {
-    auto hSession = WinHttpOpen(L"uapi-sdk-cpp/0.1.2", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
+    auto hSession = WinHttpOpen(L"uapi-sdk-cpp/0.1.13", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
     if (!hSession) throw std::runtime_error("WinHttpOpen failed");
     auto closeSession = [&]() { if (hSession) WinHttpCloseHandle(hSession); hSession = nullptr; };
     std::string result;
@@ -1199,7 +1199,7 @@ inline std::string Client::shellEscape(const std::string& value) {
 }
 
 inline std::string Client::sendCurl(const std::string& method, const std::string& absoluteUrl, const std::string& body) const {
-    std::string cmd = "curl -s -S -D - -w \"\\n%{http_code}\" -X " + method + " " + shellEscape(absoluteUrl) + " -H \"Accept: application/json\"";
+    std::string cmd = "curl -s -S -D - -w \"\\n%{http_code}\" -X " + method + " " + shellEscape(absoluteUrl) + " -A " + shellEscape("uapi-sdk-cpp/0.1.13") + " -H \"Accept: application/json\"";
     if (!token.empty()) cmd += " -H " + shellEscape("Authorization: Bearer " + token);
     if (!body.empty()) {
         cmd += " -H \"Content-Type: application/json\"";
