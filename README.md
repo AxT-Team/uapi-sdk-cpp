@@ -2,7 +2,7 @@
 
 ![Banner](https://raw.githubusercontent.com/AxT-Team/uapi-sdk-cpp/main/banner.png)
 
-[![C++](https://img.shields.io/badge/C++-17+-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
+[![C++](https://img.shields.io/badge/C++-20-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
 [![Docs](https://img.shields.io/badge/Docs-uapis.cn-2EAE5D?style=flat-square)](https://uapis.cn/)
 
 > [!NOTE]
@@ -21,22 +21,13 @@ git submodule add https://github.com/AxT-Team/uapi-sdk-cpp deps/uapi-cpp
 
 int main() {
     uapi::Client client("https://uapis.cn", "YOUR_API_KEY");
-    std::map<std::string, std::string> args{{"type", "weibo"}};
-    auto result = client.misc().getMiscHotboard(args);
+    std::map<std::string, std::string> args;
+    args["qq"] = "10001";
+    auto result = client.social().getSocialQqUserinfo(args);
     std::cout << result << std::endl;
     return 0;
 }
 ```
-
-这个接口默认只要传 `type` 就可以拿当前热榜。`time`、`keyword`、`time_start`、`time_end`、`limit`、`sources` 都是按场景再传的可选参数。
-
-如果你在 Windows + MinGW 下直接编译这个最小示例，记得把 `winhttp` 一起链接进去。例如：
-
-```bash
-g++ -std=c++17 -I deps/uapi-cpp/include main.cpp -lwinhttp -o demo.exe
-```
-
-如果你用的是 MSVC，请把 `Winhttp.lib` 加进链接器输入。
 
 ## 特性
 
@@ -48,86 +39,9 @@ g++ -std=c++17 -I deps/uapi-cpp/include main.cpp -lwinhttp -o demo.exe
 
 针对 401、404、429 等标准 HTTP 响应，SDK 已将其统一映射为具名的错误类型。这些错误均附带 `code`、`status`、`details` 等关键上下文信息，确保你在日志中能第一时间准确、快速地诊断问题。
 
-当前通过 `uapi::Client(baseUrl, token)` 配置 BaseURL 和 Token。如果你需要代理、超时或其他 HTTP 策略，建议按需修改源码，或者在项目里再封装一层。
+基础域名、请求超时和 `User-Agent` 已预设为合理的默认值。但你完全拥有控制权，可以通过 `uapi::Client(baseUrl, token)` 及其可插拔 HTTP 实现灵活覆盖 Token、BaseURL 等配置。
 
 如果你需要查看字段细节或内部逻辑，仓库中的 `./internal` 目录同步保留了由 `openapi-generator` 生成的完整结构体，随时可供参考。
-
-## 响应元信息
-
-每次请求完成后，SDK 会自动把响应 Header 解析成结构化的 `ResponseMeta`，你不用自己拆原始字符串。
-
-成功时可以通过 `client.lastResponseMeta()` 读取，失败时可以通过 `e.meta` 读取，两条路径拿到的是同一套字段。
-
-```cpp
-#include <uapi/Client.hpp>
-#include <iostream>
-#include <map>
-
-int main() {
-    uapi::Client client("https://uapis.cn", "YOUR_API_KEY");
-    std::map<std::string, std::string> args{{"qq", "10001"}};
-
-    // 成功路径
-    client.social().getSocialQqUserinfo(args);
-    const auto& meta = client.lastResponseMeta();
-    if (meta.creditsRequested >= 0) {
-        std::cout << "这次请求原价: " << meta.creditsRequested << " 积分\n";
-    }
-    if (meta.creditsCharged >= 0) {
-        std::cout << "这次实际扣费: " << meta.creditsCharged << " 积分\n";
-    }
-    if (!meta.creditsPricing.empty()) {
-        std::cout << "特殊计价: " << meta.creditsPricing << '\n';
-    }
-    if (meta.balanceRemainingCents >= 0) {
-        std::cout << "余额剩余: " << meta.balanceRemainingCents << " 分\n";
-    }
-    if (meta.quotaRemainingCredits >= 0) {
-        std::cout << "资源包剩余: " << meta.quotaRemainingCredits << " 积分\n";
-    }
-    if (meta.activeQuotaBuckets >= 0) {
-        std::cout << "当前有效额度桶: " << meta.activeQuotaBuckets << '\n';
-    }
-    if (meta.hasStopOnEmpty) {
-        std::cout << "额度用空即停: " << (meta.stopOnEmpty ? "true" : "false") << '\n';
-    }
-    if (meta.billingKeyRateLimit >= 0) {
-        std::cout << "Key QPS: " << meta.billingKeyRateRemaining << " / " << meta.billingKeyRateLimit
-                  << ' ' << (meta.billingKeyRateUnit.empty() ? "req" : meta.billingKeyRateUnit) << '\n';
-    }
-    std::cout << "Request ID: " << meta.requestId << '\n';
-
-    // 失败路径
-    try {
-        client.social().getSocialQqUserinfo(args);
-    } catch (const uapi::UapiError& e) {
-        std::cout << "Retry-After 秒数: " << e.meta.retryAfterSeconds << '\n';
-        std::cout << "Retry-After 原始值: " << e.meta.retryAfterRaw << '\n';
-        std::cout << "访客 QPS: " << e.meta.visitorRateRemaining << " / " << e.meta.visitorRateLimit << '\n';
-        std::cout << "Request ID: " << e.meta.requestId << '\n';
-    }
-
-    return 0;
-}
-```
-
-常用字段一览：
-
-| 字段 | 说明 |
-|------|------|
-| `creditsRequested` | 这次请求原本要扣多少积分，也就是请求价 |
-| `creditsCharged` | 这次请求实际扣了多少积分 |
-| `creditsPricing` | 特殊计价原因，例如缓存半价 `cache-hit-half-price` |
-| `balanceRemainingCents` | 账户余额剩余（分） |
-| `quotaRemainingCredits` | 资源包剩余积分 |
-| `activeQuotaBuckets` | 当前还有多少个有效额度桶参与计费 |
-| `stopOnEmpty` | 额度耗尽后是否直接停止服务 |
-| `retryAfterSeconds` / `retryAfterRaw` | 限流后的等待时长；当服务端返回 HTTP 时间字符串时看 `retryAfterRaw` |
-| `requestId` | 请求唯一 ID，排障时使用 |
-| `billingKeyRateLimit` / `billingKeyRateRemaining` | Billing Key 当前 QPS 规则的上限与剩余 |
-| `billingIpRateLimit` / `billingIpRateRemaining` | Billing Key 单 IP 当前 QPS 规则的上限与剩余 |
-| `visitorRateLimit` / `visitorRateRemaining` | 访客当前 QPS 规则的上限与剩余 |
-| `rateLimitPolicies` / `rateLimits` | 完整结构化限流策略数据 |
 
 ## 错误模型概览
 

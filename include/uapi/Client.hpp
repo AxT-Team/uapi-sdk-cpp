@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <iomanip>
 #include <cctype>
+#include <chrono>
+#include <optional>
 
 #ifdef _WIN32
 #  include <windows.h>
@@ -23,20 +25,7 @@ struct UapiError: public std::runtime_error {
     int status;
     std::string payload;
     struct ResponseMeta {
-        struct RateLimitPolicyEntry {
-            std::string name;
-            long long quota = -1;
-            std::string unit;
-            long long windowSeconds = -1;
-        };
-        struct RateLimitStateEntry {
-            std::string name;
-            long long remaining = -1;
-            std::string unit;
-            long long resetAfterSeconds = -1;
-        };
         std::string requestId;
-        std::string retryAfterRaw;
         long long retryAfterSeconds = -1;
         std::string debitStatus;
         long long creditsRequested = -1;
@@ -47,29 +36,12 @@ struct UapiError: public std::runtime_error {
         bool hasStopOnEmpty = false;
         std::string rateLimitPolicyRaw;
         std::string rateLimitRaw;
-        std::map<std::string, RateLimitPolicyEntry> rateLimitPolicies;
-        std::map<std::string, RateLimitStateEntry> rateLimits;
         long long balanceLimitCents = -1;
         long long balanceRemainingCents = -1;
         long long quotaLimitCredits = -1;
         long long quotaRemainingCredits = -1;
         long long visitorQuotaLimitCredits = -1;
         long long visitorQuotaRemainingCredits = -1;
-        long long billingKeyRateLimit = -1;
-        long long billingKeyRateRemaining = -1;
-        std::string billingKeyRateUnit;
-        long long billingKeyRateWindowSeconds = -1;
-        long long billingKeyRateResetAfterSeconds = -1;
-        long long billingIpRateLimit = -1;
-        long long billingIpRateRemaining = -1;
-        std::string billingIpRateUnit;
-        long long billingIpRateWindowSeconds = -1;
-        long long billingIpRateResetAfterSeconds = -1;
-        long long visitorRateLimit = -1;
-        long long visitorRateRemaining = -1;
-        std::string visitorRateUnit;
-        long long visitorRateWindowSeconds = -1;
-        long long visitorRateResetAfterSeconds = -1;
         std::map<std::string, std::string> rawHeaders;
     } meta;
     UapiError(std::string c, int s, std::string msg, std::string raw = ""): UapiError(std::move(c), s, std::move(msg), std::move(raw), ResponseMeta{}) {}
@@ -99,7 +71,7 @@ struct VisitorMonthlyQuotaExhaustedError: public UapiError { using UapiError::Ua
 
 class Client {
 public:
-    Client(std::string baseUrl = "https://uapis.cn", std::string tok = "");
+    Client(std::string baseUrl = "https://uapis.cn", std::string tok = "", bool disableCache = false);
     const UapiError::ResponseMeta& lastResponseMeta() const { return lastMeta; }
     struct ClipzyZaiXianJianTieBanApi {
         Client* c;
@@ -108,24 +80,42 @@ public:
             std::string path = "/api/v1/api/get";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("id"); it != args.end()) query["id"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getClipzyRaw(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/api/raw/{id}";
             if (auto it = args.find("id"); it != args.end()) { auto ph = std::string("{") + "id" + "}"; auto pos = path.find(ph); if (pos!=std::string::npos) path.replace(pos, ph.size(), it->second); }
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("key"); it != args.end()) query["key"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postClipzyStore(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/api/store";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("compressedData"); it != args.end()) body["compressedData"] = it->second;
             if (auto it = args.find("ttl"); it != args.end()) body["ttl"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     ClipzyZaiXianJianTieBanApi clipzyZaiXianJianTieBan() { return ClipzyZaiXianJianTieBanApi(this); }
@@ -136,15 +126,27 @@ public:
             std::string path = "/api/v1/convert/unixtime";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("time"); it != args.end()) query["time"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postConvertJson(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/convert/json";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("content"); it != args.end()) body["content"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     ConvertApi convert() { return ConvertApi(this); }
@@ -155,7 +157,13 @@ public:
             std::string path = "/api/v1/daily/news-image";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
     };
     DailyApi daily() { return DailyApi(this); }
@@ -166,39 +174,69 @@ public:
             std::string path = "/api/v1/game/epic-free";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getGameMinecraftHistoryid(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/minecraft/historyid";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("name"); it != args.end()) query["name"] = it->second;
             if (auto it = args.find("uuid"); it != args.end()) query["uuid"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getGameMinecraftServerstatus(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/minecraft/serverstatus";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("server"); it != args.end()) query["server"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getGameMinecraftUserinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/minecraft/userinfo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("username"); it != args.end()) query["username"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getGameSteamSummary(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/game/steam/summary";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("steamid"); it != args.end()) query["steamid"] = it->second;
             if (auto it = args.find("id"); it != args.end()) query["id"] = it->second;
             if (auto it = args.find("id3"); it != args.end()) query["id3"] = it->second;
             if (auto it = args.find("key"); it != args.end()) query["key"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
     };
     GameApi game() { return GameApi(this); }
@@ -209,97 +247,163 @@ public:
             std::string path = "/api/v1/avatar/gravatar";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("email"); it != args.end()) query["email"] = it->second;
             if (auto it = args.find("hash"); it != args.end()) query["hash"] = it->second;
             if (auto it = args.find("s"); it != args.end()) query["s"] = it->second;
             if (auto it = args.find("d"); it != args.end()) query["d"] = it->second;
             if (auto it = args.find("r"); it != args.end()) query["r"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getImageBingDaily(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/bing-daily";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getImageMotou(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/motou";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("qq"); it != args.end()) query["qq"] = it->second;
             if (auto it = args.find("bg_color"); it != args.end()) query["bg_color"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getImageQrcode(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/qrcode";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("text"); it != args.end()) query["text"] = it->second;
             if (auto it = args.find("size"); it != args.end()) query["size"] = it->second;
             if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
             if (auto it = args.find("transparent"); it != args.end()) query["transparent"] = it->second;
             if (auto it = args.find("fgcolor"); it != args.end()) query["fgcolor"] = it->second;
             if (auto it = args.find("bgcolor"); it != args.end()) query["bgcolor"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getImageTobase64(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/tobase64";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postImageCompress(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/compress";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("level"); it != args.end()) query["level"] = it->second;
             if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postImageFrombase64(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/frombase64";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("imageData"); it != args.end()) body["imageData"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postImageMotou(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/motou";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("bg_color"); it != args.end()) body["bg_color"] = it->second;
             if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
             if (auto it = args.find("image_url"); it != args.end()) body["image_url"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postImageNsfw(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/nsfw";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
             if (auto it = args.find("url"); it != args.end()) body["url"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postImageSpeechless(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/speechless";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("bottom_text"); it != args.end()) body["bottom_text"] = it->second;
             if (auto it = args.find("top_text"); it != args.end()) body["top_text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postImageSvg(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/svg";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
             if (auto it = args.find("width"); it != args.end()) query["width"] = it->second;
             if (auto it = args.find("height"); it != args.end()) query["height"] = it->second;
             if (auto it = args.find("quality"); it != args.end()) query["quality"] = it->second;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     ImageApi image() { return ImageApi(this); }
@@ -310,20 +414,33 @@ public:
             std::string path = "/api/v1/history/programmer";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("month"); it != args.end()) query["month"] = it->second;
             if (auto it = args.find("day"); it != args.end()) query["day"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getHistoryProgrammerToday(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/history/programmer/today";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscDistrict(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/district";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("keywords"); it != args.end()) query["keywords"] = it->second;
             if (auto it = args.find("adcode"); it != args.end()) query["adcode"] = it->second;
             if (auto it = args.find("lat"); it != args.end()) query["lat"] = it->second;
@@ -331,12 +448,18 @@ public:
             if (auto it = args.find("level"); it != args.end()) query["level"] = it->second;
             if (auto it = args.find("country"); it != args.end()) query["country"] = it->second;
             if (auto it = args.find("limit"); it != args.end()) query["limit"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscHolidayCalendar(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/holiday-calendar";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("date"); it != args.end()) query["date"] = it->second;
             if (auto it = args.find("month"); it != args.end()) query["month"] = it->second;
             if (auto it = args.find("year"); it != args.end()) query["year"] = it->second;
@@ -344,12 +467,18 @@ public:
             if (auto it = args.find("holiday_type"); it != args.end()) query["holiday_type"] = it->second;
             if (auto it = args.find("include_nearby"); it != args.end()) query["include_nearby"] = it->second;
             if (auto it = args.find("nearby_limit"); it != args.end()) query["nearby_limit"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscHotboard(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/hotboard";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
             if (auto it = args.find("time"); it != args.end()) query["time"] = it->second;
             if (auto it = args.find("keyword"); it != args.end()) query["keyword"] = it->second;
@@ -357,68 +486,116 @@ public:
             if (auto it = args.find("time_end"); it != args.end()) query["time_end"] = it->second;
             if (auto it = args.find("limit"); it != args.end()) query["limit"] = it->second;
             if (auto it = args.find("sources"); it != args.end()) query["sources"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscLunartime(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/lunartime";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("ts"); it != args.end()) query["ts"] = it->second;
             if (auto it = args.find("timezone"); it != args.end()) query["timezone"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscPhoneinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/phoneinfo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("phone"); it != args.end()) query["phone"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscRandomnumber(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/randomnumber";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("min"); it != args.end()) query["min"] = it->second;
             if (auto it = args.find("max"); it != args.end()) query["max"] = it->second;
             if (auto it = args.find("count"); it != args.end()) query["count"] = it->second;
             if (auto it = args.find("allow_repeat"); it != args.end()) query["allow_repeat"] = it->second;
             if (auto it = args.find("allow_decimal"); it != args.end()) query["allow_decimal"] = it->second;
             if (auto it = args.find("decimal_places"); it != args.end()) query["decimal_places"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscTimestamp(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/timestamp";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("ts"); it != args.end()) query["ts"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscTrackingCarriers(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/tracking/carriers";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscTrackingDetect(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/tracking/detect";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("tracking_number"); it != args.end()) query["tracking_number"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscTrackingQuery(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/tracking/query";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("tracking_number"); it != args.end()) query["tracking_number"] = it->second;
             if (auto it = args.find("carrier_code"); it != args.end()) query["carrier_code"] = it->second;
             if (auto it = args.find("phone"); it != args.end()) query["phone"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscWeather(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/weather";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("city"); it != args.end()) query["city"] = it->second;
             if (auto it = args.find("adcode"); it != args.end()) query["adcode"] = it->second;
             if (auto it = args.find("extended"); it != args.end()) query["extended"] = it->second;
@@ -427,23 +604,40 @@ public:
             if (auto it = args.find("minutely"); it != args.end()) query["minutely"] = it->second;
             if (auto it = args.find("indices"); it != args.end()) query["indices"] = it->second;
             if (auto it = args.find("lang"); it != args.end()) query["lang"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getMiscWorldtime(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/worldtime";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("city"); it != args.end()) query["city"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postMiscDateDiff(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/misc/date-diff";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("end_date"); it != args.end()) body["end_date"] = it->second;
             if (auto it = args.find("format"); it != args.end()) body["format"] = it->second;
             if (auto it = args.find("start_date"); it != args.end()) body["start_date"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     MiscApi misc() { return MiscApi(this); }
@@ -454,75 +648,135 @@ public:
             std::string path = "/api/v1/network/dns";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
             if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkIcp(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/icp";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkIpinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/ipinfo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("ip"); it != args.end()) query["ip"] = it->second;
             if (auto it = args.find("source"); it != args.end()) query["source"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkMyip(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/myip";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("source"); it != args.end()) query["source"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkPing(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/ping";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("host"); it != args.end()) query["host"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkPingmyip(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/pingmyip";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkPortscan(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/portscan";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("host"); it != args.end()) query["host"] = it->second;
             if (auto it = args.find("port"); it != args.end()) query["port"] = it->second;
             if (auto it = args.find("protocol"); it != args.end()) query["protocol"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkUrlstatus(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/urlstatus";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkWhois(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/whois";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
             if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getNetworkWxdomain(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/network/wxdomain";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("domain"); it != args.end()) query["domain"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
     };
     NetworkApi network() { return NetworkApi(this); }
@@ -533,7 +787,13 @@ public:
             std::string path = "/api/v1/saying";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
     };
     PoemApi poem() { return PoemApi(this); }
@@ -544,31 +804,55 @@ public:
             std::string path = "/api/v1/answerbook/ask";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("question"); it != args.end()) query["question"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getRandomImage(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/random/image";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("category"); it != args.end()) query["category"] = it->second;
             if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getRandomString(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/random/string";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("length"); it != args.end()) query["length"] = it->second;
             if (auto it = args.find("type"); it != args.end()) query["type"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postAnswerbookAsk(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/answerbook/ask";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("question"); it != args.end()) body["question"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     RandomApi random() { return RandomApi(this); }
@@ -579,66 +863,114 @@ public:
             std::string path = "/api/v1/github/repo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("repo"); it != args.end()) query["repo"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getSocialBilibiliArchives(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/archives";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("mid"); it != args.end()) query["mid"] = it->second;
             if (auto it = args.find("keywords"); it != args.end()) query["keywords"] = it->second;
             if (auto it = args.find("orderby"); it != args.end()) query["orderby"] = it->second;
             if (auto it = args.find("ps"); it != args.end()) query["ps"] = it->second;
             if (auto it = args.find("pn"); it != args.end()) query["pn"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getSocialBilibiliLiveroom(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/liveroom";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("mid"); it != args.end()) query["mid"] = it->second;
             if (auto it = args.find("room_id"); it != args.end()) query["room_id"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getSocialBilibiliReplies(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/replies";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("oid"); it != args.end()) query["oid"] = it->second;
             if (auto it = args.find("sort"); it != args.end()) query["sort"] = it->second;
             if (auto it = args.find("ps"); it != args.end()) query["ps"] = it->second;
             if (auto it = args.find("pn"); it != args.end()) query["pn"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getSocialBilibiliUserinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/userinfo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("uid"); it != args.end()) query["uid"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getSocialBilibiliVideoinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/videoinfo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("aid"); it != args.end()) query["aid"] = it->second;
             if (auto it = args.find("bvid"); it != args.end()) query["bvid"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getSocialQqGroupinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/qq/groupinfo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("group_id"); it != args.end()) query["group_id"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getSocialQqUserinfo(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/qq/userinfo";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("qq"); it != args.end()) query["qq"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
     };
     SocialApi social() { return SocialApi(this); }
@@ -649,14 +981,26 @@ public:
             std::string path = "/api/v1/status/ratelimit";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getStatusUsage(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/status/usage";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("path"); it != args.end()) query["path"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
     };
     StatusApi status() { return StatusApi(this); }
@@ -667,94 +1011,160 @@ public:
             std::string path = "/api/v1/text/md5";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("text"); it != args.end()) query["text"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postTextAesDecrypt(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/aes/decrypt";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
             if (auto it = args.find("nonce"); it != args.end()) body["nonce"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextAesDecryptAdvanced(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/aes/decrypt-advanced";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("iv"); it != args.end()) body["iv"] = it->second;
             if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
             if (auto it = args.find("mode"); it != args.end()) body["mode"] = it->second;
             if (auto it = args.find("padding"); it != args.end()) body["padding"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextAesEncrypt(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/aes/encrypt";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextAesEncryptAdvanced(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/aes/encrypt-advanced";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("iv"); it != args.end()) body["iv"] = it->second;
             if (auto it = args.find("key"); it != args.end()) body["key"] = it->second;
             if (auto it = args.find("mode"); it != args.end()) body["mode"] = it->second;
             if (auto it = args.find("output_format"); it != args.end()) body["output_format"] = it->second;
             if (auto it = args.find("padding"); it != args.end()) body["padding"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextAnalyze(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/analyze";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextBase64Decode(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/base64/decode";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextBase64Encode(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/base64/encode";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextConvert(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/convert";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("from"); it != args.end()) body["from"] = it->second;
             if (auto it = args.find("options"); it != args.end()) body["options"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
             if (auto it = args.find("to"); it != args.end()) body["to"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextMd5(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/md5";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTextMd5Verify(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/md5/verify";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("hash"); it != args.end()) body["hash"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     TextApi text() { return TextApi(this); }
@@ -765,37 +1175,61 @@ public:
             std::string path = "/api/v1/ai/translate/languages";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postAiTranslate(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/ai/translate";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("target_lang"); it != args.end()) query["target_lang"] = it->second;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("context"); it != args.end()) body["context"] = it->second;
             if (auto it = args.find("preserve_format"); it != args.end()) body["preserve_format"] = it->second;
             if (auto it = args.find("source_lang"); it != args.end()) body["source_lang"] = it->second;
             if (auto it = args.find("style"); it != args.end()) body["style"] = it->second;
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTranslateStream(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/translate/stream";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("from_lang"); it != args.end()) body["from_lang"] = it->second;
             if (auto it = args.find("query"); it != args.end()) body["query"] = it->second;
             if (auto it = args.find("to_lang"); it != args.end()) body["to_lang"] = it->second;
             if (auto it = args.find("tone"); it != args.end()) body["tone"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postTranslateText(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/translate/text";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("to_lang"); it != args.end()) query["to_lang"] = it->second;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     TranslateApi translate() { return TranslateApi(this); }
@@ -807,28 +1241,52 @@ public:
             if (auto it = args.find("task_id"); it != args.end()) { auto ph = std::string("{") + "task_id" + "}"; auto pos = path.find(ph); if (pos!=std::string::npos) path.replace(pos, ph.size(), it->second); }
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getWebparseExtractimages(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/webparse/extractimages";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string getWebparseMetadata(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/webparse/metadata";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postWebTomarkdownAsync(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/web/tomarkdown/async";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("url"); it != args.end()) query["url"] = it->second;
-            return c->request("POST", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     WebparseApi webparse() { return WebparseApi(this); }
@@ -839,22 +1297,40 @@ public:
             std::string path = "/api/v1/sensitive-word/analyze-query";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
             if (auto it = args.find("keyword"); it != args.end()) query["keyword"] = it->second;
-            return c->request("GET", path, query, body);
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postSensitiveWordAnalyze(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/sensitive-word/analyze";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("keywords"); it != args.end()) body["keywords"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
         std::string postSensitiveWordQuickCheck(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/profanitycheck";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     MinGanCiShiBieApi minGanCiShiBie() { return MinGanCiShiBieApi(this); }
@@ -865,12 +1341,24 @@ public:
             std::string path = "/api/v1/search/engines";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
-            return c->request("GET", path, query, body);
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
         }
         std::string postSearchAggregate(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/search/aggregate";
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
             if (auto it = args.find("fetch_full"); it != args.end()) body["fetch_full"] = it->second;
             if (auto it = args.find("filetype"); it != args.end()) body["filetype"] = it->second;
             if (auto it = args.find("query"); it != args.end()) body["query"] = it->second;
@@ -878,7 +1366,7 @@ public:
             if (auto it = args.find("sort"); it != args.end()) body["sort"] = it->second;
             if (auto it = args.find("time_range"); it != args.end()) body["time_range"] = it->second;
             if (auto it = args.find("timeout_ms"); it != args.end()) body["timeout_ms"] = it->second;
-            return c->request("POST", path, query, body);
+            return c->request("POST", path, query, body, disableCache);
         }
     };
     ZhiNengSouSuoApi zhiNengSouSuo() { return ZhiNengSouSuoApi(this); }
@@ -890,10 +1378,12 @@ private:
     unsigned short port;
     bool secure;
     std::string token;
+    bool disableCacheDefault;
     mutable UapiError::ResponseMeta lastMeta;
 
-    std::string request(const std::string& method, std::string path, const std::map<std::string, std::string>& query, const std::map<std::string, std::string>& body = {}) const;
+    std::string request(const std::string& method, std::string path, const std::map<std::string, std::string>& query, const std::map<std::string, std::string>& body = {}, std::optional<bool> disableCache = std::nullopt) const;
     std::string buildQuery(const std::map<std::string, std::string>& query) const;
+    std::map<std::string, std::string> applyCacheControl(const std::string& method, const std::map<std::string, std::string>& query, std::optional<bool> disableCache) const;
     static std::string urlEncode(const std::string& value);
     std::string defaultCode(int status) const;
     void raiseError(int status, const std::string& body) const;
@@ -901,13 +1391,9 @@ private:
     void setMetaFromHeaders(const std::map<std::string, std::string>& headers) const;
     static std::string headerValue(const std::map<std::string, std::string>& headers, const std::string& key);
     static long long parseLong(const std::string& value);
+    static std::optional<bool> parseOptionalBool(const std::string& value);
     static std::string structuredValue(const std::string& raw, const std::string& name, const std::string& key);
     static std::string unquote(const std::string& value);
-    struct StructuredItem {
-        std::string name;
-        std::map<std::string, std::string> params;
-    };
-    static std::vector<StructuredItem> parseStructuredItems(const std::string& raw);
 #ifdef _WIN32
     std::string sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body = "") const;
     static std::wstring widen(const std::string& input);
@@ -919,7 +1405,7 @@ private:
 #endif
 };
 
-inline Client::Client(std::string baseUrl, std::string tok): host(), basePath("/"), port(443), secure(true), token(std::move(tok)) {
+inline Client::Client(std::string baseUrl, std::string tok, bool disableCache): host(), basePath("/"), port(443), secure(true), token(std::move(tok)), disableCacheDefault(disableCache) {
     if (baseUrl.empty()) baseUrl = "https://uapis.cn";
     auto schemePos = baseUrl.find("://");
     std::string scheme = schemePos == std::string::npos ? "https" : baseUrl.substr(0, schemePos);
@@ -948,7 +1434,7 @@ inline Client::Client(std::string baseUrl, std::string tok): host(), basePath("/
     }
 }
 
-inline std::string Client::request(const std::string& method, std::string path, const std::map<std::string, std::string>& query, const std::map<std::string, std::string>& body) const {
+inline std::string Client::request(const std::string& method, std::string path, const std::map<std::string, std::string>& query, const std::map<std::string, std::string>& body, std::optional<bool> disableCache) const {
     if (!path.empty() && path.front() == '/') path.erase(0, 1);
     std::string normalized = basePath;
     if (!normalized.empty() && normalized.back() == '/' && !path.empty()) {
@@ -958,7 +1444,7 @@ inline std::string Client::request(const std::string& method, std::string path, 
         normalized += path;
     }
     if (normalized.empty()) normalized = "/";
-    auto queryString = buildQuery(query);
+    auto queryString = buildQuery(applyCacheControl(method, query, disableCache));
     std::string jsonBody;
     if (!body.empty()) {
         jsonBody = "{";
@@ -989,6 +1475,19 @@ inline std::string Client::buildQuery(const std::map<std::string, std::string>& 
         out += urlEncode(kv.second);
     }
     return out;
+}
+
+inline std::map<std::string, std::string> Client::applyCacheControl(const std::string& method, const std::map<std::string, std::string>& query, std::optional<bool> disableCache) const {
+    if (method != "GET") return query;
+    if (query.find("_t") != query.end()) return query;
+    bool effectiveDisableCache = disableCache.has_value() ? *disableCache : disableCacheDefault;
+    if (!effectiveDisableCache) return query;
+    auto next = query;
+    const auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()
+    ).count();
+    next["_t"] = std::to_string(now);
+    return next;
 }
 
 inline std::string Client::urlEncode(const std::string& value) {
@@ -1074,6 +1573,16 @@ inline long long Client::parseLong(const std::string& value) {
     }
 }
 
+inline std::optional<bool> Client::parseOptionalBool(const std::string& value) {
+    auto normalized = value;
+    normalized.erase(normalized.begin(), std::find_if(normalized.begin(), normalized.end(), [](unsigned char ch) { return !std::isspace(ch); }));
+    normalized.erase(std::find_if(normalized.rbegin(), normalized.rend(), [](unsigned char ch) { return !std::isspace(ch); }).base(), normalized.end());
+    std::transform(normalized.begin(), normalized.end(), normalized.begin(), [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
+    if (normalized == "1" || normalized == "true" || normalized == "yes" || normalized == "on") return true;
+    if (normalized == "0" || normalized == "false" || normalized == "no" || normalized == "off") return false;
+    return std::nullopt;
+}
+
 inline std::string Client::unquote(const std::string& value) {
     auto start = value.find_first_not_of(" \t\r\n");
     auto end = value.find_last_not_of(" \t\r\n");
@@ -1107,38 +1616,11 @@ inline std::string Client::structuredValue(const std::string& raw, const std::st
     return {};
 }
 
-inline std::vector<Client::StructuredItem> Client::parseStructuredItems(const std::string& raw) {
-    std::vector<StructuredItem> items;
-    std::stringstream ss(raw);
-    std::string item;
-    while (std::getline(ss, item, ',')) {
-        std::stringstream itemStream(item);
-        std::string segment;
-        if (!std::getline(itemStream, segment, ';')) continue;
-        StructuredItem parsed;
-        parsed.name = unquote(segment);
-        if (parsed.name.empty()) continue;
-        while (std::getline(itemStream, segment, ';')) {
-            auto eq = segment.find('=');
-            if (eq == std::string::npos) continue;
-            auto key = segment.substr(0, eq);
-            auto value = unquote(segment.substr(eq + 1));
-            while (!key.empty() && std::isspace(static_cast<unsigned char>(key.front()))) key.erase(key.begin());
-            while (!key.empty() && std::isspace(static_cast<unsigned char>(key.back()))) key.pop_back();
-            if (key.empty()) continue;
-            parsed.params[key] = value;
-        }
-        items.push_back(std::move(parsed));
-    }
-    return items;
-}
-
 inline void Client::setMetaFromHeaders(const std::map<std::string, std::string>& headers) const {
     lastMeta = UapiError::ResponseMeta{};
     lastMeta.rawHeaders = headers;
     lastMeta.requestId = headerValue(headers, "x-request-id");
-    lastMeta.retryAfterRaw = headerValue(headers, "retry-after");
-    lastMeta.retryAfterSeconds = parseLong(lastMeta.retryAfterRaw);
+    lastMeta.retryAfterSeconds = parseLong(headerValue(headers, "retry-after"));
     lastMeta.debitStatus = headerValue(headers, "uapi-debit-status");
     lastMeta.creditsRequested = parseLong(headerValue(headers, "uapi-credits-requested"));
     lastMeta.creditsCharged = parseLong(headerValue(headers, "uapi-credits-charged"));
@@ -1151,70 +1633,12 @@ inline void Client::setMetaFromHeaders(const std::map<std::string, std::string>&
     }
     lastMeta.rateLimitPolicyRaw = headerValue(headers, "ratelimit-policy");
     lastMeta.rateLimitRaw = headerValue(headers, "ratelimit");
-    for (const auto& item : parseStructuredItems(lastMeta.rateLimitPolicyRaw)) {
-        UapiError::ResponseMeta::RateLimitPolicyEntry entry;
-        entry.name = item.name;
-        if (auto it = item.params.find("q"); it != item.params.end()) entry.quota = parseLong(it->second);
-        if (auto it = item.params.find("uapi-unit"); it != item.params.end()) entry.unit = it->second;
-        if (auto it = item.params.find("w"); it != item.params.end()) entry.windowSeconds = parseLong(it->second);
-        lastMeta.rateLimitPolicies[item.name] = entry;
-    }
-    for (const auto& item : parseStructuredItems(lastMeta.rateLimitRaw)) {
-        UapiError::ResponseMeta::RateLimitStateEntry entry;
-        entry.name = item.name;
-        if (auto it = item.params.find("r"); it != item.params.end()) entry.remaining = parseLong(it->second);
-        if (auto it = item.params.find("uapi-unit"); it != item.params.end()) entry.unit = it->second;
-        if (auto it = item.params.find("t"); it != item.params.end()) entry.resetAfterSeconds = parseLong(it->second);
-        lastMeta.rateLimits[item.name] = entry;
-    }
-    if (auto it = lastMeta.rateLimitPolicies.find("billing-balance"); it != lastMeta.rateLimitPolicies.end()) {
-        lastMeta.balanceLimitCents = it->second.quota;
-    }
-    if (auto it = lastMeta.rateLimits.find("billing-balance"); it != lastMeta.rateLimits.end()) {
-        lastMeta.balanceRemainingCents = it->second.remaining;
-    }
-    if (auto it = lastMeta.rateLimitPolicies.find("billing-quota"); it != lastMeta.rateLimitPolicies.end()) {
-        lastMeta.quotaLimitCredits = it->second.quota;
-    }
-    if (auto it = lastMeta.rateLimits.find("billing-quota"); it != lastMeta.rateLimits.end()) {
-        lastMeta.quotaRemainingCredits = it->second.remaining;
-    }
-    if (auto it = lastMeta.rateLimitPolicies.find("visitor-quota"); it != lastMeta.rateLimitPolicies.end()) {
-        lastMeta.visitorQuotaLimitCredits = it->second.quota;
-    }
-    if (auto it = lastMeta.rateLimits.find("visitor-quota"); it != lastMeta.rateLimits.end()) {
-        lastMeta.visitorQuotaRemainingCredits = it->second.remaining;
-    }
-    if (auto it = lastMeta.rateLimitPolicies.find("billing-key-rate"); it != lastMeta.rateLimitPolicies.end()) {
-        lastMeta.billingKeyRateLimit = it->second.quota;
-        lastMeta.billingKeyRateUnit = it->second.unit;
-        lastMeta.billingKeyRateWindowSeconds = it->second.windowSeconds;
-    }
-    if (auto it = lastMeta.rateLimits.find("billing-key-rate"); it != lastMeta.rateLimits.end()) {
-        lastMeta.billingKeyRateRemaining = it->second.remaining;
-        if (lastMeta.billingKeyRateUnit.empty()) lastMeta.billingKeyRateUnit = it->second.unit;
-        lastMeta.billingKeyRateResetAfterSeconds = it->second.resetAfterSeconds;
-    }
-    if (auto it = lastMeta.rateLimitPolicies.find("billing-ip-rate"); it != lastMeta.rateLimitPolicies.end()) {
-        lastMeta.billingIpRateLimit = it->second.quota;
-        lastMeta.billingIpRateUnit = it->second.unit;
-        lastMeta.billingIpRateWindowSeconds = it->second.windowSeconds;
-    }
-    if (auto it = lastMeta.rateLimits.find("billing-ip-rate"); it != lastMeta.rateLimits.end()) {
-        lastMeta.billingIpRateRemaining = it->second.remaining;
-        if (lastMeta.billingIpRateUnit.empty()) lastMeta.billingIpRateUnit = it->second.unit;
-        lastMeta.billingIpRateResetAfterSeconds = it->second.resetAfterSeconds;
-    }
-    if (auto it = lastMeta.rateLimitPolicies.find("visitor-rate"); it != lastMeta.rateLimitPolicies.end()) {
-        lastMeta.visitorRateLimit = it->second.quota;
-        lastMeta.visitorRateUnit = it->second.unit;
-        lastMeta.visitorRateWindowSeconds = it->second.windowSeconds;
-    }
-    if (auto it = lastMeta.rateLimits.find("visitor-rate"); it != lastMeta.rateLimits.end()) {
-        lastMeta.visitorRateRemaining = it->second.remaining;
-        if (lastMeta.visitorRateUnit.empty()) lastMeta.visitorRateUnit = it->second.unit;
-        lastMeta.visitorRateResetAfterSeconds = it->second.resetAfterSeconds;
-    }
+    lastMeta.balanceLimitCents = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "billing-balance", "q"));
+    lastMeta.balanceRemainingCents = parseLong(structuredValue(lastMeta.rateLimitRaw, "billing-balance", "r"));
+    lastMeta.quotaLimitCredits = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "billing-quota", "q"));
+    lastMeta.quotaRemainingCredits = parseLong(structuredValue(lastMeta.rateLimitRaw, "billing-quota", "r"));
+    lastMeta.visitorQuotaLimitCredits = parseLong(structuredValue(lastMeta.rateLimitPolicyRaw, "visitor-quota", "q"));
+    lastMeta.visitorQuotaRemainingCredits = parseLong(structuredValue(lastMeta.rateLimitRaw, "visitor-quota", "r"));
 }
 
 #ifdef _WIN32
@@ -1245,7 +1669,7 @@ inline std::string Client::queryHeaderValue(HINTERNET hRequest, const wchar_t* h
 }
 
 inline std::string Client::sendWinHttp(const std::string& method, const std::string& pathAndQuery, const std::string& body) const {
-    auto hSession = WinHttpOpen(L"uapi-sdk-cpp/0.1.13", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
+    auto hSession = WinHttpOpen(L"uapi-sdk-cpp/0.1.2", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
     if (!hSession) throw std::runtime_error("WinHttpOpen failed");
     auto closeSession = [&]() { if (hSession) WinHttpCloseHandle(hSession); hSession = nullptr; };
     std::string result;
@@ -1319,7 +1743,7 @@ inline std::string Client::shellEscape(const std::string& value) {
 }
 
 inline std::string Client::sendCurl(const std::string& method, const std::string& absoluteUrl, const std::string& body) const {
-    std::string cmd = "curl -s -S -D - -w \"\\n%{http_code}\" -X " + method + " " + shellEscape(absoluteUrl) + " -A " + shellEscape("uapi-sdk-cpp/0.1.13") + " -H \"Accept: application/json\"";
+    std::string cmd = "curl -s -S -D - -w \"\\n%{http_code}\" -X " + method + " " + shellEscape(absoluteUrl) + " -H \"Accept: application/json\"";
     if (!token.empty()) cmd += " -H " + shellEscape("Authorization: Bearer " + token);
     if (!body.empty()) {
         cmd += " -H \"Content-Type: application/json\"";
