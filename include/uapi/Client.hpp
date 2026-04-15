@@ -265,6 +265,25 @@ public:
             std::map<std::string, std::string> query;
             std::map<std::string, std::string> body;
             std::optional<bool> disableCache;
+            if (auto it = args.find("date"); it != args.end()) query["date"] = it->second;
+            if (auto it = args.find("resolution"); it != args.end()) query["resolution"] = it->second;
+            if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
+        }
+        std::string getImageBingDailyHistory(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/image/bing-daily/history";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("date"); it != args.end()) query["date"] = it->second;
+            if (auto it = args.find("resolution"); it != args.end()) query["resolution"] = it->second;
+            if (auto it = args.find("page"); it != args.end()) query["page"] = it->second;
+            if (auto it = args.find("page_size"); it != args.end()) query["page_size"] = it->second;
             if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
             if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
             if (!disableCache.has_value()) {
@@ -332,6 +351,28 @@ public:
             if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
             return c->request("POST", path, query, body, disableCache);
         }
+        std::string postImageDecode(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/image/decode";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("width"); it != args.end()) query["width"] = it->second;
+            if (auto it = args.find("height"); it != args.end()) query["height"] = it->second;
+            if (auto it = args.find("max_width"); it != args.end()) query["max_width"] = it->second;
+            if (auto it = args.find("max_height"); it != args.end()) query["max_height"] = it->second;
+            if (auto it = args.find("format"); it != args.end()) query["format"] = it->second;
+            if (auto it = args.find("color_mode"); it != args.end()) query["color_mode"] = it->second;
+            if (auto it = args.find("fit"); it != args.end()) query["fit"] = it->second;
+            if (auto it = args.find("background"); it != args.end()) query["background"] = it->second;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
+            if (auto it = args.find("url"); it != args.end()) body["url"] = it->second;
+            return c->request("POST", path, query, body, disableCache);
+        }
         std::string postImageFrombase64(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/image/frombase64";
             std::map<std::string, std::string> query;
@@ -371,6 +412,25 @@ public:
                 if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
             }
             if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
+            if (auto it = args.find("url"); it != args.end()) body["url"] = it->second;
+            return c->request("POST", path, query, body, disableCache);
+        }
+        std::string postImageOcr(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/image/ocr";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            if (auto it = args.find("enable_cls"); it != args.end()) body["enable_cls"] = it->second;
+            if (auto it = args.find("file"); it != args.end()) body["file"] = it->second;
+            if (auto it = args.find("image_base64"); it != args.end()) body["image_base64"] = it->second;
+            if (auto it = args.find("image_name"); it != args.end()) body["image_name"] = it->second;
+            if (auto it = args.find("need_location"); it != args.end()) body["need_location"] = it->second;
+            if (auto it = args.find("return_markdown"); it != args.end()) body["return_markdown"] = it->second;
             if (auto it = args.find("url"); it != args.end()) body["url"] = it->second;
             return c->request("POST", path, query, body, disableCache);
         }
@@ -467,6 +527,7 @@ public:
             if (auto it = args.find("holiday_type"); it != args.end()) query["holiday_type"] = it->second;
             if (auto it = args.find("include_nearby"); it != args.end()) query["include_nearby"] = it->second;
             if (auto it = args.find("nearby_limit"); it != args.end()) query["nearby_limit"] = it->second;
+            if (auto it = args.find("exclude_past"); it != args.end()) query["exclude_past"] = it->second;
             if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
             if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
             if (!disableCache.has_value()) {
@@ -485,7 +546,6 @@ public:
             if (auto it = args.find("time_start"); it != args.end()) query["time_start"] = it->second;
             if (auto it = args.find("time_end"); it != args.end()) query["time_end"] = it->second;
             if (auto it = args.find("limit"); it != args.end()) query["limit"] = it->second;
-            if (auto it = args.find("sources"); it != args.end()) query["sources"] = it->second;
             if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
             if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
             if (!disableCache.has_value()) {
@@ -584,6 +644,7 @@ public:
             if (auto it = args.find("tracking_number"); it != args.end()) query["tracking_number"] = it->second;
             if (auto it = args.find("carrier_code"); it != args.end()) query["carrier_code"] = it->second;
             if (auto it = args.find("phone"); it != args.end()) query["phone"] = it->second;
+            if (auto it = args.find("full"); it != args.end()) query["full"] = it->second;
             if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
             if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
             if (!disableCache.has_value()) {
@@ -872,6 +933,22 @@ public:
             }
             return c->request("GET", path, query, body, disableCache);
         }
+        std::string getGithubUser(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/github/user";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("user"); it != args.end()) query["user"] = it->second;
+            if (auto it = args.find("activity"); it != args.end()) query["activity"] = it->second;
+            if (auto it = args.find("activity_scope"); it != args.end()) query["activity_scope"] = it->second;
+            if (auto it = args.find("org"); it != args.end()) query["org"] = it->second;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            return c->request("GET", path, query, body, disableCache);
+        }
         std::string getSocialBilibiliArchives(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/social/bilibili/archives";
             std::map<std::string, std::string> query;
@@ -1139,6 +1216,36 @@ public:
             if (auto it = args.find("to"); it != args.end()) body["to"] = it->second;
             return c->request("POST", path, query, body, disableCache);
         }
+        std::string postTextMarkdownToHtml(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/text/markdown-to-html";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            if (auto it = args.find("format"); it != args.end()) body["format"] = it->second;
+            if (auto it = args.find("sanitize"); it != args.end()) body["sanitize"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            return c->request("POST", path, query, body, disableCache);
+        }
+        std::string postTextMarkdownToPdf(const std::map<std::string, std::string>& args = {}) {
+            std::string path = "/api/v1/text/markdown-to-pdf";
+            std::map<std::string, std::string> query;
+            std::map<std::string, std::string> body;
+            std::optional<bool> disableCache;
+            if (auto it = args.find("_t"); it != args.end()) query["_t"] = it->second;
+            if (auto it = args.find("disableCache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            if (!disableCache.has_value()) {
+                if (auto it = args.find("disable_cache"); it != args.end()) disableCache = Client::parseOptionalBool(it->second);
+            }
+            if (auto it = args.find("paper_size"); it != args.end()) body["paper_size"] = it->second;
+            if (auto it = args.find("text"); it != args.end()) body["text"] = it->second;
+            if (auto it = args.find("theme"); it != args.end()) body["theme"] = it->second;
+            return c->request("POST", path, query, body, disableCache);
+        }
         std::string postTextMd5(const std::map<std::string, std::string>& args = {}) {
             std::string path = "/api/v1/text/md5";
             std::map<std::string, std::string> query;
@@ -1365,7 +1472,6 @@ public:
             if (auto it = args.find("site"); it != args.end()) body["site"] = it->second;
             if (auto it = args.find("sort"); it != args.end()) body["sort"] = it->second;
             if (auto it = args.find("time_range"); it != args.end()) body["time_range"] = it->second;
-            if (auto it = args.find("timeout_ms"); it != args.end()) body["timeout_ms"] = it->second;
             return c->request("POST", path, query, body, disableCache);
         }
     };
